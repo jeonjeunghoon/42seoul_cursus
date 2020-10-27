@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 13:06:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/27 15:12:59 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/10/27 21:21:27 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	size_t	len1;
 	size_t	len2;
 
-	if (!s1 || !s2)
-		return (0);
 	if (!s1)
 		return ((char *)s2);
+	if (!s2)
+		return ((char *)s1);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	if (!(ptr = (char *)malloc(sizeof(char) * (len1 + len2 + 1))))

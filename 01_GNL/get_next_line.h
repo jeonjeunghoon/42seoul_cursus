@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 17:02:40 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/27 15:00:01 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/10/27 23:36:23 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# define BUFFER_SIZE 4
+# define BUFFER_SIZE 2
+# define OPEN_MAX 5000
 
 char		*ft_strjoin(char const *s1, char const *s2);
 size_t		ft_strlen(const char *s);

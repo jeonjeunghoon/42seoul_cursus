@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 17:22:19 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/27 16:26:30 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/10/27 23:28:57 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,75 +15,78 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-void			**move_temp(char **temp, int fd, size_t i)
-{
-	char		*head;
-	size_t		j;
-
-	if (!(head = malloc(sizeof(char) * ft_strlen(temp[fd]) + 1)))
-		return (0);
-	if (!(temp[fd][i + 1]))
-		return (0);
-	j = 0;
-	while (temp[fd][++i])
-		head[j++] = temp[fd][i];
-	i = -1;
-	while (++i < j)
-		temp[fd][i] = head[i];
-	return (0);
-}
-
-int				line_in_temp(char *buf, char **line, char **temp, int fd)
+size_t			nextline_in_temp(char **temp, int fd)
 {
 	size_t		i;
 
+	if (!(temp[fd]))
+		return (0);
 	i = 0;
-	while (temp[fd][i] != '\n' && temp[fd][i])
-		i++;
-	if (temp[fd][i] == '\n')
+	while (temp[fd][i])
 	{
-		temp[fd][i] = 0;
-		*line = ft_strdup(temp[fd]);
-		move_temp(temp, fd, i);
-		return (1);
+		i++;
+		if (temp[fd][i] == '\n')
+			return (i);
 	}
+	// if (!(temp[fd][i]) && temp[fd][i - 1])
+	// 	return (1);
 	return (0);
 }
 
-char			*get_line(int fd, char **line, char *buf, size_t i)
+void			move_temp(char **temp, int fd, size_t i)
 {
-	static char	**temp;
-	int			res;
-	
-	if (!(line_in_temp(buf, line, temp, fd)))
+	char		*head;
+
+	if (!(temp[fd][++i]))
 	{
-		while ((res = read(fd, buf, BUFFER_SIZE)))
-		{
-			while (temp[fd][i] != '\n' && temp[fd][i])
-				i++;
-			if (temp[fd][i] == '\n')
-			{
-				*line = ft_strdup(temp[fd]);
-				return (*line);
-			}
-			else
-				get_line(fd, line, buf, i);
-		}
+		free(temp[fd]);
+		temp[fd] = 0;
+		return ;
 	}
-	return (*line);
+	while (temp[fd][i] == '\n' && temp[fd][i])
+		i++;
+	if (!(temp[fd][i]))
+		return ;
+	head = &(temp[fd][i]);
+	temp[fd] = ft_strjoin(temp[fd], head);
+}
+
+void			make_line(char **temp, char **line, char fd, size_t i)
+{
+	temp[fd][i] = 0;
+	*line = ft_strdup(temp[fd]);
 }
 
 int				get_next_line(int fd, char **line)
 {
-	char		*buf;
-	int			res;
+	static char	*temp[FD_MAX];
+	char		buf[BUFFER_SIZE + 1];
+	size_t		len;
 	size_t		i;
 	
-	if (!(buf = malloc(sizeof(char) * (BUFFER_SIZE + 1))) || !fd)
-		return (0);
-	ft_bzero(*line, ft_strlen(*line));
-	i = 0;
-	*line = get_line(fd, line, buf, i);
+	if (fd < 0 || !line || BUFFER_SIZE <= 0)
+		return (-1);
+	if ((i = nextline_in_temp(temp, fd)) > 0)
+	{
+		make_line(temp, line, fd, i);
+		move_temp(temp, fd, i);
+		return (1);	
+	}
+	while ((len = read(fd, buf, BUFFER_SIZE)) > 0)
+	{
+		buf[len] = 0;
+		temp[fd] = ft_strjoin(temp[fd], buf);
+		printf("temp : %s\n", temp[fd]);
+		if ((i = nextline_in_temp(temp, fd)) > 0)
+		{
+			printf("121214234213123");
+			make_line(temp, line, fd, i);
+			move_temp(temp, fd, i);
+			return (1);
+		}
+		else
+			*line = ft_strjoin(*line, temp[fd]);
+	}
 	return (0);
 }
 
@@ -91,8 +94,9 @@ int     main(void)
 {
     char    *line;
     int     fd;
+	int		r;
     fd = open("test.txt", O_RDONLY);
-    while (get_next_line(fd, &line) > 0)
+    while ((r = get_next_line(fd, &line)) > 0)
         printf("\nmain : %s\n", line);
     close(fd);
     return (0);
