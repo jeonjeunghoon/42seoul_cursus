@@ -6,11 +6,20 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 13:06:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/26 14:53:25 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/10/27 15:12:59 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void	ft_bzero(void *dest, size_t len)
+{
+	while (len--)
+	{
+		*(unsigned char *)dest = 0;
+		dest++;
+	}
+}
 
 size_t		ft_strlen(const char *s)
 {
@@ -72,6 +81,8 @@ char		*ft_strjoin(char const *s1, char const *s2)
 
 	if (!s1 || !s2)
 		return (0);
+	if (!s1)
+		return ((char *)s2);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	if (!(ptr = (char *)malloc(sizeof(char) * (len1 + len2 + 1))))
@@ -103,13 +114,26 @@ char		*ft_strdup(const char *s1)
 	return (ptr);
 }
 
-char	*ft_strchr(const char *s, int c)
+void				*ft_memmove(void *dest, const void *src, size_t len)
 {
-	while (*s != (char)c)
+	unsigned char	*d;
+	unsigned char	*s;
+
+	if (!dest && !src)
+		return (0);
+	d = dest;
+	s = (unsigned char *)src;
+	if (dest <= src)
 	{
-		if (!*s)
-			return (NULL);
-		s++;
+		while (len--)
+			*(d++) = *(s++);
 	}
-	return ((char *)s);
+	else
+	{
+		d += len;
+		s += len;
+		while (len--)
+			*(--d) = *(--s);
+	}
+	return (dest);
 }
