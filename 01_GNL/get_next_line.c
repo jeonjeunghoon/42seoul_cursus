@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 17:22:19 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/28 13:52:16 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/10/28 17:09:35 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,66 +15,79 @@
 
 size_t			nextline_in_temp(char **temp, int fd)
 {
-	size_t		i;
+	size_t		idx;
 
 	if (!(temp[fd]))
 		return (0);
-	i = 0;
-	while (temp[fd][i])
+	idx = 0;
+	while (temp[fd][idx])
 	{
-		if (temp[fd][i] == '\n')
-			return (i);
-		i++;
+		printf("%s\n", temp[fd]);
+		if (temp[fd][idx] == '\n' && idx)
+		{
+			printf("10 %c\n", temp[fd][idx]);
+			printf("10\n");
+			return (idx);
+		}
+		else if (temp[fd][idx] == '\n' && idx == 0)
+		{
+			printf("11 + 1 : %c\n", temp[fd][idx + 1]);
+			printf("11 : %c\n", temp[fd][idx]);
+			return (1);
+		}
+		printf("12\n");
+		idx++;
 	}
+	printf("12\n");
 	return (0);
 }
 
-void			move_temp(char **temp, int fd, size_t i)
+void			move_temp(char **temp, int fd, size_t idx)
 {
 	char		*head;
 
-	if (!(temp[fd][++i]))
+	if (!(temp[fd][++idx]))
 	{
 		free(temp[fd]);
 		temp[fd] = 0;
 		return ;
 	}
-	head = &(temp[fd][i]);
+	head = &(temp[fd][idx]);
 	temp[fd] = ft_strdup(head);
 }
 
-void			line_in_temp(char **temp, char **line, int fd, size_t i)
+void			line_in_temp(char **temp, char **line, int fd, size_t idx)
 {
-	temp[fd][i] = 0;
+	temp[fd][idx] = 0;
 	*line = ft_strdup(temp[fd]);
-	temp[fd][i] = '\n';
-	move_temp(temp, fd, i);
+	move_temp(temp, fd, idx);
 }
 
 int				get_next_line(int fd, char **line)
 {
 	static char	*temp[FD_MAX];
-	char		*buf;
+	char		buf[BUFFER_SIZE + 1];
 	size_t		len;
-	size_t		i;
+	size_t		idx;
+	static int	a = 0, b = 0;
 
-	if (!(buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
-			return (-1);
+	// if (!(buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	// 		return (-1);
 	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
-	if ((i = nextline_in_temp(temp, fd)) > 0)
+	if ((idx = nextline_in_temp(temp, fd)) > 0)
 	{
-		line_in_temp(temp, line, fd, i);
+		line_in_temp(temp, line, fd, idx);
 		return (1);
 	}
 	while ((len = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		buf[len] = 0;
 		temp[fd] = ft_strjoin(temp[fd], buf);
-		free(buf);
-		if ((i = nextline_in_temp(temp, fd)) > 0)
+		// free(buf);
+		if ((idx = nextline_in_temp(temp, fd)) > 0)
 		{
-			line_in_temp(temp, line, fd, i);
+			line_in_temp(temp, line, fd, idx);
 			return (1);
 		}
 	}
@@ -94,3 +107,5 @@ int     main(void)
     close(fd);
     return (0);
 }
+
+/* 해결해야할 문제 : 마지막 문자열 예외처리, 중간에 개행문자 나올 때 출력, */
