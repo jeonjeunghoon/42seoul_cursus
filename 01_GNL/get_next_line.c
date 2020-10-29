@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 17:22:19 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/29 15:31:20 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/10/29 16:36:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@ void			move_temp(char **temp, int fd, size_t idx)
 	char		*head;
 
 	head = ft_strdup(temp[fd] + idx);
-	free(temp[fd]);
 	temp[fd] = ft_strdup(head);
 	free(head);
 	head = 0;
 }
 
-size_t			nextline_in_temp(char **temp, int fd, char **line, size_t len)
+size_t			nextline_in_temp(char **temp, int fd, char **line)
 {
 	size_t		idx;
 
@@ -54,7 +53,13 @@ size_t			nextline_in_temp(char **temp, int fd, char **line, size_t len)
 int				join_buf(char **temp, int fd, char *buf)
 {
 	if (!buf)
+	{
+		free(buf);
+		buf = 0;
+		free(temp[fd]);
+		temp[fd] = 0;
 		return (0);
+	}
 	if (!(temp[fd]))
 		temp[fd] = ft_strdup(buf);
 	else
@@ -82,24 +87,43 @@ int				get_next_line(int fd, char **line)
 	char		*buf;
 	size_t		len;
 
-	if (!(buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
-		return (-1);
 	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
+	if (!(buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+		return (-1);
 	len = 0;
-	if ((nextline_in_temp(temp, fd, line, len)) > 0)
+	if ((nextline_in_temp(temp, fd, line)) > 0)
 		return (1);
 	while ((len = read(fd, buf, BUFFER_SIZE)) > 0)
 	{
 		buf[len] = 0;
 		if (!(join_buf(temp, fd, buf)) || len < 0)
 			return (-1);
-		if ((nextline_in_temp(temp, fd, line, len)) > 0)
+		if ((nextline_in_temp(temp, fd, line)) > 0)
 			return (1);
 		if (!(buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 			return (-1);
 	}
 	if (last_line(temp, fd, line))
 		return (1);
+	free(line);
 	return (0);
+}
+
+#include <stdio.h>
+#include <fcntl.h>
+
+int     main(void)
+{
+    char    *line;
+    int     fd;
+	
+    fd = open("test.txt", O_RDONLY);
+    while (get_next_line(fd, &line) > 0)
+        printf("%s\n", line);
+	for (;;)
+	{
+	}
+    close(fd);
+    return (0);
 }
