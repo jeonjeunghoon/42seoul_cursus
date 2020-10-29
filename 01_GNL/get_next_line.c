@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/23 17:22:19 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/28 17:09:35 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/10/29 11:23:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,23 @@ size_t			nextline_in_temp(char **temp, int fd)
 	idx = 0;
 	while (temp[fd][idx])
 	{
-		printf("%s\n", temp[fd]);
+		// printf("%s\n", temp[fd]);
 		if (temp[fd][idx] == '\n' && idx)
 		{
-			printf("10 %c\n", temp[fd][idx]);
-			printf("10\n");
+			// printf("10 %c\n", temp[fd][idx]);
+			// printf("10\n");
 			return (idx);
 		}
 		else if (temp[fd][idx] == '\n' && idx == 0)
 		{
-			printf("11 + 1 : %c\n", temp[fd][idx + 1]);
-			printf("11 : %c\n", temp[fd][idx]);
+			// printf("11 + 1 : %c\n", temp[fd][idx + 1]);
+			// printf("11 : %c\n", temp[fd][idx]);
 			return (1);
 		}
-		printf("12\n");
+		// printf("12\n");
 		idx++;
 	}
-	printf("12\n");
+	// printf("12\n");
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 13:06:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/28 13:42:06 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/10/29 11:21:47 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t		ft_strlen(const char *s)
 	return (res);
 }
 
-size_t	ft_strlcat(char *dest, char *src, size_t size)
+size_t		ft_strlcat(char *dest, char *src, size_t size)
 {
 	size_t i;
 	size_t j;
