@@ -6,13 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 16:40:51 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/30 21:38:37 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/02 22:04:59 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-// #include <stdio.h>
 
 char			*ft_strchr(const char *s, int c)
 {
@@ -64,12 +62,11 @@ char			*nextline_in_room(char *room, char **line, int byte)
 
 char			*join(char *room, char *buf)
 {
-	char		*temp = 0;
+	char		*temp;
 
 	if (room)
 	{
 		temp = ft_strjoin(room, buf);
-		// printf("t %s\n", temp);
 		free(room);
 		room = ft_strdup(temp);
 		free(temp);
@@ -107,15 +104,15 @@ int				get_next_line(int fd, char **line)
 	return (1);
 }
 
-// #include <fcntl.h>
-
-// int     main(void)
-// {
-//     char    *line;
-//     int     fd;
-//     fd = open("test.txt", O_RDONLY);
-//     while (get_next_line(fd, &line) > 0)
-//         printf("main : %s\n", line);
-//     close(fd);
-//     return (0);
-// }
+#include <stdio.h>
+#include <fcntl.h>
+int main(void)
+{
+	char    *line;
+    int     fd;
+    fd = open("test.txt", O_RDONLY);
+    while (get_next_line(fd, &line) > 0)
+        printf("%s\n", line);
+    close(fd);
+    return (0);
+}
