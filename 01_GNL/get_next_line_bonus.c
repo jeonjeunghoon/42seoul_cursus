@@ -1,20 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 16:40:51 by jeunjeon          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/11/02 22:04:59 by jeunjeon         ###   ########.fr       */
-=======
-/*   Updated: 2020/10/31 14:13:44 by jeunjeon         ###   ########.fr       */
->>>>>>> 6e5a1e21fc1aa2f516e725bb4b6fdb21ec9e280a
+/*   Updated: 2020/10/31 16:13:05 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char			*ft_strchr(const char *s, int c)
 {
@@ -101,19 +97,3 @@ int				get_next_line(int fd, char **line)
 		return (byte);
 	return (1);
 }
-<<<<<<< HEAD
-
-#include <stdio.h>
-#include <fcntl.h>
-int main(void)
-{
-	char    *line;
-    int     fd;
-    fd = open("test.txt", O_RDONLY);
-    while (get_next_line(fd, &line) > 0)
-        printf("%s\n", line);
-    close(fd);
-    return (0);
-}
-=======
->>>>>>> 6e5a1e21fc1aa2f516e725bb4b6fdb21ec9e280a

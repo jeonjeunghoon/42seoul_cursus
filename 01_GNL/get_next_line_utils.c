@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 13:06:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/30 21:37:05 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/10/31 12:19:48 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ char		*ft_strdup(const char *s1)
 	len = ft_strlen(s1);
 	if (!(ptr = (char *)malloc(sizeof(char) * (len + 1))))
 		return (0);
-	ptr[len] = 0;
 	i = 0;
-	while (i < len)
+	while (i < len && s1[i])
 	{
 		ptr[i] = s1[i];
 		i++;
 	}
+	ptr[i] = 0;
 	return (ptr);
 }
 
@@ -71,10 +71,9 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	int		j;
 
 	if (!s1 && !s2)
-		return (0);
+		return (ft_strdup(""));
 	if (!(res = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
 		return (0);
-	res[ft_strlen(s1) + ft_strlen(s2)] = 0;
 	i = 0;
 	while (s1[i])
 	{
@@ -84,10 +83,9 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	j = 0;
 	while (s2[j])
 	{
-		res[i] = s2[j];
-		i++;
+		res[i + j] = s2[j];
 		j++;
 	}
-	res[i] = 0;
+	res[i + j] = 0;
 	return (res);
 }
