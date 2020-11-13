@@ -1,36 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/13 14:57:27 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/13 22:26:02 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/10/16 13:59:44 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/11/13 23:03:18 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		ft_putnbr_fd(int n, int fd)
+size_t		n_len(int n)
 {
-	char	c;
-	long	num;
+	size_t	ret;
 
-	num = n;
+	ret = n > 0 ? 0 : 1;
+	while (n)
+	{
+		n /= 10;
+		ret++;
+	}
+	return (ret);
+}
+
+char		*ft_itoa(int num)
+{
+	char	*ret;
+	long	n;
+	size_t	len;
+
+	n = num;
+	len = n_len(n);
+	if (!(ret = malloc(sizeof(char) * (len + 1))))
+		return (0);
+	ret[len--] = 0;
 	if (n < 0)
 	{
-		write(fd, "-", 1);
-		num *= -1;
+		n *= -1;
+		*ret = '-';
 	}
-	if (num >= 10)
+	if (!n)
+		*ret = '0';
+	while (n)
 	{
-		ft_putnbr_fd(num / 10, fd);
-		num %= 10;
+		ret[len--] = (n % 10) + '0';
+		n /= 10;
 	}
-	if (num < 10)
-	{
-		c = num + '0';
-		write(fd, &c, 1);
-	}
+	return (ret);
 }

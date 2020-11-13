@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 19:53:54 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/13 15:42:35 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/13 23:03:31 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ int		ft_printf(const char *format, ...);
 int		ft_atoi(const char *str, char c);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putnbr_base(int nbr, char *base);
+char	*ft_itoa(int num);
 
 #endif

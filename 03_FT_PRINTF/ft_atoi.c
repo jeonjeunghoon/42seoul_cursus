@@ -6,9 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:01:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/13 15:16:00 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/13 22:26:09 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_printf.h"
 
 int				ft_isspace(const char *str)
 {

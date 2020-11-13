@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:48:57 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/13 15:57:51 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/13 22:26:47 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,4 @@ void		ft_putnbr_base(int nbr, char *base)
 	if (nbr < 0)
 		write(1, "-", 1);
 	digits_to_base(nbr, base, base_len, last_index);
-}
-
-#include <stdio.h>
-int main(void)
-{
-	ft_putnbr_base(-1000, "0123456789abcdef");
-	printf("\n%x\n", -1000);
 }
