@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 19:53:54 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/13 15:42:35 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/11/13 14:57:27 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/11/13 15:12:10 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+void		ft_putnbr_fd(int n, int fd)
+{
+	char	c;
+	long	num;
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdarg.h>
-
-int		ft_printf(const char *format, ...);
-int		ft_atoi(const char *str, char c);
-void	ft_putnbr_fd(int n, int fd);
-void	ft_putnbr_base(int nbr, char *base);
-
-#endif
+	num = n;
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		num *= -1;
+	}
+	if (num >= 10)
+	{
+		ft_putnbr_fd(num / 10, fd);
+		num %= 10;
+	}
+	if (num < 10)
+	{
+		c = num + '0';
+		write(fd, &c, 1);
+	}
+}

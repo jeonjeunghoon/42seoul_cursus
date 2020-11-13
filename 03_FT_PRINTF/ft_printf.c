@@ -6,16 +6,30 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 19:52:10 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/11 17:40:45 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/13 15:43:13 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-int			format_specifier(char *format, va_list ap)
+void		is_flag(char *format, va_list ap)
 {
 	
+}
+
+int			format_specifier(char *format, va_list ap, int res)
+{
+	if (*format == 'c')
+		write(1, ap, 1);
+	if (*format == 's')
+		write(1, ap, ft_strlen(ap));
+	if (*format == 'p')
+		//
+	if (*format == 'd' || *format == 'i' || *format == 'u')
+		ft_putnbr_fd(ft_atoi(ap, *format), 1);
+	if (*format == 'x' || *format == 'X')
+		ft_putnbr_base(ft_atoi(ap, *format), "16");
 }
 
 int			ft_printf(const char *format, ...)
@@ -27,8 +41,12 @@ int			ft_printf(const char *format, ...)
 	res = 0;
 	while (*format)
 	{
+		is_flag(format, ap);
 		if (*format == '%')
-			res = format_specifier(format, ap);
+		{
+			format++;
+			res = format_specifier(format, ap, res);
+		}
 		else 
 		{
 			write(1, format, 1);
