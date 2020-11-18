@@ -6,16 +6,16 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 14:57:27 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/13 22:26:02 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/18 13:56:14 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		ft_putnbr_fd(int n, int fd)
+void			ft_putnbr_fd(long long n, long long fd)
 {
-	char	c;
-	long	num;
+	char		c;
+	long long	num;
 
 	num = n;
 	if (n < 0)

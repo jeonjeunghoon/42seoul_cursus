@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_utoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/16 13:59:44 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/18 13:57:34 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/11/18 13:47:51 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/11/18 13:57:29 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char		*ft_itoa(int num)
+char				*ft_utoa(unsigned int num)
 {
 	char			*ret;
-	long long		n;
+	unsigned int	n;
 	size_t			len;
 
 	n = num;

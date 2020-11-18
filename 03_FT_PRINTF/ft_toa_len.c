@@ -1,39 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_toa_len.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/16 13:59:44 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/18 13:57:34 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/11/18 13:50:56 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/11/18 13:55:44 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char		*ft_itoa(int num)
+unsigned int		ft_toa_len(unsigned int n)
 {
-	char			*ret;
-	long long		n;
-	size_t			len;
+	unsigned int	ret;
 
-	n = num;
-	len = ft_toa_len;
-	if (!(ret = malloc(sizeof(char) * (len + 1))))
-		return (0);
-	ret[len--] = 0;
-	if (n < 0)
-	{
-		n *= -1;
-		*ret = '-';
-	}
-	if (!n)
-		*ret = '0';
+	ret = n > 0 ? 0 : 1;
 	while (n)
 	{
-		ret[len--] = (n % 10) + '0';
 		n /= 10;
+		ret++;
 	}
 	return (ret);
-}
+} 

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 19:53:54 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/13 23:03:31 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/18 13:56:44 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
-int		ft_printf(const char *format, ...);
-int		ft_atoi(const char *str, char c);
-void	ft_putnbr_fd(int n, int fd);
-void	ft_putnbr_base(int nbr, char *base);
-char	*ft_itoa(int num);
+int				ft_printf(const char *format, ...);
+int				ft_atoi(const char *str);
+unsigned int	ft_atou(char *str);
+void			ft_putnbr_fd(long long n, long long fd);
+void			ft_putnbr_base(int nbr, char *base);
+unsigned int	ft_toa_len(unsigned int n);
+char			*ft_itoa(int num);
+char			*ft_utoa(unsigned int num);
 
 #endif
