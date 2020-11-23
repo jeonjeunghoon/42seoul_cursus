@@ -3,46 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:48:57 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/13 22:26:47 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/23 20:00:56 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int			len_base(char *str)
+char		*ft_chage_base(char *ptr)
 {
+	char	c;
 	int		i;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	i = -1;
+	while (++i < 10)
+		ptr[i] = i + 48;
+	c = 'A';
+	while (c < 'G')
+		ptr[i++] = c++;
+	return (ptr);
 }
 
-int			is_valid_base(char *str)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	while (str[i])
-	{
-		j = i + 1;
-		while (str[j])
-		{
-			if ((str[i] == str[j]) || str[i] == '+' || str[i] == '-')
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
-int			len_of_arr(int nbr, int base_len)
+int			len_of_index(unsigned int nbr, int base_len)
 {
 	int		i;
 
@@ -52,9 +36,9 @@ int			len_of_arr(int nbr, int base_len)
 	return (i);
 }
 
-void		digits_to_base(int nbr, char *base, int base_len, int last_index)
+void		digits_to_base(unsigned int nbr, char *base, int base_len, int last_index)
 {
-	char	result_arr[50];
+	char	result_arr[16];
 	int		i;
 	int		j;
 
@@ -62,40 +46,40 @@ void		digits_to_base(int nbr, char *base, int base_len, int last_index)
 	j = last_index;
 	while (last_index >= 0)
 	{
-		if (nbr > 0)
-		{
-			result_arr[last_index] = base[nbr % base_len];
-			nbr = -(nbr / base_len);
-		}
-		else if (nbr < 0)
-		{
-			result_arr[last_index] = base[-(nbr % base_len)];
-			nbr = -(nbr / base_len);
-		}
+		result_arr[last_index] = base[nbr % base_len];
+		nbr /= base_len;
 		last_index--;
 	}
 	while (i <= j)
 	{
-		write(1, &result_arr[i], 1);
-		i++;
+		write(1, &result_arr[i++], 1);
+		count++;
 	}
 }
 
-void		ft_putnbr_base(int nbr, char *base)
+void				ft_putnbr_base(unsigned int nbr, char *base, char fm)
 {
-	int		base_len;
-	int		last_index;
+	unsigned int	base_len;
+	unsigned int	last_index;
+	char			*ptr;
 
-	base_len = len_base(base);
-	if (!is_valid_base(base) || base_len == 0 || base_len == 1)
-		return ;
+	base_len = 16;
+	if (fm == 'X')
+	{
+		if (!(ptr = malloc(sizeof(char) * (base_len + 1))))
+			return ;
+		ptr[16] = 0;
+		base = ft_chage_base(ptr);
+		free(ptr);
+	}
 	if (nbr == 0)
 	{
 		write(1, &base[0], 1);
-		return ;
+		count++;
 	}
-	last_index = len_of_arr(nbr, base_len);
-	if (nbr < 0)
-		write(1, "-", 1);
-	digits_to_base(nbr, base, base_len, last_index);
+	else
+	{
+		last_index = len_of_index(nbr, base_len);
+		digits_to_base(nbr, base, base_len, last_index);
+	}
 }

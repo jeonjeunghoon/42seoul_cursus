@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 14:57:27 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/18 13:56:14 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/23 20:01:13 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void			ft_putnbr_fd(long long n, long long fd)
 	if (n < 0)
 	{
 		write(fd, "-", 1);
+		count++;
 		num *= -1;
 	}
 	if (num >= 10)
@@ -32,5 +33,6 @@ void			ft_putnbr_fd(long long n, long long fd)
 	{
 		c = num + '0';
 		write(fd, &c, 1);
+		count++;
 	}
 }

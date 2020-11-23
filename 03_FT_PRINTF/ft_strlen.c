@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_toa_len.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/18 13:50:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/18 13:55:44 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/11/18 17:45:35 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/11/23 19:59:38 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-unsigned int		ft_toa_len(unsigned int n)
+size_t		ft_strlen(char *s)
 {
-	unsigned int	ret;
+	size_t	res;
 
-	ret = n > 0 ? 0 : 1;
-	while (n)
-	{
-		n /= 10;
-		ret++;
-	}
-	return (ret);
-} 
+	res = 0;
+	while (s[res])
+		res++;
+	return (res);
+}
