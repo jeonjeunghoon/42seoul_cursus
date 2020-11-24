@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_spec_pxp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:26:43 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/24 12:44:30 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/24 20:08:05 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,10 @@ void					ft_spec_pxp(char fm, va_list ap, char *s)
 		write(1, "0x", 2);
 		g_count += 2;
 		ft_putnbr_base(p, "0123456789abcdef", fm);
+	}
+	if (fm == '%')
+	{
+		write(1, "%", 1);
+		g_count++;
 	}
 }

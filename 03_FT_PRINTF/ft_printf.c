@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 19:52:10 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/24 12:44:51 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/24 20:09:39 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,13 @@ int			ft_printf(const char *format, ...)
 	while (*format)
 	{
 		if (*format == '%')
-		{
 			ft_specifier((char *)(++format), ap, s);
-			format++;
-			continue ;
-		}
 		else
-			write(1, format++, 1);
-		g_count++;
+		{
+			write(1, format, 1);
+			g_count++;
+		}
+		format++;
 	}
 	va_end(ap);
 	return (g_count);
@@ -52,8 +51,8 @@ int			ft_printf(const char *format, ...)
 
 int main()
 {
-	char s[] = "HELLO";
+	char s[] = "HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO";
 
-	printf("out : %d\n", printf("out : %p\n", s));
-	ft_printf("OUT : %d\n", ft_printf("OUT : %p\n", s));
+	printf("out: %d\n", printf("out: %p\n", s));
+	ft_printf("OUT: %d\n", ft_printf("OUT: %p\n", s));
 }

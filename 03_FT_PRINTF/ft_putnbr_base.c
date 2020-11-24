@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:48:57 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/24 12:43:25 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/24 19:52:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int					len_of_index(unsigned long long nbr, int base_len)
 	return (i);
 }
 
-void				digits_to_base(unsigned long long n, char *b, int len, int l_i)
+void				print_base(unsigned long long n, char *b, int len, int l_i)
 {
 	char			result_arr[16];
 	int				i;
@@ -80,6 +80,6 @@ void				ft_putnbr_base(unsigned long long nbr, char *base, char fm)
 	else
 	{
 		last_index = len_of_index(nbr, base_len);
-		digits_to_base(nbr, base, base_len, last_index);
+		print_base(nbr, base, base_len, last_index);
 	}
 }
