@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:01:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/23 19:14:57 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/24 12:05:47 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-unsigned int		ft_atou(char *str)
+unsigned int		ft_atou(char *s)
 {
 	unsigned int	res;
 	unsigned int	temp;
@@ -21,33 +21,27 @@ unsigned int		ft_atou(char *str)
 	res = 0;
 	temp = 0;
 	i = 0;
-	if (*(unsigned char *)str == '-' || *(unsigned char *)str == '+')
+	if (*(unsigned char *)s == '-' || *(unsigned char *)s == '+')
 	{
-		if (*(unsigned char *)str == '-')
+		if (*(unsigned char *)s == '-')
 			res = 4294967295;
-		str++;
+		s++;
 	}
-	while (*(unsigned char *)str >= '0' && *(unsigned char *)str <= '9')
+	while (*(unsigned char *)s >= '0' && *(unsigned char *)s <= '9')
 	{
 		temp *= 10;
-		temp += *(unsigned char *)str - '0';
-		str++;
+		temp += *(unsigned char *)s - '0';
+		s++;
 		i++;
 	}
 	if (res)
-	{
 		res -= (temp - 1);
-		return (res);
-	}
 	else
-	{
 		res = temp;
-		return (res);
-	}
-	return (0);
+	return (res);
 }
 
-long long			ft_atoi(char *str, char fm)
+long long			ft_atoi(char *s, char fm)
 {
 	long long		res;
 	long long		sign;
@@ -55,20 +49,20 @@ long long			ft_atoi(char *str, char fm)
 
 	res = 0;
 	if (fm == 'u' || fm == 'p' || fm == 'x' || fm == 'X')
-		return (ft_atou(str));
+		return (ft_atou(s));
 	sign = 1;
-	if (*(unsigned char *)str == '-' || *(unsigned char *)str == '+')
+	if (*(unsigned char *)s == '-' || *(unsigned char *)s == '+')
 	{
-		if (*(unsigned char *)str == '-')
+		if (*(unsigned char *)s == '-')
 			sign *= -1;
-		str++;
+		s++;
 	}
 	i = 0;
-	while (*(unsigned char *)str >= '0' && *(unsigned char *)str <= '9')
+	while (*(unsigned char *)s >= '0' && *(unsigned char *)s <= '9')
 	{
 		res *= 10;
-		res += *(unsigned char *)str - '0';
-		str++;
+		res += *(unsigned char *)s - '0';
+		s++;
 		i++;
 	}
 	if (i >= 20)

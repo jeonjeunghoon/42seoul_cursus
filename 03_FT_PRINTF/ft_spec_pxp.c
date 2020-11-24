@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_spec_pxp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/13 14:57:27 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/24 12:25:32 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/11/24 12:26:43 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/11/24 12:44:30 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void			ft_putnbr_fd(long long n, int fd)
+void					ft_spec_pxp(char fm, va_list ap, char *s)
 {
-	char		c;
-	long long	num;
+	unsigned long long p;
 
-	num = n;
-	if (n < 0)
+	if (fm == 'x' || fm == 'X')
 	{
-		write(fd, "-", 1);
-		g_count++;
-		num *= -1;
+		s = ft_itoa(va_arg(ap, int), fm, s);
+		ft_putnbr_base(ft_atoi(s, fm), "0123456789abcdef", fm);
+		ft_free(s);
 	}
-	if (num >= 10)
+	if (fm == 'p')
 	{
-		ft_putnbr_fd(num / 10, fd);
-		num %= 10;
-	}
-	if (num < 10)
-	{
-		c = num + '0';
-		write(fd, &c, 1);
-		g_count++;
+		p = va_arg(ap, unsigned long long);
+		write(1, "0x", 2);
+		g_count += 2;
+		ft_putnbr_base(p, "0123456789abcdef", fm);
 	}
 }

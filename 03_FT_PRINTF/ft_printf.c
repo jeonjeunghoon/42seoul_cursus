@@ -3,75 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 19:52:10 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/23 20:03:03 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/24 12:44:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-// void		is_flag(char *format, va_list ap)
+// void		ft_flag(char *format, va_list ap)
 // {
 	
 // }
 
-void		format_specifier(char *fm, va_list ap)
+void		ft_specifier(char *fm, va_list ap, char *s)
 {
-	char	*s;
-	char	c;
-
-	if (*fm == 'c')
-	{
-		c = va_arg(ap, int);
-		write(1, &c, 1);
-		count++;
-	}
-	if (*fm == 's')
-		s = va_arg(ap, char *);
+	if (*fm == 'c' || *fm == 's' || *fm == 'd' || *fm == 'i' || *fm == 'u')
+		ft_spec_csdiu(*fm, ap, s);
+	else if (*fm == 'p' || *fm == 'x' || *fm == 'X' || *fm == '%')
+		ft_spec_pxp(*fm, ap, s);
 	else
-		s = ft_itoa(va_arg(ap, int), *fm);
-	if (*fm == 's')
-		write(1, s, ft_strlen(s));
-	else if (*fm == 'd' || *fm == 'i' || *fm == 'u')
-		ft_putnbr_fd(ft_atoi(s, *fm), 1);
-	else if (*fm == 'p' || *fm == 'x' || *fm == 'X')
-		ft_putnbr_base(ft_atoi(s, *fm), "0123456789abcdef", *fm);
+		return ;
 }
 
 int			ft_printf(const char *format, ...)
 {
+	char	*s;
 	va_list	ap;
 
-	count = 0;
 	va_start(ap, format);
+	g_count = 0;
 	while (*format)
 	{
-		// is_flag((char *)format, ap);
 		if (*format == '%')
 		{
+			ft_specifier((char *)(++format), ap, s);
 			format++;
-			if (*format == '%' && *format)
-			{
-				write(1, format++, 1);
-				count++;
-			}
-			else if (*format == 'c' || *format == 's' || *format == 'p' ||
-			*format == 'd' || *format == 'i' || *format == 'u' ||
-			*format == 'x' || *format == 'X')
-				format_specifier((char *)format++, ap);
-			else
-				break ;
+			continue ;
 		}
 		else
-		{
 			write(1, format++, 1);
-			count++;
-		}
+		g_count++;
 	}
 	va_end(ap);
-	return (count);
+	return (g_count);
 }
 
 int main()

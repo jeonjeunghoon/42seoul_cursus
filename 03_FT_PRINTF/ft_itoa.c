@@ -3,79 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 13:59:44 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/23 19:13:20 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/24 12:42:29 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-unsigned int		ft_toa_len(unsigned int n, char fm)
+unsigned int		ft_toa_len(long long n, char fm)
 {
-	unsigned int	ret;
+	unsigned int	res;
 
 	if (fm == 'd' || fm == 'i')
-		ret = n > 0 ? 0 : 1;
+		res = n > 0 ? 0 : 1;
 	else
-		ret = 0;
+		res = 0;
 	while (n)
 	{
 		n /= 10;
-		ret++;
+		res++;
 	}
-	return (ret);
+	return (res);
 }
 
-char				*ft_utoa(unsigned int num, char fm)
+char				*ft_utoa(unsigned int n, char fm, char *s)
 {
-	char			*ret;
-	unsigned int	n;
 	size_t			len;
 
-	n = num;
 	len = ft_toa_len(n, fm);
-	if (!(ret = malloc(sizeof(char) * (len + 1))))
+	if (!(s = malloc(sizeof(char) * (len + 1))))
 		return (0);
-	ret[len--] = 0;
+	s[len--] = 0;
 	if (!n)
-		*ret = '0';
+		*s = '0';
 	while (n)
 	{
-		ret[len--] = (n % 10) + '0';
+		s[len--] = (n % 10) + '0';
 		n /= 10;
 	}
-	return (ret);
+	return (s);
 }
 
-char		*ft_itoa(int num, char fm)
+char				*ft_itoa(long long n, char fm, char *s)
 {
-	char			*ret;
-	long long		n;
 	size_t			len;
 
 	if (fm == 'u' || fm == 'p' || fm == 'x' || fm == 'X')
-		ret = ft_utoa(num, fm);
+		s = ft_utoa(n, fm, s);
 	else
 	{
-		n = num;
 		len = ft_toa_len(n, fm);
-		if (!(ret = malloc(sizeof(char) * (len + 1))))
+		if (!(s = malloc(sizeof(char) * (len + 1))))
 			return (0);
-		ret[len--] = 0;
+		s[len--] = 0;
 		if (n < 0)
 		{
 			n *= -1;
-			*ret = '-';
+			*s = '-';
 		}
 		if (!n)
-			*ret = '0';
+			*s = '0';
 		while (n)
 		{
-			ret[len--] = (n % 10) + '0';
+			s[len--] = (n % 10) + '0';
 			n /= 10;
 		}
 	}
-	return (ret);
+	return (s);
 }

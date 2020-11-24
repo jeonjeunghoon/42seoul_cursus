@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:48:57 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/23 20:00:56 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/24 12:43:25 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char		*ft_chage_base(char *ptr)
+char				*ft_chage_base(char *ptr)
 {
-	char	c;
-	int		i;
+	char			c;
+	int				i;
 
 	i = -1;
 	while (++i < 10)
@@ -26,9 +26,9 @@ char		*ft_chage_base(char *ptr)
 	return (ptr);
 }
 
-int			len_of_index(unsigned int nbr, int base_len)
+int					len_of_index(unsigned long long nbr, int base_len)
 {
-	int		i;
+	int				i;
 
 	i = 0;
 	while (nbr /= base_len)
@@ -36,28 +36,28 @@ int			len_of_index(unsigned int nbr, int base_len)
 	return (i);
 }
 
-void		digits_to_base(unsigned int nbr, char *base, int base_len, int last_index)
+void				digits_to_base(unsigned long long n, char *b, int len, int l_i)
 {
-	char	result_arr[16];
-	int		i;
-	int		j;
+	char			result_arr[16];
+	int				i;
+	int				j;
 
 	i = 0;
-	j = last_index;
-	while (last_index >= 0)
+	j = l_i;
+	while (l_i >= 0)
 	{
-		result_arr[last_index] = base[nbr % base_len];
-		nbr /= base_len;
-		last_index--;
+		result_arr[l_i] = b[n % len];
+		n /= len;
+		l_i--;
 	}
 	while (i <= j)
 	{
 		write(1, &result_arr[i++], 1);
-		count++;
+		g_count++;
 	}
 }
 
-void				ft_putnbr_base(unsigned int nbr, char *base, char fm)
+void				ft_putnbr_base(unsigned long long nbr, char *base, char fm)
 {
 	unsigned int	base_len;
 	unsigned int	last_index;
@@ -75,7 +75,7 @@ void				ft_putnbr_base(unsigned int nbr, char *base, char fm)
 	if (nbr == 0)
 	{
 		write(1, &base[0], 1);
-		count++;
+		g_count++;
 	}
 	else
 	{
