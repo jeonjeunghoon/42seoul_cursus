@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/13 14:57:27 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/24 12:25:32 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/11/25 16:45:53 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/11/25 17:39:09 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void			ft_putnbr_fd(long long n, int fd)
+void			ft_putnbr(long long num)
 {
-	char		c;
-	long long	num;
-
-	num = n;
-	if (n < 0)
+	if (num > 0 && g_flag)
 	{
-		write(fd, "-", 1);
-		g_count++;
+		ft_putchar(' ');
+		g_flag = 0;
+	}
+	if (num < 0)
+	{
+		ft_putchar('-');
 		num *= -1;
+		g_flag = 0;
 	}
 	if (num >= 10)
 	{
-		ft_putnbr_fd(num / 10, fd);
+		ft_putnbr(num / 10);
 		num %= 10;
 	}
 	if (num < 10)
 	{
-		c = num + '0';
-		write(fd, &c, 1);
-		g_count++;
+		ft_putchar(num + '0');
 	}
 }

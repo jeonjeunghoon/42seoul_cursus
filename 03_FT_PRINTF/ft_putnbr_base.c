@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:48:57 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/24 19:52:02 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/25 16:51:32 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void				print_base(unsigned long long n, char *b, int len, int l_i)
 	}
 	while (i <= j)
 	{
-		write(1, &result_arr[i++], 1);
-		g_count++;
+		ft_putchar(result_arr[i]);
+		i++;
 	}
 }
 
@@ -73,10 +73,7 @@ void				ft_putnbr_base(unsigned long long nbr, char *base, char fm)
 		free(ptr);
 	}
 	if (nbr == 0)
-	{
-		write(1, &base[0], 1);
-		g_count++;
-	}
+		ft_putchar(base[0]);
 	else
 	{
 		last_index = len_of_index(nbr, base_len);

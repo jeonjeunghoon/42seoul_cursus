@@ -1,38 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_spec_csdiu.c                                    :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/24 11:04:14 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/25 16:52:49 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/11/25 16:46:58 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/11/25 16:48:52 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		ft_spec_csdiu(char fm, va_list ap, char *s)
+void	ft_putstr(char *s)
 {
-	char	c;
-
-	if (fm == 'c')
-	{
-		c = va_arg(ap, int);
-		ft_putchar(c);
-	}
-	else
-	{
-		if (fm == 's')
-		{
-			s = va_arg(ap, char *);
-			ft_putstr(s);
-		}
-		else if (fm == 'd' || fm == 'i' || fm == 'u')
-		{
-			s = ft_itoa(va_arg(ap, int), fm, s);
-			ft_putnbr(ft_atoi(s, fm));
-			ft_free(s);
-		}
-	}
+	if (!s)
+		return ;
+	write(1, s, ft_strlen(s));
+	g_count += ft_strlen(s);
 }

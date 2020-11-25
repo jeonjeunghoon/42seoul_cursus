@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 19:53:54 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/24 12:42:28 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/25 17:15:53 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,15 @@
 # include <stdio.h>
 
 unsigned int	g_count;
+unsigned int	g_move;
+unsigned int	g_flag;
 
 int				ft_printf(const char *format, ...);
+void			ft_putchar(char c);
+void			ft_putstr(char *s);
 size_t			ft_strlen(char *s);
 long long		ft_atoi(char *s, char fm);
-void			ft_putnbr_fd(long long n, int fd);
+void			ft_putnbr(long long n);
 void			ft_putnbr_base(unsigned long long nbr, char *base, char fm);
 char			*ft_itoa(long long num, char fm, char *s);
 void			ft_spec_csdiu(char fm, va_list ap, char *s);
