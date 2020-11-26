@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 19:53:54 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/25 17:15:53 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/26 23:17:05 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void			ft_putchar(char c);
 void			ft_putstr(char *s);
 size_t			ft_strlen(char *s);
 long long		ft_atoi(char *s, char fm);
-void			ft_putnbr(long long n);
+void			ft_putnbr(long long n, char fm);
 void			ft_putnbr_base(unsigned long long nbr, char *base, char fm);
 char			*ft_itoa(long long num, char fm, char *s);
 void			ft_spec_csdiu(char fm, va_list ap, char *s);
 void			ft_spec_pxp(char fm, va_list ap, char *s);
-void			ft_free(char *s);
+void			ft_free(void **p);
 
 #endif

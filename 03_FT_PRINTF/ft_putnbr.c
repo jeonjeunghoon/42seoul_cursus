@@ -6,15 +6,15 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 16:45:53 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/25 17:39:09 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/26 23:17:30 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void			ft_putnbr(long long num)
+void			ft_putnbr(long long num, char fm)
 {
-	if (num > 0 && g_flag)
+	if (num > 0 && g_flag && fm != 'u')
 	{
 		ft_putchar(' ');
 		g_flag = 0;
@@ -27,7 +27,7 @@ void			ft_putnbr(long long num)
 	}
 	if (num >= 10)
 	{
-		ft_putnbr(num / 10);
+		ft_putnbr(num / 10, fm);
 		num %= 10;
 	}
 	if (num < 10)

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 19:52:10 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/26 17:00:18 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/26 23:35:53 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ int			ft_printf(const char *format, ...)
 
 int main()
 {
-	char s[] = "HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO";
+	char s[] = "Hello";
 
-	printf("out: %d\n", printf("out:%  .3d%          d\n", 123,-1234444));
-	ft_printf("OUT: %d\n", ft_printf("OUT:% d%        d\n", 123,-1234444));
+	printf("out: %d\n", printf("out:%50s\n", s));
+	ft_printf("OUT: %d\n", ft_printf("OUT:%x\n", 1234));
 	// printf("out: %    d\n", 123);
 	// ft_printf("OUT: %    d\n", 123);
 }
