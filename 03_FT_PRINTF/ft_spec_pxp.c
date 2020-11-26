@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 12:26:43 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/25 16:53:23 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/26 17:00:17 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void					ft_spec_pxp(char fm, va_list ap, char *s)
 	{
 		s = ft_itoa(va_arg(ap, int), fm, s);
 		ft_putnbr_base(ft_atoi(s, fm), "0123456789abcdef", fm);
-		ft_free(s);
+		ft_free((void **)&s);
 	}
 	if (fm == 'p')
 	{

@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 11:47:43 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/24 12:24:04 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/11/26 16:59:19 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_free(char *s)
+void	ft_free(void **p)
 {
-	if (*s)
+	if (p != NULL && *p != NULL)
 	{
-		free(s);
-		s = 0;
+		free(*p);
+		*p = NULL;
 	}
 }
