@@ -6,45 +6,48 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 16:19:43 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/30 17:50:14 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:35:43 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		len_of_index(unsigned long long nbr, int base_len)
+size_t		len_of_index(unsigned long long n)
 {
 	int		i;
 
 	i = 0;
-	while (nbr /= base_len)
+	while (n)
+	{
+		n /= 16;
 		i++;
+	}
 	return (i);
 }
 
-void		make_base(unsigned long long n, char *base, int last_i, char **ptr)
+void		make_base(unsigned long long n, char *base, int last_i, char *ptr)
 {
 	while (last_i != 0 && n != 0)
 	{
-		(*ptr)[last_i--] = base[n % 16];
+		ptr[--last_i] = base[n % 16];
 		n /= 16;
 	}
 }
 
-void		ft_itob(unsigned long long n, char *base, char **ptr)
+void		ft_itob(unsigned long long n, char *base, char **ptr_va)
 {
-	int		base_len;
 	size_t	last_i;
 
-	base_len = 16;
-	last_i = len_of_index(n, base_len);
-	if (!(*ptr = (char *)malloc(sizeof(char) * (last_i + 1))))
+	last_i = len_of_index(n);
+	if (last_i > 8)
+		last_i = 8;
+	if (!(*ptr_va = (char *)malloc(sizeof(char) * (last_i + 1))))
 		return ;
-	(*ptr)[last_i] = '\0';
+	(*ptr_va)[last_i] = '\0';
 	if (n == 0)
 	{
-		**ptr = '0';
-		return (0);
-	}	
-	make_base(n, base, last_i, ptr);
+		**ptr_va = '0';
+		return ;
+	}
+	make_base(n, base, last_i, *ptr_va);
 }

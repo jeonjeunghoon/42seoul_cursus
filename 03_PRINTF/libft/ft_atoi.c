@@ -6,13 +6,13 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:01:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/30 17:18:05 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/01 11:24:48 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-unsigned int		ft_atou(char *s)
+unsigned int		ft_atou(const char *s)
 {
 	unsigned int	res;
 	unsigned int	temp;
@@ -41,7 +41,7 @@ unsigned int		ft_atou(char *s)
 	return (res);
 }
 
-long long			ft_atoi(char *s, char fm)
+long long			ft_atoi(const char *s, char fm)
 {
 	long long		res;
 	long long		sign;

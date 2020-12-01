@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 20:53:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/22 20:47:27 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/01 11:28:13 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,4 @@ char		**ft_split(char const *s, char c)
 		return (0);
 	ret = make_split(s, ret, c);
 	return (ret);
-}
-
-#include <stdio.h>
-int main(void)
-{
-	char **s = ft_split("", 0);
-	while (*s)
-		printf("%s\n", *s++);
-	char **s1 = ft_split("999999999999999999999999", 0);
-	while (*s1)
-		printf("%s\n", *s1++);
 }

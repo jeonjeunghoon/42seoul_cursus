@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 15:32:22 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/30 17:50:37 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:41:53 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdarg.h>
+
+#include <stdio.h>
+
+int					arg_len;
+unsigned int		g_count;
+long long			ld;
 
 void				*ft_memset(void *dest, int src, size_t len);
 void				ft_bzero(void *dest, size_t len);
@@ -34,7 +41,7 @@ char				*ft_strrchr(const char *s, int c);
 char				*ft_strnstr(const char *haystack, const char *needle,\
 					size_t len);
 int					ft_strncmp(const char *s1, const char *s2, size_t len);
-int					ft_atoi(const char *s, char fm);
+long long			ft_atoi(const char *s, char fm);
 int					ft_isspace(const char *str);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
@@ -54,9 +61,10 @@ char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
-void				ft_putnbr_fd(int n, int fd);
+void				ft_putnbr_fd(long long n, int fd);
+int					ft_printf(const char *format, ...);
 size_t				ft_digitlen(long long digit);
-void				ft_itob(unsigned long long n, char *base, char **ptr);
+void				ft_itob(unsigned long long n, char *base, char **ptr_va);
 
 typedef struct		s_list
 {

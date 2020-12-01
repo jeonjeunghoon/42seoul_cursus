@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 18:14:28 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/16 18:51:14 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/01 12:43:28 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_putnbr_fd(int n, int fd)
+void			ft_putnbr_fd(long long n, int fd)
 {
-	char	c;
-	long	num;
+	char		c;
+	long long	num;
 
 	num = n;
-	if (n < 0)
+	if (num < 0)
 	{
-		write(fd, "-", 1);
+		ft_putchar_fd('-', 1);
 		num *= -1;
 	}
 	if (num >= 10)
@@ -31,6 +31,6 @@ void		ft_putnbr_fd(int n, int fd)
 	if (num < 10)
 	{
 		c = num + '0';
-		write(fd, &c, 1);
+		ft_putchar_fd(c, 1);
 	}
 }
