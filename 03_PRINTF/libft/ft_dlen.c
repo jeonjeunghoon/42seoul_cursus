@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_dlen.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/30 14:18:34 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/02 10:59:42 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/11/30 16:02:56 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/12/02 17:10:38 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include "libft.h"
-# include <stdarg.h>
+size_t		ft_dlen(long long digit)
+{
+	size_t	len;
 
-int				ft_printf(const char *format, ...);
-
-#endif
+	len = 0;
+	while (digit)
+	{
+		digit /= 10;
+		len++;
+	}
+	return (len);
+}

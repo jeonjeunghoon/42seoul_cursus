@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 20:53:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/01 11:28:02 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/01 16:34:12 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,6 @@ size_t		row_size(char const *s, char c)
 	return (ret);
 }
 
-void		ft_free(char **ret)
-{
-	size_t	i;
-
-	i = 0;
-	while (ret[i])
-	{
-		free(ret[i]);
-		ret[i++] = NULL;
-	}
-}
-
 char		**make_split(char const *s, char **ret, char c)
 {
 	size_t	i;
@@ -77,7 +65,7 @@ char		**make_split(char const *s, char **ret, char c)
 		{
 			if (!(ret[i] = (char *)malloc(sizeof(char) * (row_size(s, c) + 1))))
 			{
-				ft_free(ret);
+				ft_free('p', (void **)&ret);
 				return (0);
 			}
 			while ((*s != c) && *s)

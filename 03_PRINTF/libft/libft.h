@@ -6,12 +6,12 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 15:32:22 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/01 12:41:53 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/02 17:10:24 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __LIBFT_H
-# define __LIBFT_H
+#ifndef LIBFT_H
+# define LIBFT_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -19,9 +19,10 @@
 
 #include <stdio.h>
 
-int					arg_len;
 unsigned int		g_count;
-long long			ld;
+unsigned int		g_arglen;
+unsigned int		g_flaglen;
+int					g_error;
 
 void				*ft_memset(void *dest, int src, size_t len);
 void				ft_bzero(void *dest, size_t len);
@@ -63,8 +64,19 @@ void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(long long n, int fd);
 int					ft_printf(const char *format, ...);
-size_t				ft_digitlen(long long digit);
+size_t				ft_dlen(long long digit);
 void				ft_itob(unsigned long long n, char *base, char **ptr_va);
+void				ft_free(const char format, void **pp);
+
+typedef struct		s_flist
+{
+	unsigned int	is_left;
+	unsigned int	is_zero;
+	int				width;
+	int				w_wild;
+	int				pre;
+	int				p_wild;
+}					t_flist;
 
 typedef struct		s_list
 {
@@ -82,5 +94,8 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),\
 					void (*del)(void *));
+void				ft_structclear(t_flist *flag_plst);
+void				ft_print_flag(const char format, t_flist *flag_plst,\
+					char *p_arg);
 
 #endif

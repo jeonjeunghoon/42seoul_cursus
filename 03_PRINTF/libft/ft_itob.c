@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 16:19:43 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/01 12:35:43 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/02 17:55:18 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,33 @@ size_t		len_of_index(unsigned long long n)
 	return (i);
 }
 
-void		make_base(unsigned long long n, char *base, int last_i, char *ptr)
+void		make_base(unsigned long long n, char *base, int last_i, char *p_arg)
 {
 	while (last_i != 0 && n != 0)
 	{
-		ptr[--last_i] = base[n % 16];
+		p_arg[--last_i] = base[n % 16];
 		n /= 16;
 	}
 }
 
-void		ft_itob(unsigned long long n, char *base, char **ptr_va)
+void		ft_itob(unsigned long long n, char *base, char **pp_arg)
 {
 	size_t	last_i;
 
 	last_i = len_of_index(n);
 	if (last_i > 8)
 		last_i = 8;
-	if (!(*ptr_va = (char *)malloc(sizeof(char) * (last_i + 1))))
-		return ;
-	(*ptr_va)[last_i] = '\0';
-	if (n == 0)
+	if (!(*pp_arg = (char *)malloc(sizeof(char) * (last_i + 1))))
 	{
-		**ptr_va = '0';
+		g_error = -1;
+		ft_putstr_fd("Error: failed memory allocation.\n", 1);
 		return ;
 	}
-	make_base(n, base, last_i, *ptr_va);
+	(*pp_arg)[last_i] = '\0';
+	if (n == 0)
+	{
+		**pp_arg = '0';
+		return ;
+	}
+	make_base(n, base, last_i, *pp_arg);
 }
