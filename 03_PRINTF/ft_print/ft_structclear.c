@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_structclear.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/17 14:57:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/17 15:53:10 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/12/02 12:56:58 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/12/03 15:45:13 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void		ft_lstadd_front(t_list **lst, t_list *new)
+void	ft_structclear(void)
 {
-	new->next = *lst;
-	*lst = new;
+	flag_lst.is_left = 0;
+	flag_lst.is_zero = 0;
+	flag_lst.pre = 0;
+	flag_lst.p_wild = 0;
+	flag_lst.width = 0;
+	flag_lst.w_wild = 0;
 }

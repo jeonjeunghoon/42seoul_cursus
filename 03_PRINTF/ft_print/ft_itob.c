@@ -6,11 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 16:19:43 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/02 17:55:18 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/03 15:44:49 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 size_t		len_of_index(unsigned long long n)
 {
@@ -42,11 +42,7 @@ void		ft_itob(unsigned long long n, char *base, char **pp_arg)
 	if (last_i > 8)
 		last_i = 8;
 	if (!(*pp_arg = (char *)malloc(sizeof(char) * (last_i + 1))))
-	{
-		g_error = -1;
-		ft_putstr_fd("Error: failed memory allocation.\n", 1);
 		return ;
-	}
 	(*pp_arg)[last_i] = '\0';
 	if (n == 0)
 	{
