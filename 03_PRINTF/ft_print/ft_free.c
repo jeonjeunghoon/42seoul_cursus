@@ -6,11 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 15:39:22 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/02 11:41:03 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/03 16:12:29 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 void		ft_free(const char format, void **pp)
 {

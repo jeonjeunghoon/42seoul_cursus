@@ -7,12 +7,12 @@ RM			=	rm -f
 
 LIBC		=	ar rc
 
-SRCS		=	../libft/ft_strlen.c \
-				../libft/ft_atoi.c \
-				../libft/ft_itoa.c \
-				../libft/ft_putchar_fd.c \
-				../libft/ft_putstr_fd.c \
-				../libft/ft_putnbr_fd.c \
+SRCS		=	./libft/ft_strlen.c \
+				./libft/ft_atoi.c \
+				./libft/ft_itoa.c \
+				./libft/ft_putchar_fd.c \
+				./libft/ft_putstr_fd.c \
+				./libft/ft_putnbr_fd.c \
 				./ft_printf.c \
 				./ft_dlen.c \
 				./ft_free.c \

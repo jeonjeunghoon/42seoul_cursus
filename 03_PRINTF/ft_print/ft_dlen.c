@@ -6,11 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 16:02:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/02 17:10:38 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/03 16:12:23 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 size_t		ft_dlen(long long digit)
 {

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 14:31:46 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/03 15:22:15 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/03 21:27:52 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,12 @@ long long		get_arg(const char format, va_list ap, char **pp_arg,\
 	else if (format == 's')
 		*pp_arg = va_arg(ap, char *);
 	else if (format == 'x')
-		ft_itob(va_arg(ap, int), "0123456789abcdef", pp_arg);
+		ft_itob(va_arg(ap, int), "0123456789abcdef", pp_arg, format);
 	else if (format == 'X')
-		ft_itob(va_arg(ap, int), "0123456789ABCDEF", pp_arg);
+		ft_itob(va_arg(ap, int), "0123456789ABCDEF", pp_arg, format);
 	else if (format == 'p')
-		ft_itob(va_arg(ap, unsigned long long), "0123456789abcdef", pp_arg);
+		ft_itob(va_arg(ap, unsigned long long), "0123456789abcdef", pp_arg,
+		format);
 	else if (format == '%')
 		ld = '%';
 	if (format == 's' || format == 'x' || format == 'X' || format == 'p')
@@ -74,14 +75,18 @@ long long		get_arg(const char format, va_list ap, char **pp_arg,\
 		g_arglen = 1;
 	return (ld);
 }
+#include <stdio.h>
 
 void			print_arg(const char format, char *p_arg, const long long ld)
 {
 	if (format == 's' || format == 'x' || format == 'X' || format == 'p')
 	{
 		if (format == 'p')
+		{
 			ft_putstr_fd("0x", 1);
-		if (g_arglen == ft_strlen(p_arg))
+			ft_putstr_fd(p_arg, 1);
+		}
+		if ((size_t)g_arglen == ft_strlen(p_arg))
 			ft_putstr_fd(p_arg, 1);
 	}
 	else if (format == 'c' || format == '%')
@@ -115,4 +120,15 @@ int				ft_printf(const char *format, ...)
 	}
 	va_end(ap);
 	return (g_count);
+}
+
+#include <stdio.h>
+
+int		main(void)
+{
+	char *s = "asdf";
+	
+	printf("%x\n", -1234);
+	ft_printf("%x\n", -1234);
+	return (0);
 }
