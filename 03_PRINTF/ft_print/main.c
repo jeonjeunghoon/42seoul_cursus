@@ -15,7 +15,7 @@ int main(void)
 	// printf("w_wild==============  %d\n", flag_lst.w_wild);
 	// printf("p_wild==============  %d\n", flag_lst.p_wild);
 	printf("\n\n----------------return-----------------\n\n");
-	printf("%d\n", printf("%-8.5i\n", 34));
+	printf("%d\n", printf("%-10.5i\n", -256));
 	printf("\nmine\n");
-	ft_printf("%d\n", ft_printf("%-8.5i\n", 34));
+	ft_printf("%d\n", ft_printf("%-10.5i\n", -256));
 }

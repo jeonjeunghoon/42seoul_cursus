@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 14:55:47 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/04 17:45:47 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/04 18:55:43 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		ft_exception(const char f)
 			}
 			flst.pre = flst.pre > g_arglen ? flst.pre - g_arglen - flst.is_minus : g_arglen - flst.pre - flst.is_minus;
 			print_zero(flst.pre);
-			flst.width = flst.width > flst.w_wild ? flst.width - flst.pre : flst.w_wild - flst.pre;
+			flst.width = flst.width > flst.w_wild ? flst.width - flst.pre - flst.is_minus : flst.w_wild - flst.pre - flst.is_minus; // 마지막 수정: 마이너스 붙였따
 		}
 	}
 	flst.p_wild = 0;
@@ -107,6 +107,8 @@ void		ft_print_flag(const char f)
 {
 	if (g_ld < 0)
 		flst.is_minus = 1;
+	if (flst.pre || flst.p_wild)
+		flst.is_zero = 0;
 	if (flst.is_left)
 	{
 		if ((flst.pre || flst.p_wild) && f != 'c')
@@ -126,3 +128,10 @@ void		ft_print_flag(const char f)
 		ft_structclear();
 	}
 }
+
+/*
+
+- 일 때 빈칸이 하나 더 나옴
++ 일 때 0이 하나 더 나오고 빈칸은 하나가 안나옴
+
+*/
