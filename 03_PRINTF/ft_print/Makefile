@@ -18,7 +18,9 @@ SRCS		=	./libft/ft_strlen.c \
 				./ft_free.c \
 				./ft_itob.c \
 				./ft_print_flag.c \
-				./ft_structclear.c
+				./ft_structclear.c \
+				./ft_get_size.c \
+				./ft_globalclear.c
 
 OBJS		=	${SRCS:.c=.o}
 INCS		=	.

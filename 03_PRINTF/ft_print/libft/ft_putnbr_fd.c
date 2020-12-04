@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 18:14:28 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/01 12:43:28 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/04 15:57:36 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void			ft_putnbr_fd(long long n, int fd)
 	num = n;
 	if (num < 0)
 	{
-		ft_putchar_fd('-', 1);
+		if (!g_minuspre)
+			ft_putchar_fd('-', 1);
 		num *= -1;
 	}
 	if (num >= 10)

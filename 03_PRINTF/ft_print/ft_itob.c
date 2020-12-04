@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 16:19:43 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/03 21:27:02 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/04 16:31:52 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void		make_base(unsigned long long n, char *base, int last_i, char *p_arg)
 	}
 }
 
-void		ft_itob(unsigned long long n, char *base, char **pp_arg, char format)
+void		ft_itob(unsigned long long n, char *base, char **pp_arg, \
+			char format)
 {
 	size_t	last_i;
 

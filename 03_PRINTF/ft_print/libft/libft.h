@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 15:32:22 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/03 15:56:15 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/04 15:56:31 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 
 int					g_count;
 int					g_arglen;
+int					g_error;
+long long			g_ld;
+int					g_minuspre;
 
 size_t				ft_strlen(const char *s);
 long long			ft_atoi(const char *s, char fm);
