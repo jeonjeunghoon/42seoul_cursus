@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_left.c                                    :+:      :+:    :+:   */
+/*   ft_leftflag.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/05 17:32:08 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/06 19:11:53 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/12/06 19:54:44 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/12/06 21:06:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void		ft_print_left(const char f)
+void		ft_leftflag(const char f)
 {
-	int		n;
-
-	if (f == 'i' || f == 'd')
+	ft_except(f);
+	if (l.is_left)
 	{
-		n = l.n;
-		if (n < 0 && l.p != -1)
-		{
-			ft_putchar_fd('-', 1);
-			l.minus = 1;
-			g_arglen--;
-		}
+		if (f == 'd' || f == 'i' || f == 'u' || \
+		f == 'x' || f == 'X' || f == 'p')
+			ft_print_left(f);
+		l.is_left = 0;
 	}
-	if (l.p == -1 && l.n == 0)
-		g_arglen = 0;
-	l.p = l.p > g_arglen ? l.p - g_arglen : 0;
-	ft_print_zero(l.p);
-	l.w = l.w - l.p - l.is_minus > 0 ? l.w - l.p - l.is_minus : 0;
-	l.p = 0;
+	else
+	{
+		ft_printflag(f);
+	}
 }

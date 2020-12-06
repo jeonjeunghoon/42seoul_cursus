@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 14:31:46 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/05 16:49:27 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/06 21:18:17 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,18 @@ void			get_flag(const char **ppf, va_list ap)
 {
 	*ppf += 1;
 	ft_left_or_zero(ppf);
-	ft_width(ppf, ap);
-	ft_precision(ppf, ap);
+	ft_width(ppf, ap, **ppf);
+	ft_precision(ppf, ap, **ppf);
 }
 
 void			get_arg(const char f, va_list ap, char **pp)
 {
-	if (f == 'd' || f == 'i')
+	if (f == 'd' || f == 'i' || f == 'u' || f == 'c')
+	{
+		if (f == 'd' || f == 'i')
+			l.n = (int)l.n;
 		l.n = va_arg(ap, int);
-	else if (f == 'c' || f == 'u')
-		l.un = va_arg(ap, int);
+	}
 	else if (f == 's')
 		*pp = va_arg(ap, char *);
 	else if (f == 'x')
@@ -35,7 +37,7 @@ void			get_arg(const char f, va_list ap, char **pp)
 	else if (f == 'p')
 		ft_itob(va_arg(ap, unsigned long long), "0123456789abcdef", pp, f);
 	else if (f == '%')
-		l.un = '%';
+		l.n = '%';
 	else
 		g_error = -1;
 	ft_get_size(f, *pp);
@@ -53,7 +55,8 @@ void			print_arg(const char f, char *p)
 		else if (f == 'p')
 		{
 			ft_putstr_fd("0x", 1);
-			ft_putstr_fd(p, 1);
+			if (g_arglen)
+				ft_putstr_fd(p, 1);
 		}
 		else if ((size_t)g_arglen == ft_strlen(p))
 			ft_putstr_fd(p, 1);
@@ -64,13 +67,12 @@ void			print_arg(const char f, char *p)
 		}
 	}
 	else if (f == 'c' || f == '%')
-		ft_putchar_fd(l.un, 1);
-	else if (f == 'd' || f == 'i')
-		ft_putnbr_fd(l.n, 1, l.minus);
-	else if (f == 'u')
-		ft_putnbr_fd(l.un, 1, l.minus);
-	ft_print_flag(f);
-	ft_free(f, (void **)&p);
+		ft_putchar_fd(l.n, 1);
+	else if ((f == 'd' || f == 'i' || f == 'u') && g_arglen)
+	{
+		ft_putnbr_fd(l.n, 1, f, l.minus);
+	}
+	ft_printflag(f);
 }
 
 int					ft_printf(const char *format, ...)
@@ -88,7 +90,7 @@ int					ft_printf(const char *format, ...)
 			get_arg(*format, ap, &p);
 			if (g_error == -1)
 				return (g_count);
-			ft_print_flag(*format);
+			ft_leftflag(*format);
 			print_arg(*format, p);
 			ft_structclear();
 		}
@@ -96,6 +98,7 @@ int					ft_printf(const char *format, ...)
 			ft_putchar_fd(*format, 1);
 		format++;
 	}
+	ft_free(*format, (void **)&p);
 	va_end(ap);
 	return (g_count);
 }

@@ -21,7 +21,8 @@ SRCS		=	./libft/ft_strlen.c \
 				./ft_precision.c \
 				./ft_free.c \
 				./ft_itob.c \
-				./ft_print_flag.c \
+				./ft_leftflag.c \
+				./ft_printflag.c \
 				./ft_print_zero.c \
 				./ft_print_left.c \
 				./ft_print_alpha.c \
