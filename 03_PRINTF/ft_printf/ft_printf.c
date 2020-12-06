@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 14:31:46 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/06 21:18:17 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/06 21:32:41 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void			print_arg(const char f, char *p)
 		else if (f == 'p')
 		{
 			ft_putstr_fd("0x", 1);
-			if (g_arglen)
+			if (!(l.n ==  0 && l.p == -1))
 				ft_putstr_fd(p, 1);
 		}
 		else if ((size_t)g_arglen == ft_strlen(p))

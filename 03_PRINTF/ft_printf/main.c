@@ -16,7 +16,7 @@ int main(void)
 	// printf("p_wild==============  %d\n", flag_lst.p_wild);
 	printf("\n\n----------------return-----------------\n\n");
 	printf("expect\n");
-	printf("%d\n", printf("%5.p\n", NULL));
+	printf("%d\n", printf("%d\n", INT32_MIN));
 	printf("mine\n");
-	ft_printf("%d\n", ft_printf("%5.p\n", NULL));
+	ft_printf("%d\n", ft_printf("%d\n", INT32_MIN));
 }
