@@ -6,17 +6,17 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 13:59:44 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/30 17:18:29 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 15:29:47 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-unsigned int		ft_toa_len(long long n, char fm)
+unsigned int		ft_toa_len(long long n, char f)
 {
 	unsigned int	res;
 
-	if (fm == 'd' || fm == 'i')
+	if (f == 'd' || f == 'i')
 		res = n > 0 ? 0 : 1;
 	else
 		res = 0;
@@ -28,11 +28,11 @@ unsigned int		ft_toa_len(long long n, char fm)
 	return (res);
 }
 
-char				*ft_utoa(unsigned int n, char fm, char *s)
+char				*ft_utoa(unsigned int n, char f, char *s)
 {
 	size_t			len;
 
-	len = ft_toa_len(n, fm);
+	len = ft_toa_len(n, f);
 	if (!(s = malloc(sizeof(char) * (len + 1))))
 		return (0);
 	s[len--] = 0;
@@ -46,15 +46,15 @@ char				*ft_utoa(unsigned int n, char fm, char *s)
 	return (s);
 }
 
-char				*ft_itoa(long long n, char fm, char *s)
+char				*ft_itoa(long long n, const char f, char *s)
 {
 	size_t			len;
 
-	if (fm == 'u' || fm == 'p' || fm == 'x' || fm == 'X')
-		s = ft_utoa(n, fm, s);
+	if (f == 'u' || f == 'p' || f == 'x' || f == 'X')
+		s = ft_utoa(n, f, s);
 	else
 	{
-		len = ft_toa_len(n, fm);
+		len = ft_toa_len(n, f);
 		if (!(s = malloc(sizeof(char) * (len + 1))))
 			return (0);
 		s[len--] = 0;

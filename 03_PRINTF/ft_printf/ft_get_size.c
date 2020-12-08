@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 16:30:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/06 21:29:16 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 15:44:32 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	ft_get_size(const char f, char *p)
 			g_arglen += 2;
 	}
 	if (f == 'd' || f == 'i')
-		n = l.n;
+		n = g_lst.n;
 	if (f == 'd' || f == 'i' || f == 'u')
 	{
-		g_arglen = ft_digitlen(l.n, f);
-		if (n <= 0 || l.n <= 0)
+		g_arglen = ft_numlen(g_lst.n, f);
+		if (g_lst.n <= 0 && f != 'u')
 			g_arglen++;
 	}
 	else if (f == 'c' || f == '%')

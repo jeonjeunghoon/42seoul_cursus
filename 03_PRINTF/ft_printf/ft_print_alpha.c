@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 17:30:22 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/05 17:45:42 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 15:43:40 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void		ft_print_alpha(void)
 {
-	if (l.p == -1 && !l.w)
+	if (g_lst.p == -1 && !g_lst.w)
 		return ;
-	if (l.w > g_arglen)
+	if (g_lst.w > g_arglen)
 	{
-		l.w -= g_arglen;
-		if (l.is_zero)
-			l.w = ft_print_zero(l.w);
-		while (l.w--)
+		g_lst.w -= g_arglen;
+		if (g_lst.iszero)
+			g_lst.w = ft_print_zero(g_lst.w);
+		while (g_lst.w--)
 			ft_putchar_fd(' ', 1);
 	}
 }

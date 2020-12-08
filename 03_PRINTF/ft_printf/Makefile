@@ -14,8 +14,8 @@ SRCS		=	./libft/ft_strlen.c \
 				./libft/ft_putstr_fd.c \
 				./libft/ft_putnbr_fd.c \
 				./ft_printf.c \
-				./ft_left_or_zero.c \
-				./ft_digitlen.c \
+				./ft_leftzero.c \
+				./ft_numlen.c \
 				./ft_except.c \
 				./ft_width.c \
 				./ft_precision.c \

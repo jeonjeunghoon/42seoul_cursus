@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_left_or_zero.c                                  :+:      :+:    :+:   */
+/*   ft_leftzero.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 15:31:32 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/06 19:29:28 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 15:44:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_left_or_zero(const char **ppf)
+void	ft_leftzero(const char **ppf)
 {
 	while (**ppf == '-' || **ppf == '0')
 	{
 		if (**ppf == '-')
-			l.is_left = 1;
-		if (**ppf == '0' && l.is_left == 0)
-			l.is_zero = 1;
+		{
+			g_lst.isleft = 1;
+			g_lst.iszero = 0;
+		}
+		if (**ppf == '0' && g_lst.isleft == 0)
+			g_lst.iszero = 1;
 		*ppf += 1;
 	}
 }

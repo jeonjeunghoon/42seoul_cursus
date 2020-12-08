@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 19:54:44 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/06 21:29:43 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 15:44:10 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 void		ft_leftflag(const char f)
 {
 	ft_except(f);
-	if (l.is_left)
+	if (g_lst.isleft)
 	{
 		if (f == 'd' || f == 'i' || f == 'u' || \
 		f == 'x' || f == 'X' || f == 'p')
 			ft_print_left(f);
-		l.is_left = 0;
+		g_lst.isleft = 0;
 	}
 	else
-	{
 		ft_printflag(f);
-	}
 }

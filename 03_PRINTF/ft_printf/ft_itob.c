@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 16:19:43 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/04 16:31:52 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 15:44:19 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,32 @@ size_t		len_of_index(unsigned long long n)
 	return (i);
 }
 
-void		make_base(unsigned long long n, char *base, int last_i, char *p_arg)
+void		make_base(unsigned long long n, char *p_base, int last_i, char *p)
 {
 	while (last_i != 0 && n != 0)
 	{
-		p_arg[--last_i] = base[n % 16];
+		p[--last_i] = p_base[n % 16];
 		n /= 16;
 	}
 }
 
-void		ft_itob(unsigned long long n, char *base, char **pp_arg, \
-			char format)
+void		ft_itob(unsigned long long n, char *p_base, char **pp, \
+			char f)
 {
 	size_t	last_i;
 
+	if (n == 0)
+		g_lst.n = -1;
 	last_i = len_of_index(n);
-	if ((last_i > 8) && (format == 'x' || format == 'X'))
+	if ((last_i > 8) && (f == 'x' || f == 'X'))
 		last_i = 8;
-	if (!(*pp_arg = (char *)malloc(sizeof(char) * (last_i + 1))))
+	if (!(*pp = (char *)malloc(sizeof(char) * (last_i + 1))))
 		return ;
-	(*pp_arg)[last_i] = '\0';
+	(*pp)[last_i] = '\0';
 	if (n == 0)
 	{
-		**pp_arg = '0';
+		**pp = '0';
 		return ;
 	}
-	make_base(n, base, last_i, *pp_arg);
+	make_base(n, p_base, last_i, *pp);
 }

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 17:33:01 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/05 17:34:52 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 15:43:15 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ int			ft_print_zero(int i)
 		ft_putchar_fd('0', 1);
 		i--;
 	}
-	l.is_zero = 0;
+	g_lst.iszero = 0;
 	return (i);
 }

@@ -1,44 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_digitlen.c                                      :+:      :+:    :+:   */
+/*   ft_numlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 16:02:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/06 15:38:23 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 15:43:55 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t				u_digitlen(unsigned int u_n)
+size_t				u_numlen(void)
 {
-	unsigned int	digit;
+	unsigned int	temp;
 	size_t			len;
 
-	digit = u_n;
+	if (g_lst.n == 0)
+		return (1);
+	temp = g_lst.n;
 	len = 0;
-	while (digit)
+	while (temp)
 	{
-		digit /= 10;
+		temp /= 10;
 		len++;
 	}
 	return (len);
 }
 
-size_t			ft_digitlen(long long digit, const char f)
+size_t				ft_numlen(long long num, const char f)
 {
-	size_t		len;
-	int			n;
+	int				temp;
+	size_t			len;
 
 	if (f == 'u')
-		u_digitlen(digit);
-	len = 0;
-	n = digit;
-	while (n)
 	{
-		n /= 10;
+		len = u_numlen();
+		return (len);
+	}
+	temp = num;
+	len = 0;
+	while (temp)
+	{
+		temp /= 10;
 		len++;
 	}
 	return (len);

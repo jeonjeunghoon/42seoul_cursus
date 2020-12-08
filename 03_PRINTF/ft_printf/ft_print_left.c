@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 17:32:08 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/06 19:11:53 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 15:43:32 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@ void		ft_print_left(const char f)
 
 	if (f == 'i' || f == 'd')
 	{
-		n = l.n;
-		if (n < 0 && l.p != -1)
+		n = g_lst.n;
+		if (n < 0 && g_lst.p != -1)
 		{
 			ft_putchar_fd('-', 1);
-			l.minus = 1;
+			g_lst.minus = 1;
 			g_arglen--;
 		}
 	}
-	if (l.p == -1 && l.n == 0)
+	if ((g_lst.p == -1 && g_lst.n == 0) && (f != 'x' && f != 'X' && f != 'p'))
 		g_arglen = 0;
-	l.p = l.p > g_arglen ? l.p - g_arglen : 0;
-	ft_print_zero(l.p);
-	l.w = l.w - l.p - l.is_minus > 0 ? l.w - l.p - l.is_minus : 0;
-	l.p = 0;
+	g_lst.p = g_lst.p > g_arglen ? g_lst.p - g_arglen : 0;
+	ft_print_zero(g_lst.p);
+	g_lst.w = g_lst.w - g_lst.p - g_lst.isminus > 0 ? g_lst.w - g_lst.p - g_lst.isminus : 0;
+	g_lst.p = 0;
 }
