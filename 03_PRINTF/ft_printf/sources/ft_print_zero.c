@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_print_zero.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/06 16:41:53 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/06 20:17:12 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/12/05 17:33:01 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/12/08 17:54:38 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/ft_printf.h"
 
-size_t		ft_strlen(const char *s)
+int			ft_print_zero(int i)
 {
-	int		res;
-
-	res = 0;
-	while (((unsigned char *)s)[res])
-		res++;
-	return (res);
+	while (i > 0 && i != 0)
+	{
+		ft_putchar_fd('0', 1);
+		i--;
+	}
+	g_lst.iszero = 0;
+	return (i);
 }

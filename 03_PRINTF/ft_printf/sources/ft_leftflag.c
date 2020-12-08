@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_width.c                                         :+:      :+:    :+:   */
+/*   ft_leftflag.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/05 15:34:27 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/08 15:42:42 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/12/06 19:54:44 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/12/08 17:52:27 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
-void		ft_width(const char **ppf, va_list ap, const char f)
+void		ft_leftflag(const char f)
 {
-	size_t	len;
-
-	len = 0;
-	if (**ppf >= '0' && **ppf <= '9')
+	ft_except(f);
+	if (g_lst.isleft)
 	{
-		g_lst.w = ft_atoi(*ppf, 'u');
-		len = ft_numlen(g_lst.w, f);
-		*ppf += len;
+		if (f == 'd' || f == 'i' || f == 'u' || \
+		f == 'x' || f == 'X' || f == 'p')
+			ft_print_left(f);
+		g_lst.isleft = 0;
 	}
-	else if (**ppf == '*')
-	{
-		g_lst.w = va_arg(ap, int);
-		*ppf += 1;
-	}
+	else
+		ft_printflag(f);
 }

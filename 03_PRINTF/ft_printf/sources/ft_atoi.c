@@ -6,11 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 15:01:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/08 15:28:57 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 17:51:59 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 unsigned int		ft_atou(const char *s)
 {

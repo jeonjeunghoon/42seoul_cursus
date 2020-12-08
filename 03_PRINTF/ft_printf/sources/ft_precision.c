@@ -6,11 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 15:41:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/08 15:43:48 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 17:52:40 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 size_t		is_wild(const char **ppf, va_list ap)
 {

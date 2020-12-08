@@ -7,35 +7,35 @@ RM			=	rm -f
 
 LIBC		=	ar rc
 
-SRCS		=	./libft/ft_strlen.c \
-				./libft/ft_atoi.c \
-				./libft/ft_itoa.c \
-				./libft/ft_putchar_fd.c \
-				./libft/ft_putstr_fd.c \
-				./libft/ft_putnbr_fd.c \
-				./ft_printf.c \
-				./ft_leftzero.c \
-				./ft_numlen.c \
-				./ft_except.c \
-				./ft_width.c \
-				./ft_precision.c \
-				./ft_free.c \
-				./ft_itob.c \
-				./ft_leftflag.c \
-				./ft_printflag.c \
-				./ft_print_zero.c \
-				./ft_print_left.c \
-				./ft_print_alpha.c \
-				./ft_print_num.c \
-				./ft_structclear.c \
-				./ft_get_size.c \
-				./ft_globalclear.c
+SRCS		=	ft_printf.c \
+				sources/ft_strlen.c \
+				sources/ft_atoi.c \
+				sources/ft_itoa.c \
+				sources/ft_putchar_fd.c \
+				sources/ft_putstr_fd.c \
+				sources/ft_putnbr_fd.c \
+				sources/ft_leftzero.c \
+				sources/ft_numlen.c \
+				sources/ft_except.c \
+				sources/ft_width.c \
+				sources/ft_precision.c \
+				sources/ft_free.c \
+				sources/ft_itob.c \
+				sources/ft_leftflag.c \
+				sources/ft_printflag.c \
+				sources/ft_print_zero.c \
+				sources/ft_print_left.c \
+				sources/ft_print_alpha.c \
+				sources/ft_print_num.c \
+				sources/ft_structclear.c \
+				sources/ft_get_size.c \
+				sources/ft_globalclear.c
 
 OBJS		=	${SRCS:.c=.o}
-INCS		=	.
+INCS		=	-I include/ft_printf.h
 
 .c.o:
-				${CC} ${CFLAGS} -c $< -o $(<:.c=.o) -I${INCS}
+				${CC} ${CFLAGS} -c $< -o $(<:.c=.o) ${INCS}
 
 $(NAME):		${OBJS}
 				${LIBC} ${NAME} ${OBJS}
@@ -43,9 +43,9 @@ $(NAME):		${OBJS}
 all:			${NAME}
 
 clean:
-				${RM} ${OBJS} ${OBJS_BONUS}
+				${RM} ${OBJS}
 
 fclean:			clean
-				${RM} ${NAME} ${bonus}
+				${RM} ${NAME}
 
 re:				fclean all

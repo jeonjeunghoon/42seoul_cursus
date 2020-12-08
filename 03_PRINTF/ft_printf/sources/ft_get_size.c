@@ -6,11 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 16:30:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/08 15:44:32 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 17:52:10 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 void	ft_get_size(const char f, char *p)
 {

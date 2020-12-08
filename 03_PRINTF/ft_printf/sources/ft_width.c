@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   ft_width.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/01 15:39:22 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/08 15:27:58 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/12/05 15:34:27 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/12/08 17:53:22 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
-void		ft_free(const char f, void **pp)
+void		ft_width(const char **ppf, va_list ap, const char f)
 {
-	if (!(f == 'x' || f == 'X' || f == 'p' || f == 'l') \
-	|| pp == NULL || *pp == NULL)
-		return ;
-	else if ((f == 'x' || f == 'X' || f == 'p' || f == 'l') \
-	&& (pp != NULL && *pp != NULL))
+	size_t	len;
+
+	len = 0;
+	if (**ppf >= '0' && **ppf <= '9')
 	{
-		if (pp != NULL && *pp != NULL)
-		{
-			free(*pp);
-			*pp = NULL;
-		}
+		g_lst.w = ft_atoi(*ppf, 'u');
+		len = ft_numlen(g_lst.w, f);
+		*ppf += len;
+	}
+	else if (**ppf == '*')
+	{
+		g_lst.w = va_arg(ap, int);
+		*ppf += 1;
 	}
 }

@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_leftzero.c                                      :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/05 15:31:32 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/08 15:44:02 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/12/01 15:39:22 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/12/08 17:52:06 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
-void	ft_leftzero(const char **ppf)
+void		ft_free(const char f, void **pp)
 {
-	while (**ppf == '-' || **ppf == '0')
+	if (!(f == 'x' || f == 'X' || f == 'p' || f == 'l') \
+	|| pp == NULL || *pp == NULL)
+		return ;
+	else if ((f == 'x' || f == 'X' || f == 'p' || f == 'l') \
+	&& (pp != NULL && *pp != NULL))
 	{
-		if (**ppf == '-')
+		if (pp != NULL && *pp != NULL)
 		{
-			g_lst.isleft = 1;
-			g_lst.iszero = 0;
+			free(*pp);
+			*pp = NULL;
 		}
-		if (**ppf == '0' && g_lst.isleft == 0)
-			g_lst.iszero = 1;
-		*ppf += 1;
 	}
 }

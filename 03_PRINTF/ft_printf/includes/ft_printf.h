@@ -6,14 +6,14 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 14:18:34 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/08 15:42:23 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 17:48:42 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "libft/libft.h"
+# include "libft.h"
 
 typedef struct			s_list
 {

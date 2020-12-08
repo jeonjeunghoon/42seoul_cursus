@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_print_alpha.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/16 18:08:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/01 12:01:06 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/12/05 17:30:22 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/12/08 17:52:44 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/ft_printf.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void		ft_print_alpha(void)
 {
-	if (!s)
+	if (g_lst.p == -1 && !g_lst.w)
 		return ;
-	write(fd, s, ft_strlen(s));
-	g_count += ft_strlen(s);
+	if (g_lst.w > g_arglen)
+	{
+		g_lst.w -= g_arglen;
+		if (g_lst.iszero)
+			g_lst.w = ft_print_zero(g_lst.w);
+		while (g_lst.w--)
+			ft_putchar_fd(' ', 1);
+	}
 }

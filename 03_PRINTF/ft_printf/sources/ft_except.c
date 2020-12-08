@@ -6,11 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 16:54:44 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/08 15:44:42 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 17:52:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 void		except_alpha(const char f)
 {

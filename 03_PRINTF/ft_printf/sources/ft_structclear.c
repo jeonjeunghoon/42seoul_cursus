@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_globalclear.c                                   :+:      :+:    :+:   */
+/*   ft_structclear.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/04 16:39:10 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/08 15:46:50 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/12/02 12:56:58 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/12/08 17:53:19 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
-void	ft_globalclear(void)
+void	ft_structclear(void)
 {
-	g_arglen = 0;
-	g_count = 0;
-	g_error = 0;
+	g_lst.isleft = 0;
+	g_lst.iszero = 0;
+	g_lst.isminus = 0;
+	g_lst.minus = 0;
+	g_lst.p = 0;
+	g_lst.w = 0;
+	g_lst.n = 0;
 }

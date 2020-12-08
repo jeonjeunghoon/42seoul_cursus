@@ -6,11 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 17:29:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/08 15:43:24 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 17:52:54 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 void		print_iszero(const char f, int n)
 {

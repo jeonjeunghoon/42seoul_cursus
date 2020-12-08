@@ -6,11 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 18:14:28 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/08 15:34:00 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 17:53:07 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 void				un_putnbr(unsigned int u_n, int fd, const char f)
 {

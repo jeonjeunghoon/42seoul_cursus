@@ -6,11 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 17:32:08 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/08 15:43:32 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/08 17:59:26 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 void		ft_print_left(const char f)
 {
@@ -30,6 +30,7 @@ void		ft_print_left(const char f)
 		g_arglen = 0;
 	g_lst.p = g_lst.p > g_arglen ? g_lst.p - g_arglen : 0;
 	ft_print_zero(g_lst.p);
-	g_lst.w = g_lst.w - g_lst.p - g_lst.isminus > 0 ? g_lst.w - g_lst.p - g_lst.isminus : 0;
+	g_lst.w = g_lst.w - g_lst.p - g_lst.isminus > 0 ? \
+	g_lst.w - g_lst.p - g_lst.isminus : 0;
 	g_lst.p = 0;
 }

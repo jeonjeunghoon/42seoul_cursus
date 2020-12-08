@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_leftflag.c                                      :+:      :+:    :+:   */
+/*   ft_printflag.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/06 19:54:44 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/08 15:44:10 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/12/02 14:55:47 by jeunjeon          #+#    #+#             */
+/*   Updated: 2020/12/08 17:53:00 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
-void		ft_leftflag(const char f)
+void		ft_printflag(const char f)
 {
-	ft_except(f);
-	if (g_lst.isleft)
+	if (!(g_lst.isleft))
 	{
-		if (f == 'd' || f == 'i' || f == 'u' || \
-		f == 'x' || f == 'X' || f == 'p')
-			ft_print_left(f);
-		g_lst.isleft = 0;
+		if (f == 'c' || f == 's' || f == '%')
+			ft_print_alpha();
+		else if (f == 'd' || f == 'i' || f == 'u' \
+		|| f == 'x' || f == 'X' || f == 'p')
+			ft_print_num(f);
+		g_lst.isleft = 1;
 	}
-	else
-		ft_printflag(f);
 }
