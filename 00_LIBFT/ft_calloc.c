@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 14:11:14 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/16 16:28:47 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/11 17:17:45 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void				*ft_calloc(size_t count, size_t size)
 	if (!(ptr = (void *)malloc(size * count)))
 		return (NULL);
 	i = 0;
-	while (i < count * size)
+	while (i < size * count)
 	{
 		*(ptr + i) = 0;
 		i++;

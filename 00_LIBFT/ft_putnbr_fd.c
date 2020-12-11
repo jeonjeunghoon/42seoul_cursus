@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 18:14:28 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/16 18:51:14 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/11 17:48:45 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_putnbr_fd(int n, int fd)
+void			ft_putnbr_fd(int n, int fd)
 {
-	char	c;
-	long	num;
+	char		c;
+	long long	num;
 
 	num = n;
 	if (n < 0)

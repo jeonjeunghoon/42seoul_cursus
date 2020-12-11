@@ -3,50 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 13:59:44 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/16 14:49:08 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/11 17:21:31 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		n_len(int n)
+size_t			get_len(long long n)
 {
-	size_t	ret;
+	size_t		len;
 
-	ret = n > 0 ? 0 : 1;
+	len = n > 0 ? 0 : 1;
 	while (n)
 	{
 		n /= 10;
-		ret++;
+		len++;
 	}
-	return (ret);
+	return (len);
 }
 
-char		*ft_itoa(int num)
+char			*ft_itoa(int num)
 {
-	char	*ret;
-	long	n;
-	size_t	len;
+	char		*ptr;
+	long long	n;
+	size_t		len;
 
 	n = num;
-	len = n_len(n);
-	if (!(ret = malloc(sizeof(char) * (len + 1))))
-		return (0);
-	ret[len--] = 0;
+	len = get_len(n);
+	if (!(ptr = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	ptr[len--] = 0;
 	if (n < 0)
 	{
 		n *= -1;
-		*ret = '-';
+		ptr[0] = '-';
 	}
-	if (!n)
-		*ret = '0';
-	while (n)
+	if (n == 0)
+		ptr[0] = '0';
+	while (n > 0)
 	{
-		ret[len--] = (n % 10) + '0';
+		ptr[len--] = (n % 10) + '0';
 		n /= 10;
 	}
-	return (ret);
+	return (ptr);
 }

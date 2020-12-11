@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 15:09:10 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/16 18:53:22 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/11 18:04:46 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,18 @@ char		*ft_strdup(const char *s1)
 	size_t	i;
 	size_t	len;
 
-	len = ft_strlen(s1);
-	if (!(ptr = (char *)malloc(sizeof(char) * (len + 1))) || !s1)
-		return (0);
+	if (!s1)
+		return (NULL);
+	else
+		len = ft_strlen(s1);
+	if (!(ptr = (char *)malloc(sizeof(char) * (len + 1))))
+		return (NULL);
 	ptr[len] = 0;
 	i = 0;
-	while (len)
+	while (len--)
 	{
-		*(ptr + i++) = *s1++;
-		len--;
+		*(ptr + i) = *(s1 + i);
+		i++;
 	}
 	return (ptr);
 }

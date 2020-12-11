@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 15:49:35 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/17 15:54:46 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/11 17:40:20 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int		ft_lstsize(t_list *lst)
 {
-	int	ret;
+	int	len;
 
-	ret = 0;
+	len = 0;
 	while (lst)
 	{
 		lst = lst->next;
-		ret++;
+		len++;
 	}
-	return (ret);
+	return (len);
 }

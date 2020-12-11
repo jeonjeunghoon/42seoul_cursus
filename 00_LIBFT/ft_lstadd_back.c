@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 16:04:51 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/17 19:29:29 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/11 17:27:40 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void		ft_lstadd_back(t_list **lst, t_list *new)
 	{
 		*lst = new;
 		new->next = 0;
+		return ;
 	}
 	else
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/12 17:25:15 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/15 20:52:38 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/11 18:15:35 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char		*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	len;
-	char	*ret;
+	char	*p;
 
 	if (!s1 || !set)
 		return (NULL);
@@ -24,6 +24,6 @@ char		*ft_strtrim(char const *s1, char const *set)
 	len = ft_strlen(s1);
 	while (len && ft_strchr(set, *(s1 + len)))
 		len--;
-	ret = ft_substr(s1, 0, len + 1);
-	return (ret);
+	p = ft_substr(s1, 0, len + 1);
+	return (p);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 19:36:45 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/21 13:23:25 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/11 17:35:53 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		if (!(ft_lstnew(f(lst->content))))
 		{
 			ft_lstclear(&res, del);
-			return (0);
+			return (NULL);
 		}
 		ft_lstadd_back(&temp, ft_lstnew(f(lst->content)));
 	}

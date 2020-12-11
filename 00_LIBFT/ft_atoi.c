@@ -3,48 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 17:25:54 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/21 11:32:13 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/11 17:17:20 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int				ft_isspace(const char *str)
+void					ft_isspace(const unsigned char **pp)
 {
-	if (*str == ' ' || *str == '\t' || *str == '\r' || *str == '\n' ||
-	*str == '\v' || *str == '\f')
-		return (1);
-	return (0);
+	while (**pp == ' ' || **pp == '\t' || **pp == '\r' \
+	|| **pp == '\n' || **pp == '\v' || **pp == '\f')
+		(*pp)++;
 }
 
-int				ft_atoi(const char *str)
+int						isminus(const unsigned char **pp)
 {
-	long	res;
-	long	sign;
-	long	i;
+	int					sign;
 
-	res = 0;
 	sign = 1;
-	while (ft_isspace(str))
-		str++;
-	if (*(unsigned char *)str == '-' || *(unsigned char *)str == '+')
+	if (**pp == '-' || **pp == '+')
 	{
-		if (*(unsigned char *)str == '-')
+		if (**pp == '-')
 			sign *= -1;
-		str++;
+		(*pp)++;
 	}
+	return (sign);
+}
+
+long long				make_num(const unsigned char **pp, int sign)
+{
+	long long			tmp;
+	size_t				i;
+
 	i = 0;
-	while (*(unsigned char *)str >= '0' && *(unsigned char *)str <= '9')
+	tmp = 0;
+	while (**pp >= '0' && **pp <= '9')
 	{
-		res *= 10;
-		res += *(unsigned char *)str - '0';
-		str++;
+		tmp *= 10;
+		tmp += **pp - '0';
+		(*pp)++;
 		i++;
 	}
 	if (i >= 20)
-		res = sign > 0 ? -1 : 0;
-	return ((int)(res * sign));
+		tmp = sign > 0 ? -1 : 0;
+	return (tmp);
+}
+
+int						ft_atoi(const char *str)
+{
+	const unsigned char	*ptr;
+	int					sign;
+	long long			num;
+
+	sign = 1;
+	ptr = (const unsigned char *)str;
+	ft_isspace(&ptr);
+	sign = isminus(&ptr);
+	num = make_num(&ptr, sign);
+	return ((int)(num * sign));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 14:57:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/17 15:53:10 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/11 17:30:05 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 
 void		ft_lstadd_front(t_list **lst, t_list *new)
 {
-	new->next = *lst;
-	*lst = new;
+	if (!(*lst))
+	{
+		*lst = new;
+		new->next = 0;
+		return ;
+	}
+	else
+	{
+		new->next = *lst;
+		*lst = new;
+	}
 }

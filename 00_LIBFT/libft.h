@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 15:32:22 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/22 15:19:16 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/11 17:13:57 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char				*ft_strnstr(const char *haystack, const char *needle,\
 					size_t len);
 int					ft_strncmp(const char *s1, const char *s2, size_t len);
 int					ft_atoi(const char *str);
-int					ft_isspace(const char *str);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 20:53:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/01 11:28:13 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/11 18:01:28 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,57 +14,53 @@
 
 size_t		col_size(char const *s, char c)
 {
-	size_t	ret;
+	size_t	len;
 	size_t	i;
 
-	ret = 0;
+	len = 0;
 	i = 0;
 	while (s[i] == c && s[i])
 		i++;
 	while (s[i])
 	{
-		if (s[i] == c && s[i])
+		if (s[i] == c)
 		{
-			ret++;
+			len++;
 			while ((s[i] == c) && s[i])
 				i++;
 		}
-		while (s[i] != c && s[i])
-			i++;
+		i++;
 	}
-	if ((s[i - 1] != c) || s[i])
-		ret++;
-	return (ret);
+	if (s[i - 1] != c)
+		len++;
+	return (len);
 }
 
 size_t		row_size(char const *s, char c)
 {
-	size_t	ret;
-	size_t	i;
+	size_t	len;
 
-	ret = 0;
-	i = 0;
-	while (s[i] != c && s[i])
-	{
-		i++;
-		ret++;
-	}
-	return (ret);
+	len = 0;
+	while (s[len] != c && s[len])
+		len++;
+	return (len);
 }
 
-void		ft_free(char **ret)
+void		ft_free(char **pp)
 {
 	size_t	i;
 
 	i = 0;
-	while (ret[i])
+	while (pp[i])
 	{
-		free(ret[i]);
-		ret[i++] = NULL;
+		free(pp[i]);
+		pp[i++] = NULL;
 	}
+	free(pp);
+	pp = NULL;
 }
 
-char		**make_split(char const *s, char **ret, char c)
+char		**make_split(char const *s, char **pp, char c)
 {
 	size_t	i;
 	size_t	j;
@@ -73,32 +69,32 @@ char		**make_split(char const *s, char **ret, char c)
 	while (*s)
 	{
 		j = 0;
-		if (*s != c && *s)
+		if (*s != c)
 		{
-			if (!(ret[i] = (char *)malloc(sizeof(char) * (row_size(s, c) + 1))))
+			if (!(pp[i] = (char *)malloc(sizeof(char) * (row_size(s, c) + 1))))
 			{
-				ft_free(ret);
-				return (0);
+				ft_free(pp);
+				return (NULL);
 			}
 			while ((*s != c) && *s)
-				ret[i][j++] = *s++;
-			ret[i++][j] = 0;
+				pp[i][j++] = *s++;
+			pp[i++][j] = 0;
 		}
-		if (*s == c && *s)
+		if (*s)
 			s++;
 	}
-	ret[i] = 0;
-	return (ret);
+	pp[i] = 0;
+	return (pp);
 }
 
 char		**ft_split(char const *s, char c)
 {
-	char	**ret;
+	char	**pp;
 
 	if (!s)
-		return (0);
-	if (!(ret = (char **)malloc(sizeof(char *) * (col_size(s, c) + 1))))
-		return (0);
-	ret = make_split(s, ret, c);
-	return (ret);
+		return (NULL);
+	if (!(pp = (char **)malloc(sizeof(char *) * (col_size(s, c) + 1))))
+		return (NULL);
+	pp = make_split(s, pp, c);
+	return (pp);
 }

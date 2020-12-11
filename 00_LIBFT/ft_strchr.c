@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/07 10:42:39 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/15 21:53:35 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/11 18:09:23 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_strchr(const char *s, int c)
 {
 	while (*s != (char)c)
 	{
-		if (!*s)
+		if (*s == 0)
 			return (NULL);
 		s++;
 	}

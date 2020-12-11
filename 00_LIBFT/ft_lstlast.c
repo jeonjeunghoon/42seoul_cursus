@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 15:55:50 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/17 16:04:16 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/11 17:32:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_list		*ft_lstlast(t_list *lst)
 	t_list	*head;
 
 	if (!lst)
-		return (0);
+		return (NULL);
 	while (lst)
 	{
 		head = lst;
