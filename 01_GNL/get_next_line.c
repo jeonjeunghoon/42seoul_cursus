@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 21:34:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/14 23:14:36 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/15 00:01:07 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char			*nextline_in_room(char *room, char **line, int byte)
 	else if (byte == 0)
 	{
 		*line = room;
-		room = 0;
+		room = NULL;
 	}
 	return (room);
 }
@@ -76,13 +76,13 @@ int				get_next_line(int fd, char **line)
 	char		buf[BUFFER_SIZE + 1];
 	int			byte;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (!line || fd < 0 || BUFFER_SIZE <= 0)
 		return (-1);
 	while ((byte = read(fd, buf, BUFFER_SIZE)))
 	{
 		if (byte == -1)
 			return (-1);
-		buf[byte] = 0;
+		buf[byte] = '\0';
 		room[fd] = join(room[fd], buf);
 		if (ft_strchr(buf, '\n'))
 			break ;
