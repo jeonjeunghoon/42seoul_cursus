@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 13:06:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/31 12:19:48 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/14 14:44:31 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t		ft_strlen(const char *s)
 	int		res;
 
 	res = 0;
+	if (!s)
+		return (0);
 	while (((unsigned char *)s)[res])
 		res++;
 	return (res);
@@ -49,15 +51,15 @@ char		*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	i;
 
 	if (!s)
-		return (0);
+		return (NULL);
 	if (ft_strlen(s) < start)
-		return (ft_strdup(""));
+		return (NULL);
 	if (!(str = malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	else
 	{
 		i = 0;
-		while (len-- && s[start])
+		while (i < len && s[start])
 			str[i++] = s[start++];
 		str[i] = '\0';
 	}
@@ -71,7 +73,7 @@ char		*ft_strjoin(char const *s1, char const *s2)
 	int		j;
 
 	if (!s1 && !s2)
-		return (ft_strdup(""));
+		return (NULL);
 	if (!(res = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
 		return (0);
 	i = 0;

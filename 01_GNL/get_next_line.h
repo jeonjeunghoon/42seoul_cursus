@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 21:35:16 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/11/13 21:35:17 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/14 23:18:57 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __GET_NEXT_LINE_H
-# define __GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # include <unistd.h>
 # include <stdlib.h>
 # define OPEN_MAX 4096
-# define BUFFER_SIZE 10
 
 size_t		ft_strlen(const char *s);
 char		*ft_strdup(const char *s1);
