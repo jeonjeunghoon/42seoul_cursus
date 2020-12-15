@@ -6,6 +6,6 @@
 
 #define BUFFER_SIZE 1
 
-int		get_next_line(char **line);
+int		get_next_line(char **line, int fd);
 
 #endif

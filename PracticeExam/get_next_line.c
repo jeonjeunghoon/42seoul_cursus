@@ -6,19 +6,12 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 15:01:39 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/15 00:44:10 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/15 13:02:18 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "get_next_line.h"
-
-void			ft_free(void **ptr)
-{
-	if (!ptr || !*ptr)
-		return ;
-	free(*ptr);
-	*ptr = NULL;
-}
 
 int				ft_strlen(char *s)
 {
@@ -81,34 +74,46 @@ char			*ft_strjoin(char *s1, char *s2)
 	return (temp);
 }
 
-void			build_room(char **room, char *s)
+void			build_room(char **room, char *buf)
 {
 	char		*temp;
 
 	if (*room)
 	{
-		temp = ft_strjoin(*room, s);
-		ft_free((void **)room);
-		if (!temp)
-			return ;
+		temp = ft_strjoin(*room, buf);
+		free(*room);
 		*room = ft_strdup(temp);
-		ft_free((void *)&temp);
-		if (!*room)
-			return ;
+		free(temp);
 	}
 	else
-		*room = ft_strdup(s);
+		*room = ft_strdup(buf);
 }
 
-int				get_next_line(char **line)
+void			is_nextline(char **room, char **line, int byte, char c)
+{
+	if (*room && c == '\n')
+	{
+		*line = ft_strdup(*room);
+		free(*room);
+		*room = NULL;
+	}
+	else if (byte == 0)
+	{
+		*line = *room;
+		*room = NULL;
+	}
+}
+
+int				get_next_line(char **line, int fd)
 {
 	static char	*room;
 	char		buf[BUFFER_SIZE + 1];
 	int			byte;
 
-	if (!line || BUFFER_SIZE <= 0)
+	if (!line)
 		return (-1);
-	while ((byte = read(0, buf, BUFFER_SIZE)))
+	// fd = 0;
+	while ((byte = read(fd, buf, BUFFER_SIZE)))
 	{
 		if (byte == -1)
 			return (-1);
@@ -117,13 +122,13 @@ int				get_next_line(char **line)
 			break ;
 		build_room(&room, buf);
 	}
-	if (!room || byte == 0)
+	if ((buf[0] == '\n' && !room))
 	{
 		*line = ft_strdup("");
 		return (byte);
 	}
-	if (buf[0] == '\n' && room)
-		*line = ft_strdup(room);
-	ft_free((void *)&room);
+	is_nextline(&room, line, byte, buf[0]);
+	if (byte <= 0)
+		return (byte);
 	return (1);
 }
