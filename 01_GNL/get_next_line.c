@@ -6,67 +6,61 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 21:34:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/15 00:01:07 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/22 13:14:23 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char			*ft_strchr(const char *s, int c)
+void			ft_free(void **p)
 {
-	int			i;
-
-	i = 0;
-	while (s[i] != (char)c)
+	if (!p || !*p)
+		return ;
+	else
 	{
-		if (!(s[i]))
-			return (NULL);
-		i++;
+		free(*p);
+		*p = NULL;
 	}
-	return ((char *)(s + i));
 }
 
-char			*nextline_in_room(char *room, char **line, int byte)
-{
-	int			idx;
-	char		*temp;
-
-	idx = 0;
-	while (room[idx])
-	{
-		if (room[idx] == '\n')
-			break ;
-		idx++;
-	}
-	if ((size_t)idx < ft_strlen(room))
-	{
-		*line = ft_substr(room, 0, idx);
-		temp = ft_substr(room, idx + 1, ft_strlen(room));
-		free(room);
-		room = ft_strdup(temp);
-		free(temp);
-	}
-	else if (byte == 0)
-	{
-		*line = room;
-		room = NULL;
-	}
-	return (room);
-}
-
-char			*join(char *room, char *buf)
+char			*add_room(char *room, char *buf)
 {
 	char		*temp;
 
 	if (room)
 	{
 		temp = ft_strjoin(room, buf);
-		free(room);
+		ft_free((void *)&room);
 		room = ft_strdup(temp);
-		free(temp);
+		ft_free((void *)&temp);
 	}
 	else
+	{
 		room = ft_strdup(buf);
+	}
+	return (room);
+}
+
+char			*add_line(char **line, char *room)
+{
+	char		*temp;
+	int			i;
+
+	i = 0;
+	while (room[i])
+	{
+		if (room[i] == '\n')
+			break ;
+		i++;
+	}
+	if (i < ft_strlen(room))
+	{
+		*line = ft_substr(room, 0, i);
+		temp = ft_substr(room, i + 1, ft_strlen(room));
+		ft_free((void *)&room);
+		room = ft_strdup(temp);
+		ft_free((void *)&temp);
+	}
 	return (room);
 }
 
@@ -76,24 +70,30 @@ int				get_next_line(int fd, char **line)
 	char		buf[BUFFER_SIZE + 1];
 	int			byte;
 
-	if (!line || fd < 0 || BUFFER_SIZE <= 0)
+	if (!line)
 		return (-1);
-	while ((byte = read(fd, buf, BUFFER_SIZE)))
+	while ((byte = read(fd, buf, 1)))
 	{
-		if (byte == -1)
+		if (byte < 0)
 			return (-1);
 		buf[byte] = '\0';
-		room[fd] = join(room[fd], buf);
+		room[fd] = add_room(room[fd], buf);
 		if (ft_strchr(buf, '\n'))
 			break ;
 	}
-	if (byte <= 0 && !(room[fd]))
+	if (byte == 0)
 	{
-		*line = ft_strdup("");
-		return (byte);
+		if (!room[fd])
+			*line = ft_strdup("");
+		else
+			*line = ft_strdup(room[fd]);
+		ft_free((void *)&(room[fd]));
+		return (0);
 	}
-	room[fd] = nextline_in_room(room[fd], line, byte);
-	if (byte <= 0 && !(room[fd]))
-		return (byte);
-	return (1);
+	else
+	{
+		room[fd] = add_line(line, room[fd]);
+		ft_free((void *)&(room[fd]));
+		return (1);
+	}
 }

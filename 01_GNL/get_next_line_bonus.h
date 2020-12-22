@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 14:55:39 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/14 23:19:03 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2020/12/22 13:07:41 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 # include <stdlib.h>
 # define OPEN_MAX 4096
 
-size_t		ft_strlen(const char *s);
-char		*ft_strdup(const char *s1);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		*ft_strjoin(char const *s1, char const *s2);
+int			ft_strlen(char *s);
+int			ft_strchr(char *s, char c);
+char		*ft_strdup(char *s);
+char		*ft_substr(char *s, int begin, int end);
+char		*ft_strjoin(char *s1, char *s2);
 int			get_next_line(int fd, char **line);
 
 #endif
