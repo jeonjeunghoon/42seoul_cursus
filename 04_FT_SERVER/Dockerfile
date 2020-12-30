@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/30 21:36:04 by jeunjeon          #+#    #+#              #
-#    Updated: 2020/12/30 21:36:40 by jeunjeon         ###   ########.fr        #
+#    Updated: 2020/12/30 22:56:42 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,3 +31,4 @@ ADD		./srcs/config.inc.php ./tmp
 EXPOSE	80 443
 
 CMD		bash run.sh
+

@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/30 21:36:35 by jeunjeon          #+#    #+#              #
-#    Updated: 2020/12/30 21:36:38 by jeunjeon         ###   ########.fr        #
+#    Updated: 2020/12/30 22:56:33 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,3 +56,4 @@ service nginx reload
 service php7.3-fpm reload
 
 bash
+
