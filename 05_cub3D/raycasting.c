@@ -4,6 +4,8 @@
 #include <math.h>
 #include <mlx.h>
 
+
+
 # define X_EVENT_KEY_PRESS 2
 
 # define KEY_W 13
@@ -22,6 +24,15 @@
 # define FOV 10
 # define FOV_H 10 / (SX - 1)
 
+
+
+typedef struct	s_player
+{
+	double		px;
+	double		py;
+	double		th;
+}				t_player;
+
 typedef struct	s_img
 {
 	void		*img_ptr;
@@ -31,6 +42,15 @@ typedef struct	s_img
 	int			endian;
 }				t_img;
 
+typedef struct	s_game
+{
+	void		*mlx_ptr;
+	void		*win_ptr;
+	int			map[MY][MX];
+	t_img		img;
+	t_player	player;
+}				t_game;
+
 typedef struct	s_key
 {
 	int			w;
@@ -39,14 +59,7 @@ typedef struct	s_key
 	int			d;
 }				t_key;
 
-typedef struct	s_game
-{
-	void		*mlx_ptr;
-	void		*win_ptr;
-	t_img		img;
-	int			map[MY][MX];
-	t_key		key;
-}				t_game;
+
 
 void			window_init(t_game *game)
 {
@@ -58,6 +71,58 @@ void			img_init(t_game *game)
 {
 	game->img.img_ptr = mlx_new_image(game->mlx_ptr, SX, SY);
 	game->img.data = (int *)mlx_get_data_addr(game->img.img_ptr, &game->img.bpp, &game->img.size_line, &game->img.endian);
+}
+
+int				key_press(int keycode, t_key *key)
+{
+	if (keycode == KEY_W)
+		key->w++;
+	else if (keycode == KEY_A)
+		key->a++;
+	else if (keycode == KEY_S)
+		key->s++;
+	else if (keycode == KEY_D)
+		key->d++;
+	else if (keycode == KEY_ESC)
+		exit(0);
+	printf("w = %d\na = %d\ns = %d\nd = %d\n", key->w, key->a, key->s, key->d);
+	return (0);
+}
+
+void			key_init(t_game *game, t_key *key)
+{
+	key->w = 0;
+	key->a = 0;
+	key->s = 0;
+	key->d = 0;
+	mlx_hook(game->win_ptr, X_EVENT_KEY_PRESS, 0, &key_press, &key);
+}
+
+void			draw_player(t_game *game, int x, int y)
+{
+	int			col;
+	int			row;
+
+	x *= TILES;
+	y *= TILES;
+	row = 0;
+	while (row < TILES)
+	{
+		col = 0;
+		while (col < TILES)
+		{
+			if (game->map[y/60][x/60] == 'N')
+				game->img.data[(row + y) * SX + (col + x)] = 0xFF0000;
+			else if (game->map[y/60][x/60] == 'S')
+				game->img.data[(row + y) * SX + (col + x)] = 0x0000FF;
+			else if (game->map[y/60][x/60] == 'E')
+				game->img.data[(row + y) * SX + (col + x)] = 0x00FF00;
+			else
+				game->img.data[(row + y) * SX + (col + x)] = 0xFFFF00;
+			col++;
+		}
+		row++;
+	}
 }
 
 void			draw_tiles(t_game *game, int x, int y)
@@ -83,7 +148,7 @@ void			draw_tiles(t_game *game, int x, int y)
 	}
 }
 
-void			draw_map(t_game *game)
+void			draw_minimap(t_game *game)
 {
 	int			x;
 	int			y;
@@ -96,6 +161,20 @@ void			draw_map(t_game *game)
 		{
 			if (game->map[y][x] == 1)
 				draw_tiles(game, x, y);
+			else if (game->map[y][x] == 'E' || game->map[y][x] == 'W' || game->map[y][x] == 'S' || game->map[y][x] == 'N')
+			{
+				game->player.px = x;
+				game->player.py = y;
+				if (game->map[y][x] == 'W')
+					game->player.th = 0.0;
+				else if (game->map[y][x] == 'N')
+					game->player.th = 90.0;
+				else if (game->map[y][x] == 'E')
+					game->player.th = 180.0;
+				else
+					game->player.th = 270.0;
+				draw_player(game, x, y);
+			}
 			x++;
 		}
 		y++;
@@ -113,50 +192,30 @@ void			map_init(t_game *game)
 	{1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1},
 	{1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1},
 	{1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1},
-	{1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
+	{1, 1, 'N', 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	};
 
 	memcpy(game->map, src_map, sizeof(int) * MX * MY);
-	draw_map(game);
+	draw_minimap(game);
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img.img_ptr, 0, 0);
-}
-
-int				key_press(int keycode, t_game *game)
-{
-	if (keycode == KEY_W)
-		game->key.w++;
-	else if (keycode == KEY_A)
-		game->key.a++;
-	else if (keycode == KEY_S)
-		game->key.s++;
-	else if (keycode == KEY_D)
-		game->key.d++;
-	else if (keycode == KEY_ESC)
-		exit(0);
-	printf("w = %d\na = %d\ns = %d\nd = %d\n", game->key.w, game->key.a, game->key.s, game->key.d);
-	return (0);
-}
-
-void			key_init(t_game *game)
-{
-	int			(*fptr_keypress)(int, t_game *);
-
-	fptr_keypress = key_press;
-	mlx_hook(game->win_ptr, X_EVENT_KEY_PRESS, 0, fptr_keypress, &game->key);
 }
 
 int				main(int argc, char **argv)
 {
 	t_game		game;
+	t_key		key;
+	t_player	player;
 
-	// if (argc != 4)
-	// 	return (0);
+	// if (argc == 2 && argv[1] == "--save");
+		// save
+	// else if (argc != 1)
+		// return (0);
 	window_init(&game);
 	img_init(&game);
+	key_init(&game, &key);
 	map_init(&game);
-	// player_init(&game);
-	key_init(&game);
+	printf("player px py th are: %f %f %f\n", game.player.px, game.player.py, game.player.th);
 	mlx_loop(game.mlx_ptr);
 	return (0);
 }
