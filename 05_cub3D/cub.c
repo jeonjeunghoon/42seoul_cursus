@@ -13,8 +13,8 @@
 
 // Filed Of View 매크로
 # define FOV_DH 90
-# define FOV_RH deg_to_rad(90)
-# define PER_FOV_RH FOV_RH/(SW-1)
+# define FOV_H deg_to_rad(FOV_DH)
+# define PER_FOV_H (FOV_H/(SW-1))
 
 // 맵 타일 크기와 맵 크기 매크로
 # define TILES 30
@@ -33,13 +33,15 @@ void map_init(t_game *game)
 {
 	int			src[MH][MW] = {
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	{1, 0, 'N', 0, 0, 0, 0, 0, 0, 1},
+	{1, 0, 0, 0, 0, 'S', 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
 	{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	};
 
+	memcpy(game->map, src, sizeof(int) * MH * MW);
+	game->pth = -1;
 	game->py = 0;
 	while (game->py < MH)
 	{
@@ -47,36 +49,55 @@ void map_init(t_game *game)
 		while (game->px < MW)
 		{
 			if (src[game->py][game->px] == 'E')
-				game->pth = 0;
+				game->pth = deg_to_rad(0);
 			if (src[game->py][game->px] == 'W')
-				game->pth = 180;
+				game->pth = deg_to_rad(180);
 			else if (src[game->py][game->px] == 'S')
-				game->pth = 90;
+				game->pth = deg_to_rad(270);
 			else if (src[game->py][game->px] == 'N')
-				game->pth = 270;
+				game->pth = deg_to_rad(90);
+			if (game->pth >= 0)
+				return ;
 			game->px++;
 		}
 		game->py++;
-	} 
+	}
+}
+
+void draw_pixel(t_game *game, double dist)
+{
+	
 }
 
 void ft_raycasting(t_game *game)
 {
-	int x;
-	int y;
-	int ray;
-	double slope;
+	double	delta_x;
+	double	delta_y;
+	double	sight_x;
+	double	sight_y;
+	double	th;
+	int		ray;
+	double	step;
+	double	dist;
 
 	ray = 0;
-	while (ray < SX)
+	th = game->pth - (FOV_H/2);
+	while (ray < SW)
 	{
-		x = 0;
-		y = 0;
-		slope = tan(game->pth + (FOV_RH/2 - (ray * PER_FOV_RH));
-		while (x >= 0 && y >= 0)
+		sight_x = game->px * TILES;
+		sight_y = game->py * TILES;
+		delta_x = cos(th + (PER_FOV_H * ray));
+		delta_y = sin(th + (PER_FOV_H * ray));
+		step = fabs(delta_x) > fabs(delta_y) ? fabs(delta_x) : fabs(delta_y);
+		delta_x /= step;
+		delta_y /= step;
+		while (game->map[(int)floor(sight_y / TILES)][(int)floor(sight_x / TILES)] != 1)
 		{
-			y = slope(x - 
+			sight_x += delta_x;
+			sight_y += delta_y;
 		}
+		dist = sqrt(pow(sight_x - game->px * TILES, 2) + pow(sight_y - game->py * TILES, 2));
+		draw_pixel(game, dist);
 		ray++;
 	}
 }
