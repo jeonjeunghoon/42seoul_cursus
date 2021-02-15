@@ -140,12 +140,12 @@ void			ft_map(t_game *game)
 					{4, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
 					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+					{4, 0, 0, 0, 0, 0, 0, 2, 2, 2},
+					{4, 0, 0, 0, 0, 0, 0, 2, 0, 2},
+					{4, 0, 0, 0, 'E', 0, 0, 0, 0, 2},
 					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-					{4, 0, 0, 0, 0, 'E', 0, 0, 0, 2},
-					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+					{4, 0, 0, 0, 0, 0, 0, 0, 3, 2},
+					{4, 0, 0, 0, 0, 0, 0, 0, 3, 2},
 					{3, 3, 3, 3, 3, 3, 3, 3, 3, 2}
 				};
 
@@ -154,6 +154,8 @@ void			ft_map(t_game *game)
 
 void			draw_wall(t_mlx *mlx, t_game *game, t_ray *ray)
 {
+	int			sky;
+	int			land;
 	int			y_start;
 	int			y_end;
 	double		h;
@@ -165,17 +167,29 @@ void			draw_wall(t_mlx *mlx, t_game *game, t_ray *ray)
 	y_end = y_start + h - 1;
 	y_start = get_bigger(0, y_start);
 	y_end = get_lower(SH-1, y_end);
+	sky = 0;
+	while (sky < y_start)
+	{
+		mlx->img.data[sky * SW + ray->ray_cast] = 0xc7e8ed;
+		sky++;
+	}
 	while (y_start < y_end)
 	{
 		if (ray->wall == 1)
-			mlx->img.data[y_start * SW + ray->ray_cast] = 0xFF0000;
+			mlx->img.data[y_start * SW + ray->ray_cast] = 0xbf6c4b;
 		if (ray->wall == 2)
-			mlx->img.data[y_start * SW + ray->ray_cast] = 0x00FF00;
+			mlx->img.data[y_start * SW + ray->ray_cast] = 0xbf9a4b;
 		if (ray->wall == 3)
-			mlx->img.data[y_start * SW + ray->ray_cast] = 0x0000FF;
+			mlx->img.data[y_start * SW + ray->ray_cast] = 0xb9bf4b;
 		if (ray->wall == 4)
-			mlx->img.data[y_start * SW + ray->ray_cast] = 0xFFFFFF;
+			mlx->img.data[y_start * SW + ray->ray_cast] = 0x70bf4b;
 		y_start++;
+	}
+	land = y_end;
+	while (land < SH-1)
+	{
+		mlx->img.data[land * SW + ray->ray_cast] = 0x4a2505;
+		land++;
 	}
 }
 
@@ -236,8 +250,11 @@ int				main(void)
 		ft_racasting(&mlx, &game, &ray);
 		if (ray.wall != 0)
 			draw_wall(&mlx, &game, &ray);
-		// else
-		// 	return (0);
+		else
+		{
+			printf("ERROR: MAP\n");
+			return (0);
+		}
 		ray.ray_cast++;
 	}
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.img.img_ptr, 0, 0);
