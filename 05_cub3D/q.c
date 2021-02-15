@@ -12,20 +12,18 @@
 # define KEY_D 2
 # define KEY_ESC 53
 
-# define SW 720
-# define SH 480
+# define SW 1080
+# define SH 600
 
 # define TILE 30
-# define MW 6
-# define MH 6
+# define MW 10
+# define MH 10
 
-# define FOV_DW 90
+# define FOV_W_DEG 90
 
 typedef	struct	s_img
 {
 	void		*img_ptr;
-	int			width;
-	int			height;
 	int			*data;
 	int			bpp;
 	int			size_line;
@@ -36,14 +34,20 @@ typedef	struct	s_mlx
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
+	t_img		img;
 }				t_mlx;
+
+typedef	struct	s_player
+{
+	int			px;
+	int			py;
+	double		pth;
+}				t_player;
 
 typedef	struct	s_game
 {
 	int			map[MH][MW];
-	int			px;
-	int			py;
-	double		pth;
+	t_player	player;
 	double		fov_w;
 	double		per_fov_w;
 	double		fov_h;
@@ -52,12 +56,15 @@ typedef	struct	s_game
 
 typedef	struct	s_ray
 {
-	double		ray_x;
-	double		ray_y;
+	int			ray_cast;
+	double		ray_th;
+	double		x;
+	double		y;
 	double		dist;
+	int			wall;
 }				t_ray;
 
-double			ft_deg_to_rad(double deg)
+double			deg_to_rad(double deg)
 {
 	double		rad;
 
@@ -65,19 +72,41 @@ double			ft_deg_to_rad(double deg)
 	return (rad);
 }
 
-void			ft_player_data(t_game *game, int my, int mx)
+double			rad_to_deg(double rad)
 {
-	game->px = mx;
-	game->py = my;
+	double		deg;
+
+	deg = rad * (180/M_PI);
+	return (deg);
+}
+
+double			get_lower(double x, double y)
+{
+	if (x < y)
+		return (x);
+	return (y);
+}
+
+double			get_bigger(double x, double y)
+{
+	if (x > y)
+		return (x);
+	return (y);
+}
+
+void			get_player_data(t_game *game, int my, int mx)
+{
+	game->player.px = mx;
+	game->player.py = my;
 	if (game->map[my][mx] == 'E')
-		game->pth = ft_deg_to_rad(0);
+		game->player.pth = deg_to_rad(0);
 	else if (game->map[my][mx] == 'N')
-		game->pth = ft_deg_to_rad(90);
+		game->player.pth = deg_to_rad(90);
 	else if (game->map[my][mx] == 'W')
-		game->pth = ft_deg_to_rad(180);
+		game->player.pth = deg_to_rad(180);
 	else
-		game->pth = ft_deg_to_rad(270);
-	game->fov_w = ft_deg_to_rad(FOV_DW);
+		game->player.pth = deg_to_rad(270);
+	game->fov_w = deg_to_rad(FOV_W_DEG);
 	game->per_fov_w = game->fov_w/(SW-1);
 	game->fov_h = (game->fov_w * SH)/SW;
 	game->per_fov_h = game->fov_h/(SH-1);
@@ -94,9 +123,9 @@ void			ft_player(t_game *game)
 		mx = 0;
 		while (mx < MW)
 		{
-			if (game->map[my][mx] >= 65 && game->map[my][mx] <= 90)
+			if (game->map[my][mx] >= 'E' && game->map[my][mx] <= 'W')
 			{
-				ft_player_data(game, my, mx);
+				get_player_data(game, my, mx);
 				return ;
 			}
 			mx++;
@@ -108,82 +137,80 @@ void			ft_player(t_game *game)
 void			ft_map(t_game *game)
 {
 	int			src[MH][MW] = {
-					{1, 1, 1, 1, 1, 1},
-					{1, 'N', 0, 0, 0, 1},
-					{1, 0, 0, 0, 0, 1},
-					{1, 0, 0, 0, 0, 1},
-					{1, 0, 0, 0, 0, 1},
-					{1, 1, 1, 1, 1, 1}
+					{4, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+					{4, 0, 0, 0, 0, 0, 0, 'W', 0, 2},
+					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+					{3, 3, 3, 3, 3, 3, 3, 3, 3, 2}
 				};
 
 	memcpy(game->map, src, sizeof(int) * MH * MW);
 }
 
-void			draw_wall(t_game *game, t_ray *ray, t_img *img, int cast_ray)
+void			draw_wall(t_mlx *mlx, t_game *game, t_ray *ray)
 {
-	int			x;
-	int			y;
-	int			h;
-	double		pixel_h;
+	int			y_start;
+	int			y_end;
+	double		h;
 
-	ray->dist = sqrt(pow(ray->ray_x - game->px, 2) + pow(ray->ray_y - game->py, 2));
-	pixel_h = ((atan((TILE/2)/ray->dist) * SH/2) / (game->fov_h/2) * 2);
-	h = fabs(pixel_h);
-	y = 0;
-	while (y < h)
+	ray->dist = sqrt(pow(ray->x - game->player.px * TILE, 2) + pow(ray->y - game->player.py * TILE, 2));
+	h = ((atan((TILE/2)/ray->dist) * SH/2) / (game->fov_h/2)) * 2;
+	y_start = (int)((SH - h)/2.0);
+	y_end = y_start + h - 1;
+	y_start = get_bigger(0, y_start);
+	y_end = get_lower(SH-1, y_end);
+	while (y_start < y_end)
 	{
-		x = 0;
-		while (x < SW)
-		{
-			img->data[((SH-h + y) * SW + x] = 0xFF0000;
-			x++;
-		}
-		y++;
+		if (ray->wall == 1)
+			mlx->img.data[y_start * SW + ray->ray_cast] = 0xFF0000;
+		if (ray->wall == 2)
+			mlx->img.data[y_start * SW + ray->ray_cast] = 0x00FF00;
+		if (ray->wall == 3)
+			mlx->img.data[y_start * SW + ray->ray_cast] = 0x0000FF;
+		if (ray->wall == 4)
+			mlx->img.data[y_start * SW + ray->ray_cast] = 0xFFFFFF;
+		y_start++;
 	}
 }
 
-void			ft_racasting(t_game *game, t_ray *ray, t_img *img)
+void			ft_racasting(t_mlx *mlx, t_game *game, t_ray *ray)
 {
-	int			cast_ray;
-	double		ray_th;
 	double		delta_x;
 	double		delta_y;
 	double		ray_step;
 
-	cast_ray = 0;
-	ray_th = game->pth - (game->fov_w / 2);
-	while (cast_ray < SW)
+	ray->x = game->player.px * TILE;
+	ray->y = game->player.py * TILE;
+	delta_x = cos(ray->ray_th + (game->per_fov_w * ray->ray_cast));
+	delta_y = sin(ray->ray_th + (game->per_fov_w * ray->ray_cast));
+	ray_step = get_bigger(fabs(delta_x), fabs(delta_y));
+	delta_x /= ray_step;
+	delta_y /= ray_step;
+	while (game->map[(int)floor(ray->y/TILE)][(int)floor(ray->x/TILE)] != 1 && game->map[(int)floor(ray->y/TILE)][(int)floor(ray->x/TILE)] != 2 \
+		&& game->map[(int)floor(ray->y/TILE)][(int)floor(ray->x/TILE)] != 3 && game->map[(int)floor(ray->y/TILE)][(int)floor(ray->x/TILE)] != 4 \
+		&& ray->x >= 0 && ray->y >= 0)
 	{
-		ray->ray_x = game->px * TILE;
-		ray->ray_y = game->py * TILE;
-		delta_x = cos(ray_th + (game->per_fov_w * cast_ray));
-		delta_y = sin(ray_th + (game->per_fov_w * cast_ray));
-		if (fabs(delta_x) > fabs(delta_y))
-			ray_step = delta_x;
-		else
-			ray_step = delta_y;
-		delta_x /= ray_step;
-		delta_y /= ray_step;
-		while (game->map[(int)floor(ray->ray_y/TILE)][(int)floor(ray->ray_x/TILE)] != 1)
-		{
-			ray->ray_x += delta_x;
-			ray->ray_y += delta_y;
-		}
-		draw_wall(game, ray, img, cast_ray);
-		cast_ray++;
+		ray->x += delta_x;
+		ray->y += delta_y;
 	}
+	ray->wall = game->map[(int)floor(ray->y/TILE)][(int)floor(ray->x/TILE)];
 }
 
 int				ft_key(int keycode, t_game *game)
 {
 	if (keycode == KEY_W)
-		game->py += 0.1;
+		game->player.py += 0.1;
 	else if (keycode == KEY_S)
-		game->py -= 0.1;
+		game->player.py -= 0.1;
 	else if (keycode == KEY_D)
-		game->px += 0.1;
+		game->player.px += 0.1;
 	else if (keycode == KEY_A)
-		game->px -= 0.1;
+		game->player.px -= 0.1;
 	else if (keycode == KEY_ESC)
 		exit(0);
 	return (0);
@@ -192,20 +219,28 @@ int				ft_key(int keycode, t_game *game)
 int				main(void)
 {
 	t_mlx		mlx;
-	t_img		img;
 	t_game		game;
 	t_ray		ray;
 
 	mlx.mlx_ptr = mlx_init();
 	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, SW, SH, "Minecraft");
-	img.width = TILE * SW;
-	img.height = TILE * SH;
-	img.img_ptr = mlx_new_image(mlx.mlx_ptr, img.width, img.height);
-	img.data = (int *)mlx_get_data_addr(img.img_ptr, &img.bpp, &img.size_line, &img.endian);
+	mlx.img.img_ptr = mlx_new_image(mlx.mlx_ptr, SW, SH);
+	mlx.img.data = (int *)mlx_get_data_addr(mlx.img.img_ptr, &mlx.img.bpp, &mlx.img.size_line, &mlx.img.endian);
 	ft_map(&game);
 	ft_player(&game);
-	ft_racasting(&game, &ray, &img);
-	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
+	ray.ray_cast = 0;
+	ray.ray_th = game.player.pth - (game.fov_w / 2);
+	while (ray.ray_cast < SW)
+	{
+		ft_racasting(&mlx, &game, &ray);
+		if (ray.wall != 0)
+			draw_wall(&mlx, &game, &ray);
+		// else
+		// 	return (0);
+		ray.ray_cast++;
+	}
+	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.img.img_ptr, 0, 0);
 	mlx_hook(mlx.win_ptr, X_EVENT_KEY_PRESS, 0, &ft_key, &game);
 	mlx_loop(mlx.mlx_ptr);
+	return (0);
 }
