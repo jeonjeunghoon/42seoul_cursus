@@ -141,8 +141,8 @@ void			ft_map(t_game *game)
 					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
 					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
 					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
+					{4, 0, 0, 0, 0, 'E', 0, 0, 0, 2},
 					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
-					{4, 0, 0, 0, 0, 0, 0, 'W', 0, 2},
 					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
 					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
 					{4, 0, 0, 0, 0, 0, 0, 0, 0, 2},
@@ -159,6 +159,7 @@ void			draw_wall(t_mlx *mlx, t_game *game, t_ray *ray)
 	double		h;
 
 	ray->dist = sqrt(pow(ray->x - game->player.px * TILE, 2) + pow(ray->y - game->player.py * TILE, 2));
+	ray->dist *= cos(game->player.pth - (ray->ray_th + (game->per_fov_w * ray->ray_cast)));
 	h = ((atan((TILE/2)/ray->dist) * SH/2) / (game->fov_h/2)) * 2;
 	y_start = (int)((SH - h)/2.0);
 	y_end = y_start + h - 1;
