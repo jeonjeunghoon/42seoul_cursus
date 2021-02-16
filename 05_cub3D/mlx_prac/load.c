@@ -26,8 +26,10 @@ int main(void)
 	t_param param;
 
 	mlx = mlx_init();
-	win = mlx_new_window(mlx, 100, 100, "HI");
-	img = mlx_xpm_file_to_image(mlx, "./textures/wall_s.xpm", &width, &height);
+	win = mlx_new_window(mlx, 1000, 600, "HI");
+	img = mlx_xpm_file_to_image(mlx, "./textures/wood256256.xpm", &width, &height);
+	width -= 300;
+	height -= 300;
 	mlx_put_image_to_window(mlx, win, img, 0, 0);
 	mlx_hook(win, X_EVENT_KEYPRESS, 0, &press, &param);
 	mlx_loop(mlx);
