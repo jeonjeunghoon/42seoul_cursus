@@ -61,7 +61,7 @@ int				ft_press(int keycode, t_cub *cub)
 		ft_rotate(keycode, cub);
 	if (keycode == KEY_ESC)
 		exit(0);
-	printf("p_x: %f p_y: %f p_th: %f\n", cub->p_x, cub->p_y, cub->p_th);
+	// printf("p_x: %f p_y: %f p_th: %f\n", cub->p_x, cub->p_y, cub->p_th);
 	return (0);
 }
 

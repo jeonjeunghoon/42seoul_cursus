@@ -61,10 +61,18 @@ typedef	struct	s_cub
 	double		half_fov_w;
 	double		per_fov_w;
 	double		fov_h;
+
 	int			ray_cast;
 	double		ray_th;
 	double		ray_x;
 	double		ray_y;
+
+	double		delta_x;
+	double		delta_y;
+	double		dir_e;
+	double		dir_w;
+	double		dir_s;
+	double		dir_n;
 	double		dist;
 	int			object;
 }				t_cub;
