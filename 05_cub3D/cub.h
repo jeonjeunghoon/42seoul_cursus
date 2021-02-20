@@ -69,13 +69,18 @@ typedef	struct	s_cub
 
 	double		delta_x;
 	double		delta_y;
-	double		dir_e;
-	double		dir_w;
-	double		dir_s;
-	double		dir_n;
+	double		w_dir;
 	double		dist;
 	int			object;
 }				t_cub;
+
+enum
+{
+	DIR_E = 0,
+	DIR_N,
+	DIR_W,
+	DIR_S
+};
 
 /* utility func */
 double			deg_to_rad(double deg);
@@ -94,7 +99,7 @@ int				ft_raycasting(t_cub *cub);
 
 /* key func */
 void			ft_move(int keycode, t_cub *cub);
-void			ft_rotate(int keycode, t_cub *cub);
+void			ft_rotate(t_cub *cub, double th);
 int				ft_press(int keycode, t_cub *cub);
 int				ft_release(int keycode, t_cub *cub);
 int				ft_exit(int keycode, t_cub *cub);

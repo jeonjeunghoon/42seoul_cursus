@@ -24,32 +24,13 @@ void			ft_move(int keycode, t_cub *cub)
 	}
 }
 
-void			ft_rotate(int keycode, t_cub *cub)
+void			ft_rotate(t_cub *cub, double th)
 {
-	if (keycode == KEY_RIGHT)
-	{
-		if (cub->p_th < deg_to_rad(360))
-		{
-			cub->p_th += deg_to_rad(ROTATE_SPEED);
-		}
-		else
-		{
-			cub->p_th = 0;
-			cub->p_th += deg_to_rad(ROTATE_SPEED);
-		}
-	}
-	else if (keycode == KEY_LEFT)
-	{
-		if (cub->p_th > deg_to_rad(0))
-		{
-			cub->p_th -= deg_to_rad(ROTATE_SPEED);
-		}
-		else
-		{
-			cub->p_th = deg_to_rad(360);
-			cub->p_th -= deg_to_rad(ROTATE_SPEED);
-		}
-	}
+	cub->p_th += deg_to_rad(th);
+	if (cub->p_th < 0)
+		cub->p_th += deg_to_rad(360);
+	else if (cub->p_th > deg_to_rad(360))
+		cub->p_th -= deg_to_rad(360);
 }
 
 int				ft_press(int keycode, t_cub *cub)
@@ -57,11 +38,15 @@ int				ft_press(int keycode, t_cub *cub)
 	if (keycode == KEY_W || keycode == KEY_S || \
 		keycode == KEY_A || keycode == KEY_D)
 		ft_move(keycode, cub);
-	if (keycode == KEY_RIGHT || keycode == KEY_LEFT)
-		ft_rotate(keycode, cub);
-	if (keycode == KEY_ESC)
+	if (keycode == KEY_LEFT || keycode == KEY_RIGHT)
+	{
+		if (keycode == KEY_LEFT)
+			ft_rotate(cub, ROTATE_SPEED * -1);
+		else
+			ft_rotate(cub, ROTATE_SPEED);
+	}
+	if (keycode == KEY_ESC || keycode < 0)
 		exit(0);
-	// printf("p_x: %f p_y: %f p_th: %f\n", cub->p_x, cub->p_y, cub->p_th);
 	return (0);
 }
 

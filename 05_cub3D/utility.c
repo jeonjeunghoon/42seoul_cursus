@@ -29,3 +29,14 @@ double			get_bigger(double x, double y)
 		return (x);
 	return (y);
 }
+
+double			realnum_remainder(double realnum, double div)
+{
+	double		sub_num;
+	double		remainder;
+
+	realnum = fabs(realnum);
+	sub_num = realnum / div;
+	remainder = realnum - (sub_num * div);
+	return (remainder);
+}
