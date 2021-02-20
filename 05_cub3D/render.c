@@ -2,21 +2,30 @@
 
 void			decide_dir(t_cub *cub, int draw_start)
 {
+	int			g;
+
+	g = TILE - 1;
 	cub->w_dir = -1;
-	if ((int)cub->ray_x % TILE == 0 && (int)cub->ray_y % TILE != 0 && (int) cub->ray_y % TILE != TILE - 1)
+	if ((int)cub->ray_x % TILE == 0 && (int)cub->ray_y % TILE != 0 && \
+		(int) cub->ray_y % TILE != g)
 		cub->w_dir = DIR_E;
-	else if ((int)cub->ray_x % TILE == TILE - 1 && (int)cub->ray_y % TILE != 0 && (int) cub->ray_y % TILE != TILE - 1)
-		cub->w_dir = DIR_W;
-	else if ((int)cub->ray_x % TILE != 0 && (int)cub->ray_y % TILE == TILE - 1 && (int) cub->ray_x % TILE != TILE - 1)
+	else if ((int)cub->ray_x % TILE != 0 && (int)cub->ray_y % TILE == g && \
+			(int) cub->ray_x % TILE != g)
 		cub->w_dir = DIR_N;
-	else if ((int)cub->ray_x % TILE != 0 && (int)cub->ray_y % TILE == 0 && (int) cub->ray_x % TILE != TILE - 1)
+	else if ((int)cub->ray_x % TILE == g && (int)cub->ray_y % TILE != 0 && \
+			(int) cub->ray_y % TILE != g)
+		cub->w_dir = DIR_W;
+	else if ((int)cub->ray_x % TILE != 0 && (int)cub->ray_y % TILE == 0 && \
+			(int) cub->ray_x % TILE != g)
 		cub->w_dir = DIR_S;
+	else
+		cub->w_dir = DIR_C;
 }
 
 void			render_wall(t_cub *cub, int draw_start, int wall_start, int wall_end)
 {
 	decide_dir(cub, draw_start);
-	if (cub->w_dir == -1)
+	if (cub->w_dir == DIR_C)
 		cub->data[draw_start * SW + cub->ray_cast] = 0xFFFFFF;
 	else if (cub->w_dir == DIR_E)
 		cub->data[draw_start * SW + cub->ray_cast] = 0x745974;
@@ -46,11 +55,11 @@ void			ft_render(t_cub *cub)
 	while (draw_start < SH - 1)
 	{
 		if (draw_start < wall_start)
-			cub->data[draw_start * SW + cub->ray_cast] = 0xD98396;
+			cub->data[draw_start * SW + cub->ray_cast] = 0xC1D7E2;
 		else if (draw_start >= wall_start && draw_start < wall_end)
 			render_wall(cub, draw_start, wall_start, wall_end);
 		else if (draw_start < SH - 1)
-			cub->data[draw_start * SW + cub->ray_cast] = 0xF2D7C6;
+			cub->data[draw_start * SW + cub->ray_cast] = 0x47302E;
 		draw_start++;
 	}
 }
@@ -92,8 +101,10 @@ int				ft_raycasting(t_cub *cub)
 			printf("ERROR: MAP\n");
 			exit(0);
 		}
-		else
+		else if (cub->object == 1)
 			ft_render(cub);
+		// else
+		// 	ft_sprite(cub);
 		cub->ray_cast++;
 	}
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);

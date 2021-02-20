@@ -79,7 +79,8 @@ enum
 	DIR_E = 0,
 	DIR_N,
 	DIR_W,
-	DIR_S
+	DIR_S,
+	DIR_C
 };
 
 /* utility func */
