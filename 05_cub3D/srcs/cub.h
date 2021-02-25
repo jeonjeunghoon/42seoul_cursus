@@ -2,7 +2,7 @@
 # define CUB_H
 
 /* header files */
-# include <mlx.h>
+# include "../opengl/mlx.h"
 # include <math.h>
 # include "../libft/libft.h"
 
@@ -21,12 +21,8 @@
 # define KEY_ESC 53
 
 /* MACRO: Window Screen size */
-# define WIN_SW 1080
-# define WIN_SH 600
-
-/* MACRO: MAP Screen size */
-# define MAP_SW 1080
-# define MAP_SH 600
+# define WIN_SW 3000
+# define WIN_SH 3000
 
 /* MACRO: Wall size, Map size */
 # define TILE 30
@@ -115,5 +111,6 @@ int				ft_key_release(int keycode, t_cub *cub);
 
 /* window management */
 int				ft_exit(void);
+void			ft_screen(t_cub *cub);
 
 #endif

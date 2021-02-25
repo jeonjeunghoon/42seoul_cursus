@@ -30,12 +30,7 @@ int				main(void)
 	t_cub		cub;
 
 	cub.mlx = mlx_init();
-	cub.win = mlx_new_window(cub.mlx, WIN_SW, WIN_SH, "Cub3D");
-	// mlx_get_screen_size(cub.mlx, &cub.sw, &cub.sh);
-	// if (MAP_SW > cub.sw || MAP_SH > cub.sh)
-	// 	cub.img = mlx_new_image(cub.mlx, cub.sw, cub.sh);
-	// else
-		cub.img = mlx_new_image(cub.mlx, MAP_SW, MAP_SH);
+	ft_screen(&cub);
 	cub.data = (int *)mlx_get_data_addr(cub.img, &cub.bpp, &cub.size_line, &cub.endian);
 	ft_map(&cub);
 	ft_player(&cub);
