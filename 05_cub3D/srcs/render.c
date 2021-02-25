@@ -1,6 +1,6 @@
 # include "cub.h"
 
-void			decide_dir(t_cub *cub, int draw_start)
+void			decide_dir(t_cub *cub)
 {
 	int			g;
 
@@ -22,19 +22,19 @@ void			decide_dir(t_cub *cub, int draw_start)
 		cub->w_dir = DIR_C;
 }
 
-void			render_wall(t_cub *cub, int draw_start, int wall_start, int wall_end)
+void			render_wall(t_cub *cub, int draw_start)
 {
-	decide_dir(cub, draw_start);
+	decide_dir(cub);
 	if (cub->w_dir == DIR_C)
-		cub->data[draw_start * SW + cub->ray_cast] = 0xFFFFFF;
+		cub->data[draw_start * MAP_SW + cub->ray_cast] = 0xFFFFFF;
 	else if (cub->w_dir == DIR_E)
-		cub->data[draw_start * SW + cub->ray_cast] = 0x745974;
+		cub->data[draw_start * MAP_SW + cub->ray_cast] = 0x745974;
 	else if (cub->w_dir == DIR_N)
-		cub->data[draw_start * SW + cub->ray_cast] = 0x9996A5;
+		cub->data[draw_start * MAP_SW + cub->ray_cast] = 0x9996A5;
 	else if (cub->w_dir == DIR_W)
-		cub->data[draw_start * SW + cub->ray_cast] = 0xE0BBB6;
+		cub->data[draw_start * MAP_SW + cub->ray_cast] = 0xE0BBB6;
 	else if (cub->w_dir == DIR_S)
-		cub->data[draw_start * SW + cub->ray_cast] = 0xE7AB63;
+		cub->data[draw_start * MAP_SW + cub->ray_cast] = 0xE7AB63;
 }
 
 void			ft_render(t_cub *cub)
@@ -46,20 +46,20 @@ void			ft_render(t_cub *cub)
 
 	cub->dist = sqrt(pow(cub->ray_x - cub->p_x * TILE, 2) + pow(cub->ray_y - cub->p_y * TILE, 2));
 	cub->dist *= cos(cub->p_th - cub->ray_th);
-	wall_h = ((atan((TILE / 2) / cub->dist) * SH / 2) / (cub->fov_h / 2)) * 2;
-	wall_start = (int)((SH - wall_h)/2.0 - 1);
+	wall_h = ((atan((TILE / 2) / cub->dist) * MAP_SH / 2) / (cub->fov_h / 2)) * 2;
+	wall_start = (int)((MAP_SH - wall_h)/2.0 - 1);
 	wall_end = wall_start + wall_h - 1;
 	wall_start = get_bigger(0, wall_start);
-	wall_end = get_lower(SH-1, wall_end);
+	wall_end = get_lower(MAP_SH-1, wall_end);
 	draw_start = 0;
-	while (draw_start < SH - 1)
+	while (draw_start < MAP_SH - 1)
 	{
 		if (draw_start < wall_start)
-			cub->data[draw_start * SW + cub->ray_cast] = 0xC1D7E2;
+			cub->data[draw_start * MAP_SW + cub->ray_cast] = 0xC1D7E2;
 		else if (draw_start >= wall_start && draw_start < wall_end)
-			render_wall(cub, draw_start, wall_start, wall_end);
-		else if (draw_start < SH - 1)
-			cub->data[draw_start * SW + cub->ray_cast] = 0x47302E;
+			render_wall(cub, draw_start);
+		else if (draw_start < MAP_SH - 1)
+			cub->data[draw_start * MAP_SW + cub->ray_cast] = 0x47302E;
 		draw_start++;
 	}
 }
@@ -91,7 +91,7 @@ void			ft_dda(t_cub *cub)
 int				ft_raycasting(t_cub *cub)
 {
 	cub->ray_cast = 0;
-	while (cub->ray_cast < SW)
+	while (cub->ray_cast < MAP_SW)
 	{
 		cub->ray_th = cub->p_th - cub->half_fov_w + cub->per_fov_w * cub->ray_cast;
 		ft_dda(cub);

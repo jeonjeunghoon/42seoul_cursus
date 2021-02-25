@@ -12,8 +12,8 @@ void			get_player_data(t_cub *cub)
 		cub->p_th = deg_to_rad(270);
 	cub->fov_w = deg_to_rad(FOV_W_DEG);
 	cub->half_fov_w = cub->fov_w / 2.0;
-	cub->per_fov_w = cub->fov_w/(SW-1.0);
-	cub->fov_h = cub->fov_w * SH/SW;
+	cub->per_fov_w = cub->fov_w/(MAP_SW-1.0);
+	cub->fov_h = cub->fov_w * MAP_SH/MAP_SW;
 }
 
 void			ft_player(t_cub *cub)

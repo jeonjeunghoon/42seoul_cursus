@@ -4,14 +4,14 @@
 /* header files */
 # include <mlx.h>
 # include <math.h>
-# include "./libft/libft.h"
+# include "../libft/libft.h"
 
 #include <stdio.h>
 
 /* MACRO: Key */
-# define EVENT_EXIT 0
 # define EVENT_KEY_PRESS 2
 # define EVENT_KEY_RELEASE 3
+# define EVENT_EXIT 17
 # define KEY_W 13
 # define KEY_A 0
 # define KEY_S 1
@@ -20,9 +20,13 @@
 # define KEY_RIGHT 124
 # define KEY_ESC 53
 
-/* MACRO: Screen size */
-# define SW 1080
-# define SH 600
+/* MACRO: Window Screen size */
+# define WIN_SW 1080
+# define WIN_SH 600
+
+/* MACRO: MAP Screen size */
+# define MAP_SW 1080
+# define MAP_SH 600
 
 /* MACRO: Wall size, Map size */
 # define TILE 30
@@ -39,6 +43,12 @@
 /* cub param */
 typedef	struct	s_cub
 {
+	int			sw;
+	int			sh;
+
+	void		*mlx;
+	void		*win;
+
 	void		*img;
 	int			width;
 	int			height;
@@ -46,9 +56,6 @@ typedef	struct	s_cub
 	int			bpp;
 	int			size_line;
 	int			endian;
-
-	void		*mlx;
-	void		*win;
 
 	double		p_x;
 	double		p_y;
@@ -94,6 +101,8 @@ void			get_player_data(t_cub *cub);
 void			ft_player(t_cub *cub);
 
 /* render func */
+void			decide_dir(t_cub *cub);
+void			render_wall(t_cub *cub, int draw_start);
 void			ft_render(t_cub *cub);
 void			ft_dda(t_cub *cub);
 int				ft_raycasting(t_cub *cub);
@@ -101,8 +110,10 @@ int				ft_raycasting(t_cub *cub);
 /* key func */
 void			ft_move(int keycode, t_cub *cub);
 void			ft_rotate(t_cub *cub, double th);
-int				ft_press(int keycode, t_cub *cub);
-int				ft_release(int keycode, t_cub *cub);
-int				ft_exit(int keycode, t_cub *cub);
+int				ft_key_press(int keycode, t_cub *cub);
+int				ft_key_release(int keycode, t_cub *cub);
+
+/* window management */
+int				ft_exit(void);
 
 #endif

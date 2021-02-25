@@ -33,29 +33,22 @@ void			ft_rotate(t_cub *cub, double th)
 		cub->p_th -= deg_to_rad(360);
 }
 
-int				ft_press(int keycode, t_cub *cub)
+int				ft_key_press(int keycode, t_cub *cub)
 {
 	if (keycode == KEY_W || keycode == KEY_S || \
 		keycode == KEY_A || keycode == KEY_D)
 		ft_move(keycode, cub);
-	if (keycode == KEY_LEFT || keycode == KEY_RIGHT)
+	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT)
 	{
 		if (keycode == KEY_LEFT)
 			ft_rotate(cub, ROTATE_SPEED * -1);
 		else
 			ft_rotate(cub, ROTATE_SPEED);
 	}
-	if (keycode == KEY_ESC || keycode < 0)
-		exit(0);
-	return (0);
-}
-
-int				ft_release(int keycode, t_cub *cub)
-{
-	return (0);
-}
-
-int				ft_exit(int keycode, t_cub *cub)
-{
+	else if (keycode == KEY_ESC)
+	{
+		mlx_destroy_window(cub->mlx, cub->win);
+		ft_exit();
+	}
 	return (0);
 }
