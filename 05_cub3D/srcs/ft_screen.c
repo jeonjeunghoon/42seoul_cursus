@@ -1,7 +1,7 @@
 #include "../mms/mlxbeta.h"
 #include "cub.h"
 
-void	ft_screen(t_cub *cub)
+void			ft_screen(t_cub *cub)
 {
 	mlx_get_screen_size(cub->mlx, &cub->sw, &cub->sh);
 	if (cub->sw < WIN_SW || cub->sh < WIN_SH)

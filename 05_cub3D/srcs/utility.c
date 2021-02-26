@@ -30,13 +30,9 @@ double			get_bigger(double x, double y)
 	return (y);
 }
 
-double			realnum_remainder(double realnum, double div)
+int				get_cell(t_cub *cub, int x, int y)
 {
-	double		sub_num;
-	double		remainder;
-
-	realnum = fabs(realnum);
-	sub_num = realnum / div;
-	remainder = realnum - (sub_num * div);
-	return (remainder);
+	if (x >= 0 && x < MW && y >= 0 && y < MH)
+		return (cub->map[x][y]);
+	return (-1);
 }

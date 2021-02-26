@@ -1,11 +1,11 @@
 ARCH = arch -x86_64
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = #-Wall -Werror -Wextra
 MV = mv
 
 NAME = cub3d
 
-SRCS_NAME = main.c key.c utility.c render.c player.c ft_screen.c
+SRCS_NAME = main.c key.c utility.c utility2.c render.c player.c ft_screen.c
 SRCS_DIR = ./srcs
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_NAME))
 OBJS = $(SRCS:.c=.o)
@@ -23,8 +23,9 @@ $(NAME): $(OBJS)
 	$(ARCH) $(MAKE) -C $(LIB_DIR) bonus
 	$(ARCH) $(MAKE) -C $(MLX_DIR)
 	$(ARCH) $(MAKE) -C $(MLXBETA_DIR)
-	@mv $(MLXBETA_DIR)/libmlxbeta.dylib ./libmlxbeta.dylib
+	$(MV) $(MLXBETA_DIR)/libmlxbeta.dylib ./libmlxbeta.dylib
 	$(ARCH) $(CC) $(CFLAGS) -L$(LIB_DIR) -l$(LIB_NAME) -L$(MLX_DIR) -l$(MLX_NAME) -L . -l$(MLXBETA_NAME) -framework OpenGL -framework Appkit -lz $^ -o $@
+	./$(NAME)
 
 $(SRCS_DIR)/%.o : $(SRCS_DIR)/%.c
 	$(ARCH) $(CC) $(CFLAGS) -I$(MLXBETA_DIR) -I$(MLX_DIR) -I$(LIB_DIR) -c $< -o $@
