@@ -1,54 +1,58 @@
 # include "cub.h"
 
-void			ft_move(int keycode, t_cub *cub)
+void			ft_move(int keycode, t_cub *cub, double move_speed, double th)
 {
-	if (keycode == KEY_W)
+	double		dx;
+	double		dy;
+
+	if (keycode == KEY_W || keycode == KEY_S)
 	{
-		cub->p_x += MOVE_SPEED * (cos(cub->p_th));
-		cub->p_y += MOVE_SPEED * (sin(cub->p_th));
+		dx = cub->px + move_speed * (cos(cub->pth));
+		dy = cub->py + move_speed * (sin(cub->pth));
 	}
-	else if (keycode == KEY_S)
+	else if (keycode == KEY_A || keycode == KEY_D)
 	{
-		cub->p_x -= MOVE_SPEED * (cos(cub->p_th));
-		cub->p_y -= MOVE_SPEED * (sin(cub->p_th));
+		dx = cub->px + move_speed * (cos(cub->pth + deg_to_rad(th)));
+		dy = cub->py + move_speed * (sin(cub->pth + deg_to_rad(th)));
 	}
-	else if (keycode == KEY_A)
+	if (get_cell(cub, dx, dy) == 1)
 	{
-		cub->p_x += MOVE_SPEED * (cos(cub->p_th - deg_to_rad(90)));
-		cub->p_y += MOVE_SPEED * (sin(cub->p_th - deg_to_rad(90)));
+		printf("bump!\n");
+		return ;
 	}
-	else if (keycode == KEY_D)
-	{
-		cub->p_x += MOVE_SPEED * (cos(cub->p_th + deg_to_rad(90)));
-		cub->p_y += MOVE_SPEED * (sin(cub->p_th + deg_to_rad(90)));
-	}
+	cub->px = dx;
+	cub->py = dy;
 }
 
-void			ft_rotate(t_cub *cub, double th)
+void			ft_rotate(t_cub *cub, double rotate_speed)
 {
-	cub->p_th += deg_to_rad(th);
-	if (cub->p_th < 0)
-		cub->p_th += deg_to_rad(360);
-	else if (cub->p_th > deg_to_rad(360))
-		cub->p_th -= deg_to_rad(360);
+	cub->pth += rotate_speed;
+	if (cub->pth < 0)
+		cub->pth += deg_to_rad(360);
+	else if (cub->pth > deg_to_rad(360))
+		cub->pth -= deg_to_rad(360);
 }
 
 int				ft_key_press(int keycode, t_cub *cub)
 {
 	if (keycode == KEY_W || keycode == KEY_S || \
 		keycode == KEY_A || keycode == KEY_D)
-		ft_move(keycode, cub);
+	{
+		if (keycode == KEY_S)
+			ft_move(keycode, cub, MOVE_SPEED * -1, 90);
+		else if (keycode == KEY_A || keycode == KEY_W)
+			ft_move(keycode, cub, MOVE_SPEED, 90);
+		else if (keycode == KEY_D)
+			ft_move(keycode, cub, MOVE_SPEED, -90);
+	}
 	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT)
 	{
 		if (keycode == KEY_LEFT)
-			ft_rotate(cub, ROTATE_SPEED * -1);
-		else
 			ft_rotate(cub, ROTATE_SPEED);
+		else
+			ft_rotate(cub, ROTATE_SPEED * -1);
 	}
-	else if (keycode == KEY_ESC)
-	{
-		mlx_destroy_window(cub->mlx, cub->win);
-		ft_exit();
-	}
+	if (keycode == KEY_ESC)
+		ft_exit(cub);
 	return (0);
 }

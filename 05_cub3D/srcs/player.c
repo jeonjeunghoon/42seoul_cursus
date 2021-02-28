@@ -2,14 +2,14 @@
 
 void			get_player_data(t_cub *cub)
 {
-	if (cub->map[(int)cub->p_y][(int)cub->p_x] == 'E')
-		cub->p_th = deg_to_rad(0);
-	else if (cub->map[(int)cub->p_y][(int)cub->p_x] == 'N')
-		cub->p_th = deg_to_rad(90);
-	else if (cub->map[(int)cub->p_y][(int)cub->p_x] == 'W')
-		cub->p_th = deg_to_rad(180);
+	if (cub->map[(int)cub->py][(int)cub->px] == 'E')
+		cub->pth = deg_to_rad(0);
+	else if (cub->map[(int)cub->py][(int)cub->px] == 'N')
+		cub->pth = deg_to_rad(90);
+	else if (cub->map[(int)cub->py][(int)cub->px] == 'W')
+		cub->pth = deg_to_rad(180);
 	else
-		cub->p_th = deg_to_rad(270);
+		cub->pth = deg_to_rad(270);
 	cub->fov_w = deg_to_rad(FOV_W_DEG);
 	cub->half_fov_w = cub->fov_w / 2.0;
 	cub->per_fov_w = cub->fov_w/(cub->sw-1.0);
@@ -18,19 +18,19 @@ void			get_player_data(t_cub *cub)
 
 void			ft_player(t_cub *cub)
 {
-	cub->p_y = 0;
-	while (cub->p_y < MH)
+	cub->py = 0;
+	while (cub->py < MH)
 	{
-		cub->p_x = 0;
-		while (cub->p_x < MW)
+		cub->px = 0;
+		while (cub->px < MW)
 		{
-			if (cub->map[(int)cub->p_y][(int)cub->p_x] > 2)
+			if (cub->map[(int)cub->py][(int)cub->px] >= 'E')
 			{
 				get_player_data(cub);
 				return ;
 			}
-			cub->p_x++;
+			cub->px++;
 		}
-		cub->p_y++;
+		cub->py++;
 	}
 }

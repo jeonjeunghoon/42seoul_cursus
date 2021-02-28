@@ -5,7 +5,7 @@ MV = mv
 
 NAME = cub3d
 
-SRCS_NAME = main.c key.c utility.c utility2.c render.c player.c ft_screen.c
+SRCS_NAME = main.c ft_screen.c key.c utility.c utility2.c render.c player.c ft_texture.c
 SRCS_DIR = ./srcs
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_NAME))
 OBJS = $(SRCS:.c=.o)
