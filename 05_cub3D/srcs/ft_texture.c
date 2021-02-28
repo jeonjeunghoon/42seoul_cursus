@@ -3,6 +3,7 @@
 void				load_image(t_cub *cub, int *texture, char *path, t_img *img)
 {
 	img->img = mlx_xpm_file_to_image(cub->mlx, path, &img->width, &img->height);
+	printf("%d\n", img->height);
 	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_line, &img->endian);
 	for (int y = 0; y < img->height; y++)
 	{

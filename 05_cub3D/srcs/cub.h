@@ -30,8 +30,8 @@
 # define WALL_H 1.0
 
 /* MACRO: textures */
-# define TW 64
-# define TH 64
+# define TW 256
+# define TH 256
 
 /* MACRO: Player eyes*/
 # define FOV_W_DEG 60
