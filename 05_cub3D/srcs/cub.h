@@ -53,6 +53,18 @@ typedef	struct	s_img
 	int			endian;
 }				t_img;
 
+/* sprite param */
+typedef	struct	s_sprite
+{
+	double		*zbuf;
+	int			tex;
+	int			x;
+	int			y;
+	double		dist;
+	double		th;
+}				t_sprite;
+
+
 /* cub param */
 typedef	struct	s_cub
 {
@@ -107,6 +119,9 @@ typedef	struct	s_cub
 	double		wx;
 	double		wy;
 	double		dist;
+
+	/* sprite 변수 */
+	t_sprite	sprite;
 }				t_cub;
 
 enum
@@ -120,8 +135,7 @@ enum
 	DIR_E = 0,
 	DIR_N,
 	DIR_W,
-	DIR_S,
-	DIR_C
+	DIR_S
 };
 
 enum
@@ -154,7 +168,7 @@ void			decide_dir(t_cub *cub);
 void			render_wall(t_cub *cub, int draw_start);
 void			ft_render(t_cub *cub);
 int				ft_dda(t_cub *cub);
-int				ft_raycasting(t_cub *cub);
+int				ft_raycasting(t_cub *cub, t_sprite *sprite);
 
 /* key func */
 void			ft_move(int keycode, t_cub *cub, double move_speed, double th);
@@ -165,11 +179,11 @@ int				ft_key_release(int keycode, t_cub *cub);
 /* texture func */
 void			load_image(t_cub *cub, int *texture, char *path, t_img *img);
 void			load_texture(t_cub *cub);
-unsigned int	get_texture_color(t_cub *cub, int tx, int ty);
-void			wall_render(t_cub *cub, int wall_start, int wall_end, int f);
+int				get_texture_color(t_cub *cub, int tx, int ty);
+void			wall_render(t_cub *cub, int wall_start, int wall_end, int wall_h);
 
 /* sprite func */
-void			ft_sprite(t_cub *cub);
+void			ft_sprite(t_cub *cub, t_sprite *sprite);
 
 /* window management */
 int				ft_exit(t_cub *cub);

@@ -1,9 +1,8 @@
 # include "cub.h"
 
-void				load_image(t_cub *cub, int *texture, char *path, t_img *img)
+void			load_image(t_cub *cub, int *texture, char *path, t_img *img)
 {
 	img->img = mlx_xpm_file_to_image(cub->mlx, path, &img->width, &img->height);
-	printf("%d\n", img->height);
 	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_line, &img->endian);
 	for (int y = 0; y < img->height; y++)
 	{
@@ -13,48 +12,48 @@ void				load_image(t_cub *cub, int *texture, char *path, t_img *img)
 	mlx_destroy_image(cub->mlx, img->img);
 }
 
-void				load_texture(t_cub *cub)
+void			load_texture(t_cub *cub)
 {
-	t_img			img;
+	t_img		img;
 
-	load_image(cub, cub->texture[0], "textures/wall_e.xpm", &img);
-	load_image(cub, cub->texture[1], "textures/wall_n.xpm", &img);
-	load_image(cub, cub->texture[2], "textures/wall_w.xpm", &img);
-	load_image(cub, cub->texture[3], "textures/wall_s.xpm", &img);
+	load_image(cub, cub->texture[0], "textures/creeper.xpm", &img);
+	load_image(cub, cub->texture[1], "textures/yellowmonster.xpm", &img);
+	load_image(cub, cub->texture[2], "textures/zombie.xpm", &img);
+	load_image(cub, cub->texture[3], "textures/halloween.xpm", &img);
+	load_image(cub, cub->texture[4], "textures/grass.xpm", &img);
+	load_image(cub, cub->texture[5], "textures/diamond.xpm", &img);
+	load_image(cub, cub->texture[6], "textures/sprite.xpm", &img);
+	load_image(cub, cub->texture[7], "textures/wood.xpm", &img);
 }
 
-unsigned int		get_texture_color(t_cub *cub, int tx, int ty)
+int				get_texture_color(t_cub *cub, int tx, int ty)
 {
-	unsigned int	color;
+	int			color;
 
-	if (cub->w_dir == DIR_E)
-		color = cub->texture[0][ty * TW + tx];
-	else if (cub->w_dir == DIR_N)
-		color = cub->texture[1][ty * TW + tx];
-	else if (cub->w_dir == DIR_W)
-		color = cub->texture[2][ty * TW + tx];
-	else if (cub->w_dir == DIR_S)
-		color = cub->texture[3][ty * TW + tx];
+	color = cub->texture[cub->w_dir][ty * TW + tx];
 	return (color);
 }
 
-void				wall_render(t_cub *cub, int wall_start, int wall_end, int f)
+void			wall_render(t_cub *cub, int wall_start, int wall_end, int wall_h)
 {
-	double			tx_ratio;
-	unsigned int	color;
-	int 			tx;
-	int 			ty;
+	double		tx_ratio;
+	int			color;
+	int 		tx;
+	int 		ty;
 
 	if (cub->w_dir == DIR_W || cub->w_dir == DIR_E)
 		tx_ratio = cub->wy - floor(cub->wy);
 	else
 		tx_ratio = cub->wx - floor(cub->wx);
-	tx = (int)(tx_ratio * (TW / WALL_H));
-	while (wall_start <= wall_end)
+	tx = (int)(tx_ratio * TW / WALL_H);
+	int add = 0;
+	if (wall_start < 0)
+		add = wall_start * -1;
+	wall_start = get_bigger(0, wall_start);
+	for (int y = wall_start; y < wall_end; y++)
 	{
-		ty = (int)(wall_start - f) * (TH / WALL_H);
+		ty = (int)((y - wall_start + add) * TH / wall_h);
 		color = get_texture_color(cub, tx, ty);
-		cub->img.data[wall_start * cub->sw + cub->ray_cast] = color;
-		wall_start++;
+		cub->img.data[y * cub->sw + cub->ray_cast] = color;
 	}
 }

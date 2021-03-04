@@ -17,6 +17,15 @@ double			ft_dist(double s_x, double s_y, double e_x, double e_y)
 
 	dx = s_x - e_x;
     dy = s_y - e_y;
-	dist = sqrt(dx * dx + dy * dy);
+	dist = sqrt(pow(dx, 2) + pow(dy, 2));
     return (dist);
 }
+
+int				cmp_sprite(double d1, double d2)
+{
+	if (d1 > d2)
+		return (-1);
+	return (1);
+}
+
+// void			qsort()
