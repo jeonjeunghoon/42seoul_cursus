@@ -21,11 +21,43 @@ double			ft_dist(double s_x, double s_y, double e_x, double e_y)
     return (dist);
 }
 
-int				cmp_sprite(double d1, double d2)
+void			ft_swap(t_sprite *sprite, int i, int j)
 {
-	if (d1 > d2)
-		return (-1);
-	return (1);
+	t_sprite	buf;
+
+	buf = sprite[i];
+	sprite[i] = sprite[j];
+	sprite[j] = buf;
 }
 
-// void			qsort()
+int				partition(t_sprite *sprite, int start, int end)
+{
+	double		pivot_dist;
+	int			i;
+
+	pivot_dist = sprite[end].dist;
+	i = start - 1;
+	while (start < end)
+	{
+		if (pivot_dist > sprite[start].dist)
+		{
+			i++;
+			ft_swap(sprite, start, i);
+		}
+		start++;
+	}
+	ft_swap(sprite, end, i + 1);
+	return (i + 1);
+}
+
+void			qsort(t_sprite *sprite, int start, int end)
+{
+	int			pivot_i;
+
+	if (start < end)
+	{
+		pivot_i = partition(sprite, start, end);
+		qsort(sprite, start, pivot_i - 1);
+		qsort(sprite, pivot_i + 1, end);
+	}
+}

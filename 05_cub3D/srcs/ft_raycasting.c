@@ -122,7 +122,7 @@ int					ft_raycasting(t_cub *cub, t_sprite *sprite)
 		ft_render(cub);
 		cub->sprite.zbuf[cub->ray_cast] = cub->dist;
 		if (cub->cell == 2)
-			ft_sprite(cub, sprite);
+			ft_sprite(cub, cub->sprite);
 		cub->ray_cast++;
 	}
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img.img, 0, 0);
