@@ -3,10 +3,9 @@
 
 /* header files */
 # include "../opengl/mlx.h"
-# include <math.h>
 # include "../libft/libft.h"
-
-#include <stdio.h>
+# include <math.h>
+# include <stdio.h>
 
 /* MACRO: Key */
 # define EVENT_KEY_PRESS 2
@@ -43,7 +42,6 @@
 /* img param */
 typedef	struct	s_img
 {
-	// img 변수
 	void		*img;
 	int			width;
 	int			height;
@@ -62,6 +60,7 @@ typedef	struct	s_sprite
 	int			y;
 	double		dist;
 	double		th;
+	int			isin;
 }				t_sprite;
 
 
@@ -75,9 +74,6 @@ typedef	struct	s_cub
 	// mlx 변수
 	void		*mlx;
 	void		*win;
-
-	// img
-	t_img		img;
 
 	// texture 변수
 	int			**texture;
@@ -112,13 +108,16 @@ typedef	struct	s_cub
 	double		g;
 	int			hit;
 	int			hit_side;
-	double		dist_v;
-	double		dist_h;
+	double		dist_x;
+	double		dist_y;
 	int			cell;
 	int			w_dir;
 	double		wx;
 	double		wy;
 	double		dist;
+
+	/* img 변수 */
+	t_img		img;
 
 	/* sprite 변수 */
 	t_sprite	sprite;
@@ -126,8 +125,8 @@ typedef	struct	s_cub
 
 enum
 {
-	VERT,
-	HORIZ
+	HIT_X,
+	HIT_Y
 };
 
 enum
@@ -158,16 +157,17 @@ double			get_bigger(double x, double y);
 int				get_cell(t_cub *cub, int x, int y);
 int				ft_sgn(double d);
 double			ft_dist(double s_x, double s_y, double e_x, double e_y);
+void			ft_swap(t_sprite *sprite, int i, int j);
+void			ft_qsort(t_sprite *sprite, int start, int end);
 
 /* player func */
 void			get_player_data(t_cub *cub);
 void			ft_player(t_cub *cub);
 
 /* render func */
-void			decide_dir(t_cub *cub);
-void			render_wall(t_cub *cub, int draw_start);
+int				get_wall_height(t_cub *cub, double dist);
 void			ft_render(t_cub *cub);
-int				ft_dda(t_cub *cub);
+int				ft_dda(t_cub *cub, t_sprite *sprite);
 int				ft_raycasting(t_cub *cub, t_sprite *sprite);
 
 /* key func */
@@ -183,6 +183,9 @@ int				get_texture_color(t_cub *cub, int tx, int ty);
 void			wall_render(t_cub *cub, int wall_start, int wall_end, int wall_h);
 
 /* sprite func */
+static int		cmp_sprites( const void* a, const void* b );
+t_sprite		*ft_realloc(t_sprite *sp, int size);
+t_sprite		*get_visible_sprites(t_cub *cub, t_sprite *sprite, int *pcnt);
 void			ft_sprite(t_cub *cub, t_sprite *sprite);
 
 /* window management */

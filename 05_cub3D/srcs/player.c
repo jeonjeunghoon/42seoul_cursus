@@ -2,14 +2,14 @@
 
 void			get_player_data(t_cub *cub)
 {
-	if (cub->map[(int)cub->py][(int)cub->px] == 'W')
-		cub->pth = deg_to_rad(0);
-	else if (cub->map[(int)cub->py][(int)cub->px] == 'S')
+	if (cub->map[(int)cub->py][(int)cub->px] == 'E')
 		cub->pth = deg_to_rad(90);
-	else if (cub->map[(int)cub->py][(int)cub->px] == 'E')
+	else if (cub->map[(int)cub->py][(int)cub->px] == 'N')
 		cub->pth = deg_to_rad(180);
-	else
+	else if (cub->map[(int)cub->py][(int)cub->px] == 'W')
 		cub->pth = deg_to_rad(270);
+	else
+		cub->pth = deg_to_rad(0);
 	cub->fov_w = deg_to_rad(FOV_W_DEG);
 	cub->half_fov_w = cub->fov_w / 2.0;
 	cub->per_fov_w = cub->fov_w / (cub->sw - 1.0);
