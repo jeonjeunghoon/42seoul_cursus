@@ -16,14 +16,14 @@ double			rad_to_deg(double rad)
 	return (deg);
 }
 
-double			get_lower(double x, double y)
+double			get_min(double x, double y)
 {
 	if (x < y)
 		return (x);
 	return (y);
 }
 
-double			get_bigger(double x, double y)
+double			get_max(double x, double y)
 {
 	if (x > y)
 		return (x);
@@ -32,7 +32,7 @@ double			get_bigger(double x, double y)
 
 int				get_cell(t_cub *cub, int x, int y)
 {
-	if (x >= 0 && x < MW && y >= 0 && y < MH)
+	if (x >= 0 && x < MX && y >= 0 && y < MY)
 		return (cub->map[x][y]);
 	return (-1);
 }
