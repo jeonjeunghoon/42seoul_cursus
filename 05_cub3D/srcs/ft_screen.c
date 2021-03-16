@@ -3,8 +3,11 @@
 
 int				ft_exit(t_cub *cub)
 {
-	mlx_clear_window(cub->mlx, cub->win);
-	mlx_destroy_window(cub->mlx, cub->win);
+	if (cub->win)
+	{
+		mlx_clear_window(cub->mlx, cub->win);
+		mlx_destroy_window(cub->mlx, cub->win);
+	}
 	exit(0);
 	return (0);
 }

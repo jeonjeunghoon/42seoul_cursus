@@ -33,6 +33,6 @@ double			get_max(double x, double y)
 int				get_cell(t_cub *cub, int x, int y)
 {
 	if (x >= 0 && x < MX && y >= 0 && y < MY)
-		return (cub->map[x][y]);
+		return (cub->map[y][x]);
 	return (-1);
 }

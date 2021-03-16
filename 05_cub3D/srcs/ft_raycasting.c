@@ -23,11 +23,7 @@ void				ft_render(t_cub *cub)
 	y1 = y0 + wh - 1;
 	y1 = get_min(cub->sy - 1, y1);
 	int f = 0;
-	while (f < y0 && y0 > 0)
-		cub->img.data[f++ * cub->sx + cub->ray.ray_cast] = 0x000000;
 	wall_render(cub, y0, y1, wh);
-	while (y1 < cub->sy)
-		cub->img.data[y1++ * cub->sx + cub->ray.ray_cast] = 0x000000;
 }
 
 int					ft_dda(t_cub *cub)
@@ -44,23 +40,22 @@ int					ft_dda(t_cub *cub)
     double f=INFINITY, g=INFINITY;
     int hit = 0;
     int hit_side; /* either VERT or HORIZ */
-
-    while( !hit )
+	while( !hit )
     {
         int mapx, mapy;
 
-        if( xstep != 0 ) f = xslope * (nx-cub->player.x) + cub->player.y;
-        if( ystep != 0 ) g = yslope * (ny-cub->player.y) + cub->player.x;
+        if( xstep != 0 ) f = xslope * (nx - cub->player.x) + cub->player.y;
+        if( ystep != 0 ) g = yslope * (ny - cub->player.y) + cub->player.x;
 
         /* which is nearer to me - VERT(nx,f) or HORIZ(g,ny)? */
         double dist_v = ft_dist(cub->player.x, cub->player.y, nx, f);
         double dist_h = ft_dist(cub->player.x, cub->player.y, g, ny);
 
-        if( dist_v < dist_h ) { /* VERT is nearer; go along x-axis */
-            mapx = (xstep == 1) ? (int)(nx) : (int)(nx)-1 ;
-            mapy = (int) f;
-            hit_side = VERT;
-        }
+		if( dist_v < dist_h ) { /* VERT is nearer; go along x-axis */
+			mapx = (xstep == 1) ? (int)(nx) : (int)(nx)-1 ;
+			mapy = (int) f;
+			hit_side = VERT;
+		}
         else {  /* HORIZ is nearer; go along y-axis */
             mapx = (int) g;
             mapy = (ystep == 1) ? (int)(ny) : (int)(ny)-1 ;
@@ -71,19 +66,21 @@ int					ft_dda(t_cub *cub)
 
         if( cell == 1 ) {   /* hit wall? */
             if( hit_side == VERT ) {
-                cub->ray.wdir = (xstep > 0) ? DIR_W : DIR_E;
+                cub->ray.wdir = (xstep > 0) ? DIR_E : DIR_W;
                 cub->ray.wx = nx;
                 cub->ray.wy = f;
+				draw_ray(cub, xslope, nx);
             }
             else { /* HORIZ */
-                cub->ray.wdir = (ystep > 0) ? DIR_S : DIR_N;
+                cub->ray.wdir = (ystep > 0) ? DIR_N : DIR_S;
                 cub->ray.wx = g;
                 cub->ray.wy = ny;
+				draw_ray(cub, yslope, ny);
             }
             hit = 1;
             break;
         }
-
+		cub->sprite.vis[mapy][mapx] = 1;
         if( hit_side == VERT ) nx += xstep;
         else ny += ystep;
     }
@@ -95,14 +92,15 @@ int					ft_dda(t_cub *cub)
 
 int					ft_raycasting(t_cub *cub)
 {
+	ft_minimap(cub);
 	cub->ray.ray_cast = 0;
 	while (cub->ray.ray_cast < cub->sx)
 	{
 		cub->ray.ray = cub->player.th + cub->player.fovh_2 - (cub->player.per_fov_h * cub->ray.ray_cast);
 		if ((ft_dda(cub)) == 0)
 		{
-			printf("ERROR: MAP\n");
-			return (INFINITY);
+			printf("Cub3D Error: map file is not valid\n");
+			ft_exit(cub);
 		}
 		ft_render(cub);
 		cub->sprite.zbuf[cub->ray.ray_cast] = cub->ray.dist;

@@ -1,5 +1,10 @@
 # include "cub.h"
 
+void			draw_pixel(t_cub *cub, int x, int y, int color)
+{
+	cub->img.data[y * cub->sx + x] = color;
+}
+
 int				ft_sgn(double d)
 {
 	if (fabs(d) < 1e-06)

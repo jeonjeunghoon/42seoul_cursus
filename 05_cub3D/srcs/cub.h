@@ -4,6 +4,8 @@
 /* header files */
 # include "../opengl/mlx.h"
 # include "../libft/libft.h"
+# include <fcntl.h>
+# include <string.h>
 # include <math.h>
 # include <stdio.h>
 
@@ -27,6 +29,9 @@
 # define MX 24
 # define MY 24
 # define WALL_H 1.0
+
+/* minimap tile */
+# define TILE 10
 
 /* MACRO: textures */
 # define TW 256
@@ -62,7 +67,6 @@ typedef	struct	s_ray
 	double		wx;
 	double		wy;
 	double		dist;
-	int			vis[MX][MY];
 }				t_ray;
 
 
@@ -91,13 +95,13 @@ typedef	struct	s_img
 /* sprite param */
 typedef	struct	s_sprite
 {
+	int			vis[MX][MY];
 	double		*zbuf;
 	int			tex;
 	int			x;
 	int			y;
 	double		dist;
 	double		th;
-	int			isin;
 }				t_sprite;
 
 
@@ -145,7 +149,10 @@ enum
 	DIR_E = 0,
 	DIR_N,
 	DIR_W,
-	DIR_S
+	DIR_S,
+	DIR_F,
+	DIR_C,
+	DIR_SP
 };
 
 enum
@@ -170,6 +177,7 @@ int				ft_sgn(double d);
 double			ft_dist(double s_x, double s_y, double e_x, double e_y);
 // void			ft_swap(t_sprite *sprite, int i, int j);
 // void			ft_qsort(t_sprite *sprite, int start, int end);
+void			draw_pixel(t_cub *cub, int x, int y, int color);
 
 /* player func */
 void			get_player_data(t_cub *cub);
@@ -188,6 +196,12 @@ int				ft_key_press(int keycode, t_cub *cub);
 int				ft_key_release(int keycode, t_cub *cub);
 
 /* texture func */
+double			get_fov_min_dist(t_cub *cub);
+double			get_luminosity(double dist);
+int				encode_color(int r, int g, int b);
+void			decode_color(int color, int *r, int *g, int *b);
+int				fade_color(int color, double lum);
+void			check_path(t_cub *cub, char *path);
 void			load_image(t_cub *cub, int *texture, char *path);
 void			load_texture(t_cub *cub);
 int				get_texture_color(t_cub *cub, int tx, int ty);
@@ -198,6 +212,11 @@ static int		cmp_sprites( const void* a, const void* b );
 t_sprite		*ft_realloc(t_sprite *sp, int size);
 t_sprite		*get_visible_sprites(t_cub *cub, int *pcnt);
 void			ft_sprite(t_cub *cub);
+
+// maps
+void			draw_ray(t_cub *cub, int hit_side, double f, double g);
+void			draw_tile(t_cub *cub, double x, double y, int color);
+void			ft_minimap(t_cub *cub);
 
 /* window management */
 int				ft_exit(t_cub *cub);

@@ -3,9 +3,9 @@ CC = gcc
 CFLAGS = #-Wall -Werror -Wextra
 MV = mv
 
-NAME = cub3d
+NAME = cub3D
 
-SRCS_NAME = main.c ft_screen.c key.c utility.c utility2.c ft_raycasting.c player.c ft_texture.c ft_sprite.c
+SRCS_NAME = main.c ft_screen.c key.c utility.c utility2.c ft_raycasting.c player.c ft_texture.c ft_sprite.c ft_map.c
 SRCS_DIR = ./srcs
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_NAME))
 OBJS = $(SRCS:.c=.o)
