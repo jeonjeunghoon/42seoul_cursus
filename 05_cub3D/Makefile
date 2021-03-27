@@ -5,7 +5,7 @@ MV = mv
 
 NAME = cub3D
 
-SRCS_NAME = main.c ft_screen.c key.c utility.c utility2.c ft_raycasting.c player.c ft_texture.c ft_sprite.c ft_map.c
+SRCS_NAME = main.c ft_screen.c key.c utility.c utility2.c ft_raycasting.c player.c ft_texture.c ft_sprite.c ft_map.c ft_bmp.c
 SRCS_DIR = ./srcs
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_NAME))
 OBJS = $(SRCS:.c=.o)
@@ -39,6 +39,7 @@ clean :
 	$(ARCH) $(MAKE) -C $(MLX_DIR) clean
 	$(ARCH) $(MAKE) -C $(MLXBETA_DIR) clean
 	rm -rf $(OBJS)
+	rm -rf cub3d.bmp
 
 fclean :
 	$(ARCH) $(MAKE) -C $(LIB_DIR) fclean
@@ -46,6 +47,7 @@ fclean :
 	$(ARCH) $(MAKE) -C $(MLXBETA_DIR) clean
 	rm -rf libmlxbeta.dylib
 	rm -rf $(NAME) $(OBJS)
+	rm -rf cub3d.bmp
 
 re : fclean all
 

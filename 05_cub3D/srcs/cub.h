@@ -23,7 +23,7 @@
 
 /* MACRO: Window Screen size */
 # define SX 1080
-# define SY 680
+# define SY 640
 
 /* MACRO: Wall size, Map size */
 # define MX 24
@@ -43,6 +43,23 @@
 /* MACRO: Player movement */
 # define MOVE_SPEED 0.1
 # define ROTATE_SPEED 0.03
+
+/* MACRO: Bitmap */
+# define PIXEL_SIZE   3    // 픽셀 한 개의 크기 3바이트(24비트)
+# define PIXEL_ALIGN  4    // 픽셀 데이터 가로 한 줄은 4의 배수 크기로 저장됨
+
+typedef	struct	s_sprite
+{
+	int			isin;
+	int			vis[MX][MY];
+	double		*zbuf;
+	int			tex;
+	double		x;
+	double		y;
+	int			nsp;
+	double		dist;
+	double		th;
+}				t_sprite;
 
 typedef	struct	s_ray
 {
@@ -69,7 +86,6 @@ typedef	struct	s_ray
 	double		dist;
 }				t_ray;
 
-
 typedef	struct	s_player
 {
 	double		x;
@@ -80,6 +96,14 @@ typedef	struct	s_player
 	double		per_fov_h;
 	double		fov_v;
 }				t_player;
+
+typedef	struct	s_map
+{
+	int			map[MX][MY];
+	int			mapx;
+	int			mapy;
+}				t_map;
+
 
 typedef	struct	s_img
 {
@@ -92,50 +116,60 @@ typedef	struct	s_img
 	int			endian;
 }				t_img;
 
-/* sprite param */
-typedef	struct	s_sprite
+typedef	struct	s_screen
 {
-	int			vis[MX][MY];
-	double		*zbuf;
-	int			tex;
-	int			x;
-	int			y;
-	double		dist;
-	double		th;
-}				t_sprite;
+	int			sx;
+	int			sy;	
+}				t_screen;
 
+typedef	struct	s_mlx
+{
+	void		*mlx;
+	void		*win;
+}				t_mlx;
+
+typedef	struct	s_texture
+{
+	int			**texture;
+	int			buf[TH][TW];
+}				t_texture;
+
+#pragma pack(push, 1)                // 구조체를 1바이트 크기로 정렬
+typedef	struct		s_bmp
+{
+	int				save;
+	unsigned short	id1;
+	unsigned short	id2;           // BMP 파일 매직 넘버
+    unsigned int	bmp_file_size;           // 파일 크기
+    unsigned short	reserved1;      // 예약
+    unsigned short	reserved2;      // 예약
+    unsigned int	offset;
+	unsigned int	dib_size;           // 현재 구조체의 크기
+    int				width;          // 비트맵 이미지의 가로 크기
+    int				height;         // 비트맵 이미지의 세로 크기
+    unsigned short	plane;         // 사용하는 색상판의 수
+    unsigned short	bpp;       // 픽셀 하나를 표현하는 비트 수
+    unsigned int	compression;    // 압축 방식
+    unsigned int	raw_bitmap_size;      // 비트맵 이미지의 픽셀 데이터 크기
+    int				resx;  // 그림의 가로 해상도(미터당 픽셀)
+    int				resy;  // 그림의 세로 해상도(미터당 픽셀)
+    unsigned int	number_of_colors;        // 색상 테이블에서 실제 사용되는 색상 수
+    unsigned int	important_colors;
+}					t_bmp;
+#pragma pack(pop)
 
 /* cub param */
 typedef	struct	s_cub
 {
-	// 스크린 변수
-	int			sx;
-	int			sy;
-
-	// mlx 변수
-	void		*mlx;
-	void		*win;
-
-	// texture 변수
-	int			**texture;
-	int			buf[TH][TW];
-
-	// 플레이어 정보 변수
+	t_mlx		mlx;
+	t_screen	scr;
+	t_texture	tex;
 	t_player	player;
-
-	// 게임 정보 변수
-	int			map[MX][MY];
-	int			map_x;
-	int			map_y;
-
-	// DDA 변수
+	t_map		map;
 	t_ray		ray;
-
-	/* img 변수 */
 	t_img		img;
-
-	/* sprite 변수 */
-	t_sprite	sprite;
+	t_sprite	sp;
+	t_bmp		bmp;
 }				t_cub;
 
 enum
@@ -210,16 +244,21 @@ void			wall_render(t_cub *cub, int y0, int y1, int wh);
 /* sprite func */
 static int		cmp_sprites( const void* a, const void* b );
 t_sprite		*ft_realloc(t_sprite *sp, int size);
-t_sprite		*get_visible_sprites(t_cub *cub, int *pcnt);
+int				get_sprite_color(t_cub *cub, int tx, int ty);
+t_sprite		*get_visible_sprites(t_cub *cub);
 void			ft_sprite(t_cub *cub);
 
 // maps
-void			draw_ray(t_cub *cub, int hit_side, double f, double g);
+void			draw_ray(t_cub *cub, int hit_side, double slope);
 void			draw_tile(t_cub *cub, double x, double y, int color);
 void			ft_minimap(t_cub *cub);
 
 /* window management */
 int				ft_exit(t_cub *cub);
 void			ft_screen(t_cub *cub);
+
+/* bmp */
+t_bmp			get_header(t_cub *cub);
+void			ft_save(t_cub *cub);
 
 #endif

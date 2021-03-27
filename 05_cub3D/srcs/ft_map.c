@@ -1,30 +1,35 @@
 #include "cub.h"
 
-void			draw_ray(t_cub *cub, int hit_side, double slope)
-{
-	int			start;
-	int			end;
-	int			tx;
-	int			ty;
+// void			draw_ray(t_cub *cub, int hit_side, double slope)
+// {
+// 	int			t;
+// 	double		step;
 
-	if (hit_side == VERT)
-	{
-		tx = (int)cub->ray.wx * TILE;
-		ty = (int)f * TILE;
-	}
-	else
-	{
-		tx = (int)g * TILE;
-		ty = (int)cub->ray.wy * TILE;
-	}
-	start = 0;
-	end = TILE;
-	while (start < end)
-	{
-		draw_pixel(cub, tx + start, ty, 0xFF0000);
-		start++;
-	}
-}
+// 	if (hit_side == VERT)
+// 	{
+// 		t = cub->player.x;
+// 		while (t < t + TILE)
+// 		{
+// 			step = slope * t - (MY - 1 - cub->player.y);
+// 			t *= TILE;
+// 			step = (MY - 1 - step) * TILE;
+// 			draw_pixel(cub, t, step, 0xFF0000);
+// 			t++;
+// 		}
+// 	}
+// 	else
+// 	{
+// 		t = MY - 1 - cub->player.y;
+// 		while (t < t + TILE)
+// 		{
+// 			step = slope * t - cub->player.x;
+// 			t *= TILE;
+// 			step *= TILE;
+// 			draw_pixel(cub, step, t, 0xFF0000);
+// 			t++;
+// 		}
+// 	}
+// }
 
 void			draw_tile(t_cub *cub, double x, double y, int color)
 {
@@ -52,7 +57,6 @@ void			ft_minimap(t_cub *cub)
 {
 	int			x;
 	int			y;
-	int			z;
 
 	y = 0;
 	while (y < MY)
@@ -60,15 +64,15 @@ void			ft_minimap(t_cub *cub)
 		x = 0;
 		while (x < MX)
 		{
-			if (cub->map[y][x] == 1)
+			if (cub->map.map[MY - 1 - y][x] == 1)
 				draw_tile(cub, x, y, 0xFFFFFF);
-			else if (cub->map[y][x] == 2)
+			else if (cub->map.map[MY - 1 - y][x] == 2)
 				draw_tile(cub, x, y, 0x00FF00);
-			else
+			else if (cub->map.map[MY - 1 - y][x] == 0 || cub->map.map[MY - 1 - y][x] > 2)
 				draw_tile(cub, x, y, 0x000000);
 			x++;
 		}
 		y++;
 	}
-	draw_tile(cub, cub->player.x, cub->player.y, 0x0000FF);
+	draw_tile(cub, cub->player.x - 0.5, MY - cub->player.y - 0.5, 0x0000FF);
 }

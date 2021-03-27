@@ -2,18 +2,18 @@
 
 void			get_player_data(t_cub *cub)
 {
-	if (cub->map[(int)cub->player.y][(int)cub->player.x] == 'E')
+	if (cub->map.map[(int)cub->player.y][(int)cub->player.x] == 'E')
 		cub->player.th = deg_to_rad(0);
-	else if (cub->map[(int)cub->player.y][(int)cub->player.x] == 'N')
+	else if (cub->map.map[(int)cub->player.y][(int)cub->player.x] == 'N')
 		cub->player.th = deg_to_rad(90);
-	else if (cub->map[(int)cub->player.y][(int)cub->player.x] == 'W')
+	else if (cub->map.map[(int)cub->player.y][(int)cub->player.x] == 'W')
 		cub->player.th = deg_to_rad(180);
 	else
 		cub->player.th = deg_to_rad(270);
 	cub->player.fov_h = deg_to_rad(FOV);
 	cub->player.fovh_2 = cub->player.fov_h / 2.0;
-	cub->player.per_fov_h = cub->player.fov_h / (cub->sx - 1.0);
-	cub->player.fov_v = cub->player.fov_h * (double)cub->sy / (double)cub->sx;
+	cub->player.per_fov_h = cub->player.fov_h / (cub->scr.sx - 1.0);
+	cub->player.fov_v = cub->player.fov_h * (double)cub->scr.sy / (double)cub->scr.sx;
 }
 
 void			ft_player(t_cub *cub)
@@ -26,7 +26,7 @@ void			ft_player(t_cub *cub)
 		cub->player.x = 0;
 		while (cub->player.x < MX)
 		{
-			if (cub->map[(int)cub->player.y][(int)cub->player.x] > 2)
+			if (cub->map.map[(int)cub->player.y][(int)cub->player.x] > 2)
 			{
 				get_player_data(cub);
 				cub->player.x += 0.5;

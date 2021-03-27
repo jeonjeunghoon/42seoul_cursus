@@ -11,10 +11,13 @@ void			ft_map(t_cub *cub)
   					{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
   					{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
   					{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  					{1,0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,0,0,0,0,0,0,0,1},
-  					{1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-  					{1,1,1,1,1,1,1,1,1,1,0,'E',0,1,1,1,1,1,1,1,1,1,1,1},
-  					{1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
+  					{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
+  					{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
+  					{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
+  					{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  					{1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  					{1,0,0,0,0,0,0,0,0,0,0,'E',0,2,1,1,1,1,1,1,1,1,1,1},
+  					{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   					{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
   					{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
   					{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -24,13 +27,10 @@ void			ft_map(t_cub *cub)
   					{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
   					{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
   					{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  					{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  					{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  					{1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1},
   					{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 				};
 
-	ft_memcpy(cub->map, src, sizeof(int) * MX * MY);
+	ft_memcpy(cub->map.map, src, sizeof(int) * MX * MY);
 }
 
 int				main(int argc, char **argv)
@@ -39,27 +39,24 @@ int				main(int argc, char **argv)
 
 	if (argc > 3)
 		printf("Cub3D Error: wrong usage\n");
-	// else if (argc == 2)
-	// 	// --save
-	else
-	{
-		cub.mlx = mlx_init();
-		cub.texture = (int **)malloc(sizeof(int *) * 8); // free 필요
-		for (int i = 0; i < 8; i++)
-			cub.texture[i] = (int *)malloc(sizeof(int) * (TW * TH)); // free 필요
-		for (int i = 0; i < 8; i++)
-			for (int j = 0; j < TW * TH; j++)
-				cub.texture[i][j] = 0;
-		load_texture(&cub);
-		ft_screen(&cub);
-		ft_map(&cub);
-		ft_player(&cub);
-		cub.sprite.zbuf = (double *)malloc(sizeof(double) * cub.sx); // free 필요
-		cub.img.data = (int *)mlx_get_data_addr(cub.img.img, &cub.img.bpp, &cub.img.size_line, &cub.img.endian);
-		mlx_loop_hook(cub.mlx, ft_raycasting, &cub);
-		mlx_hook(cub.win, EVENT_KEY_PRESS, 0, ft_key_press, &cub);
-		mlx_hook(cub.win, EVENT_EXIT, 0, ft_exit, &cub);
-		mlx_loop(cub.mlx);
-	}
+	else if (argc == 3 && !ft_strncmp(argv[2], "--save", 6)) // 예외처리 더 해야함
+		cub.bmp.save = 1;
+	cub.mlx.mlx = mlx_init();
+	cub.tex.texture = (int **)malloc(sizeof(int *) * 8);
+	for (int i = 0; i < 8; i++)
+		cub.tex.texture[i] = (int *)malloc(sizeof(int) * (TW * TH));
+	for (int i = 0; i < 8; i++)
+		for (int j = 0; j < TW * TH; j++)
+			cub.tex.texture[i][j] = 0;
+	load_texture(&cub);
+	ft_screen(&cub);
+	ft_map(&cub);
+	ft_player(&cub);
+	cub.sp.zbuf = (double *)malloc(sizeof(double) * cub.scr.sx);
+	cub.img.data = (int *)mlx_get_data_addr(cub.img.img, &cub.img.bpp, &cub.img.size_line, &cub.img.endian);
+	mlx_loop_hook(cub.mlx.mlx, ft_raycasting, &cub);
+	mlx_hook(cub.mlx.win, EVENT_KEY_PRESS, 0, ft_key_press, &cub);
+	mlx_hook(cub.mlx.win, EVENT_EXIT, 0, ft_exit, &cub);
+	mlx_loop(cub.mlx.mlx);
 	return (0);
 }
