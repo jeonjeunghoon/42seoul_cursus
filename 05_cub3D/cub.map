@@ -1,0 +1,8 @@
+R 1080 800
+EA ./textures/creeper.xpm
+NO ./textures/yellowmonster.xpm
+WE ./textures/zombie.xpm
+SO ./textures/halloween.xpm
+S ./textures/sprite.xpm
+C 220,100,0
+F 225,30,0

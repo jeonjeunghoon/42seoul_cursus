@@ -16,10 +16,7 @@ void			ft_move(int keycode, t_cub *cub, double move_speed, double th)
 		dy = cub->player.y + move_speed * (sin(cub->player.th + deg_to_rad(th)));
 	}
 	if (get_cell(cub, dx, dy) == 1)
-	{
-		printf("bump!\n");
 		return ;
-	}
 	cub->player.x = dx;
 	cub->player.y = dy;
 }
@@ -33,7 +30,7 @@ void			ft_rotate(t_cub *cub, double rotate_speed)
 		cub->player.th -= deg_to_rad(360);
 }
 
-int				ft_key_press(int keycode, t_cub *cub)
+int				ft_key(int keycode, t_cub *cub)
 {
 	if (keycode == KEY_W || keycode == KEY_S || \
 		keycode == KEY_A || keycode == KEY_D)

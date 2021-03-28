@@ -22,5 +22,5 @@ int		ft_strncmp(const char *s1, const char *s2, size_t len)
 		s1++;
 		s2++;
 	}
-	return (0);
+	return (1);
 }

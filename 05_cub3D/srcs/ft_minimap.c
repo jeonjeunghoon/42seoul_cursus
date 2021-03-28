@@ -1,36 +1,5 @@
 #include "cub.h"
 
-// void			draw_ray(t_cub *cub, int hit_side, double slope)
-// {
-// 	int			t;
-// 	double		step;
-
-// 	if (hit_side == VERT)
-// 	{
-// 		t = cub->player.x;
-// 		while (t < t + TILE)
-// 		{
-// 			step = slope * t - (MY - 1 - cub->player.y);
-// 			t *= TILE;
-// 			step = (MY - 1 - step) * TILE;
-// 			draw_pixel(cub, t, step, 0xFF0000);
-// 			t++;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		t = MY - 1 - cub->player.y;
-// 		while (t < t + TILE)
-// 		{
-// 			step = slope * t - cub->player.x;
-// 			t *= TILE;
-// 			step *= TILE;
-// 			draw_pixel(cub, step, t, 0xFF0000);
-// 			t++;
-// 		}
-// 	}
-// }
-
 void			draw_tile(t_cub *cub, double x, double y, int color)
 {
 	int			tx;

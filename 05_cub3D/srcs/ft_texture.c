@@ -76,37 +76,6 @@ void			wall_render(t_cub *cub, int y0, int y1, int wh)
 		color = fade_color(get_texture_color(cub, tx, ty), lum);
 		draw_pixel(cub, cub->ray.ray_cast, y, color);
 	}
-
-	// floor, ceil
-	if ( y1 < SY-1 ) {
-        double EC = get_fov_min_dist(cub);
-
-        for( int y=y1+1; y<SY; y++ ) {
-            double h = (double)(SY-1-y)/SY;
-            double D = EC / (1. - 2*h);
-            double lum_f = get_luminosity(D);
-
-            double d_ratio = D / cub->ray.dist;
-        	double fx = cub->player.x + (cub->ray.wx - cub->player.x) * d_ratio; /* floor coord. */
-        	double fy = cub->player.y + (cub->ray.wy - cub->player.y) * d_ratio;
-
-        	/* floor */
-        	int tx = (int)((fx-floor(fx)) * TW); /* texture col # */
-        	int ty = (int)((fy-floor(fy)) * TH); /* texture row # */
-			cub->ray.wdir = DIR_F;
-			color = fade_color(get_texture_color(cub, tx, ty), lum_f);
-			draw_pixel(cub, cub->ray.ray_cast, y, color);
-
-        	/* ceiling */
-			if (cub->scr.sy - 1 - y < TILE * MY && cub->ray.ray_cast < TILE * MX)
-				continue ;
-        	tx = (int)((fx-floor(fx)) * TW); /* texture col # */
-        	ty = (int)((fy-floor(fy)) * TH); /* texture row # */
-			cub->ray.wdir = DIR_C;
-			color = fade_color(get_texture_color(cub, tx, ty), lum_f);
-			draw_pixel(cub, cub->ray.ray_cast, cub->scr.sy - 1 - y, color);
-		}
-    }
 }
 
 void			check_path(t_cub *cub, char *path)
@@ -127,15 +96,18 @@ void			load_image(t_cub *cub, int *texture, char *path)
 	int			y;
 
 	check_path(cub, path);
-	cub->img.img = mlx_xpm_file_to_image(cub->mlx.mlx, path, &cub->img.width, &cub->img.height);
-	cub->img.data = (int *)mlx_get_data_addr(cub->img.img, &cub->img.bpp, &cub->img.size_line, &cub->img.endian);
+	cub->img.img = mlx_xpm_file_to_image(cub->mlx.mlx, path, &cub->img.width, \
+															&cub->img.height);
+	cub->img.data = (int *)mlx_get_data_addr(cub->img.img, &cub->img.bpp, \
+									&cub->img.size_line, &cub->img.endian);
 	y = 0;
 	while (y < cub->img.height)
 	{
 		x = 0;
 		while (x < cub->img.width)
 		{
-			texture[cub->img.width * y + x] = cub->img.data[cub->img.width * y + x];
+			texture[cub->img.width * y + x] = \
+			cub->img.data[cub->img.width * y + x];
 			x++;
 		}
 		y++;
@@ -143,16 +115,36 @@ void			load_image(t_cub *cub, int *texture, char *path)
 	mlx_destroy_image(cub->mlx.mlx, cub->img.img);
 }
 
-void			load_texture(t_cub *cub)
+void			get_texture(t_cub *cub)
 {
 	t_img		img;
 
-	load_image(cub, cub->tex.texture[0], "textures/creeper.xpm");		// E
-	load_image(cub, cub->tex.texture[1], "textures/yellowmonster.xpm");	// N
-	load_image(cub, cub->tex.texture[2], "textures/zombie.xpm");		// W
-	load_image(cub, cub->tex.texture[3], "textures/halloween.xpm");		// S
-	load_image(cub, cub->tex.texture[4], "textures/fire.xpm");			// F
-	load_image(cub, cub->tex.texture[5], "textures/dirt.xpm");			// C
-	load_image(cub, cub->tex.texture[6], "textures/sprite.xpm");		// sprite
-	load_image(cub, cub->tex.texture[7], "textures/diamond.xpm");
+	load_image(cub, cub->tex.texture[0], cub->map.ea);
+	load_image(cub, cub->tex.texture[1], cub->map.no);
+	load_image(cub, cub->tex.texture[2], cub->map.we);
+	load_image(cub, cub->tex.texture[3], cub->map.so);
+	load_image(cub, cub->tex.texture[4], cub->map.s);
+}
+
+void			ft_texture(t_cub *cub)
+{
+	int			i;
+	int			j;
+
+	cub->tex.texture = (int **)malloc(sizeof(int *) * 5);
+	i = 0;
+	while (i < 5)
+		cub->tex.texture[i++] = (int *)malloc(sizeof(int) * (TW * TH));
+	i = 0;
+	while (i < 5)
+	{
+		j = 0;
+		while (j < TW * TH)
+		{
+			cub->tex.texture[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+	get_texture(cub);
 }

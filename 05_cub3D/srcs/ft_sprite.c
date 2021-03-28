@@ -61,7 +61,7 @@ void			ft_sprite(t_cub *cub)
 	double		angle;
 	double		pixel_per_angle;
 	
-	pixel_per_angle = (cub->scr.sx - 1) / cub->player.fov_h;
+	pixel_per_angle = (cub->map.r[0] - 1) / cub->player.fov_h;
 	sp = get_visible_sprites(cub);
 	qsort(sp, cub->sp.nsp, sizeof(t_sprite), cmp_sprites);
 	for (int i = 0; i < cub->sp.nsp; i++)
@@ -76,7 +76,7 @@ void			ft_sprite(t_cub *cub)
 			angle += M_PI * 2;
 		int cx = (int)((cub->player.fovh_2 - angle) * pixel_per_angle);
 		int xmin = get_max(0, cx - sph/2); /* clipping */
-		int xmax = get_min(cub->scr.sx, cx + sph/2);
+		int xmax = get_min(cub->map.r[0], cx + sph/2);
 		for (int x = xmin; x < xmax; x++)
 		{
 			if (sp[i].dist > cub->sp.zbuf[x])
@@ -85,13 +85,13 @@ void			ft_sprite(t_cub *cub)
 				continue ;
 			double txratio = (double)(x-cx)/sph + 0.5;
 			int tx = (int)(txratio * 120); /* texture col # */
-			int y0 = (int)((cub->scr.sy - sph)/2.0);
+			int y0 = (int)((cub->map.r[1] - sph)/2.0);
 			int y1 = y0 + sph;
 			int add = 0;
 			if (y0 < 0)
 				add = y0 * -1;
 			y0 = get_max(0, y0);
-			y1 = get_min(cub->scr.sy, y1);
+			y1 = get_min(cub->map.r[1], y1);
 			for( int y = y0; y < y1; y++ ) {
 				int ty = (int)((double)(y - y0 + add) * 120 / sph); /* texture row # */
 				int color = get_sprite_color(cub, tx, ty);

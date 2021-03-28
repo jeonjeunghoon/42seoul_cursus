@@ -12,8 +12,8 @@ void			get_player_data(t_cub *cub)
 		cub->player.th = deg_to_rad(270);
 	cub->player.fov_h = deg_to_rad(FOV);
 	cub->player.fovh_2 = cub->player.fov_h / 2.0;
-	cub->player.per_fov_h = cub->player.fov_h / (cub->scr.sx - 1.0);
-	cub->player.fov_v = cub->player.fov_h * (double)cub->scr.sy / (double)cub->scr.sx;
+	cub->player.per_fov_h = cub->player.fov_h / (cub->map.r[0] - 1.0);
+	cub->player.fov_v = cub->player.fov_h * (double)cub->map.r[1] / (double)cub->map.r[0];
 }
 
 void			ft_player(t_cub *cub)

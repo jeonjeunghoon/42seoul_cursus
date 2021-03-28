@@ -24,17 +24,15 @@ int				ft_exit(t_cub *cub)
 
 void			ft_screen(t_cub *cub)
 {
-	mlx_get_screen_size(cub->mlx.mlx, &cub->scr.sx, &cub->scr.sy);
-	if (cub->scr.sx < SX || cub->scr.sy < SY)
+	int			sx;
+	int			sy;
+
+	mlx_get_screen_size(cub->mlx.mlx, &sx, &sy);
+	if (cub->map.r[0] > sx || cub->map.r[1] > sy)
 	{
-		cub->mlx.win = mlx_new_window(cub->mlx.mlx, cub->scr.sx, cub->scr.sy, "cub3D");
-		cub->img.img = mlx_new_image(cub->mlx.mlx, cub->scr.sx, cub->scr.sy);
+		cub->map.r[0] = sx;
+		cub->map.r[1] = sy;
 	}
-	else
-	{
-		cub->mlx.win = mlx_new_window(cub->mlx.mlx, SX, SY, "cub3D");
-		cub->img.img = mlx_new_image(cub->mlx.mlx, SX, SY);
-		cub->scr.sx = SX;
-		cub->scr.sy = SY;
-	}
+	cub->mlx.win = mlx_new_window(cub->mlx.mlx, cub->map.r[0], cub->map.r[1], "cub3D");
+	cub->img.img = mlx_new_image(cub->mlx.mlx, cub->map.r[0], cub->map.r[1]);
 }

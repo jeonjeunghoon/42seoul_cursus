@@ -6,12 +6,13 @@ int					get_wall_height(t_cub *cub, double dist)
 	int				wall_h;
 
 	h = 2.0 * dist * tan(cub->player.fov_v/2.0);
-	wall_h = (int)(cub->scr.sy * (WALL_H / h));
+	wall_h = (int)(cub->map.r[1] * (WALL_H / h));
 	return (wall_h);
 }
 
 void				ft_render(t_cub *cub)
 {
+	int				idx;
 	int				wh;
 	int				y0;
 	int				y1;
@@ -19,10 +20,22 @@ void				ft_render(t_cub *cub)
 	cub->ray.dist = ft_dist(cub->player.x, cub->player.y, cub->ray.wx, cub->ray.wy);
 	cub->ray.dist *= cos(cub->player.th - cub->ray.ray);
 	wh = get_wall_height(cub, cub->ray.dist);
-	y0 = (int)((cub->scr.sy - wh)/2.0);
+	y0 = (int)((cub->map.r[1] - wh)/2.0);
 	y1 = y0 + wh - 1;
-	y1 = get_min(cub->scr.sy - 1, y1);
+	y1 = get_min(cub->map.r[1] - 1, y1);
+	idx = 0;
+	while (idx < y0)
+	{
+		draw_pixel(cub, cub->ray.ray_cast, idx, encode_color(cub->map.c[0], cub->map.c[1], cub->map.c[2]));
+		idx++;
+	}
 	wall_render(cub, y0, y1, wh);
+	idx = y1;
+	while (idx < cub->map.r[1] - 1)
+	{
+		draw_pixel(cub, cub->ray.ray_cast, idx, encode_color(cub->map.f[0], cub->map.f[1], cub->map.f[2]));
+		idx++;
+	}
 }
 
 int					ft_dda(t_cub *cub)
@@ -87,9 +100,8 @@ int					ft_dda(t_cub *cub)
 
 int					ft_raycasting(t_cub *cub)
 {
-	ft_minimap(cub);
 	cub->ray.ray_cast = 0;
-	while (cub->ray.ray_cast < cub->scr.sx)
+	while (cub->ray.ray_cast < cub->map.r[0])
 	{
 		cub->ray.ray = cub->player.th + cub->player.fovh_2 - (cub->player.per_fov_h * cub->ray.ray_cast);
 		if ((ft_dda(cub)) == 0)
@@ -101,8 +113,9 @@ int					ft_raycasting(t_cub *cub)
 		cub->sp.zbuf[cub->ray.ray_cast] = cub->ray.dist;
 		cub->ray.ray_cast++;
 	}
+	ft_minimap(cub);
 	ft_sprite(cub);
-	if (cub->bmp.save == 1)
+	if (cub->save == 1)
 		ft_save(cub);
 	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub->img.img, 0, 0);
 	return (1);
