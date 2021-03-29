@@ -11,7 +11,7 @@ int				ft_exit(t_cub *cub)
 		mlx_destroy_window(cub->mlx.mlx, cub->mlx.win);
 	}
 	i = 0;
-	while (i < 8)
+	while (i < 5)
 	{
 		free(cub->tex.texture[i]);
 		i++;

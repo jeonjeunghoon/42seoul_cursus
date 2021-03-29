@@ -5,8 +5,6 @@
 # include "../opengl/mlx.h"
 # include "../libft/libft.h"
 # include "get_next_line.h"
-# include <unistd.h>
-# include <stdlib.h>
 # include <fcntl.h>
 # include <string.h>
 # include <math.h>
@@ -136,6 +134,9 @@ typedef	struct		s_map
 	char			*s;
 	int				c[3];
 	int				f[3];
+	int				mx;
+	int				my;
+	int				*map_data;
 	int				map[MX][MY];
 	int				mapx;
 	int				mapy;
@@ -171,18 +172,6 @@ typedef	struct		s_cub
 	int				save;
 }					t_cub;
 
-/* utility func */
-double				deg_to_rad(double deg);
-double				rad_to_deg(double rad);
-double				get_min(double x, double y);
-double				get_max(double x, double y);
-int					get_cell(t_cub *cub, int x, int y);
-int					ft_sgn(double d);
-double				ft_dist(double s_x, double s_y, double e_x, double e_y);
-// void				ft_swap(t_sprite *sprite, int i, int j);
-// void				ft_qsort(t_sprite *sprite, int start, int end);
-void				draw_pixel(t_cub *cub, int x, int y, int color);
-
 /* player func */
 void				get_player_data(t_cub *cub);
 void				ft_player(t_cub *cub);
@@ -211,13 +200,6 @@ void				ft_texture(t_cub *cub);
 int					get_texture_color(t_cub *cub, int tx, int ty);
 void				wall_render(t_cub *cub, int y0, int y1, int wh);
 
-/* sprite func */
-static int			cmp_sprites( const void* a, const void* b );
-t_sprite			*ft_realloc(t_sprite *sp, int size);
-int					get_sprite_color(t_cub *cub, int tx, int ty);
-t_sprite			*get_visible_sprites(t_cub *cub);
-void				ft_sprite(t_cub *cub);
-
 // maps
 void				draw_tile(t_cub *cub, double x, double y, int color);
 void				ft_minimap(t_cub *cub);
@@ -226,14 +208,35 @@ void				ft_minimap(t_cub *cub);
 int					ft_exit(t_cub *cub);
 void				ft_screen(t_cub *cub);
 
+/* sprite func */
+static int			cmp_sprites( const void* a, const void* b );
+int					get_sprite_color(t_cub *cub, int tx, int ty);
+t_sprite			*get_visible_sprites(t_cub *cub);
+void				ft_sprite(t_cub *cub);
+
 /* bmp */
 void				write_bmp_header(t_cub *cub, int fd);
 void				ft_save(t_cub *cub);
 
 /* parsing */
-int					is_space(char c);
-int					except_space(int fd, char *buf);
-void				get_mapfile(t_cub *cub);
+void				get_route(t_cub *cub, int idx, int jdx);
+void				get_numdata(t_cub *cub, int idx, int jdx, int loop);
+void				get_data(t_cub *cub, int idx, int jdx);
 void				ft_parsing(t_cub *cub);
+
+/* utility func */
+double				deg_to_rad(double deg);
+double				rad_to_deg(double rad);
+double				get_min(double x, double y);
+double				get_max(double x, double y);
+int					get_cell(t_cub *cub, int x, int y);
+int					ft_sgn(double d);
+double				ft_dist(double s_x, double s_y, double e_x, double e_y);
+// void				ft_swap(t_sprite *sprite, int i, int j);
+// void				ft_qsort(t_sprite *sprite, int start, int end);
+void				draw_pixel(t_cub *cub, int x, int y, int color);
+int					is_space(char c);
+int					except_space(t_cub *cub, int idx);
+void				*ft_realloc(void *ptr, int type, int size);
 
 #endif

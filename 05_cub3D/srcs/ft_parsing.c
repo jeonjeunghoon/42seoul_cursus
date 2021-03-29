@@ -1,11 +1,11 @@
 #include "cub.h"
 
-void				get_route(t_cub *cub, int idx)
+void				get_route(t_cub *cub, int idx, int jdx)
 {
 	int				s;
 	int				end;
 
-	end = 2;
+	end = jdx + 2;
 	while (cub->map.data[idx][end] == ' ' || cub->map.data[idx][end] == '\t' \
 	|| cub->map.data[idx][end] == '\r' || cub->map.data[idx][end] == '\v' || \
 	cub->map.data[idx][end] == '\f')
@@ -13,28 +13,29 @@ void				get_route(t_cub *cub, int idx)
 	s = end;
 	while (cub->map.data[idx][end] >= 33 && cub->map.data[idx][end] <= 126)
 		end++;
-	if (cub->map.data[idx][0] == 'E')
+	if (cub->map.data[idx][jdx] == 'E')
 		cub->map.ea = ft_substr(cub->map.data[idx], s, end);
-	else if (cub->map.data[idx][0] == 'N')
+	else if (cub->map.data[idx][jdx] == 'N')
 		cub->map.no = ft_substr(cub->map.data[idx], s, end);
-	else if (cub->map.data[idx][0] == 'W')
+	else if (cub->map.data[idx][jdx] == 'W')
 		cub->map.we = ft_substr(cub->map.data[idx], s, end);
-	else if (cub->map.data[idx][0] == 'S' && \
+	else if (cub->map.data[idx][jdx] == 'S' && \
 	cub->map.data[idx][1] == 'O')
 		cub->map.so = ft_substr(cub->map.data[idx], s, end);
-	else if (cub->map.data[idx][0] == 'S' && \
+	else if (cub->map.data[idx][jdx] == 'S' && \
 	cub->map.data[idx][1] != 'O')
 		cub->map.s = ft_substr(cub->map.data[idx], s, end);
 }
 
-void				get_numdata(t_cub *cub, int idx, int loop)
+void				get_numdata(t_cub *cub, int idx, int jdx, int loop)
 {
+	char			*ptr;
 	int				x;
 	int				start;
 	int				end;
 
 	x = 0;
-	end = 0;
+	end = jdx;
 	while (x < loop)
 	{
 		while (!(cub->map.data[idx][end] >= '0' && \
@@ -44,31 +45,27 @@ void				get_numdata(t_cub *cub, int idx, int loop)
 		while (cub->map.data[idx][end] >= '0' && \
 				cub->map.data[idx][end] <= '9')
 			end++;
-		if (cub->map.data[idx][0] == 'R')
-			cub->map.r[x] = ft_atoi(ft_substr(cub->map.data[idx], start, end));
-		else if (cub->map.data[idx][0] == 'C')
-			cub->map.c[x] = ft_atoi(ft_substr(cub->map.data[idx], start, end));
-		else if (cub->map.data[idx][0] == 'F')
-			cub->map.f[x] = ft_atoi(ft_substr(cub->map.data[idx], start, end));
+		ptr = ft_substr(cub->map.data[idx], start, end);
+		if (cub->map.data[idx][jdx] == 'R')
+			cub->map.r[x] = ft_atoi(ptr);
+		else if (cub->map.data[idx][jdx] == 'C')
+			cub->map.c[x] = ft_atoi(ptr);
+		else if (cub->map.data[idx][jdx] == 'F')
+			cub->map.f[x] = ft_atoi(ptr);
+		ft_free((void *)&ptr);
 		x++;
 	}
 }
 
-void				get_data(t_cub *cub)
+void				get_data(t_cub *cub, int idx, int jdx)
 {
-	int				idx;
-
-	idx = 0;
-	while (idx < 8)
-	{
-		if (cub->map.data[idx][0] == 'R')
-			get_numdata(cub, idx, 2);
-		if (cub->map.data[idx][0] == 'C' || cub->map.data[idx][0] == 'F')
-			get_numdata(cub, idx, 3);
-		else
-			get_route(cub, idx);
-		idx++;
-	}
+	if (cub->map.data[idx][jdx] == 'R')
+		get_numdata(cub, idx, jdx, 2);
+	else if (cub->map.data[idx][jdx] == 'C' || cub->map.data[idx][jdx] == 'F')
+		get_numdata(cub, idx, jdx, 3);
+	else
+		get_route(cub, idx, jdx);
+	ft_free((void *)&cub->map.data[idx]);
 }
 
 void				ft_parsing(t_cub *cub)
@@ -100,24 +97,34 @@ void				ft_parsing(t_cub *cub)
   					{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 					};
 
-	char			buf[2];
+	char			*head;
 	int				idx;
+	int				jdx;
+	int				kdx;
 	int				fd;
 
-	cub->map.data = (char **)malloc(sizeof(char *) * 9);
+	cub->map.data = (char **)malloc(sizeof(char *) * 10);
+	cub->map.mx = 0;
+	cub->map.my = 0;
 	fd = open("cub.map", O_RDONLY);
 	idx = 0;
-	while (idx < 8)
+	kdx = 1;
+	while (get_next_line(fd, &cub->map.data[idx]))
 	{
-		get_next_line(fd, &cub->map.data[idx]);
-		idx++;
+		jdx = except_space(cub, idx);
+		if (idx < 8 && jdx != -1)
+		{
+			get_data(cub, idx, jdx);
+			idx++;
+		}
+		// if (idx == 8 && jdx != -1)
+		// {
+		// 	ft_realloc()
+		// 	cub->map.my++;
+		// }
 	}
-	get_data(cub);
-	printf("R: %d %d\n", cub->map.r[0], cub->map.r[1]);
-	printf("C: %d,%d,%d\n", cub->map.c[0], cub->map.c[1], cub->map.c[2]);
-	printf("F: %d,%d,%d\n", cub->map.f[0], cub->map.f[1], cub->map.f[2]);
-	printf("%s %s %s %s\n", cub->map.ea, cub->map.no, cub->map.we, cub->map.so);
-	printf("%s\n", cub->map.s);
+	free(cub->map.data);
+	cub->map.data = NULL;
 	close(fd);
 	ft_memcpy(cub->map.map, src, sizeof(int) * MX * MY);
 }

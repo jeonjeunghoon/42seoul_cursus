@@ -5,17 +5,6 @@ static int		cmp_sprites( const void* a, const void* b )
     return (((const t_sprite*)a)->dist > ((const t_sprite*)b)->dist) ? -1 : 1;
 }
 
-t_sprite		*ft_realloc(t_sprite *sp, int size)
-{
-	if (sp)
-	{
-		free(sp);
-		sp = malloc(sizeof(t_sprite) * size);
-		return (sp);
-	}
-	return (0);
-}
-
 int				get_sprite_color(t_cub *cub, int tx, int ty)
 {
 	int			color;
@@ -38,7 +27,7 @@ t_sprite		*get_visible_sprites(t_cub *cub)
 			if (n == 0)
 				sp = (t_sprite *)malloc(sizeof(t_sprite));
 			else
-				sp = (t_sprite *)ft_realloc(sp, n + 1);
+				sp = (t_sprite *)ft_realloc(sp, sizeof(t_sprite), n + 1);
 			sp[n].tex = DIR_SP;
         	sp[n].x = x + 0.5;
         	sp[n].y = y + 0.5;

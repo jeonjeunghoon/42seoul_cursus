@@ -17,6 +17,7 @@
 # define OPEN_MAX 4096
 # define BUFFER_SIZE 1
 
+void		ft_free(void **p);
 int			get_next_line(int fd, char **line);
 
 #endif
