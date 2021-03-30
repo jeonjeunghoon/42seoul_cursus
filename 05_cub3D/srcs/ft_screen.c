@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_screen.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/30 18:13:42 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/03/30 20:49:20 by jeunjeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../mms/mlxbeta.h"
 #include "cub.h"
 
@@ -12,12 +24,20 @@ int				ft_exit(t_cub *cub)
 	}
 	i = 0;
 	while (i < 5)
-	{
-		ft_free((void *)&cub->tex.texture[i]);
-		i++;
-	}
+		ft_free((void *)&cub->tex.texture[i++]);
 	free(cub->tex.texture);
 	ft_free((void *)&cub->sp.zbuf);
+	i = 0;
+	while (i < cub->map.my)
+	{
+		ft_free((void *)&cub->sp.vis[i]);
+		ft_free((void *)&cub->map.map[i]);
+		i++;
+	}
+	free(cub->sp.vis);
+	free(cub->map.map);
+	for (;;)
+	;
 	exit(0);
 	return (0);
 }

@@ -20,14 +20,14 @@ t_sprite		*get_visible_sprites(t_cub *cub)
 
 	n = 0;
 	sp = NULL;
-	for (int y = 0; y < MY; y++) {
-		for (int x = 0; x < MX; x++) {
+	for (int y = 0; y < cub->map.my; y++) {
+		for (int x = 0; x < cub->map.mx; x++) {
 			if( cub->sp.vis[y][x] == 0 || cub->map.map[y][x] != 2)
                 continue;
 			if (n == 0)
 				sp = (t_sprite *)malloc(sizeof(t_sprite));
 			else
-				sp = (t_sprite *)ft_realloc(sp, sizeof(t_sprite), n + 1);
+				sp = (t_sprite *)realloc(sp, sizeof(t_sprite)*(n+1)); // 얘가 문제임.
 			sp[n].tex = DIR_SP;
         	sp[n].x = x + 0.5;
         	sp[n].y = y + 0.5;
@@ -56,7 +56,7 @@ void			ft_sprite(t_cub *cub)
 	for (int i = 0; i < cub->sp.nsp; i++)
 	{
 		sph = get_wall_height(cub, sp[i].dist);
-		double lum = get_luminosity(sp[i].dist);
+		double lum = get_luminosity(cub, sp[i].dist);
 		cub->ray.wdir = sp[i].tex;
 		angle = sp[i].th - cub->player.th;
 		if (angle > M_PI)
@@ -84,7 +84,7 @@ void			ft_sprite(t_cub *cub)
 			for( int y = y0; y < y1; y++ ) {
 				int ty = (int)((double)(y - y0 + add) * 120 / sph); /* texture row # */
 				int color = get_sprite_color(cub, tx, ty);
-				if ( (color & 0x00ffffff) == 0 || (y < TILE * MY && x < TILE * MX))
+				if ( (color & 0x00ffffff) == 0 || (y < TILE * cub->map.my && x < TILE * cub->map.mx))
 					continue ; /* black == transparent */
 				color = fade_color(color, lum);
 				draw_pixel(cub, x, y, color);

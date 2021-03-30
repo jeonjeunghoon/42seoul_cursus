@@ -23,8 +23,6 @@
 # define KEY_ESC 53
 
 /* MACRO: Wall size, Map size */
-# define MX 24
-# define MY 24
 # define WALL_H 1.0
 
 /* minimap tile */
@@ -71,7 +69,7 @@ enum	e_key
 typedef	struct		s_sprite
 {
 	int				isin;
-	int				vis[MX][MY];
+	int				**vis;
 	double			*zbuf;
 	int				tex;
 	double			x;
@@ -125,7 +123,7 @@ typedef	struct		s_player
 
 typedef	struct		s_map
 {
-	char			**data;
+	char			**buf;
 	int				r[2];
 	char			*ea;
 	char			*no;
@@ -136,8 +134,8 @@ typedef	struct		s_map
 	int				f[3];
 	int				mx;
 	int				my;
-	int				**map_data;
-	int				map[MX][MY];
+	char			*parsed_map;
+	int				**map;
 	int				mapx;
 	int				mapy;
 }					t_map;
@@ -189,7 +187,7 @@ int					ft_key(int keycode, t_cub *cub);
 
 /* texture func */
 double				get_fov_min_dist(t_cub *cub);
-double				get_luminosity(double dist);
+double				get_luminosity(t_cub *cub, double dist);
 int					encode_color(int r, int g, int b);
 void				decode_color(int color, int *r, int *g, int *b);
 int					fade_color(int color, double lum);
@@ -219,6 +217,8 @@ void				write_bmp_header(t_cub *cub, int fd);
 void				ft_save(t_cub *cub);
 
 /* parsing */
+void				map_init(t_cub *cub);
+void				get_map(t_cub *cub, int idx);
 void				get_route(t_cub *cub, int idx, int jdx);
 void				get_numdata(t_cub *cub, int idx, int jdx, int loop);
 void				get_data(t_cub *cub, int idx, int jdx);
@@ -238,5 +238,6 @@ void				draw_pixel(t_cub *cub, int x, int y, int color);
 int					is_space(char c);
 int					except_space(t_cub *cub, int idx);
 void				*ft_realloc(void *ptr, int type, int size);
+int					is_player(t_cub *cub, char player);
 
 #endif

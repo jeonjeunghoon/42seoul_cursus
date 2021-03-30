@@ -28,20 +28,20 @@ void			ft_minimap(t_cub *cub)
 	int			y;
 
 	y = 0;
-	while (y < MY)
+	while (y < cub->map.my)
 	{
 		x = 0;
-		while (x < MX)
+		while (x < (cub->map.mx - 1))
 		{
-			if (cub->map.map[MY - 1 - y][x] == 1)
+			if (cub->map.map[cub->map.my - 1 - y][x] == 1)
 				draw_tile(cub, x, y, 0xFFFFFF);
-			else if (cub->map.map[MY - 1 - y][x] == 2)
+			else if (cub->map.map[cub->map.my - 1 - y][x] == 2)
 				draw_tile(cub, x, y, 0x00FF00);
-			else if (cub->map.map[MY - 1 - y][x] == 0 || cub->map.map[MY - 1 - y][x] > 2)
+			else if (cub->map.map[cub->map.my - 1 - y][x] == 0 || cub->map.map[cub->map.my - 1 - y][x] > 2)
 				draw_tile(cub, x, y, 0x000000);
 			x++;
 		}
 		y++;
 	}
-	draw_tile(cub, cub->player.x - 0.5, MY - cub->player.y - 0.5, 0x0000FF);
+	draw_tile(cub, cub->player.x - 0.5, cub->map.my - cub->player.y - 0.5, 0x0000FF);
 }

@@ -9,10 +9,10 @@ get_fov_min_dist(t_cub *cub) /* distance to the floor-FOV intersection point */
 }
 
 double
-get_luminosity( double dist )
+get_luminosity(t_cub *cub, double dist)
 {
     static double D = -1;
-    if( D < 0 ) D = (MX + MY)/2.0;
+    if( D < 0 ) D = (cub->map.mx + cub->map.my)/2.0;
     return (dist > D) ? 0 : (1. - dist/D);
 }
 
@@ -63,14 +63,14 @@ void			wall_render(t_cub *cub, int y0, int y1, int wh)
 	else
 		txratio = cub->ray.wx - floor(cub->ray.wx);
 	tx = (int)(txratio * TW);
-	double lum = get_luminosity(cub->ray.dist);
+	double lum = get_luminosity(cub, cub->ray.dist);
 	int add = 0;
 	if (y0 < 0)
 		add = y0 * -1;
 	y0 = get_max(0, y0);
 	for (int y = y0; y <= y1; y++)
 	{
-		if (y < TILE * MY && cub->ray.ray_cast < TILE * MX)
+		if (y < TILE * cub->map.my && cub->ray.ray_cast < TILE * (cub->map.mx - 1))
 			continue ;
 		ty = (int)((y - y0 + add) * TH / wh);
 		color = fade_color(get_texture_color(cub, tx, ty), lum);

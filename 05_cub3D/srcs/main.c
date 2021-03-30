@@ -2,13 +2,23 @@
 
 void			load_data(t_cub *cub)
 {
+	int			i;
+
 	ft_parsing(cub);
+	printf("###### %d %d\n", cub->map.mx, cub->map.my);
 	ft_texture(cub);
 	ft_screen(cub);
 	ft_player(cub);
 	cub->sp.zbuf = (double *)malloc(sizeof(double) * cub->map.r[0]);
 	cub->img.data = (int *)mlx_get_data_addr(cub->img.img, &cub->img.bpp, \
 									&cub->img.size_line, &cub->img.endian);
+	cub->sp.vis = (int **)malloc(sizeof(int *) * cub->map.my);
+	i = 0;
+	while (i < cub->map.my)
+	{
+		cub->sp.vis[i] = (int *)malloc(sizeof(int) * cub->map.mx);
+		i++;
+	}
 }
 
 void			ft_exception(int argc, char **argv, t_cub *cub)

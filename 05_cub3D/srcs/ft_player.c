@@ -21,12 +21,12 @@ void			ft_player(t_cub *cub)
 	double		temp;
 
 	cub->player.y = 0;
-	while (cub->player.y < MY)
+	while (cub->player.y < cub->map.my)
 	{
 		cub->player.x = 0;
-		while (cub->player.x < MX)
+		while (cub->player.x < (cub->map.mx - 1))
 		{
-			if (cub->map.map[(int)cub->player.y][(int)cub->player.x] > 2)
+			if (cub->map.map[(int)cub->player.y][(int)cub->player.x] >= 'A')
 			{
 				get_player_data(cub);
 				cub->player.x += 0.5;
