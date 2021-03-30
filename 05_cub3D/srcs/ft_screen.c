@@ -13,11 +13,11 @@ int				ft_exit(t_cub *cub)
 	i = 0;
 	while (i < 5)
 	{
-		free(cub->tex.texture[i]);
+		ft_free((void *)&cub->tex.texture[i]);
 		i++;
 	}
 	free(cub->tex.texture);
-	free(cub->sp.zbuf);
+	ft_free((void *)&cub->sp.zbuf);
 	exit(0);
 	return (0);
 }

@@ -1,5 +1,22 @@
 #include "cub.h"
 
+void				get_map(t_cub *cub, int idx, int jdx)
+{
+	int				kdx;
+
+	kdx = 0;
+	while (cub->map.data[idx][jdx])
+	{
+		cub->map.map_data[cub->map.my][kdx] = cub->map.data[idx][jdx] - '0';
+		jdx++;
+		kdx++;
+	}
+	ft_free((void *)&cub->map.data[idx]);
+	printf("%d\n", cub->map.my);
+	for (int i = 0; cub->map.map_data[cub->map.my][i]; i++)
+		printf("%d\n", cub->map.map_data[cub->map.my][i]);
+}
+
 void				get_route(t_cub *cub, int idx, int jdx)
 {
 	int				s;
@@ -97,7 +114,6 @@ void				ft_parsing(t_cub *cub)
   					{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 					};
 
-	char			*head;
 	int				idx;
 	int				jdx;
 	int				kdx;
@@ -108,7 +124,6 @@ void				ft_parsing(t_cub *cub)
 	cub->map.my = 0;
 	fd = open("cub.map", O_RDONLY);
 	idx = 0;
-	kdx = 1;
 	while (get_next_line(fd, &cub->map.data[idx]))
 	{
 		jdx = except_space(cub, idx);
@@ -117,11 +132,15 @@ void				ft_parsing(t_cub *cub)
 			get_data(cub, idx, jdx);
 			idx++;
 		}
-		// if (idx == 8 && jdx != -1)
-		// {
-		// 	ft_realloc()
-		// 	cub->map.my++;
-		// }
+		if (idx == 8 && jdx != -1)
+		{
+			if (cub->map.my == 0)
+				cub->map.map_data = (int **)malloc(sizeof(int *) * (cub->map.my + 2));
+			else
+				ft_realloc(cub->map.map_data, sizeof(int), cub->map.my + 2);
+			get_map(cub, idx, jdx);
+			cub->map.my++;
+		}
 	}
 	free(cub->map.data);
 	cub->map.data = NULL;

@@ -136,7 +136,7 @@ typedef	struct		s_map
 	int				f[3];
 	int				mx;
 	int				my;
-	int				*map_data;
+	int				**map_data;
 	int				map[MX][MY];
 	int				mapx;
 	int				mapy;

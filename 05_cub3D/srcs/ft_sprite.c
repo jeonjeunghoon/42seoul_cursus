@@ -92,5 +92,5 @@ void			ft_sprite(t_cub *cub)
 		}
 	}
 	if (cub->sp.nsp > 0)
-		free(sp);
+		ft_free((void *)&sp);
 }
