@@ -124,14 +124,14 @@ typedef	struct		s_player
 typedef	struct		s_map
 {
 	char			**buf;
-	int				r[2];
+	int				*r;
 	char			*ea;
 	char			*no;
 	char			*we;
 	char			*so;
 	char			*s;
-	int				c[3];
-	int				f[3];
+	int				*c;
+	int				*f;
 	int				mx;
 	int				my;
 	char			*parsed_map;
@@ -207,7 +207,7 @@ int					ft_exit(t_cub *cub);
 void				ft_screen(t_cub *cub);
 
 /* sprite func */
-static int			cmp_sprites( const void* a, const void* b );
+static int			cmp_sprites(const void* a, const void* b);
 int					get_sprite_color(t_cub *cub, int tx, int ty);
 t_sprite			*get_visible_sprites(t_cub *cub);
 void				ft_sprite(t_cub *cub);
@@ -232,12 +232,12 @@ double				get_max(double x, double y);
 int					get_cell(t_cub *cub, int x, int y);
 int					ft_sgn(double d);
 double				ft_dist(double s_x, double s_y, double e_x, double e_y);
-// void				ft_swap(t_sprite *sprite, int i, int j);
 // void				ft_qsort(t_sprite *sprite, int start, int end);
 void				draw_pixel(t_cub *cub, int x, int y, int color);
 int					is_space(char c);
 int					except_space(t_cub *cub, int idx);
-void				*ft_realloc(void *ptr, int type, int size);
+void				*ft_realloc(void *ptr, int size);
+t_sprite			*sprite_realloc(t_sprite *ptr, int n);
 int					is_player(t_cub *cub, char player);
 
 #endif

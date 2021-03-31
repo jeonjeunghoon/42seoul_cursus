@@ -23,16 +23,27 @@ int					except_space(t_cub *cub, int idx)
 	return (jdx);
 }
 
-// void				*ft_realloc(void *ptr, int type, int size)
-// {
-// 	if (ptr)
-// 	{
-// 		ft_free((void *)&ptr);
-// 		ptr = malloc(type * size);
-// 		return (ptr);
-// 	}
-// 	return (0);
-// }
+t_sprite			*sprite_realloc(t_sprite *ptr, int n)
+{
+	t_sprite		*new_ptr;
+	int				i;
+
+	if (!ptr)
+		return (0);
+	new_ptr = (t_sprite *)malloc(sizeof(t_sprite) * (n + 1));
+	i = 0;
+	while (i < n)
+	{
+		new_ptr[i].x = ptr[i].x;
+		new_ptr[i].y = ptr[i].y;
+		new_ptr[i].dist = ptr[i].dist;
+		new_ptr[i].th = ptr[i].th;
+		new_ptr[i].tex = ptr[i].tex;
+		i++;
+	}
+	ft_free((void *)&ptr);
+	return (new_ptr);
+}
 
 int					is_player(t_cub *cub, char player)
 {

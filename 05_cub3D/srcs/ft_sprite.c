@@ -1,6 +1,6 @@
 #include "cub.h"
 
-static int		cmp_sprites( const void* a, const void* b )
+static int		cmp_sprites(const void* a, const void* b)
 {
     return (((const t_sprite*)a)->dist > ((const t_sprite*)b)->dist) ? -1 : 1;
 }
@@ -27,7 +27,7 @@ t_sprite		*get_visible_sprites(t_cub *cub)
 			if (n == 0)
 				sp = (t_sprite *)malloc(sizeof(t_sprite));
 			else
-				sp = (t_sprite *)realloc(sp, sizeof(t_sprite)*(n+1)); // 얘가 문제임.
+				sp = sprite_realloc(sp, n);
 			sp[n].tex = DIR_SP;
         	sp[n].x = x + 0.5;
         	sp[n].y = y + 0.5;
@@ -49,10 +49,11 @@ void			ft_sprite(t_cub *cub)
 	int			sph;
 	double		angle;
 	double		pixel_per_angle;
-	
+
 	pixel_per_angle = (cub->map.r[0] - 1) / cub->player.fov_h;
 	sp = get_visible_sprites(cub);
 	qsort(sp, cub->sp.nsp, sizeof(t_sprite), cmp_sprites);
+	// ft_qsort(sp, cub->sp.nsp, sizeof(t_sprite), cmp_sprites);
 	for (int i = 0; i < cub->sp.nsp; i++)
 	{
 		sph = get_wall_height(cub, sp[i].dist);

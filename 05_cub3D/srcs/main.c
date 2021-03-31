@@ -5,10 +5,10 @@ void			load_data(t_cub *cub)
 	int			i;
 
 	ft_parsing(cub);
-	printf("###### %d %d\n", cub->map.mx, cub->map.my);
 	ft_texture(cub);
 	ft_screen(cub);
 	ft_player(cub);
+	printf("@@@@\n");
 	cub->sp.zbuf = (double *)malloc(sizeof(double) * cub->map.r[0]);
 	cub->img.data = (int *)mlx_get_data_addr(cub->img.img, &cub->img.bpp, \
 									&cub->img.size_line, &cub->img.endian);
@@ -52,6 +52,7 @@ int				main(int argc, char **argv)
 	load_data(&cub);
 	mlx_loop_hook(cub.mlx.mlx, ft_raycasting, &cub);
 	mlx_hook(cub.mlx.win, EVENT_KEY_PRESS, 0, ft_key, &cub);
+	mlx_hook(cub.mlx.win, EVENT_EXIT, 0, ft_exit, &cub);
 	mlx_loop(cub.mlx.mlx);
 	return (0);
 }

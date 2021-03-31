@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 18:13:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/03/30 20:49:20 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/03/31 21:07:22 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@ int				ft_exit(t_cub *cub)
 {
 	int			i;
 
-	if (cub->mlx.win)
-	{
-		mlx_clear_window(cub->mlx.mlx, cub->mlx.win);
-		mlx_destroy_window(cub->mlx.mlx, cub->mlx.win);
-	}
 	i = 0;
 	while (i < 5)
 		ft_free((void *)&cub->tex.texture[i++]);
@@ -34,8 +29,23 @@ int				ft_exit(t_cub *cub)
 		ft_free((void *)&cub->map.map[i]);
 		i++;
 	}
+	free(cub->map.ea);
+	free(cub->map.we);
+	free(cub->map.so);
+	free(cub->map.no);
+	free(cub->map.s);
 	free(cub->sp.vis);
 	free(cub->map.map);
+	free(cub->map.r);
+	free(cub->map.c);
+	free(cub->map.f);
+	if (cub->img.img)
+		mlx_destroy_image(cub->mlx.mlx, cub->img.img);
+	if (cub->mlx.win)
+	{
+		mlx_clear_window(cub->mlx.mlx, cub->mlx.win);
+		mlx_destroy_window(cub->mlx.mlx, cub->mlx.win);	
+	}
 	for (;;)
 	;
 	exit(0);

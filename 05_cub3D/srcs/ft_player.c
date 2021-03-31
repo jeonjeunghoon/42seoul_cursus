@@ -13,7 +13,7 @@ void			get_player_data(t_cub *cub)
 	cub->player.fov_h = deg_to_rad(FOV);
 	cub->player.fovh_2 = cub->player.fov_h / 2.0;
 	cub->player.per_fov_h = cub->player.fov_h / (cub->map.r[0] - 1.0);
-	cub->player.fov_v = cub->player.fov_h * (double)cub->map.r[1] / (double)cub->map.r[0];
+	cub->player.fov_v = cub->player.fov_h * cub->map.r[1] / cub->map.r[0];
 }
 
 void			ft_player(t_cub *cub)
@@ -24,7 +24,7 @@ void			ft_player(t_cub *cub)
 	while (cub->player.y < cub->map.my)
 	{
 		cub->player.x = 0;
-		while (cub->player.x < (cub->map.mx - 1))
+		while (cub->player.x < (cub->map.mx))
 		{
 			if (cub->map.map[(int)cub->player.y][(int)cub->player.x] >= 'A')
 			{

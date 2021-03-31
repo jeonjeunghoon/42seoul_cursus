@@ -1,6 +1,6 @@
 ARCH = arch -x86_64
 CC = gcc
-CFLAGS = #-Wall -Werror -Wextra
+CFLAGS = -g3 -fsanitize=address #-Wall -Werror -Wextra
 MV = mv
 
 NAME = cub3D
@@ -32,7 +32,7 @@ $(SRCS_DIR)/%.o : $(SRCS_DIR)/%.c
 
 .PHONY: all clean fclean
 
-all : $(NAME)
+all : $(NAME) cub.map
 
 clean :
 	$(ARCH) $(MAKE) -C $(LIB_DIR) clean

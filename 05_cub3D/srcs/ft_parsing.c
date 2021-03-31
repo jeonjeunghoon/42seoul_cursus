@@ -13,9 +13,7 @@ void				map_init(t_cub *cub)
 		jdx = 0;
 		while (jdx < cub->map.mx)
 		{
-			if (cub->map.parsed_map[(idx * cub->map.mx) + jdx] == '0' || \
-			cub->map.parsed_map[(idx * cub->map.mx) + jdx] == '1' || \
-			cub->map.parsed_map[(idx * cub->map.mx) + jdx] == '2')
+			if (cub->map.parsed_map[(idx * cub->map.mx) + jdx] == '0' || cub->map.parsed_map[(idx * cub->map.mx) + jdx] == '1' || cub->map.parsed_map[(idx * cub->map.mx) + jdx] == '2')
 				cub->map.map[idx][jdx] = cub->map.parsed_map[(idx * cub->map.mx) + jdx] - '0';
 			else if (is_player(cub, cub->map.parsed_map[(idx * cub->map.mx) + jdx]))
 				cub->map.map[idx][jdx] = cub->map.parsed_map[(idx * cub->map.mx) + jdx];
@@ -25,7 +23,6 @@ void				map_init(t_cub *cub)
 		}
 		idx++;
 	}
-	ft_free((void *)&cub->map.parsed_map);
 }
 
 void				get_map(t_cub *cub, int idx)
@@ -33,9 +30,9 @@ void				get_map(t_cub *cub, int idx)
 	char			*room;
 
 	room = ft_strjoin(cub->map.buf[idx], "\n");
-	ft_free((void *)&cub->map.buf[idx]);
+	free(cub->map.buf[idx]);
 	cub->map.buf[idx] = ft_strdup(room);
-	ft_free((void *)&room);
+	free(room);
 	if (cub->map.my == 0)
 	{
 		cub->map.mx = ft_strlen(cub->map.buf[idx]);
@@ -46,38 +43,39 @@ void				get_map(t_cub *cub, int idx)
 		if (cub->map.mx < ft_strlen(cub->map.buf[idx]))
 			cub->map.mx = ft_strlen(cub->map.buf[idx]);
 		room = ft_strjoin(cub->map.parsed_map, cub->map.buf[idx]);
-		ft_free((void *)&cub->map.parsed_map);
+		free(cub->map.parsed_map);
 		cub->map.parsed_map = ft_strdup(room);
-		ft_free((void *)&room);
+		free(room);
 	}
-	ft_free((void *)&cub->map.buf[idx]);
+	free(cub->map.buf[idx]);
 }
 
 void				get_route(t_cub *cub, int idx, int jdx)
 {
+	char			*ptr;
 	int				s;
 	int				end;
 
 	end = jdx + 2;
-	while (cub->map.buf[idx][end] == ' ' || cub->map.buf[idx][end] == '\t' \
-	|| cub->map.buf[idx][end] == '\r' || cub->map.buf[idx][end] == '\v' || \
-	cub->map.buf[idx][end] == '\f')
+	while (is_space(cub->map.buf[idx][end]))
 		end++;
 	s = end;
 	while (cub->map.buf[idx][end] >= 33 && cub->map.buf[idx][end] <= 126)
 		end++;
+	ptr = ft_substr(cub->map.buf[idx], s, end);
 	if (cub->map.buf[idx][jdx] == 'E')
-		cub->map.ea = ft_substr(cub->map.buf[idx], s, end);
+		cub->map.ea = ft_strdup(ptr);
 	else if (cub->map.buf[idx][jdx] == 'N')
-		cub->map.no = ft_substr(cub->map.buf[idx], s, end);
+		cub->map.no = ft_strdup(ptr);
 	else if (cub->map.buf[idx][jdx] == 'W')
-		cub->map.we = ft_substr(cub->map.buf[idx], s, end);
+		cub->map.we = ft_strdup(ptr);
 	else if (cub->map.buf[idx][jdx] == 'S' && \
 	cub->map.buf[idx][1] == 'O')
-		cub->map.so = ft_substr(cub->map.buf[idx], s, end);
+		cub->map.so = ft_strdup(ptr);
 	else if (cub->map.buf[idx][jdx] == 'S' && \
 	cub->map.buf[idx][1] != 'O')
-		cub->map.s = ft_substr(cub->map.buf[idx], s, end);
+		cub->map.s = ft_strdup(ptr);
+	free(ptr);
 }
 
 void				get_numdata(t_cub *cub, int idx, int jdx, int loop)
@@ -105,7 +103,7 @@ void				get_numdata(t_cub *cub, int idx, int jdx, int loop)
 			cub->map.c[x] = ft_atoi(ptr);
 		else if (cub->map.buf[idx][jdx] == 'F')
 			cub->map.f[x] = ft_atoi(ptr);
-		ft_free((void *)&ptr);
+		free(ptr);
 		x++;
 	}
 }
@@ -113,43 +111,25 @@ void				get_numdata(t_cub *cub, int idx, int jdx, int loop)
 void				get_data(t_cub *cub, int idx, int jdx)
 {
 	if (cub->map.buf[idx][jdx] == 'R')
+	{
+		cub->map.r = (int *)malloc(sizeof(int) * 2);
 		get_numdata(cub, idx, jdx, 2);
+	}
 	else if (cub->map.buf[idx][jdx] == 'C' || cub->map.buf[idx][jdx] == 'F')
+	{
+		if (cub->map.buf[idx][jdx] == 'C')
+			cub->map.c = (int *)malloc(sizeof(int) * 3);
+		else if (cub->map.buf[idx][jdx] == 'F')
+			cub->map.f = (int *)malloc(sizeof(int) * 3);
 		get_numdata(cub, idx, jdx, 3);
+	}
 	else
 		get_route(cub, idx, jdx);
-	ft_free((void *)&cub->map.buf[idx]);
+	free(cub->map.buf[idx]);
 }
 
 void				ft_parsing(t_cub *cub)
 {
-	// int				src[MY][MX] = {
-	// 				{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,'E',0,2,1,1,1,1,1,1,1,1,1,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-  	// 				{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-	// 				};
-
 	int				idx;
 	int				jdx;
 	int				is_read;
@@ -183,11 +163,7 @@ void				ft_parsing(t_cub *cub)
 	cub->map.buf = NULL;
 	close(fd);
 	map_init(cub);
-	// for (int i = 0; i < cub->map.my; i++)
-	// {
-	// 	for (int j = 0; j < cub->map.mx; j++)
-	// 		printf("%d ", cub->map.map[i][j]);
-	// 	printf("\n");
-	// }
-	// ft_memcpy(cub->map.map, src, sizeof(int) * MX * MY);
+	printf("%d %d\n", cub->map.my, cub->map.mx);
+	printf("%s\n", cub->map.parsed_map);
+	free(cub->map.parsed_map);
 }
