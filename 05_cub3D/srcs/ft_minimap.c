@@ -31,13 +31,14 @@ void			ft_minimap(t_cub *cub)
 	while (y < cub->map.my)
 	{
 		x = 0;
-		while (x < (cub->map.mx))
+		while (x < cub->map.mx)
 		{
 			if (cub->map.map[cub->map.my - 1 - y][x] == 1)
 				draw_tile(cub, x, y, 0xFFFFFF);
 			else if (cub->map.map[cub->map.my - 1 - y][x] == 2)
 				draw_tile(cub, x, y, 0x00FF00);
-			else if (cub->map.map[cub->map.my - 1 - y][x] == 0 || cub->map.map[cub->map.my - 1 - y][x] > 2)
+			else if (cub->map.map[cub->map.my - 1 - y][x] == 0 || \
+			cub->map.map[cub->map.my - 1 - y][x] > 10)
 				draw_tile(cub, x, y, 0x000000);
 			x++;
 		}

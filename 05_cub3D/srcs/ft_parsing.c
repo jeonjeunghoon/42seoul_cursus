@@ -4,22 +4,46 @@ void				map_init(t_cub *cub)
 {
 	int				idx;
 	int				jdx;
+	int				kdx;
+	int				tab;
 
 	cub->map.map = (int **)malloc(sizeof(int *) * cub->map.my);
+	cub->map.mx++;
 	idx = 0;
+	kdx = 0;
 	while (idx < cub->map.my)
 	{
-		cub->map.map[idx] = (int *)malloc(sizeof(int) * cub->map.mx);
+		cub->map.map[idx] = (int *)malloc(sizeof(int) * (cub->map.mx));
 		jdx = 0;
 		while (jdx < cub->map.mx)
 		{
-			if (cub->map.parsed_map[(idx * cub->map.mx) + jdx] == '0' || cub->map.parsed_map[(idx * cub->map.mx) + jdx] == '1' || cub->map.parsed_map[(idx * cub->map.mx) + jdx] == '2')
-				cub->map.map[idx][jdx] = cub->map.parsed_map[(idx * cub->map.mx) + jdx] - '0';
-			else if (is_player(cub, cub->map.parsed_map[(idx * cub->map.mx) + jdx]))
-				cub->map.map[idx][jdx] = cub->map.parsed_map[(idx * cub->map.mx) + jdx];
+			if (cub->map.parsed_map[kdx] == '\n')
+			{
+				while (jdx < cub->map.mx)
+				{
+					cub->map.map[idx][jdx] = 8;
+					jdx++;
+				}
+			}
+			else if (cub->map.parsed_map[kdx] == '0' || cub->map.parsed_map[kdx] == '1' || \
+			cub->map.parsed_map[kdx] == '2')
+				cub->map.map[idx][jdx] = cub->map.parsed_map[kdx] - '0';
+			else if (is_player(cub, cub->map.parsed_map[kdx]))
+				cub->map.map[idx][jdx] = cub->map.parsed_map[kdx];
+			else if (cub->map.parsed_map[kdx] == '\t')
+			{
+				tab = 4;
+				while (tab--)
+				{
+					cub->map.map[idx][jdx] = 8;
+					jdx++;
+				}
+				jdx--;
+			}
 			else
-				cub->map.map[idx][jdx] = 7;
+				cub->map.map[idx][jdx] = 8;
 			jdx++;
+			kdx++;
 		}
 		idx++;
 	}
@@ -164,6 +188,18 @@ void				ft_parsing(t_cub *cub)
 	close(fd);
 	map_init(cub);
 	printf("%d %d\n", cub->map.my, cub->map.mx);
-	printf("%s\n", cub->map.parsed_map);
+	printf("#####\nPARSED MAP\n#####\n%s", cub->map.parsed_map);
+	printf("#####\nMAP\n#####\n");
+	for (int i = 0; i < cub->map.my; i++)
+	{
+		for (int j = 0; j < cub->map.mx; j++)
+		{
+			if (cub->map.map[i][j] >= 'A')
+				printf("%c ", cub->map.map[i][j]);
+			else
+				printf("%d ", cub->map.map[i][j]);
+		}
+		printf("\n");
+	}
 	free(cub->map.parsed_map);
 }

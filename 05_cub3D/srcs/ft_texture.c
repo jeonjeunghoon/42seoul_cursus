@@ -70,8 +70,6 @@ void			wall_render(t_cub *cub, int y0, int y1, int wh)
 	y0 = get_max(0, y0);
 	for (int y = y0; y <= y1; y++)
 	{
-		if (y < TILE * cub->map.my && cub->ray.ray_cast < TILE * (cub->map.mx))
-			continue ;
 		ty = (int)((y - y0 + add) * TH / wh);
 		color = fade_color(get_texture_color(cub, tx, ty), lum);
 		draw_pixel(cub, cub->ray.ray_cast, y, color);

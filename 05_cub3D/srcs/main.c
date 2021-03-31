@@ -8,7 +8,6 @@ void			load_data(t_cub *cub)
 	ft_texture(cub);
 	ft_screen(cub);
 	ft_player(cub);
-	printf("@@@@\n");
 	cub->sp.zbuf = (double *)malloc(sizeof(double) * cub->map.r[0]);
 	cub->img.data = (int *)mlx_get_data_addr(cub->img.img, &cub->img.bpp, \
 									&cub->img.size_line, &cub->img.endian);
