@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 18:13:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/01 02:51:43 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/02 23:49:06 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ void			free_mem(t_cub *cub)
 		ft_free((void *)&cub->map.map[i]);
 		i++;
 	}
-	free(cub->map.ea);
-	free(cub->map.we);
-	free(cub->map.so);
-	free(cub->map.no);
-	free(cub->map.s);
 	free(cub->sp.vis);
 	free(cub->map.map);
 	free(cub->map.r);
 	free(cub->map.c);
 	free(cub->map.f);
+	free(cub->map.ea);
+	free(cub->map.we);
+	free(cub->map.so);
+	free(cub->map.no);
+	free(cub->map.s);
 }
 
 int				ft_exit(t_cub *cub)
@@ -51,6 +51,8 @@ int				ft_exit(t_cub *cub)
 		mlx_clear_window(cub->mlx.mlx, cub->mlx.win);
 		mlx_destroy_window(cub->mlx.mlx, cub->mlx.win);	
 	}
+	for(;;)
+	;
 	exit(0);
 	return (0);
 }

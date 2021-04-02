@@ -1,4 +1,16 @@
-# include "cub.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utility2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/01 12:11:46 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/04/01 12:19:16 by jeunjeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub.h"
 
 void			draw_pixel(t_cub *cub, int x, int y, int color)
 {
@@ -16,14 +28,14 @@ int				ft_sgn(double d)
 
 double			ft_dist(double s_x, double s_y, double e_x, double e_y)
 {
-    double		dx;
+	double		dx;
 	double		dy;
 	double		dist;
 
 	dx = s_x - e_x;
-    dy = s_y - e_y;
+	dy = s_y - e_y;
 	dist = sqrt(pow(dx, 2) + pow(dy, 2));
-    return (dist);
+	return (dist);
 }
 
 void			ft_swap(t_sprite *sprite, int i, int j)

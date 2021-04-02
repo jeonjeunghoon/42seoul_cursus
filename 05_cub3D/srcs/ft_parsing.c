@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parsing.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/01 12:11:15 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/04/02 23:33:18 by jeunjeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
 void				map_init(t_cub *cub)
@@ -5,10 +17,8 @@ void				map_init(t_cub *cub)
 	int				idx;
 	int				jdx;
 	int				kdx;
-	int				tab;
 
 	cub->map.map = (int **)malloc(sizeof(int *) * cub->map.my);
-	cub->map.mx++;
 	idx = 0;
 	kdx = 0;
 	while (idx < cub->map.my)
@@ -17,7 +27,7 @@ void				map_init(t_cub *cub)
 		jdx = 0;
 		while (jdx < cub->map.mx)
 		{
-			if (cub->map.parsed_map[kdx] == '\n')
+			if (cub->map.parsed_map[kdx] == '\n' && kdx < ft_strlen(cub->map.parsed_map))
 			{
 				while (jdx < cub->map.mx)
 				{
@@ -30,18 +40,13 @@ void				map_init(t_cub *cub)
 				cub->map.map[idx][jdx] = cub->map.parsed_map[kdx] - '0';
 			else if (is_player(cub, cub->map.parsed_map[kdx]))
 				cub->map.map[idx][jdx] = cub->map.parsed_map[kdx];
-			else if (cub->map.parsed_map[kdx] == '\t')
-			{
-				tab = 4;
-				while (tab--)
-				{
-					cub->map.map[idx][jdx] = 8;
-					jdx++;
-				}
-				jdx--;
-			}
-			else
+			else if (is_space(cub->map.parsed_map[kdx]))
 				cub->map.map[idx][jdx] = 8;
+			else
+			{
+				printf("Cub3D Error: invalid map");
+				ft_exit(cub);
+			}
 			jdx++;
 			kdx++;
 		}
@@ -59,7 +64,7 @@ void				get_map(t_cub *cub, int idx)
 	free(room);
 	if (cub->map.my == 0)
 	{
-		cub->map.mx = ft_strlen(cub->map.buf[idx]);
+		cub->map.mx = ft_strlen(cub->map.buf[idx]) + 1;
 		cub->map.parsed_map = ft_strdup(cub->map.buf[idx]);
 	}
 	else
@@ -187,19 +192,5 @@ void				ft_parsing(t_cub *cub)
 	cub->map.buf = NULL;
 	close(fd);
 	map_init(cub);
-	printf("%d %d\n", cub->map.my, cub->map.mx);
-	printf("#####\nPARSED MAP\n#####\n%s", cub->map.parsed_map);
-	printf("#####\nMAP\n#####\n");
-	for (int i = 0; i < cub->map.my; i++)
-	{
-		for (int j = 0; j < cub->map.mx; j++)
-		{
-			if (cub->map.map[i][j] >= 'A')
-				printf("%c ", cub->map.map[i][j]);
-			else
-				printf("%d ", cub->map.map[i][j]);
-		}
-		printf("\n");
-	}
 	free(cub->map.parsed_map);
 }

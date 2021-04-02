@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_bmp.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/01 12:11:03 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/04/01 12:15:40 by jeunjeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
-void	write_bmp_header(t_cub *cub, int fd)
+void				write_bmp_header(t_cub *cub, int fd)
 {
-	unsigned char bmp_h[54];
-	int file_size;
+	unsigned char	bmp_h[54];
+	int				file_size;
 
 	ft_bzero(bmp_h, 54);
 	file_size = 4 * cub->map.r[1] * cub->map.r[0] + 54;
@@ -28,9 +40,9 @@ void	write_bmp_header(t_cub *cub, int fd)
 	write(fd, bmp_h, 54);
 }
 
-void			ft_save(t_cub *cub)
+void				ft_save(t_cub *cub)
 {
-	int		fd;
+	int				fd;
 
 	fd = open("bmp/cub3d.bmp", O_WRONLY | O_CREAT | O_TRUNC, 0744);
 	write_bmp_header(cub, fd);

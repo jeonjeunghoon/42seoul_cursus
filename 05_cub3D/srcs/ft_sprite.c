@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sprite.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/01 12:11:30 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/04/02 23:42:09 by jeunjeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
 static int		cmp_sprites(const void* a, const void* b)
@@ -53,7 +65,7 @@ void			ft_sprite(t_cub *cub)
 	pixel_per_angle = (cub->map.r[0] - 1) / cub->player.fov_h;
 	sp = get_visible_sprites(cub);
 	qsort(sp, cub->sp.nsp, sizeof(t_sprite), cmp_sprites);
-	// ft_qsort(sp, cub->sp.nsp, sizeof(t_sprite), cmp_sprites);
+	// ft_qsort(sp, cub->sp.nsp, sizeof(t_sprite));
 	for (int i = 0; i < cub->sp.nsp; i++)
 	{
 		sph = get_wall_height(cub, sp[i].dist);

@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/01 12:11:00 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/04/02 23:47:37 by jeunjeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB_H
 # define CUB_H
 
-/* header files */
 # include "../opengl/mlx.h"
 # include "../libft/libft.h"
 # include "get_next_line.h"
@@ -10,7 +21,6 @@
 # include <math.h>
 # include <stdio.h>
 
-/* MACRO: Key */
 # define EVENT_KEY_PRESS 2
 # define EVENT_KEY_RELEASE 3
 # define EVENT_EXIT 17
@@ -22,20 +32,15 @@
 # define KEY_RIGHT 124
 # define KEY_ESC 53
 
-/* MACRO: Wall size, Map size */
 # define WALL_H 1.0
 
-/* minimap tile */
 # define TILE 10
 
-/* MACRO: textures */
 # define TW 256
 # define TH 256
 
-/* MACRO: Player eyes*/
 # define FOV 60
 
-/* MACRO: Player movement */
 # define MOVE_SPEED 0.1
 # define ROTATE_SPEED 0.03
 
@@ -157,7 +162,6 @@ typedef	struct		s_mlx
 	void			*win;
 }					t_mlx;
 
-/* cub param */
 typedef	struct		s_cub
 {
 	t_mlx			mlx;
@@ -181,7 +185,8 @@ int					ft_dda(t_cub *cub);
 int					ft_raycasting(t_cub *cub);
 
 /* key func */
-void				ft_move(int keycode, t_cub *cub, double move_speed, double th);
+void				ft_move(int keycode, t_cub *cub, double move_speed, \
+					double th);
 void				ft_rotate(t_cub *cub, double rotate_speed);
 int					ft_key(int keycode, t_cub *cub);
 
@@ -198,7 +203,7 @@ void				ft_texture(t_cub *cub);
 int					get_texture_color(t_cub *cub, int tx, int ty);
 void				wall_render(t_cub *cub, int y0, int y1, int wh);
 
-// maps
+/* maps */
 void				draw_tile(t_cub *cub, double x, double y, int color);
 void				ft_minimap(t_cub *cub);
 
@@ -207,7 +212,7 @@ int					ft_exit(t_cub *cub);
 void				ft_screen(t_cub *cub);
 
 /* sprite func */
-static int			cmp_sprites(const void* a, const void* b);
+static int			cmp_sprites(const void *a, const void *b);
 int					get_sprite_color(t_cub *cub, int tx, int ty);
 t_sprite			*get_visible_sprites(t_cub *cub);
 void				ft_sprite(t_cub *cub);
@@ -232,7 +237,8 @@ double				get_max(double x, double y);
 int					get_cell(t_cub *cub, int x, int y);
 int					ft_sgn(double d);
 double				ft_dist(double s_x, double s_y, double e_x, double e_y);
-// void				ft_qsort(t_sprite *sprite, int start, int end);
+void				ft_swap(t_sprite *sprite, int i, int j);
+void				ft_qsort(t_sprite *sprite, int start, int end);
 void				draw_pixel(t_cub *cub, int x, int y, int color);
 int					is_space(char c);
 int					except_space(t_cub *cub, int idx);

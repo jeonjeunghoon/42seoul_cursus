@@ -1,4 +1,16 @@
-# include "cub.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/01 12:10:54 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/04/02 22:18:03 by jeunjeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub.h"
 
 void			load_data(t_cub *cub)
 {
@@ -22,24 +34,24 @@ void			load_data(t_cub *cub)
 
 void			ft_exception(int argc, char **argv, t_cub *cub)
 {
-	if (argc > 3 || argc < 2)
+	if (argc == 3 || argc == 2)
 	{
-		printf("Cub3D Error: Invalid number of input values");
-		exit(0);
+		if (argc == 3 && \
+		ft_strncmp(argv[1], "cub.map", ft_strlen("cub.map")) && \
+		ft_strncmp(argv[2], "--save", ft_strlen("--save")) && \
+		(ft_strlen(argv[1]) == ft_strlen("cub.map")) && \
+		(ft_strlen(argv[2]) == ft_strlen("--save")))
+		{
+			cub->save = 1;
+			return ;
+		}
+		else if (argc == 2 && \
+		ft_strncmp(argv[1], "cub.map", ft_strlen("cub.map")) && \
+		(ft_strlen(argv[1]) == ft_strlen("cub.map")))
+			return ;
 	}
-	if (argc == 2 && !ft_strncmp(argv[1], "cub.map", 7))
-	{
-		printf("Cub3D Error: Invalid name of Mapfile");
-		exit(0);
-	}
-	if (argc == 3 && (!ft_strncmp(argv[1], "cub.map", 7) \
-					|| !ft_strncmp(argv[2], "--save", 6)))
-	{
-		printf("Cub3D Error: Invalid name of Inputs");
-		exit(0);
-	}
-	if (argc == 3 && ft_strncmp(argv[2], "--save", 6))
-		cub->save = 1;
+	printf("Cub3D Error: Invalid arguments\n");
+	exit(0);
 }
 
 int				main(int argc, char **argv)

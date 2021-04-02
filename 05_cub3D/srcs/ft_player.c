@@ -1,4 +1,16 @@
-# include "cub.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_player.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/01 12:11:18 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/04/02 17:17:51 by jeunjeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub.h"
 
 void			get_player_data(t_cub *cub)
 {
@@ -24,7 +36,7 @@ void			ft_player(t_cub *cub)
 	while (cub->player.y < cub->map.my)
 	{
 		cub->player.x = 0;
-		while (cub->player.x < (cub->map.mx))
+		while (cub->player.x < cub->map.mx)
 		{
 			if (cub->map.map[(int)cub->player.y][(int)cub->player.x] >= 'A')
 			{

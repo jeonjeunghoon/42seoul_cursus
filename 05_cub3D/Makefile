@@ -1,6 +1,6 @@
 ARCH = arch -x86_64
 CC = gcc
-CFLAGS = -g3 -fsanitize=address #-Wall -Werror -Wextra
+CFLAGS = #-fsanitize=address #-Wall -Werror -Wextra
 MV = mv
 
 NAME = cub3D

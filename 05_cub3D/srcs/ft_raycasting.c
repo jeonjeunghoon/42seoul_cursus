@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_raycasting.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/01 12:11:21 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/04/02 23:28:12 by jeunjeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include "cub.h"
 
 int					get_wall_height(t_cub *cub, double dist)
@@ -75,13 +87,13 @@ int					ft_dda(t_cub *cub)
 		{
             if (cub->ray.hit_side == VERT)
 			{
-                cub->ray.wdir = (cub->ray.xstep > 0) ? DIR_E : DIR_W;
+                cub->ray.wdir = (cub->ray.xstep > 0) ? DIR_W : DIR_E;
                 cub->ray.wx = cub->ray.nx;
                 cub->ray.wy = cub->ray.f;
 			}
             else
 			{
-                cub->ray.wdir = (cub->ray.ystep > 0) ? DIR_N : DIR_S;
+                cub->ray.wdir = (cub->ray.ystep > 0) ? DIR_S : DIR_N;
                 cub->ray.wx = cub->ray.g;
                 cub->ray.wy = cub->ray.ny;
             }

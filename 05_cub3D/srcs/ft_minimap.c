@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_minimap.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/01 12:11:11 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/04/02 17:37:30 by jeunjeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
 void			draw_tile(t_cub *cub, double x, double y, int color)
@@ -33,16 +45,17 @@ void			ft_minimap(t_cub *cub)
 		x = 0;
 		while (x < cub->map.mx)
 		{
-			if (cub->map.map[cub->map.my - 1 - y][x] == 1)
+			if (cub->map.map[y][x] == 1)
 				draw_tile(cub, x, y, 0xFFFFFF);
-			else if (cub->map.map[cub->map.my - 1 - y][x] == 2)
+			else if (cub->map.map[y][x] == 2)
 				draw_tile(cub, x, y, 0x00FF00);
-			else if (cub->map.map[cub->map.my - 1 - y][x] == 0 || \
-			cub->map.map[cub->map.my - 1 - y][x] > 10)
+			else if (cub->map.map[y][x] == 0 || \
+			cub->map.map[y][x] > 10)
 				draw_tile(cub, x, y, 0x000000);
 			x++;
 		}
 		y++;
 	}
-	draw_tile(cub, cub->player.x - 0.5, cub->map.my - cub->player.y - 0.5, 0x0000FF);
+	draw_tile(cub, cub->player.x - 0.5, cub->player.y - 0.5, \
+	0x0000FF);
 }
