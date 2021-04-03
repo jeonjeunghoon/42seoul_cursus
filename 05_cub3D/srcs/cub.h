@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/02 23:47:37 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/03 21:33:07 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ typedef	struct		s_sprite
 
 typedef	struct		s_texture
 {
+	double			txratio;
+	int				tx;
+	int				ty;
 	int				**texture;
 	int				buf[TH][TW];
 }					t_texture;
@@ -176,13 +179,17 @@ typedef	struct		s_cub
 
 /* player func */
 void				get_player_data(t_cub *cub);
-void				ft_player(t_cub *cub);
+void				player_init(t_cub *cub);
 
-/* render func */
-int					get_wall_height(t_cub *cub, double dist);
-void				ft_render(t_cub *cub);
+/* ray func */
+void				ray_init(t_cub *cub);
+void				hitting(t_cub *cub);
+int					is_hit(t_cub *cub);
 int					ft_dda(t_cub *cub);
 int					ft_raycasting(t_cub *cub);
+
+/* rander */
+void				ft_render(t_cub *cub);
 
 /* key func */
 void				ft_move(int keycode, t_cub *cub, double move_speed, \
@@ -191,17 +198,11 @@ void				ft_rotate(t_cub *cub, double rotate_speed);
 int					ft_key(int keycode, t_cub *cub);
 
 /* texture func */
-double				get_fov_min_dist(t_cub *cub);
-double				get_luminosity(t_cub *cub, double dist);
-int					encode_color(int r, int g, int b);
-void				decode_color(int color, int *r, int *g, int *b);
-int					fade_color(int color, double lum);
+void				wall_render(t_cub *cub, int y0, int y1, int wh);
 void				check_path(t_cub *cub, char *path);
 void				load_image(t_cub *cub, int *texture, char *path);
 void				load_texture(t_cub *cub);
-void				ft_texture(t_cub *cub);
-int					get_texture_color(t_cub *cub, int tx, int ty);
-void				wall_render(t_cub *cub, int y0, int y1, int wh);
+void				texture_init(t_cub *cub);
 
 /* maps */
 void				draw_tile(t_cub *cub, double x, double y, int color);
@@ -209,7 +210,7 @@ void				ft_minimap(t_cub *cub);
 
 /* window management */
 int					ft_exit(t_cub *cub);
-void				ft_screen(t_cub *cub);
+void				screen_init(t_cub *cub);
 
 /* sprite func */
 static int			cmp_sprites(const void *a, const void *b);
@@ -227,7 +228,7 @@ void				get_map(t_cub *cub, int idx);
 void				get_route(t_cub *cub, int idx, int jdx);
 void				get_numdata(t_cub *cub, int idx, int jdx, int loop);
 void				get_data(t_cub *cub, int idx, int jdx);
-void				ft_parsing(t_cub *cub);
+void				parsing_init(t_cub *cub);
 
 /* utility func */
 double				deg_to_rad(double deg);
@@ -245,5 +246,9 @@ int					except_space(t_cub *cub, int idx);
 void				*ft_realloc(void *ptr, int size);
 t_sprite			*sprite_realloc(t_sprite *ptr, int n);
 int					is_player(t_cub *cub, char player);
+int					get_wall_height(t_cub *cub, double dist);
+int					encode_color(int r, int g, int b);
+void				decode_color(int color, int *r, int *g, int *b);
+int					get_texture_color(t_cub *cub, int tx, int ty);
 
 #endif

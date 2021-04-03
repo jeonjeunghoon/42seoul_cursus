@@ -5,7 +5,10 @@ MV = mv
 
 NAME = cub3D
 
-SRCS_NAME = main.c ft_screen.c ft_key.c ft_raycasting.c ft_player.c ft_texture.c ft_sprite.c ft_minimap.c ft_bmp.c ft_parsing.c get_next_line.c utility.c utility2.c utility3.c
+SRCS_NAME = main.c screen_init.c ft_key.c ft_raycasting.c ft_render player_init.c \
+			texture_init.c ft_sprite.c ft_minimap.c ft_bmp.c parsing_init.c \
+			get_next_line.c utility.c utility2.c utility3.c utility4.c
+
 SRCS_DIR = ./srcs
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_NAME))
 OBJS = $(SRCS:.c=.o)
@@ -20,12 +23,12 @@ MLXBETA_NAME = mlxbeta
 MLXBETA_DIR = ./mms
 
 $(NAME): $(OBJS)
-	$(ARCH) $(MAKE) -C $(LIB_DIR) bonus
-	$(ARCH) $(MAKE) -C $(MLX_DIR)
-	$(ARCH) $(MAKE) -C $(MLXBETA_DIR)
-	$(MV) $(MLXBETA_DIR)/libmlxbeta.dylib ./libmlxbeta.dylib
+#	$(ARCH) $(MAKE) -C $(LIB_DIR) bonus
+#	$(ARCH) $(MAKE) -C $(MLX_DIR)
+#	$(ARCH) $(MAKE) -C $(MLXBETA_DIR)
+#	$(MV) $(MLXBETA_DIR)/libmlxbeta.dylib ./libmlxbeta.dylib
 	$(ARCH) $(CC) $(CFLAGS) -L$(LIB_DIR) -l$(LIB_NAME) -L$(MLX_DIR) -l$(MLX_NAME) -L . -l$(MLXBETA_NAME) -framework OpenGL -framework Appkit -lz $^ -o $@
-	./$(NAME)
+	./$(NAME) cub.map
 
 $(SRCS_DIR)/%.o : $(SRCS_DIR)/%.c
 	$(ARCH) $(CC) $(CFLAGS) -I$(MLXBETA_DIR) -I$(MLX_DIR) -I$(LIB_DIR) -c $< -o $@
@@ -35,17 +38,17 @@ $(SRCS_DIR)/%.o : $(SRCS_DIR)/%.c
 all : $(NAME) cub.map
 
 clean :
-	$(ARCH) $(MAKE) -C $(LIB_DIR) clean
-	$(ARCH) $(MAKE) -C $(MLX_DIR) clean
-	$(ARCH) $(MAKE) -C $(MLXBETA_DIR) clean
+#	$(ARCH) $(MAKE) -C $(LIB_DIR) clean
+#	$(ARCH) $(MAKE) -C $(MLX_DIR) clean
+#	$(ARCH) $(MAKE) -C $(MLXBETA_DIR) clean
 	rm -rf $(OBJS)
 	rm -rf bmp/cub3d.bmp
 
 fclean :
-	$(ARCH) $(MAKE) -C $(LIB_DIR) fclean
-	$(ARCH) $(MAKE) -C $(MLX_DIR) clean
-	$(ARCH) $(MAKE) -C $(MLXBETA_DIR) clean
-	rm -rf libmlxbeta.dylib
+#	$(ARCH) $(MAKE) -C $(LIB_DIR) fclean
+#	$(ARCH) $(MAKE) -C $(MLX_DIR) clean
+#	$(ARCH) $(MAKE) -C $(MLXBETA_DIR) clean
+#	rm -rf libmlxbeta.dylib
 	rm -rf $(NAME) $(OBJS)
 	rm -rf bmp/cub3d.bmp
 

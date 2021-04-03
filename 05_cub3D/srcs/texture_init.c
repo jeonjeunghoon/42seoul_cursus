@@ -1,96 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_texture.c                                       :+:      :+:    :+:   */
+/*   texture_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:33 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/01 12:13:15 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/03 20:40:12 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub.h"
+#include "cub.h"
 
-double
-get_fov_min_dist(t_cub *cub) /* distance to the floor-FOV intersection point */
+void				wall_render(t_cub *cub, int y0, int y1, int wh)
 {
-    static double T = -1;
-    if( T < 0 ) T = WALL_H / (2.0 * tan(cub->player.fov_v/2.0));
-    return T;
-}
-
-double
-get_luminosity(t_cub *cub, double dist)
-{
-    static double D = -1;
-    if( D < 0 ) D = (cub->map.mx + cub->map.my)/2.0;
-    return (dist > D) ? 0 : (1. - dist/D);
-}
-
-int
-encode_color(int r, int g, int b)
-{
-	int color;
-
-	color = (r * 256 * 256) + (g * 256) + b;
-	return (color);
-}
-
-void
-decode_color(int color, int *r, int *g, int *b)
-{
-	*r = ((color >> 16) & 0xFF);
-	*g = ((color >> 8) & 0xFF);
-	*b = (color & 0xFF);
-}
-
-int
-fade_color( int color, double lum )
-{
-    if( lum < 0 ) lum = 0;
-    else if( lum > 1 ) lum = 1;
-    int r, g, b;
-    decode_color(color, &r, &g, &b);
-    return encode_color( (int)(r*lum), (int)(g*lum), (int)(b*lum) );
-}
-
-int				get_texture_color(t_cub *cub, int tx, int ty)
-{
-	int			color;
-
-	color = cub->tex.texture[cub->ray.wdir][ty * TW + tx];
-	return (color);
-}
-
-void			wall_render(t_cub *cub, int y0, int y1, int wh)
-{
-	double		txratio;
-	int			color;
-	int 		tx;
-	int 		ty;
+	int				color;
+	int				y;
 
 	if (cub->ray.wdir == DIR_W || cub->ray.wdir == DIR_E)
-		txratio = cub->ray.wy - floor(cub->ray.wy);
+		cub->tex.txratio = cub->ray.wy - floor(cub->ray.wy);
 	else
-		txratio = cub->ray.wx - floor(cub->ray.wx);
-	tx = (int)(txratio * TW);
-	double lum = get_luminosity(cub, cub->ray.dist);
-	int add = 0;
-	if (y0 < 0)
-		add = y0 * -1;
-	y0 = get_max(0, y0);
-	for (int y = y0; y <= y1; y++)
+		cub->tex.txratio = cub->ray.wx - floor(cub->ray.wx);
+	cub->tex.tx = (int)(cub->tex.txratio * TW);
+	y = get_max(0, y0);
+	while (y <= y1)
 	{
-		ty = (int)((y - y0 + add) * TH / wh);
-		color = fade_color(get_texture_color(cub, tx, ty), lum);
+		cub->tex.ty = (int)((y - y0) * TH / wh);
+		color = get_texture_color(cub, cub->tex.tx, cub->tex.ty);
 		draw_pixel(cub, cub->ray.ray_cast, y, color);
+		y++;
 	}
 }
 
-void			check_path(t_cub *cub, char *path)
+void				check_path(t_cub *cub, char *path)
 {
-	int			check_file;
+	int				check_file;
 
 	check_file = open(path, O_RDONLY);
 	if (check_file == -1)
@@ -100,10 +44,10 @@ void			check_path(t_cub *cub, char *path)
 	}
 }
 
-void			load_image(t_cub *cub, int *texture, char *path)
+void				load_image(t_cub *cub, int *texture, char *path)
 {
-	int			x;
-	int			y;
+	int				x;
+	int				y;
 
 	check_path(cub, path);
 	cub->img.img = mlx_xpm_file_to_image(cub->mlx.mlx, path, &cub->img.width, \
@@ -125,21 +69,26 @@ void			load_image(t_cub *cub, int *texture, char *path)
 	mlx_destroy_image(cub->mlx.mlx, cub->img.img);
 }
 
-void			get_texture(t_cub *cub)
+void				get_texture(t_cub *cub)
 {
-	t_img		img;
+	t_img			img;
 
 	load_image(cub, cub->tex.texture[0], cub->map.ea);
 	load_image(cub, cub->tex.texture[1], cub->map.no);
 	load_image(cub, cub->tex.texture[2], cub->map.we);
 	load_image(cub, cub->tex.texture[3], cub->map.so);
 	load_image(cub, cub->tex.texture[4], cub->map.s);
+	free(cub->map.ea);
+	free(cub->map.no);
+	free(cub->map.we);
+	free(cub->map.so);
+	free(cub->map.s);
 }
 
-void			ft_texture(t_cub *cub)
+void				texture_init(t_cub *cub)
 {
-	int			i;
-	int			j;
+	int				i;
+	int				j;
 
 	cub->tex.texture = (int **)malloc(sizeof(int *) * 5);
 	i = 0;

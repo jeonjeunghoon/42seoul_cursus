@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parsing.c                                       :+:      :+:    :+:   */
+/*   parsing_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:15 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/02 23:33:18 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/03 20:28:27 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void				map_init(t_cub *cub)
 		jdx = 0;
 		while (jdx < cub->map.mx)
 		{
-			if (cub->map.parsed_map[kdx] == '\n' && kdx < ft_strlen(cub->map.parsed_map))
+			if (cub->map.parsed_map[kdx] == '\n' && \
+				kdx < ft_strlen(cub->map.parsed_map))
 			{
 				while (jdx < cub->map.mx)
 				{
@@ -35,8 +36,9 @@ void				map_init(t_cub *cub)
 					jdx++;
 				}
 			}
-			else if (cub->map.parsed_map[kdx] == '0' || cub->map.parsed_map[kdx] == '1' || \
-			cub->map.parsed_map[kdx] == '2')
+			else if (cub->map.parsed_map[kdx] == '0' || \
+					cub->map.parsed_map[kdx] == '1' || \
+					cub->map.parsed_map[kdx] == '2')
 				cub->map.map[idx][jdx] = cub->map.parsed_map[kdx] - '0';
 			else if (is_player(cub, cub->map.parsed_map[kdx]))
 				cub->map.map[idx][jdx] = cub->map.parsed_map[kdx];
@@ -157,7 +159,7 @@ void				get_data(t_cub *cub, int idx, int jdx)
 	free(cub->map.buf[idx]);
 }
 
-void				ft_parsing(t_cub *cub)
+void				parsing_init(t_cub *cub)
 {
 	int				idx;
 	int				jdx;

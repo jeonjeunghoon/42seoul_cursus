@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 21:34:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/01 12:26:16 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/03 20:18:49 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,9 @@ int				get_next_line(int fd, char **line)
 			break ;
 	}
 	if (byte == 0)
-	{
 		byte_is_zero(fd, line, room[fd]);
+	if (byte == 0)
 		return (0);
-	}
 	else
 	{
 		room[fd] = add_line(line, room[fd]);

@@ -6,17 +6,17 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:40 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/01 12:11:41 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/03 20:30:04 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub.h"
+#include "cub.h"
 
 double			deg_to_rad(double deg)
 {
 	double		rad;
 
-	rad = deg * (M_PI/180);
+	rad = deg * (M_PI / 180);
 	return (rad);
 }
 
@@ -24,7 +24,7 @@ double			rad_to_deg(double rad)
 {
 	double		deg;
 
-	deg = rad * (180/M_PI);
+	deg = rad * (180 / M_PI);
 	return (deg);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:30 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/02 23:42:09 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/03 20:34:29 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void			ft_sprite(t_cub *cub)
 	for (int i = 0; i < cub->sp.nsp; i++)
 	{
 		sph = get_wall_height(cub, sp[i].dist);
-		double lum = get_luminosity(cub, sp[i].dist);
 		cub->ray.wdir = sp[i].tex;
 		angle = sp[i].th - cub->player.th;
 		if (angle > M_PI)
@@ -99,7 +98,6 @@ void			ft_sprite(t_cub *cub)
 				int color = get_sprite_color(cub, tx, ty);
 				if ( (color & 0x00ffffff) == 0 || (y < TILE * cub->map.my && x < TILE * cub->map.mx))
 					continue ; /* black == transparent */
-				color = fade_color(color, lum);
 				draw_pixel(cub, x, y, color);
 			}
 		}

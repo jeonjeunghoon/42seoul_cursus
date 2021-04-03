@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:10:54 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/02 22:18:03 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/03 20:26:21 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void			load_data(t_cub *cub)
 {
 	int			i;
 
-	ft_parsing(cub);
-	ft_texture(cub);
-	ft_screen(cub);
-	ft_player(cub);
+	parsing_init(cub);
+	texture_init(cub);
+	screen_init(cub);
+	player_init(cub);
 	cub->sp.zbuf = (double *)malloc(sizeof(double) * cub->map.r[0]);
 	cub->img.data = (int *)mlx_get_data_addr(cub->img.img, &cub->img.bpp, \
 									&cub->img.size_line, &cub->img.endian);

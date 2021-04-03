@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_player.c                                        :+:      :+:    :+:   */
+/*   player_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:18 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/02 17:17:51 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/03 20:28:34 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			get_player_data(t_cub *cub)
 	cub->player.fov_v = cub->player.fov_h * cub->map.r[1] / cub->map.r[0];
 }
 
-void			ft_player(t_cub *cub)
+void			player_init(t_cub *cub)
 {
 	double		temp;
 
