@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/03 21:33:07 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/03 21:52:17 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 # define CUB_H
 
 # include "../opengl/mlx.h"
-# include "../libft/libft.h"
 # include "get_next_line.h"
 # include <fcntl.h>
-# include <string.h>
 # include <math.h>
 # include <stdio.h>
 
