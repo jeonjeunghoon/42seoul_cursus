@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:21 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/03 21:55:19 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/05 16:33:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,22 @@ void				ray_init(t_cub *cub)
 
 void				hitting(t_cub *cub)
 {
-	if (cub->ray.xstep != 0)
-		cub->ray.f = cub->ray.xslope * (cub->ray.nx - cub->player.x) + cub->player.y;
-	if (cub->ray.ystep != 0)
-		cub->ray.g = cub->ray.yslope * (cub->ray.ny - cub->player.y) + cub->player.x;
-	cub->ray.dist_v = ft_dist(cub->player.x, cub->player.y, cub->ray.nx, cub->ray.f);
-	cub->ray.dist_h = ft_dist(cub->player.x, cub->player.y, cub->ray.g, cub->ray.ny);
+	cub->ray.dist_v = \
+	ft_dist(cub->player.x, cub->player.y, cub->ray.nx, cub->ray.f);
+	cub->ray.dist_h = \
+	ft_dist(cub->player.x, cub->player.y, cub->ray.g, cub->ray.ny);
 	if (cub->ray.dist_v < cub->ray.dist_h)
 	{
 		if (cub->ray.xstep == 1)
 			cub->map.mapx = (int)(cub->ray.nx);
 		else
 			cub->map.mapx = (int)(cub->ray.nx) - 1;
-		cub->map.mapy = (int) cub->ray.f;
+		cub->map.mapy = (int)cub->ray.f;
 		cub->ray.hit_side = VERT;
 	}
 	else
 	{
-		cub->map.mapx = (int) cub->ray.g;
+		cub->map.mapx = (int)cub->ray.g;
 		if (cub->ray.ystep == 1)
 			cub->map.mapy = (int)(cub->ray.ny);
 		else
@@ -71,8 +69,6 @@ void				hitting(t_cub *cub)
 
 int					is_hit(t_cub *cub)
 {
-	if (cub->map.map[cub->map.mapy][cub->map.mapx] < 0)
-		return (0);
 	if (cub->map.map[cub->map.mapy][cub->map.mapx] == 1)
 	{
 		if (cub->ray.hit_side == VERT)
@@ -102,9 +98,17 @@ int					is_hit(t_cub *cub)
 int					ft_dda(t_cub *cub)
 {
 	ray_init(cub);
-	while(!cub->ray.hit)
+	while (!cub->ray.hit)
 	{
+		if (cub->ray.xstep != 0)
+			cub->ray.f = \
+			cub->ray.xslope * (cub->ray.nx - cub->player.x) + cub->player.y;
+		if (cub->ray.ystep != 0)
+			cub->ray.g = \
+			cub->ray.yslope * (cub->ray.ny - cub->player.y) + cub->player.x;
 		hitting(cub);
+		if (cub->map.map[cub->map.mapy][cub->map.mapx] < 0)
+			return (0);
 		if ((is_hit(cub) == 0))
 			break ;
 		cub->sp.vis[cub->map.mapy][cub->map.mapx] = 1;

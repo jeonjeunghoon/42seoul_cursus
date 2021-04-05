@@ -6,15 +6,18 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:30 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/03 20:34:29 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/05 16:37:04 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static int		cmp_sprites(const void* a, const void* b)
+static int		cmp_sprites(const void *a, const void *b)
 {
-    return (((const t_sprite*)a)->dist > ((const t_sprite*)b)->dist) ? -1 : 1;
+	if (((const t_sprite *)a)->dist > ((const t_sprite *)b)->dist)
+		return (-1);
+	else
+		return (1);
 }
 
 int				get_sprite_color(t_cub *cub, int tx, int ty)
