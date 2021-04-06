@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:18 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/06 17:38:43 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 20:58:08 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void			get_player_data(t_cub *cub)
 
 void			player_init(t_cub *cub)
 {
-	double		temp;
-
 	cub->player.y = 0;
 	while (cub->player.y < cub->map.my)
 	{

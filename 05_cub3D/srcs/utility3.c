@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:50 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/02 21:06:52 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 22:13:50 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_sprite			*sprite_realloc(t_sprite *ptr, int n)
 	return (new_ptr);
 }
 
-int					is_player(t_cub *cub, char player)
+int					is_player(char player)
 {
 	if (player == 'E' || player == 'N' || player == 'W' || player == 'S')
 	{
@@ -70,4 +70,12 @@ int					is_player(t_cub *cub, char player)
 			return ('S');
 	}
 	return (0);
+}
+
+int					get_sprite_color(t_cub *cub, int tx, int ty)
+{
+	int			color;
+
+	color = cub->tex.texture[cub->ray.wdir][ty * 120 + tx];
+	return (color);
 }

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:33 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/06 17:38:57 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 20:58:54 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void				wall_render(t_cub *cub, int y0, int y1, int wh)
 	}
 }
 
-void				check_path(t_cub *cub, char *path)
+void				check_path(char *path)
 {
 	int				check_file;
 
@@ -49,7 +49,7 @@ void				load_image(t_cub *cub, int *texture, char *path)
 	int				x;
 	int				y;
 
-	check_path(cub, path);
+	check_path(path);
 	cub->img.img = mlx_xpm_file_to_image(cub->mlx.mlx, path, &cub->img.width, \
 															&cub->img.height);
 	cub->img.data = (int *)mlx_get_data_addr(cub->img.img, &cub->img.bpp, \
@@ -71,8 +71,6 @@ void				load_image(t_cub *cub, int *texture, char *path)
 
 void				get_texture(t_cub *cub)
 {
-	t_img			img;
-
 	load_image(cub, cub->tex.texture[0], cub->map.ea);
 	load_image(cub, cub->tex.texture[1], cub->map.no);
 	load_image(cub, cub->tex.texture[2], cub->map.we);

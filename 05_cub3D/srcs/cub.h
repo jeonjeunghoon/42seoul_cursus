@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/06 17:33:34 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 22:50:26 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,13 @@
 # define KEY_LEFT 123
 # define KEY_RIGHT 124
 # define KEY_ESC 53
-
 # define WALL_H 1.0
-
 # define TILE 10
-
 # define TW 256
 # define TH 256
-
 # define FOV 60
-
-# define MOVE_SPEED 0.1
-# define ROTATE_SPEED 0.03
+# define MOVE_SPEED 0.2
+# define ROTATE_SPEED 0.1
 
 enum	e_hitside
 {
@@ -80,6 +75,16 @@ typedef	struct		s_sprite
 	int				nsp;
 	double			dist;
 	double			th;
+	int				sph;
+	double			angle;
+	double			pixel_per_angle;
+	int				cx;
+	int				xmin;
+	int				xmax;
+	double			txratio;
+	int				tx;
+	int				ty;
+	int				color;
 }					t_sprite;
 
 typedef	struct		s_texture
@@ -129,6 +134,8 @@ typedef	struct		s_player
 
 typedef	struct		s_map
 {
+	int				fd;
+	int				is_read;
 	char			**buf;
 	int				*r;
 	char			*ea;
@@ -144,6 +151,10 @@ typedef	struct		s_map
 	int				**map;
 	int				mapx;
 	int				mapy;
+	int				idx;
+	int				jdx;
+	int				kdx;
+	int				is_overlap;
 }					t_map;
 
 typedef	struct		s_img
@@ -175,57 +186,99 @@ typedef	struct		s_cub
 	int				save;
 }					t_cub;
 
-void				get_player_data(t_cub *cub);
+
+void				ft_exception(int argc, char **argv, t_cub *cub);
+void				load_data(t_cub *cub);
+void				load_texture(t_cub *cub);
+void				parsing_init(t_cub *cub);
+void				texture_init(t_cub *cub);
+void				screen_init(t_cub *cub);
 void				player_init(t_cub *cub);
+
+
+void				get_player_data(t_cub *cub);
+
+
 void				ray_init(t_cub *cub);
 void				hitting(t_cub *cub);
 int					is_hit(t_cub *cub);
 int					ft_dda(t_cub *cub);
 int					ft_raycasting(t_cub *cub);
-void				ft_render(t_cub *cub);
+
+
 void				ft_move(int keycode, t_cub *cub, double move_speed, \
 					double th);
 void				ft_rotate(t_cub *cub, double rotate_speed);
 int					ft_key(int keycode, t_cub *cub);
+
+
 void				wall_render(t_cub *cub, int y0, int y1, int wh);
-void				check_path(t_cub *cub, char *path);
+void				check_path(char *path);
 void				load_image(t_cub *cub, int *texture, char *path);
-void				load_texture(t_cub *cub);
-void				texture_init(t_cub *cub);
+void				get_texture(t_cub *cub);
+
+
+void				ft_render(t_cub *cub);
+
+
 void				draw_tile(t_cub *cub, double x, double y, int color);
 void				ft_minimap(t_cub *cub);
+
+
 int					ft_exit(char *s);
-void				screen_init(t_cub *cub);
-static int			cmp_sprites(const void *a, const void *b);
-int					get_sprite_color(t_cub *cub, int tx, int ty);
+
+
+void				get_sprite(t_cub *cub, int x, int y, t_sprite *sp);
 t_sprite			*get_visible_sprites(t_cub *cub);
+void				draw_col(t_cub *cub, int x, int y);
+void				draw_sprite(t_cub *cub, t_sprite *sp, int i);
 void				ft_sprite(t_cub *cub);
+
+
 void				write_bmp_header(t_cub *cub, int fd);
 void				ft_save(t_cub *cub);
+
+
+void				is_wall(t_cub *cub, int idx, int jdx);
+void				check_vertex(t_cub *cub, int idx, int jdx);
+void				check_row(t_cub *cub, int idx, int jdx);
+void				check_col(t_cub *cub, int idx, int jdx);
+void				check_etc(t_cub *cub, int idx, int jdx);
+
+void				check_map(t_cub *cub);
+void				fill_space(t_cub *cub, int idx, int jdx);
+void				fill_map(t_cub *cub);
 void				map_init(t_cub *cub);
 void				get_map(t_cub *cub, int idx);
+
 void				get_route(t_cub *cub, int idx, int jdx);
 void				get_numdata(t_cub *cub, int idx, int jdx, int loop);
 void				get_data(t_cub *cub, int idx, int jdx);
-void				parsing_init(t_cub *cub);
+void				read_map(t_cub *cub, int idx, int jdx);
+
+
 double				deg_to_rad(double deg);
 double				rad_to_deg(double rad);
 double				get_min(double x, double y);
 double				get_max(double x, double y);
 int					get_cell(t_cub *cub, int x, int y);
+
+void				draw_pixel(t_cub *cub, int x, int y, int color);
 int					ft_sgn(double d);
 double				ft_dist(double s_x, double s_y, double e_x, double e_y);
 void				ft_swap(t_sprite *sprite, int i, int j);
 void				ft_qsort(t_sprite *sprite, int start, int end);
-void				draw_pixel(t_cub *cub, int x, int y, int color);
+
 int					is_space(char c);
 int					except_space(t_cub *cub, int idx);
-void				*ft_realloc(void *ptr, int size);
 t_sprite			*sprite_realloc(t_sprite *ptr, int n);
-int					is_player(t_cub *cub, char player);
+int					is_player(char player);
+int					get_sprite_color(t_cub *cub, int tx, int ty);
+
 int					get_wall_height(t_cub *cub, double dist);
 int					encode_color(int r, int g, int b);
 void				decode_color(int color, int *r, int *g, int *b);
 int					get_texture_color(t_cub *cub, int tx, int ty);
+void				map_error(void);
 
 #endif

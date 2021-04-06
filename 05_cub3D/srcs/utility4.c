@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 20:42:09 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/03 20:46:00 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 22:20:56 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,9 @@ int					get_texture_color(t_cub *cub, int tx, int ty)
 
 	color = cub->tex.texture[cub->ray.wdir][ty * TW + tx];
 	return (color);
+}
+
+void				map_error(void)
+{
+	ft_exit("Cub3D Error: Invalid map");
 }

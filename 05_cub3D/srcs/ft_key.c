@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:05 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/06 17:37:10 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 20:57:43 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void			ft_move(int keycode, t_cub *cub, double move_speed, double th)
 	double		dx;
 	double		dy;
 
+	dx = 0.0;
+	dy = 0.0;
 	if (keycode == KEY_W || keycode == KEY_S)
 	{
 		dx = cub->player.x + move_speed * (cos(cub->player.th));

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 21:34:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/03 20:18:49 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 21:04:32 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char			*add_line(char **line, char *room)
 	return (room);
 }
 
-void			byte_is_zero(int fd, char **line, char *room)
+void			byte_is_zero(char **line, char *room)
 {
 	if (!room)
 		*line = ft_strdup("");
@@ -91,7 +91,7 @@ int				get_next_line(int fd, char **line)
 			break ;
 	}
 	if (byte == 0)
-		byte_is_zero(fd, line, room[fd]);
+		byte_is_zero(line, room[fd]);
 	if (byte == 0)
 		return (0);
 	else

@@ -6,105 +6,121 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:30 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/05 16:37:04 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 22:11:14 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static int		cmp_sprites(const void *a, const void *b)
+void			get_sprite(t_cub *cub, int x, int y, t_sprite *sp)
 {
-	if (((const t_sprite *)a)->dist > ((const t_sprite *)b)->dist)
-		return (-1);
-	else
-		return (1);
-}
-
-int				get_sprite_color(t_cub *cub, int tx, int ty)
-{
-	int			color;
-
-	color = cub->tex.texture[cub->ray.wdir][ty * 120 + tx];
-	return (color);
+	sp->tex = DIR_SP;
+	sp->x = x + 0.5;
+	sp->y = y + 0.5;
+	sp->th = atan2(sp->y - cub->player.y, sp->x - cub->player.x);
+	if (sp->th < 0)
+		sp->th += deg_to_rad(360);
+	sp->dist = ft_dist(cub->player.x, cub->player.y, sp->x, sp->y);
+	sp->dist *= cos(cub->player.th - sp->th);
 }
 
 t_sprite		*get_visible_sprites(t_cub *cub)
 {
 	int			n;
+	int			x;
+	int			y;
 	t_sprite	*sp;
 
 	n = 0;
 	sp = NULL;
-	for (int y = 0; y < cub->map.my; y++) {
-		for (int x = 0; x < cub->map.mx; x++) {
-			if( cub->sp.vis[y][x] == 0 || cub->map.map[y][x] != 2)
-                continue;
+	y = -1;
+	while (++y < cub->map.my)
+	{
+		x = -1;
+		while (++x < cub->map.mx)
+		{
+			if (cub->sp.vis[y][x] == 0 || cub->map.map[y][x] != 2)
+				continue ;
 			if (n == 0)
 				sp = (t_sprite *)malloc(sizeof(t_sprite));
 			else
 				sp = sprite_realloc(sp, n);
-			sp[n].tex = DIR_SP;
-        	sp[n].x = x + 0.5;
-        	sp[n].y = y + 0.5;
-        	sp[n].th = atan2(sp[n].y - cub->player.y, sp[n].x - cub->player.x);
-        	if( sp[n].th < 0 )
-				sp[n].th += deg_to_rad(360);
-        	sp[n].dist = ft_dist(cub->player.x, cub->player.y, sp[n].x, sp[n].y);
-			sp[n].dist *= cos(cub->player.th - sp[n].th);
-        	n++;
+			get_sprite(cub, x, y, &sp[n]);
+			n++;
 		}
 	}
 	cub->sp.nsp = n;
-    return (sp);
+	return (sp);
+}
+
+void			draw_col(t_cub *cub, int x, int y)
+{
+	int			y0;
+	int			y1;
+	int			add;
+
+	cub->sp.txratio = (double)(x - cub->sp.cx) / cub->sp.sph + 0.5;
+	cub->sp.tx = (int)(cub->sp.txratio * 120);
+	y0 = (int)((cub->map.r[1] - cub->sp.sph) / 2.0);
+	y1 = y0 + cub->sp.sph;
+	add = 0;
+	if (y0 < 0)
+		add = y0 * -1;
+	y0 = get_max(0, y0);
+	y1 = get_min(cub->map.r[1], y1);
+	y = y0 - 1;
+	while (++y < y1)
+	{
+		cub->sp.ty = (int)((double)(y - y0 + add) * 120 / cub->sp.sph);
+		cub->sp.color = get_sprite_color(cub, cub->sp.tx, cub->sp.ty);
+		if ((cub->sp.color & 0x00ffffff) == 0 || \
+			(y < TILE * cub->map.my && x < TILE * cub->map.mx))
+			continue ;
+		draw_pixel(cub, x, y, cub->sp.color);
+	}
+}
+
+void			draw_sprite(t_cub *cub, t_sprite *sp, int i)
+{
+	int			x;
+	int			y;
+
+	cub->sp.cx = (int)((cub->player.fovh_2 - cub->sp.angle) * \
+				cub->sp.pixel_per_angle);
+	cub->sp.xmin = get_max(0, cub->sp.cx - cub->sp.sph / 2);
+	cub->sp.xmax = get_min(cub->map.r[0], cub->sp.cx + cub->sp.sph / 2);
+	x = cub->sp.xmin - 1;
+	y = 0;
+	while (++x < cub->sp.xmax)
+	{
+		if (sp[i].dist > cub->sp.zbuf[x])
+			continue ;
+		if (sp[i].dist <= 0.5)
+			continue ;
+		draw_col(cub, x, y);
+	}
 }
 
 void			ft_sprite(t_cub *cub)
 {
 	t_sprite	*sp;
-	int			sph;
-	double		angle;
-	double		pixel_per_angle;
+	int			i;
 
-	pixel_per_angle = (cub->map.r[0] - 1) / cub->player.fov_h;
+	cub->sp.pixel_per_angle = (cub->map.r[0] - 1) / cub->player.fov_h;
 	sp = get_visible_sprites(cub);
-	qsort(sp, cub->sp.nsp, sizeof(t_sprite), cmp_sprites);
-	// ft_qsort(sp, cub->sp.nsp, sizeof(t_sprite));
-	for (int i = 0; i < cub->sp.nsp; i++)
+	ft_qsort(sp, 0, cub->sp.nsp - 1);
+	i = -1;
+	while (++i < cub->sp.nsp)
 	{
-		sph = get_wall_height(cub, sp[i].dist);
+		cub->sp.sph = get_wall_height(cub, sp[i].dist);
 		cub->ray.wdir = sp[i].tex;
-		angle = sp[i].th - cub->player.th;
-		if (angle > M_PI)
-			angle -= M_PI * 2;
-		else if (angle < -M_PI)
-			angle += M_PI * 2;
-		int cx = (int)((cub->player.fovh_2 - angle) * pixel_per_angle);
-		int xmin = get_max(0, cx - sph/2); /* clipping */
-		int xmax = get_min(cub->map.r[0], cx + sph/2);
-		for (int x = xmin; x < xmax; x++)
-		{
-			if (sp[i].dist > cub->sp.zbuf[x])
-				continue ;
-			if (sp[i].dist <= 0.5)
-				continue ;
-			double txratio = (double)(x-cx)/sph + 0.5;
-			int tx = (int)(txratio * 120); /* texture col # */
-			int y0 = (int)((cub->map.r[1] - sph)/2.0);
-			int y1 = y0 + sph;
-			int add = 0;
-			if (y0 < 0)
-				add = y0 * -1;
-			y0 = get_max(0, y0);
-			y1 = get_min(cub->map.r[1], y1);
-			for( int y = y0; y < y1; y++ ) {
-				int ty = (int)((double)(y - y0 + add) * 120 / sph); /* texture row # */
-				int color = get_sprite_color(cub, tx, ty);
-				if ( (color & 0x00ffffff) == 0 || (y < TILE * cub->map.my && x < TILE * cub->map.mx))
-					continue ; /* black == transparent */
-				draw_pixel(cub, x, y, color);
-			}
-		}
+		cub->sp.angle = sp[i].th - cub->player.th;
+		if (cub->sp.angle > M_PI)
+			cub->sp.angle -= M_PI * 2;
+		else if (cub->sp.angle < -M_PI)
+			cub->sp.angle += M_PI * 2;
+		draw_sprite(cub, sp, i);
 	}
 	if (cub->sp.nsp > 0)
-		ft_free((void *)&sp);
+		free(sp);
 }

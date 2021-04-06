@@ -6,15 +6,15 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:10:54 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/06 17:34:42 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 22:17:01 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void			load_data(t_cub *cub)
+void				load_data(t_cub *cub)
 {
-	int			i;
+	int				i;
 
 	parsing_init(cub);
 	texture_init(cub);
@@ -32,30 +32,35 @@ void			load_data(t_cub *cub)
 	}
 }
 
-void			ft_exception(int argc, char **argv, t_cub *cub)
+void				ft_exception(int argc, char **argv, t_cub *cub)
 {
 	if (argc == 3 || argc == 2)
 	{
 		if (argc == 3 && \
-		ft_strncmp(argv[1], "cub.map", ft_strlen("cub.map")) && \
-		ft_strncmp(argv[2], "--save", ft_strlen("--save")) && \
 		(ft_strlen(argv[1]) == ft_strlen("cub.map")) && \
 		(ft_strlen(argv[2]) == ft_strlen("--save")))
 		{
+			if ((ft_strncmp(argv[1], "cub.map", ft_strlen("cub.map")) != 1))
+				ft_exit("Cub3D Error: Invalid arguments");
+			if ((ft_strncmp(argv[2], "--save", ft_strlen("--save")) != 1))
+				ft_exit("Cub3D Error: Invalid arguments");
 			cub->save = 1;
 			return ;
 		}
 		else if (argc == 2 && \
-		ft_strncmp(argv[1], "cub.map", ft_strlen("cub.map")) && \
 		(ft_strlen(argv[1]) == ft_strlen("cub.map")))
+		{
+			if ((ft_strncmp(argv[1], "cub.map", ft_strlen("cub.map")) != 1))
+				ft_exit("Cub3D Error: Invalid arguments");
 			return ;
+		}
 	}
 	ft_exit("Cub3D Error: Invalid arguments");
 }
 
-int				main(int argc, char **argv)
+int					main(int argc, char **argv)
 {
-	t_cub		cub;
+	t_cub			cub;
 
 	ft_exception(argc, argv, &cub);
 	cub.mlx.mlx = mlx_init();
