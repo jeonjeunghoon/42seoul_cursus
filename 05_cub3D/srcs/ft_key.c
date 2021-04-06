@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:05 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/01 12:12:47 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 17:37:10 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ int				ft_key(int keycode, t_cub *cub)
 			ft_rotate(cub, ROTATE_SPEED * -1);
 	}
 	if (keycode == KEY_ESC)
-		ft_exit(cub);
+		ft_exit("Exit Cub3D");
 	return (0);
 }

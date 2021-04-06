@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/03 21:52:17 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 17:33:34 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,60 +175,39 @@ typedef	struct		s_cub
 	int				save;
 }					t_cub;
 
-/* player func */
 void				get_player_data(t_cub *cub);
 void				player_init(t_cub *cub);
-
-/* ray func */
 void				ray_init(t_cub *cub);
 void				hitting(t_cub *cub);
 int					is_hit(t_cub *cub);
 int					ft_dda(t_cub *cub);
 int					ft_raycasting(t_cub *cub);
-
-/* rander */
 void				ft_render(t_cub *cub);
-
-/* key func */
 void				ft_move(int keycode, t_cub *cub, double move_speed, \
 					double th);
 void				ft_rotate(t_cub *cub, double rotate_speed);
 int					ft_key(int keycode, t_cub *cub);
-
-/* texture func */
 void				wall_render(t_cub *cub, int y0, int y1, int wh);
 void				check_path(t_cub *cub, char *path);
 void				load_image(t_cub *cub, int *texture, char *path);
 void				load_texture(t_cub *cub);
 void				texture_init(t_cub *cub);
-
-/* maps */
 void				draw_tile(t_cub *cub, double x, double y, int color);
 void				ft_minimap(t_cub *cub);
-
-/* window management */
-int					ft_exit(t_cub *cub);
+int					ft_exit(char *s);
 void				screen_init(t_cub *cub);
-
-/* sprite func */
 static int			cmp_sprites(const void *a, const void *b);
 int					get_sprite_color(t_cub *cub, int tx, int ty);
 t_sprite			*get_visible_sprites(t_cub *cub);
 void				ft_sprite(t_cub *cub);
-
-/* bmp */
 void				write_bmp_header(t_cub *cub, int fd);
 void				ft_save(t_cub *cub);
-
-/* parsing */
 void				map_init(t_cub *cub);
 void				get_map(t_cub *cub, int idx);
 void				get_route(t_cub *cub, int idx, int jdx);
 void				get_numdata(t_cub *cub, int idx, int jdx, int loop);
 void				get_data(t_cub *cub, int idx, int jdx);
 void				parsing_init(t_cub *cub);
-
-/* utility func */
 double				deg_to_rad(double deg);
 double				rad_to_deg(double rad);
 double				get_min(double x, double y);

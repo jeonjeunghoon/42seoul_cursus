@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:33 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/03 20:40:12 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 17:38:57 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void				check_path(t_cub *cub, char *path)
 	if (check_file == -1)
 	{
 		perror("Cub3D Error");
-		ft_exit(cub);
+		exit(0);
 	}
 }
 

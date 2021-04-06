@@ -6,11 +6,48 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:15 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/03 20:28:27 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 19:49:53 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+void				map_error(void)
+{
+	ft_exit("Cub3D Error: Invalid map");
+}
+
+void				is_zero(t_cub *cub)
+{
+	
+}
+
+void				check_map(t_cub *cub)
+{
+	int				idx;
+	int				jdx;
+
+	idx = 0;
+	while (idx < cub->map.my)
+	{
+		jdx = 0;
+		while (jdx < cub->map.mx)
+		{
+			
+			jdx++;
+		}
+		idx++
+	}
+}
+
+void				fill_space(t_cub *cub, int idx, int jdx)
+{
+	while (jdx < cub->map.mx)
+	{
+		cub->map.map[idx][jdx] = 8;
+		jdx++;
+	}
+}
 
 void				map_init(t_cub *cub)
 {
@@ -25,32 +62,31 @@ void				map_init(t_cub *cub)
 	{
 		cub->map.map[idx] = (int *)malloc(sizeof(int) * (cub->map.mx));
 		jdx = 0;
-		while (jdx < cub->map.mx)
+		if (idx == 0 || idx == cub->map.my - 1)
+			fill_space(cub, idx, jdx);
+		else
 		{
-			if (cub->map.parsed_map[kdx] == '\n' && \
-				kdx < ft_strlen(cub->map.parsed_map))
+			while (jdx < cub->map.mx)
 			{
-				while (jdx < cub->map.mx)
+				if (cub->map.parsed_map[kdx] == '\n' && \
+					jdx != 0 && kdx < ft_strlen(cub->map.parsed_map))
 				{
-					cub->map.map[idx][jdx] = 8;
-					jdx++;
+					while (jdx < cub->map.mx)
+						cub->map.map[idx][jdx++] = 8;
 				}
+				else if (cub->map.parsed_map[kdx] == '0' || \
+						cub->map.parsed_map[kdx] == '1' || \
+						cub->map.parsed_map[kdx] == '2')
+					cub->map.map[idx][jdx] = cub->map.parsed_map[kdx] - '0';
+				else if (is_player(cub, cub->map.parsed_map[kdx]))
+					cub->map.map[idx][jdx] = cub->map.parsed_map[kdx];
+				else if (is_space(cub->map.parsed_map[kdx]))
+					cub->map.map[idx][jdx] = 8;
+				else
+					map_error();
+				jdx++;
+				kdx++;
 			}
-			else if (cub->map.parsed_map[kdx] == '0' || \
-					cub->map.parsed_map[kdx] == '1' || \
-					cub->map.parsed_map[kdx] == '2')
-				cub->map.map[idx][jdx] = cub->map.parsed_map[kdx] - '0';
-			else if (is_player(cub, cub->map.parsed_map[kdx]))
-				cub->map.map[idx][jdx] = cub->map.parsed_map[kdx];
-			else if (is_space(cub->map.parsed_map[kdx]))
-				cub->map.map[idx][jdx] = 8;
-			else
-			{
-				printf("Cub3D Error: invalid map");
-				ft_exit(cub);
-			}
-			jdx++;
-			kdx++;
 		}
 		idx++;
 	}
@@ -60,13 +96,17 @@ void				get_map(t_cub *cub, int idx)
 {
 	char			*room;
 
+	room = ft_strjoin(" ", cub->map.buf[idx]);
+	free(cub->map.buf[idx]);
+	cub->map.buf[idx] = ft_strdup(room);
+	free(room);
 	room = ft_strjoin(cub->map.buf[idx], "\n");
 	free(cub->map.buf[idx]);
 	cub->map.buf[idx] = ft_strdup(room);
 	free(room);
 	if (cub->map.my == 0)
 	{
-		cub->map.mx = ft_strlen(cub->map.buf[idx]) + 1;
+		cub->map.mx = ft_strlen(cub->map.buf[idx]);
 		cub->map.parsed_map = ft_strdup(cub->map.buf[idx]);
 	}
 	else
@@ -176,6 +216,8 @@ void				parsing_init(t_cub *cub)
 	{
 		is_read = get_next_line(fd, &cub->map.buf[idx]);
 		jdx = except_space(cub, idx);
+		if (cub->map.my > 0 && jdx == -1)
+			map_error();
 		if (jdx != -1 && cub->map.buf[idx])
 		{
 			if (idx < 8)
@@ -193,6 +235,25 @@ void				parsing_init(t_cub *cub)
 	free(cub->map.buf);
 	cub->map.buf = NULL;
 	close(fd);
+	cub->map.my += 2;
+
+
+	printf("%s\n", cub->map.parsed_map);
+
+	
 	map_init(cub);
+
+	
+	for(int i = 0; i < cub->map.my; i++){
+		for (int j = 0; j < cub->map.mx; j++){
+			if (cub->map.map[i][j] > 'A')
+				printf("%c", cub->map.map[i][j]);
+			else
+				printf("%d", cub->map.map[i][j]);
+		}
+		printf("\n");
+	}
+
+	
 	free(cub->map.parsed_map);
 }

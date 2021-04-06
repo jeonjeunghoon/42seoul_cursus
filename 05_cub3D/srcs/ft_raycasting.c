@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:21 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/05 16:33:02 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 17:37:36 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,7 @@ int					ft_raycasting(t_cub *cub)
 		cub->ray.ray = cub->player.th + \
 		cub->player.fovh_2 - (cub->player.per_fov_h * cub->ray.ray_cast);
 		if ((ft_dda(cub)) == 0)
-		{
-			printf("Cub3D Error: map file is not valid\n");
-			ft_exit(cub);
-		}
+			ft_exit("Cub3D Error: map file is not valid");
 		ft_render(cub);
 		cub->sp.zbuf[cub->ray.ray_cast] = cub->ray.dist;
 		cub->ray.ray_cast++;

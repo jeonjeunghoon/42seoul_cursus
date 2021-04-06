@@ -6,22 +6,17 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 18:13:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/03 20:28:39 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 17:35:29 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mms/mlxbeta.h"
 #include "cub.h"
 
-int				ft_exit(t_cub *cub)
+int				ft_exit(char *s)
 {
-	if (cub->img.img)
-		mlx_destroy_image(cub->mlx.mlx, cub->img.img);
-	if (cub->mlx.win)
-	{
-		mlx_clear_window(cub->mlx.mlx, cub->mlx.win);
-		mlx_destroy_window(cub->mlx.mlx, cub->mlx.win);
-	}
+	if (s)
+		printf("%s\n", s);
 	exit(0);
 	return (0);
 }

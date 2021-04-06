@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:18 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/03 20:28:34 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 17:38:43 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ void			player_init(t_cub *cub)
 		}
 		cub->player.y++;
 	}
-	printf("Cub3D Error: doesn't exist player in map\n");
-	ft_exit(cub);
+	ft_exit("Cub3D Error: doesn't exist player in map");
 }

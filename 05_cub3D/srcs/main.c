@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:10:54 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/03 20:26:21 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/06 17:34:42 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ void			ft_exception(int argc, char **argv, t_cub *cub)
 		(ft_strlen(argv[1]) == ft_strlen("cub.map")))
 			return ;
 	}
-	printf("Cub3D Error: Invalid arguments\n");
-	exit(0);
+	ft_exit("Cub3D Error: Invalid arguments");
 }
 
 int				main(int argc, char **argv)
