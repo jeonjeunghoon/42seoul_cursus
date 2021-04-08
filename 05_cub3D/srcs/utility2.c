@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:46 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/06 20:39:00 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/09 02:44:09 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,26 +49,27 @@ void			ft_swap(t_sprite *sprite, int i, int j)
 
 void			ft_qsort(t_sprite *sprite, int start, int end)
 {
-	int			pivot_i;
-	int			pivot_dist;
+	int			pivot;
 	int			i;
+	int			j;
 
 	if (start < end)
 	{
-		pivot_dist = sprite[end].dist;
-		i = start - 1;
-		while (start < end)
+		pivot = start;
+		i = start + 1;
+		j = end;
+		while (i <= j)
 		{
-			if (pivot_dist > sprite[start].dist)
-			{
+			while (i <= end && sprite[i].dist >= sprite[pivot].dist)
 				i++;
-				ft_swap(sprite, start, i);
-			}
-			start++;
+			while (j > start && sprite[j].dist <= sprite[pivot].dist)
+				j--;
+			if (i > j)
+				break ;
+			ft_swap(sprite, i, j);
 		}
-		ft_swap(sprite, end, i + 1);
-		pivot_i = i + 1;
-		ft_qsort(sprite, start, pivot_i - 1);
-		ft_qsort(sprite, pivot_i + 1, end);
+		ft_swap(sprite, j, pivot);
+		ft_qsort(sprite, start, j - 1);
+		ft_qsort(sprite, j + 1, end);
 	}
 }
