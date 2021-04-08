@@ -1,4 +1,4 @@
-#ARCH = arch -x86_64
+ARCH = arch -x86_64
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 MV = mv
@@ -24,7 +24,7 @@ MLXBETA_NAME = mlxbeta
 MLXBETA_DIR = ./mms
 
 $(NAME): $(OBJS)
-	$(MAKE) -C $(LIB_DIR) bonus
+	$(ARCH) $(MAKE) -C $(LIB_DIR) bonus
 #	$(MAKE) -C $(MLX_DIR)
 #	$(MAKE) -C $(MLXBETA_DIR)
 #	$(MV) $(MLXBETA_DIR)/libmlxbeta.dylib ./libmlxbeta.dylib

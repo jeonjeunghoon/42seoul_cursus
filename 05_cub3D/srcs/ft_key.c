@@ -6,11 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:05 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/06 20:57:43 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/09 01:38:41 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub.h"
+#include "cub.h"
 
 void			ft_move(int keycode, t_cub *cub, double move_speed, double th)
 {
@@ -26,8 +26,10 @@ void			ft_move(int keycode, t_cub *cub, double move_speed, double th)
 	}
 	else if (keycode == KEY_A || keycode == KEY_D)
 	{
-		dx = cub->player.x + move_speed * (cos(cub->player.th + deg_to_rad(th)));
-		dy = cub->player.y + move_speed * (sin(cub->player.th + deg_to_rad(th)));
+		dx = cub->player.x + move_speed * \
+			(cos(cub->player.th + deg_to_rad(th)));
+		dy = cub->player.y + move_speed * \
+			(sin(cub->player.th + deg_to_rad(th)));
 	}
 	if (get_cell(cub, dx, dy) == 1)
 		return ;
@@ -46,15 +48,18 @@ void			ft_rotate(t_cub *cub, double rotate_speed)
 
 int				ft_key(int keycode, t_cub *cub)
 {
+	double		move_speed;
+
+	move_speed = MOVE_SPEED;
 	if (keycode == KEY_W || keycode == KEY_S || \
 		keycode == KEY_A || keycode == KEY_D)
 	{
 		if (keycode == KEY_S)
-			ft_move(keycode, cub, MOVE_SPEED * -1, 90);
+			ft_move(keycode, cub, move_speed * -1, 90);
 		else if (keycode == KEY_A || keycode == KEY_W)
-			ft_move(keycode, cub, MOVE_SPEED, 90);
+			ft_move(keycode, cub, move_speed, 90);
 		else if (keycode == KEY_D)
-			ft_move(keycode, cub, MOVE_SPEED, -90);
+			ft_move(keycode, cub, move_speed, -90);
 	}
 	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT)
 	{
