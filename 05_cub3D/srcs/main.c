@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:10:54 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/06 22:17:01 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/09 17:33:28 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int					main(int argc, char **argv)
 	load_data(&cub);
 	mlx_loop_hook(cub.mlx.mlx, ft_raycasting, &cub);
 	mlx_hook(cub.mlx.win, EVENT_KEY_PRESS, 0, ft_key, &cub);
-	mlx_hook(cub.mlx.win, EVENT_EXIT, 0, ft_exit, &cub);
+	mlx_hook(cub.mlx.win, EVENT_EXIT, 0, mouse_exit, &cub);
 	mlx_loop(cub.mlx.mlx);
 	return (0);
 }

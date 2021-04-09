@@ -1,6 +1,5 @@
-ARCH = arch -x86_64
 CC = gcc
-CFLAGS = #-Wall -Werror -Wextra #-fsanitize=address
+CFLAGS = -Wall -Werror -Wextra
 MV = mv
 
 NAME = cub3D
@@ -24,15 +23,17 @@ MLXBETA_NAME = mlxbeta
 MLXBETA_DIR = ./mms
 
 $(NAME): $(OBJS)
-	$(ARCH) $(MAKE) -C $(LIB_DIR) bonus
-#	$(MAKE) -C $(MLX_DIR)
-#	$(MAKE) -C $(MLXBETA_DIR)
-#	$(MV) $(MLXBETA_DIR)/libmlxbeta.dylib ./libmlxbeta.dylib
-	$(ARCH) $(CC) $(CFLAGS) -L$(LIB_DIR) -l$(LIB_NAME) -L$(MLX_DIR) -l$(MLX_NAME) -L . -l$(MLXBETA_NAME) -framework OpenGL -framework Appkit -lz $^ -o $@
+	$(MAKE) -C $(LIB_DIR) bonus
+	$(MAKE) -C $(MLX_DIR)
+	$(MAKE) -C $(MLXBETA_DIR)
+	$(MV) $(MLXBETA_DIR)/libmlxbeta.dylib ./libmlxbeta.dylib
+	$(CC) $(CFLAGS) -L$(LIB_DIR) -l$(LIB_NAME) \
+	-L$(MLX_DIR) -l$(MLX_NAME) -L . -l$(MLXBETA_NAME) \
+	-framework OpenGL -framework Appkit -lz $^ -o $@
 	./$(NAME) cub.map
 
 $(SRCS_DIR)/%.o : $(SRCS_DIR)/%.c
-	$(ARCH) $(CC) $(CFLAGS) -I$(MLXBETA_DIR) -I$(MLX_DIR) -I$(LIB_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(MLXBETA_DIR) -I$(MLX_DIR) -I$(LIB_DIR) -c $< -o $@
 
 .PHONY: all clean fclean
 
@@ -40,16 +41,16 @@ all : $(NAME) cub.map
 
 clean :
 	$(MAKE) -C $(LIB_DIR) clean
-#	$(MAKE) -C $(MLX_DIR) clean
-#	$(MAKE) -C $(MLXBETA_DIR) clean
+	$(MAKE) -C $(MLX_DIR) clean
+	$(MAKE) -C $(MLXBETA_DIR) clean
 	rm -rf $(OBJS)
 	rm -rf bmp/cub3d.bmp
 
 fclean :
 	$(MAKE) -C $(LIB_DIR) fclean
-#	$(MAKE) -C $(MLX_DIR) clean
-#	$(MAKE) -C $(MLXBETA_DIR) clean
-#	rm -rf libmlxbeta.dylib
+	$(MAKE) -C $(MLX_DIR) clean
+	$(MAKE) -C $(MLXBETA_DIR) clean
+	rm -rf libmlxbeta.dylib
 	rm -rf $(NAME) $(OBJS)
 	rm -rf bmp/cub3d.bmp
 

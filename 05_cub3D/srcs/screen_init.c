@@ -6,12 +6,19 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 18:13:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/06 17:35:29 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/09 17:34:20 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mms/mlxbeta.h"
 #include "cub.h"
+
+int				mouse_exit(void)
+{
+	printf("Exit Cub3D\n");
+	exit(0);
+	return (0);
+}
 
 int				ft_exit(char *s)
 {
