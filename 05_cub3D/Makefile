@@ -30,7 +30,6 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -L$(LIB_DIR) -l$(LIB_NAME) \
 	-L$(MLX_DIR) -l$(MLX_NAME) -L . -l$(MLXBETA_NAME) \
 	-framework OpenGL -framework Appkit -lz $^ -o $@
-	./$(NAME) cub.map
 
 $(SRCS_DIR)/%.o : $(SRCS_DIR)/%.c
 	$(CC) $(CFLAGS) -I$(MLXBETA_DIR) -I$(MLX_DIR) -I$(LIB_DIR) -c $< -o $@
