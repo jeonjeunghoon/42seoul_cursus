@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/09 17:34:39 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/09 20:09:43 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,10 +186,6 @@ typedef	struct		s_cub
 	int				save;
 }					t_cub;
 
-<<<<<<< HEAD
-void				mouse_exit(void);
-=======
->>>>>>> 8baf3544161c872db23527d756c8e6b8c4a2e71a
 void				ft_exception(int argc, char **argv, t_cub *cub);
 void				load_data(t_cub *cub);
 void				load_texture(t_cub *cub);
@@ -214,10 +210,6 @@ void				get_texture(t_cub *cub);
 void				ft_render(t_cub *cub);
 void				draw_tile(t_cub *cub, double x, double y, int color);
 void				ft_minimap(t_cub *cub);
-<<<<<<< HEAD
-=======
-int					mouse_exit(void);
->>>>>>> 8baf3544161c872db23527d756c8e6b8c4a2e71a
 int					ft_exit(char *s);
 void				get_sprite(t_cub *cub, int x, int y, t_sprite *sp);
 t_sprite			*get_visible_sprites(t_cub *cub);

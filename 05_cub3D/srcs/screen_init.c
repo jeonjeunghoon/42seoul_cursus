@@ -13,13 +13,6 @@
 #include "../mms/mlxbeta.h"
 #include "cub.h"
 
-int				mouse_exit(void)
-{
-	printf("Exit Cub3D\n");
-	exit(0);
-	return (0);
-}
-
 int				ft_exit(char *s)
 {
 	if (s)

@@ -27,14 +27,11 @@ $(NAME): $(OBJS)
 	$(MAKE) -C $(MLX_DIR)
 	$(MAKE) -C $(MLXBETA_DIR)
 	$(MV) $(MLXBETA_DIR)/libmlxbeta.dylib ./libmlxbeta.dylib
-<<<<<<< HEAD
 	$(CC) $(CFLAGS) -L$(LIB_DIR) -l$(LIB_NAME) -L$(MLX_DIR) -l$(MLX_NAME) -L . -l$(MLXBETA_NAME) -framework OpenGL -framework Appkit -lz $^ -o $@
 	./$(NAME)
-=======
 	$(CC) $(CFLAGS) -L$(LIB_DIR) -l$(LIB_NAME) \
 	-L$(MLX_DIR) -l$(MLX_NAME) -L . -l$(MLXBETA_NAME) \
 	-framework OpenGL -framework Appkit -lz $^ -o $@
->>>>>>> 8baf3544161c872db23527d756c8e6b8c4a2e71a
 
 $(SRCS_DIR)/%.o : $(SRCS_DIR)/%.c
 	$(CC) $(CFLAGS) -I$(MLXBETA_DIR) -I$(MLX_DIR) -I$(LIB_DIR) -c $< -o $@
