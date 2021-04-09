@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/06 17:36:32 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/09 02:53:52 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void				ft_save(t_cub *cub)
 {
 	int				fd;
 
-	fd = open("bmp/cub3d.bmp", O_WRONLY | O_CREAT | O_TRUNC, 0744);
+	fd = open("cub3d.bmp", O_WRONLY | O_CREAT | O_TRUNC, 0744);
 	write_bmp_header(cub, fd);
 	write(fd, cub->img.data, cub->map.r[0] * cub->map.r[1] * 4);
 	close(fd);
