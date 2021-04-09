@@ -12,6 +12,13 @@
 
 #include "cub.h"
 
+int					mouse_exit(void)
+{
+	printf("Exit Cub3D\n");
+	exit(0);
+	return (0);
+}
+
 void				load_data(t_cub *cub)
 {
 	int				i;
@@ -41,9 +48,9 @@ void				ft_exception(int argc, char **argv, t_cub *cub)
 		(ft_strlen(argv[2]) == ft_strlen("--save")))
 		{
 			if ((ft_strncmp(argv[1], "cub.map", ft_strlen("cub.map")) != 1))
-				ft_exit("Cub3D Error: Invalid arguments");
+				ft_exit("Cub3D Error! Invalid arguments");
 			if ((ft_strncmp(argv[2], "--save", ft_strlen("--save")) != 1))
-				ft_exit("Cub3D Error: Invalid arguments");
+				ft_exit("Cub3D Error! Invalid arguments");
 			cub->save = 1;
 			return ;
 		}
@@ -51,11 +58,11 @@ void				ft_exception(int argc, char **argv, t_cub *cub)
 		(ft_strlen(argv[1]) == ft_strlen("cub.map")))
 		{
 			if ((ft_strncmp(argv[1], "cub.map", ft_strlen("cub.map")) != 1))
-				ft_exit("Cub3D Error: Invalid arguments");
+				ft_exit("Cub3D Error! Invalid arguments");
 			return ;
 		}
 	}
-	ft_exit("Cub3D Error: Invalid arguments");
+	ft_exit("Cub3D Error! Invalid arguments");
 }
 
 int					main(int argc, char **argv)
@@ -67,7 +74,7 @@ int					main(int argc, char **argv)
 	load_data(&cub);
 	mlx_loop_hook(cub.mlx.mlx, ft_raycasting, &cub);
 	mlx_hook(cub.mlx.win, EVENT_KEY_PRESS, 0, ft_key, &cub);
-	mlx_hook(cub.mlx.win, EVENT_EXIT, 0, ft_exit, &cub);
+	mlx_hook(cub.mlx.win, EVENT_EXIT, 0, &mouse_exit, &cub);
 	mlx_loop(cub.mlx.mlx);
 	return (0);
 }
