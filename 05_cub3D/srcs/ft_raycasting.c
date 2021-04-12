@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:21 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/06 17:37:36 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/10 01:55:00 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,8 @@ int					ft_raycasting(t_cub *cub)
 		cub->sp.zbuf[cub->ray.ray_cast] = cub->ray.dist;
 		cub->ray.ray_cast++;
 	}
-	ft_minimap(cub);
 	ft_sprite(cub);
+	ft_minimap(cub);
 	if (cub->save == 1)
 		ft_save(cub);
 	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub->img.img, 0, 0);

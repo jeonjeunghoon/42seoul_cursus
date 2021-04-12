@@ -6,25 +6,35 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:11 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/06 16:51:34 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/10 01:47:35 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
+int				get_tile_size(t_cub *cub)
+{
+	int			tile;
+
+	tile = cub->map.r[0] / 100;
+	return (tile);
+}
+
 void			draw_tile(t_cub *cub, double x, double y, int color)
 {
 	int			tx;
 	int			ty;
+	int			tile;
 
-	ty = y * TILE;
-	while (ty < (y + 1) * TILE)
+	tile = get_tile_size(cub);
+	ty = y * tile;
+	while (ty < (y + 1) * tile)
 	{
-		tx = x * TILE;
-		while (tx < (x + 1) * TILE)
+		tx = x * tile;
+		while (tx < (x + 1) * tile)
 		{
-			if (ty == y * TILE || ty == (y + 1) * TILE - 1 ||
-				tx == x * TILE || tx == (x + 1) * TILE - 1)
+			if (ty == y * tile || ty == (y + 1) * tile - 1 ||
+				tx == x * tile || tx == (x + 1) * tile - 1)
 				draw_pixel(cub, tx, ty, 0x808080);
 			else
 				draw_pixel(cub, tx, ty, color);

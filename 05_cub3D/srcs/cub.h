@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/09 20:09:43 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/10 02:34:50 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # define KEY_RIGHT 124
 # define KEY_ESC 53
 # define WALL_H 1.0
-# define TILE 10
 # define TW 256
 # define TH 256
 # define FOV 60
@@ -186,6 +185,8 @@ typedef	struct		s_cub
 	int				save;
 }					t_cub;
 
+void				except_data(t_cub *cub, int idx, int jdx);
+int					get_tile_size(t_cub *cub);
 void				ft_exception(int argc, char **argv, t_cub *cub);
 void				load_data(t_cub *cub);
 void				load_texture(t_cub *cub);

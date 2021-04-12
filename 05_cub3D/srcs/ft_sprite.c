@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:30 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/09 02:45:41 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/10 01:54:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ void			draw_col(t_cub *cub, int x, int y)
 	{
 		cub->sp.ty = (int)((double)(y - y0 + add) * 120 / cub->sp.sph);
 		cub->sp.color = get_sprite_color(cub, cub->sp.tx, cub->sp.ty);
-		if ((cub->sp.color & 0x00ffffff) == 0 || \
-			(y < TILE * cub->map.my && x < TILE * cub->map.mx))
+		if ((cub->sp.color & 0x00ffffff) == 0)
 			continue ;
 		draw_pixel(cub, x, y, cub->sp.color);
 	}
