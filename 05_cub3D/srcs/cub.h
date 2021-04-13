@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/10 02:34:50 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:21:09 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,8 @@ typedef	struct		s_cub
 	int				save;
 }					t_cub;
 
-void				except_data(t_cub *cub, int idx, int jdx);
+void				check_num(t_cub *cub);
+void				check_numdata(t_cub *cub, int idx, int jdx, int check);
 int					get_tile_size(t_cub *cub);
 void				ft_exception(int argc, char **argv, t_cub *cub);
 void				load_data(t_cub *cub);

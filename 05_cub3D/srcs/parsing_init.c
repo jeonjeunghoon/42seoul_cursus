@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:15 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/10 02:36:03 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:30:23 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void				get_route(t_cub *cub, int idx, int jdx)
 	else if (cub->map.buf[idx][jdx] == 'W')
 		cub->map.we = ft_strdup(ptr);
 	else if (cub->map.buf[idx][jdx] == 'S' && \
-	cub->map.buf[idx][1] == 'O')
+	cub->map.buf[idx][jdx + 1] == 'O')
 		cub->map.so = ft_strdup(ptr);
 	else if (cub->map.buf[idx][jdx] == 'S' && \
-	cub->map.buf[idx][1] != 'O')
+	cub->map.buf[idx][jdx + 1] != 'O')
 		cub->map.s = ft_strdup(ptr);
 	free(ptr);
 }
@@ -48,13 +48,14 @@ void				get_numdata(t_cub *cub, int idx, int jdx, int loop)
 	int				end;
 
 	x = -1;
-	end = jdx;
+	end = jdx + 1;
 	while (++x < loop)
 	{
-		while (!(cub->map.buf[idx][end] >= '0' && \
-					cub->map.buf[idx][end] <= '9'))
+		while (cub->map.buf[idx][end] == ' ' || cub->map.buf[idx][end] == ',')
 			end++;
 		start = end;
+		if (cub->map.buf[idx][jdx] == '-')
+			end++;
 		while (cub->map.buf[idx][end] >= '0' && \
 				cub->map.buf[idx][end] <= '9')
 			end++;
@@ -73,19 +74,19 @@ void				get_data(t_cub *cub, int idx, int jdx)
 {
 	if (cub->map.buf[idx][jdx] == 'R')
 	{
-		cub->map.r = (int *)malloc(sizeof(int) * 2);
+		check_numdata(cub, idx, jdx + 1, 2);
 		get_numdata(cub, idx, jdx, 2);
 	}
 	else if (cub->map.buf[idx][jdx] == 'C' || cub->map.buf[idx][jdx] == 'F')
 	{
-		if (cub->map.buf[idx][jdx] == 'C')
-			cub->map.c = (int *)malloc(sizeof(int) * 3);
-		else if (cub->map.buf[idx][jdx] == 'F')
-			cub->map.f = (int *)malloc(sizeof(int) * 3);
+		check_numdata(cub, idx, jdx + 1, 3);
 		get_numdata(cub, idx, jdx, 3);
 	}
-	else
+	else if (cub->map.buf[idx][jdx] == 'E' || cub->map.buf[idx][jdx] == 'N' \
+	|| cub->map.buf[idx][jdx] == 'W' || cub->map.buf[idx][jdx] == 'S')
 		get_route(cub, idx, jdx);
+	else
+		map_error();
 	free(cub->map.buf[idx]);
 }
 
@@ -124,9 +125,13 @@ void				parsing_init(t_cub *cub)
 	cub->map.fd = open("cub.map", O_RDONLY);
 	idx = 0;
 	jdx = 0;
+	cub->map.r = (int *)malloc(sizeof(int) * 2);
+	cub->map.c = (int *)malloc(sizeof(int) * 3);
+	cub->map.f = (int *)malloc(sizeof(int) * 3);
 	read_map(cub, idx, jdx);
 	free(cub->map.buf);
 	close(cub->map.fd);
+	check_num(cub);
 	map_init(cub);
 	check_map(cub);
 	free(cub->map.parsed_map);
