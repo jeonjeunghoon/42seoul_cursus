@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 22:51:10 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/06 22:53:42 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/14 11:33:05 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void				check_map(t_cub *cub)
 			if (cub->map.map[idx][jdx] > 'A' && cub->map.map[idx][jdx] < 'Z')
 			{
 				if (cub->map.is_overlap == 1)
-					map_error();
+					ft_exit("Cub3D Error! One more player in map");
 				cub->map.is_overlap = 1;
 			}
 		}
@@ -56,18 +56,18 @@ void				fill_map(t_cub *cub)
 		cub->map.jdx != 0 && cub->map.kdx < ft_strlen(cub->map.parsed_map))
 	{
 		while (cub->map.jdx < cub->map.mx)
-			cub->map.map[cub->map.idx][cub->map.jdx++] = 8;
+			cub->map.map[cub->map.my - 1 - cub->map.idx][cub->map.jdx++] = 8;
 	}
 	else if (cub->map.parsed_map[cub->map.kdx] == '0' || \
 			cub->map.parsed_map[cub->map.kdx] == '1' || \
 			cub->map.parsed_map[cub->map.kdx] == '2')
-		cub->map.map[cub->map.idx][cub->map.jdx] = \
+		cub->map.map[cub->map.my - 1 - cub->map.idx][cub->map.jdx] = \
 		cub->map.parsed_map[cub->map.kdx] - '0';
 	else if (is_player(cub->map.parsed_map[cub->map.kdx]))
-		cub->map.map[cub->map.idx][cub->map.jdx] = \
+		cub->map.map[cub->map.my - 1 - cub->map.idx][cub->map.jdx] = \
 		cub->map.parsed_map[cub->map.kdx];
 	else if (is_space(cub->map.parsed_map[cub->map.kdx]))
-		cub->map.map[cub->map.idx][cub->map.jdx] = 8;
+		cub->map.map[cub->map.my - 1 - cub->map.idx][cub->map.jdx] = 8;
 	else
 		map_error();
 }
@@ -80,10 +80,11 @@ void				map_init(t_cub *cub)
 	cub->map.kdx = 0;
 	while (cub->map.idx < cub->map.my)
 	{
-		cub->map.map[cub->map.idx] = (int *)malloc(sizeof(int) * (cub->map.mx));
+		cub->map.map[cub->map.my - 1 - cub->map.idx] = \
+		(int *)malloc(sizeof(int) * (cub->map.mx));
 		cub->map.jdx = 0;
 		if (cub->map.idx == 0 || cub->map.idx == cub->map.my - 1)
-			fill_space(cub, cub->map.idx, cub->map.jdx);
+			fill_space(cub, cub->map.my - 1 - cub->map.idx, cub->map.jdx);
 		else
 		{
 			while (cub->map.jdx < cub->map.mx)

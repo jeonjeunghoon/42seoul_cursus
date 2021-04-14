@@ -47,7 +47,7 @@ clean :
 	rm -rf cub3d.bmp
 
 fclean :
-#	$(MAKE) -C $(LIB_DIR) fclean
+	$(MAKE) -C $(LIB_DIR) fclean
 #	$(MAKE) -C $(MLX_DIR) clean
 #	$(MAKE) -C $(MLXBETA_DIR) clean
 #	rm -rf libmlxbeta.dylib

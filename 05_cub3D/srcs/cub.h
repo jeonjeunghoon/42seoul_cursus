@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/13 14:21:09 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/14 11:36:15 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ typedef	struct		s_map
 	int				jdx;
 	int				kdx;
 	int				is_overlap;
+	char			*ptr;
 }					t_map;
 
 typedef	struct		s_img
@@ -185,6 +186,7 @@ typedef	struct		s_cub
 	int				save;
 }					t_cub;
 
+void				check_mapdata(t_cub *cub);
 void				check_num(t_cub *cub);
 void				check_numdata(t_cub *cub, int idx, int jdx, int check);
 int					get_tile_size(t_cub *cub);
@@ -220,7 +222,7 @@ void				draw_sprite(t_cub *cub, t_sprite *sp, int i);
 void				ft_sprite(t_cub *cub);
 void				write_bmp_header(t_cub *cub, int fd);
 void				ft_save(t_cub *cub);
-void				is_wall(t_cub *cub, int idx, int jdx);
+void				is_valid(t_cub *cub, int idx, int jdx);
 void				check_vertex(t_cub *cub, int idx, int jdx);
 void				check_row(t_cub *cub, int idx, int jdx);
 void				check_col(t_cub *cub, int idx, int jdx);

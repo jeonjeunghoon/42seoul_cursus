@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 02:00:17 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/13 14:24:21 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/14 09:40:37 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,21 @@ void				check_num(t_cub *cub)
 	|| cub->map.c[1] > 255 || cub->map.c[2] > 255 || cub->map.f[0] > 255 \
 	|| cub->map.f[1] > 255 || cub->map.f[2] > 255)
 		map_error();
+}
+
+void				check_mapdata(t_cub *cub)
+{
+	int				j;
+
+	j = 0;
+	while (j < ft_strlen(cub->map.parsed_map))
+	{
+		if (cub->map.parsed_map[j] != '0' && cub->map.parsed_map[j] != '1' \
+		&& cub->map.parsed_map[j] != '2' && cub->map.parsed_map[j] != ' ' \
+		&& cub->map.parsed_map[j] != 'E' && cub->map.parsed_map[j] != 'N' \
+		&& cub->map.parsed_map[j] != 'W' && cub->map.parsed_map[j] != 'S' \
+		&& cub->map.parsed_map[j] != '\n')
+			map_error();
+		j++;
+	}
 }

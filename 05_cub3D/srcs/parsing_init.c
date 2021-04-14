@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:15 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/13 14:30:23 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/14 11:39:42 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void				get_route(t_cub *cub, int idx, int jdx)
 
 void				get_numdata(t_cub *cub, int idx, int jdx, int loop)
 {
-	char			*ptr;
 	int				x;
 	int				start;
 	int				end;
@@ -54,19 +53,17 @@ void				get_numdata(t_cub *cub, int idx, int jdx, int loop)
 		while (cub->map.buf[idx][end] == ' ' || cub->map.buf[idx][end] == ',')
 			end++;
 		start = end;
-		if (cub->map.buf[idx][jdx] == '-')
-			end++;
 		while (cub->map.buf[idx][end] >= '0' && \
 				cub->map.buf[idx][end] <= '9')
 			end++;
-		ptr = ft_substr(cub->map.buf[idx], start, end);
+		cub->map.ptr = ft_substr(cub->map.buf[idx], start, end);
 		if (cub->map.buf[idx][jdx] == 'R')
-			cub->map.r[x] = ft_atoi(ptr);
+			cub->map.r[x] = ft_atoi(cub->map.ptr);
 		else if (cub->map.buf[idx][jdx] == 'C')
-			cub->map.c[x] = ft_atoi(ptr);
+			cub->map.c[x] = ft_atoi(cub->map.ptr);
 		else if (cub->map.buf[idx][jdx] == 'F')
-			cub->map.f[x] = ft_atoi(ptr);
-		free(ptr);
+			cub->map.f[x] = ft_atoi(cub->map.ptr);
+		free(cub->map.ptr);
 	}
 }
 
@@ -132,6 +129,7 @@ void				parsing_init(t_cub *cub)
 	free(cub->map.buf);
 	close(cub->map.fd);
 	check_num(cub);
+	check_mapdata(cub);
 	map_init(cub);
 	check_map(cub);
 	free(cub->map.parsed_map);

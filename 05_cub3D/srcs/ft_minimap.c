@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:11 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/13 15:20:28 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/14 11:21:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,26 @@ void			ft_minimap(t_cub *cub)
 {
 	int			x;
 	int			y;
+	int			reverse;
 
 	y = 0;
+	reverse = cub->map.my - 1;
 	while (y < cub->map.my)
 	{
 		x = 0;
 		while (x < cub->map.mx)
 		{
 			if (cub->map.map[y][x] == 1)
-				draw_tile(cub, x, y, 0xFFFFFF);
+				draw_tile(cub, x, reverse - y, 0xFFFFFF);
 			else if (cub->map.map[y][x] == 2)
-				draw_tile(cub, x, y, 0x00FF00);
+				draw_tile(cub, x, reverse - y, 0x00FF00);
 			else if (cub->map.map[y][x] == 0 || \
-					cub->map.map[y][x] > 10)
-				draw_tile(cub, x, y, 0x000000);
+					cub->map.map[y][x] > 'A')
+				draw_tile(cub, x, reverse - y, 0x000000);
 			x++;
 		}
 		y++;
 	}
-	draw_tile(cub, cub->player.x - 0.5, cub->player.y - 0.5, \
+	draw_tile(cub, cub->player.x - 0.5, reverse - cub->player.y + 0.5, \
 	0x0000FF);
 }
