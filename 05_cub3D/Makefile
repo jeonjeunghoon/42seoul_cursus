@@ -37,7 +37,7 @@ $(SRCS_DIR)/%.o : $(SRCS_DIR)/%.c
 
 .PHONY: all clean fclean
 
-all : $(NAME) cub.map
+all : $(NAME) ./map/cub.map
 
 clean :
 	$(MAKE) -C $(LIB_DIR) clean
