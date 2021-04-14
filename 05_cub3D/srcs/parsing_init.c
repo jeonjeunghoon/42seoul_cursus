@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:15 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/14 11:39:42 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/14 12:45:49 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,15 @@ void				read_map(t_cub *cub, int idx, int jdx)
 	}
 }
 
-void				parsing_init(t_cub *cub)
+void				parsing_init(t_cub *cub, char *argv)
 {
 	int				idx;
 	int				jdx;
 
 	cub->map.buf = (char **)malloc(sizeof(char *) * 10);
-	cub->map.fd = open("cub.map", O_RDONLY);
+	cub->map.fd = open(argv, O_RDONLY);
+	if (cub->map.fd == -1)
+		ft_exit("Cub3D Error! No .cub file");
 	idx = 0;
 	jdx = 0;
 	cub->map.r = (int *)malloc(sizeof(int) * 2);

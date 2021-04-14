@@ -40,17 +40,17 @@ $(SRCS_DIR)/%.o : $(SRCS_DIR)/%.c
 all : $(NAME) cub.map
 
 clean :
-#	$(MAKE) -C $(LIB_DIR) clean
-#	$(MAKE) -C $(MLX_DIR) clean
-#	$(MAKE) -C $(MLXBETA_DIR) clean
+	$(MAKE) -C $(LIB_DIR) clean
+	$(MAKE) -C $(MLX_DIR) clean
+	$(MAKE) -C $(MLXBETA_DIR) clean
 	rm -rf $(OBJS)
 	rm -rf cub3d.bmp
 
 fclean :
 	$(MAKE) -C $(LIB_DIR) fclean
-#	$(MAKE) -C $(MLX_DIR) clean
-#	$(MAKE) -C $(MLXBETA_DIR) clean
-#	rm -rf libmlxbeta.dylib
+	$(MAKE) -C $(MLX_DIR) clean
+	$(MAKE) -C $(MLXBETA_DIR) clean
+	rm -rf libmlxbeta.dylib
 	rm -rf $(NAME) $(OBJS)
 	rm -rf cub3d.bmp
 

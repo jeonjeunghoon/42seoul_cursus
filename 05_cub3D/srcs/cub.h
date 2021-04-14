@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/14 11:36:15 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/14 12:00:01 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,9 +191,9 @@ void				check_num(t_cub *cub);
 void				check_numdata(t_cub *cub, int idx, int jdx, int check);
 int					get_tile_size(t_cub *cub);
 void				ft_exception(int argc, char **argv, t_cub *cub);
-void				load_data(t_cub *cub);
+void				load_data(t_cub *cub, char *argv);
 void				load_texture(t_cub *cub);
-void				parsing_init(t_cub *cub);
+void				parsing_init(t_cub *cub, char *argv);
 void				texture_init(t_cub *cub);
 void				screen_init(t_cub *cub);
 void				player_init(t_cub *cub);
