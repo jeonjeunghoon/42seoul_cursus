@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:30 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/10 01:54:51 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/16 10:43:30 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void			draw_col(t_cub *cub, int x, int y)
 	int			add;
 
 	cub->sp.txratio = (double)(x - cub->sp.cx) / cub->sp.sph + 0.5;
-	cub->sp.tx = (int)(cub->sp.txratio * 120);
+	cub->sp.tx = (int)(cub->sp.txratio * cub->sp.h);
 	y0 = (int)((cub->map.r[1] - cub->sp.sph) / 2.0);
 	y1 = y0 + cub->sp.sph;
 	add = 0;
@@ -71,7 +71,7 @@ void			draw_col(t_cub *cub, int x, int y)
 	y = y0 - 1;
 	while (++y < y1)
 	{
-		cub->sp.ty = (int)((double)(y - y0 + add) * 120 / cub->sp.sph);
+		cub->sp.ty = (int)((double)(y - y0 + add) * cub->sp.h / cub->sp.sph);
 		cub->sp.color = get_sprite_color(cub, cub->sp.tx, cub->sp.ty);
 		if ((cub->sp.color & 0x00ffffff) == 0)
 			continue ;

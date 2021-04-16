@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 22:51:07 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/14 11:37:30 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/16 10:23:18 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void				is_valid(t_cub *cub, int idx, int jdx)
 {
-	if (cub->map.map[idx][jdx] == 0 || \
+	if (cub->map.map[idx][jdx] == 0 || cub->map.map[idx][jdx] == 2 || \
 	(cub->map.map[idx][jdx] >= 'A' && cub->map.map[idx][jdx] <= 'Z'))
 		map_error();
 }

@@ -1,10 +1,10 @@
-EA ./textures/zombie.xpm
-NO ./textures/halloween.xpm
-WE ./textures/creeper.xpm
-SO ./textures/yellowmonster.xpm
+EA ./textures/dirt.xpm
+NO ./textures/wood.xpm
+WE ./textures/diastone.xpm
+SO ./textures/obsidian.xpm
 S ./textures/sprite.xpm
 
-C 0,0,100
+C 230,255,100
 F 220,150,190
 R 1000 600
 

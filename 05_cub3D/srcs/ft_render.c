@@ -1,16 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_rander.c                                        :+:      :+:    :+:   */
+/*   ft_render.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/03 21:22:27 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/03 21:33:20 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/16 10:59:25 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+void				wall_render(t_cub *cub, int y0, int y1, int wh)
+{
+	int				color;
+	int				y;
+
+	if (cub->ray.wdir == DIR_W || cub->ray.wdir == DIR_E)
+		cub->tex.txratio = cub->ray.wy - floor(cub->ray.wy);
+	else
+		cub->tex.txratio = cub->ray.wx - floor(cub->ray.wx);
+	cub->tex.tx = (int)(cub->tex.txratio * TW);
+	y = get_max(0, y0);
+	while (y <= y1)
+	{
+		cub->tex.ty = (int)((y - y0) * TH / wh);
+		color = get_texture_color(cub, cub->tex.tx, cub->tex.ty);
+		draw_pixel(cub, cub->ray.ray_cast, y, color);
+		y++;
+	}
+}
 
 void				ft_render(t_cub *cub)
 {

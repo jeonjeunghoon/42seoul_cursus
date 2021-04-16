@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/14 12:00:01 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/16 10:54:47 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef	struct		s_sprite
 	int				isin;
 	int				**vis;
 	double			*zbuf;
+	double			h;
 	int				tex;
 	double			x;
 	double			y;
@@ -88,6 +89,10 @@ typedef	struct		s_sprite
 
 typedef	struct		s_texture
 {
+	int				e_h;
+	int				w_h;
+	int				n_h;
+	int				s_h;
 	double			txratio;
 	int				tx;
 	int				ty;

@@ -6,31 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:11:33 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/06 20:58:54 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/04/16 10:57:05 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-void				wall_render(t_cub *cub, int y0, int y1, int wh)
-{
-	int				color;
-	int				y;
-
-	if (cub->ray.wdir == DIR_W || cub->ray.wdir == DIR_E)
-		cub->tex.txratio = cub->ray.wy - floor(cub->ray.wy);
-	else
-		cub->tex.txratio = cub->ray.wx - floor(cub->ray.wx);
-	cub->tex.tx = (int)(cub->tex.txratio * TW);
-	y = get_max(0, y0);
-	while (y <= y1)
-	{
-		cub->tex.ty = (int)((y - y0) * TH / wh);
-		color = get_texture_color(cub, cub->tex.tx, cub->tex.ty);
-		draw_pixel(cub, cub->ray.ray_cast, y, color);
-		y++;
-	}
-}
 
 void				check_path(char *path)
 {
@@ -66,16 +46,25 @@ void				load_image(t_cub *cub, int *texture, char *path)
 		}
 		y++;
 	}
-	mlx_destroy_image(cub->mlx.mlx, cub->img.img);
 }
 
 void				get_texture(t_cub *cub)
 {
 	load_image(cub, cub->tex.texture[0], cub->map.ea);
+	cub->tex.e_h = cub->img.height;
+	mlx_destroy_image(cub->mlx.mlx, cub->img.img);
 	load_image(cub, cub->tex.texture[1], cub->map.no);
+	cub->tex.w_h = cub->img.height;
+	mlx_destroy_image(cub->mlx.mlx, cub->img.img);
 	load_image(cub, cub->tex.texture[2], cub->map.we);
+	cub->tex.s_h = cub->img.height;
+	mlx_destroy_image(cub->mlx.mlx, cub->img.img);
 	load_image(cub, cub->tex.texture[3], cub->map.so);
+	cub->tex.n_h = cub->img.height;
+	mlx_destroy_image(cub->mlx.mlx, cub->img.img);
 	load_image(cub, cub->tex.texture[4], cub->map.s);
+	cub->sp.h = cub->img.height;
+	mlx_destroy_image(cub->mlx.mlx, cub->img.img);
 	free(cub->map.ea);
 	free(cub->map.no);
 	free(cub->map.we);
