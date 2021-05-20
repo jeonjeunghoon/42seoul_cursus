@@ -4,27 +4,28 @@ section .text
 	global _ft_strcmp
 
 _ft_strcmp:
-	push rbx
 	push rcx
+	push rdi
+	push rsi
+	mov rax, 0
 	mov rcx, 0
 	jmp loop
 
 loop:
-	mov al, byte [rdi + rcx]
-	mov bl, byte [rsi + rcx]
+	mov al, [rdi]
+	mov cl, [rsi]
+	cmp al, cl
+	jne done
 	cmp al, 0
 	je done
-	cmp bl, 0
-	je done
-	cmp al, bl
-	jne done
-	inc rcx
+	inc rdi
+	inc rsi
 	jmp loop
 
+
 done:
-	movzx rax, al
-	movzx rbx, bl
-	sub rax, rbx
-	pop rbx
+	sub rax, rcx
+	pop rsi
+	pop rdi
 	pop rcx
 	ret
