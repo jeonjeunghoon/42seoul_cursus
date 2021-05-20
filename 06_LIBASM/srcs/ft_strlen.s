@@ -4,11 +4,13 @@ section .text
 	global _ft_strlen
 
 _ft_strlen:
-	mov rax, 0x0
+	mov rax, 0
+	cmp rdi, 0
+	je done
 	jmp loop
 
 loop:
-	cmp byte [rdi + rax], 0x0
+	cmp byte [rdi + rax], 0
 	je done
 	inc rax
 	jmp loop

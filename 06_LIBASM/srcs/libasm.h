@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 23:46:47 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/05/20 23:58:56 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/05/21 01:38:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <errno.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <string.h>
 
 # define BUFFER_SIZE 1024
 

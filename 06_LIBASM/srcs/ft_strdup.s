@@ -7,6 +7,8 @@ section .text
 	extern _malloc
 
 _ft_strdup:
+	cmp rdi, 0
+	je is_null
 	push rsi
 	push rdi
 	call _ft_strlen
@@ -20,6 +22,10 @@ _ft_strdup:
 	pop rsi
 	call _ft_strcpy
 	jmp done
+
+is_null:
+	mov rax, 0
+	ret
 
 is_error:
 	pop rdi

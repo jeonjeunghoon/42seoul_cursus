@@ -4,6 +4,10 @@ section .text
 	global _ft_strcmp
 
 _ft_strcmp:
+	cmp rdi, 0
+	je is_null
+	cmp rsi, 0
+	je is_null
 	push rcx
 	push rdi
 	push rsi
@@ -22,6 +26,9 @@ loop:
 	inc rsi
 	jmp loop
 
+is_null:
+	mov rax, -42424242
+	ret
 
 done:
 	sub rax, rcx
