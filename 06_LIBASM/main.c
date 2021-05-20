@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 23:47:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/05/21 02:28:30 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/05/21 02:37:00 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,29 @@ int			main(void)
 	ft_write(1, "C__write = ", 11);
 	fd = write(1, "0123456789\n", 11);
 	printf("C__write fd = %d\n", fd);
+	if (errno)
+		printf("C__write errno = %d\n", errno);
 	
 	ft_write(1, "ft_write = ", 11);
 	fd = ft_write(1, "0123456789\n", 11);
 	printf("ft_write fd = %d\n", fd);
+	if (errno)
+		printf("ft_write errno = %d\n", errno);
 
 	printf("\nTEST READ\n");
 	fd = open("text/test.txt", O_RDONLY);
 	printf("C__read fd = %zd\n", read(fd, buf, 10));
 	buf[10] = '\0';
 	printf("C__read = %s\n", buf);
+	if (errno)
+		printf("C__read errno = %d\n", errno);
 
 	ft_fd = open("text/ft_test.txt", O_RDONLY);
 	printf("ft_read fd = %zd\n", ft_read(ft_fd, ft_buf, 10));
 	ft_buf[10] = '\0';
-	printf("ft_read = %s\n\n\n", ft_buf);
+	printf("ft_read = %s\n", ft_buf);
+	if (errno)
+		printf("ft_read errno = %d\n", errno);
+	printf("\n\n");
 	return (0);
 }
