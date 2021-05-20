@@ -4,6 +4,8 @@ MV = mv
 
 NAME = cub3D
 
+MAP_PATH = ./map/map.cub
+
 SRCS_NAME = main.c parsing_init.c texture_init.c screen_init.c player_init.c \
 			ft_raycasting.c ft_minimap.c ft_sprite.c ft_render.c ft_key.c \
 			ft_bmp.c get_next_line.c parse_map.c check_map.c \
@@ -37,7 +39,7 @@ $(SRCS_DIR)/%.o : $(SRCS_DIR)/%.c
 
 .PHONY: all clean fclean
 
-all : $(NAME) ./map/cub.map
+all : $(NAME) $(MAP_PATH)
 
 clean :
 	$(MAKE) -C $(LIB_DIR) clean

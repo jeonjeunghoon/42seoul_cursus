@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeonjeunghoon <jeonjeunghoon@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:10:54 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/04/16 00:39:50 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/05/16 20:14:25 by jeonjeungho      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void				load_data(t_cub *cub, char *argv)
 void				ft_exception(int argc, char **argv, t_cub *cub)
 {
 	if (argc != 2 && argc != 3)
-		ft_exit("Cub3D Error! Invalid arguments");
+		ft_exit("Cub3D Error! Invalid arguments\n\nTo input 1 or 2\n1) ./cub3D map/map.cub\n2) ./cub3D map/map.cub --save");
 	if (argc == 2 || argc == 3)
 	{
 		if (ft_strnstr(argv[1], ".cub", ft_strlen(argv[1])) == NULL)
