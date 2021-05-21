@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/21 11:22:16 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/05/21 21:00:15 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/05/21 21:03:27 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = gcc
 CFLAGS = #-Wall -Wextra -Werror
 LIBC = ar rc
 
-NAME =	push_swap
+NAME =	push_swap.a
 SRCS =	srcs/main.c \
 		srcs/libft/ft_memset.c \
 		srcs/libft/ft_bzero.c \
@@ -72,10 +72,10 @@ $(NAME): $(OBJS)
 all: $(NAME)
 
 clean:
-	rm -rf $(OBJS)
+		rm -rf $(OBJS)
 
 fclean: clean
-	rm -rf $(OBJS) $(NAME)
+		rm -rf $(NAME)
 
 re: fclean all
 
