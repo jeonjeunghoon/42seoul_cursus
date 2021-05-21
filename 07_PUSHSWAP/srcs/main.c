@@ -21,7 +21,7 @@ int			is_valid_arg(int argc, char **argv)
 		{
 			if ((argv[i][j] == '-' || argv[i][j] == '+') && j == 0)
 				j++;
-			if (argv[i] >= '0' && argv[i] <= '9')
+			if (argv[i][j] >= '0' && argv[i][j] <= '9')
 				j++;
 			else
 				return (0);
@@ -31,9 +31,42 @@ int			is_valid_arg(int argc, char **argv)
 	return (1);
 }
 
+int			is_valid_num(int *num_ptr, int size)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < size)
+	{
+		j = i + 1;
+		while (j < size)
+		{
+			if (num_ptr[i] == num_ptr[j])
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 void		num_init(int argc, char **argv, int *num_ptr)
 {
-	
+	int		i;
+
+	num_ptr = (int *)malloc(sizeof(int) * (argc - 1));
+	i = 1;
+	while (argv[i])
+	{
+		num_ptr[i - 1] = ft_atoi(argv[i]);
+		i++;
+	}
+	if ((is_valid_num(num_ptr, argc - 1) == 0))
+	{
+		// free(num_ptr);
+		ft_exit();
+	}
 }
 
 void		arg_init(int argc, char **argv, int *num_ptr)
@@ -43,16 +76,16 @@ void		arg_init(int argc, char **argv, int *num_ptr)
 	num_init(argc, argv, num_ptr);
 }
 
-void		stack_init(list_t a_head, list_t b_head, int len)
-{
-	int		i;
+// void		stack_init(list_t a_head, list_t b_head, int len)
+// {
+// 	int		i;
 
-	i = 0;
-	while (i < len)
-	{
+// 	i = 0;
+// 	while (i < len)
+// 	{
 		
-	}
-}
+// 	}
+// }
 
 int			main(int argc, char **argv)
 {
@@ -61,6 +94,6 @@ int			main(int argc, char **argv)
 	int		*num_arr;
 
 	arg_init(argc, argv, num_arr);
-	stack_init(a_head, b_head, argc + 1);
+	// stack_init(a_head, b_head, argc + 1);
 	return (0);
 }

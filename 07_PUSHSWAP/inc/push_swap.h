@@ -5,10 +5,10 @@
 # include <stdlib.h>
 # include "libft.h"
 
-typedef	struct	list_s
+typedef	struct			list_s
 {
-	int			*data;
-	list_t		*next;
-}				list_t;
+	int					*data;
+	struct	list_t		*next;
+}						list_t;
 
 #endif
