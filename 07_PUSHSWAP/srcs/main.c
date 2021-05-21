@@ -2,17 +2,17 @@
 
 void		ft_exit(void)
 {
-	ft_printf("Error\n");
+	write(1, "Error\n", 6);
 	exit(0);
 }
 
-void		arg_except(int argc, char **argv)
+int			is_valid_arg(int argc, char **argv)
 {
 	int		i;
 	int		j;
 
 	if (argc < 2)
-		ft_exit();
+		return (0);
 	i = 1;
 	while (argv[i])
 	{
@@ -24,10 +24,23 @@ void		arg_except(int argc, char **argv)
 			if (argv[i] >= '0' && argv[i] <= '9')
 				j++;
 			else
-				ft_exit();
+				return (0);
 		}
 		i++;
 	}
+	return (1);
+}
+
+void		num_init(int argc, char **argv, int *num_ptr)
+{
+	
+}
+
+void		arg_init(int argc, char **argv, int *num_ptr)
+{
+	if ((is_valid_arg(argc, argv) == 0))
+		ft_exit();
+	num_init(argc, argv, num_ptr);
 }
 
 void		stack_init(list_t a_head, list_t b_head, int len)
@@ -45,8 +58,9 @@ int			main(int argc, char **argv)
 {
 	list_t	a_head;
 	list_t	b_head;
+	int		*num_arr;
 
-	arg_except(argc, argv);
+	arg_init(argc, argv, num_arr);
 	stack_init(a_head, b_head, argc + 1);
 	return (0);
 }
