@@ -1,4 +1,5 @@
 #include "../inc/push_swap.h"
+#include <stdio.h>
 
 void		ft_exit(void)
 {
@@ -63,10 +64,7 @@ void		num_init(int argc, char **argv, int *num_ptr)
 		i++;
 	}
 	if ((is_valid_num(num_ptr, argc - 1) == 0))
-	{
-		// free(num_ptr);
 		ft_exit();
-	}
 }
 
 void		arg_init(int argc, char **argv, int *num_ptr)
@@ -76,16 +74,16 @@ void		arg_init(int argc, char **argv, int *num_ptr)
 	num_init(argc, argv, num_ptr);
 }
 
-// void		stack_init(list_t a_head, list_t b_head, int len)
-// {
-// 	int		i;
+void		stack_init(list_t a_head, list_t b_head, int len)
+{
+	int		i;
 
-// 	i = 0;
-// 	while (i < len)
-// 	{
+	i = 0;
+	while (i < len)
+	{
 		
-// 	}
-// }
+	}
+}
 
 int			main(int argc, char **argv)
 {
@@ -94,6 +92,6 @@ int			main(int argc, char **argv)
 	int		*num_arr;
 
 	arg_init(argc, argv, num_arr);
-	// stack_init(a_head, b_head, argc + 1);
+	stack_init(a_head, b_head, argc + 1);
 	return (0);
 }
