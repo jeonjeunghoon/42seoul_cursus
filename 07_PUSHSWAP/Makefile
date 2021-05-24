@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/21 11:22:16 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/05/23 17:35:37 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/05/24 20:34:31 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ fclean		:	clean
 
 re			:	fclean all
 
-pushswap	:	re
+pushswap	:	
 				$(CC) $(CFLAGS) srcs/main.c -o $(NAME) $(LIB_NAME)
 
-.PHONY		:	all, clean, fclean, re, test
+.PHONY		:	all, clean, fclean, re, pushswap
