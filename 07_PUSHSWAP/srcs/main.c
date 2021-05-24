@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/05/25 00:21:07 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/05/25 00:54:46 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,68 +226,60 @@ void		ss(t_stack **a, t_stack **b)
 
 void		pa(t_stack **a, t_stack **b)
 {
-	element	data;
-
 	if ((*b)->is_head == 1 && (*b)->next == NULL)
 	{
 		printf("No Element in A\n");
 		return ;
 	}
-	data = ft_pop(b);
-	ft_push(a, data);
+	ft_push(a, ft_pop(b));
 }
 
 void		pb(t_stack **a, t_stack **b)
 {
-	element	data;
-
 	if ((*a)->is_head == 1 && (*a)->next == NULL)
 	{
 		printf("No Element in A\n");
 		return ;
 	}
-	data = ft_pop(a);
-	ft_push(b, data);
+	ft_push(b, ft_pop(a));
 }
 
 void		ra(t_stack **a)
 {
 	t_stack	*head;
-	t_stack *first_head;
+	t_stack *first_node;
 
 	head = (*a);
-	if ((*a)->is_head == 1 && (*a)->next == NULL)
+	if (head->is_head == 1 && head->next == NULL)
 	{
 		printf("No Element in A\n");
 		return ;
 	}
-	first_head = (*a)->next;
-	head->next = first_head->next;
-	while ((*a)->next != NULL)
-		(*a) = (*a)->next;
-	(*a)->next = first_head;
-	first_head->next = NULL;
-	(*a) = head;
+	first_node = head->next;
+	head->next = first_node->next;
+	while (head->next != NULL)
+		head = head->next;
+	head->next = first_node;
+	first_node->next = NULL;
 }
 
 void		rb(t_stack **b)
 {
 	t_stack	*head;
-	t_stack *first_head;
+	t_stack *first_node;
 
 	head = (*b);
-	if ((*b)->is_head == 1 && (*b)->next == NULL)
+	if (head->is_head == 1 && head->next == NULL)
 	{
 		printf("No Element in A\n");
 		return ;
 	}
-	first_head = (*b)->next;
-	head->next = first_head->next;
-	while ((*b)->next != NULL)
-		(*b) = (*b)->next;
-	(*b)->next = first_head;
-	first_head->next = NULL;
-	(*b) = head;
+	first_node = head->next;
+	head->next = first_node->next;
+	while (head->next != NULL)
+		head = head->next;
+	head->next = first_node;
+	first_node->next = NULL;
 }
 
 void		rr(t_stack **a, t_stack **b)
@@ -298,17 +290,48 @@ void		rr(t_stack **a, t_stack **b)
 
 void		rra(t_stack **a, t_stack **b)
 {
-	
+	t_stack	*head;
+	t_stack	*last_node;
+
+	head = (*a);
+	if (head->is_head == 1 && head->next == NULL)
+	{
+		printf("No Element in A\n");
+		return ;
+	}
+	while (head->next->next != NULL)
+	{
+		head = head->next;
+	}
+	last_node = head->next;
+	head->next = NULL;
+	last_node->next = (*a)->next;
+	(*a)->next = last_node;
 }
 
 void		rrb(t_stack **a, t_stack **b)
 {
-	
+	t_stack	*head;
+	t_stack	*last_node;
+
+	head = (*b);
+	if (head->is_head == 1 && head->next == NULL)
+	{
+		printf("No Element in A\n");
+		return ;
+	}
+	while (head->next->next != NULL)
+		head = head->next;
+	last_node = head->next;
+	head->next = NULL;
+	last_node->next = (*b)->next;
+	(*b)->next = last_node;
 }
 
 void		rrr(t_stack **a, t_stack **b)
 {
-	
+	rra(a, b);
+	rrb(a, b);
 }
 
 void		test(t_stack *a, t_stack *b)
@@ -316,11 +339,12 @@ void		test(t_stack *a, t_stack *b)
 	t_stack	*a_head;
 	t_stack	*b_head;
 
-	for (int i = 15; i > 0; i--)
+	for (int i = 10; i > 0; i--)
 		ft_push(&b, i);
-	for (int i = 0; i < 1; i++)
-		ss(&a, &b);
+	for (int i = 0; i < 3; i++)
+		rrr(&a, &b);
 	a_head = a;
+	b_head = b;
 	printf("######### a #########\n\n");
 	while (1)
 	{
@@ -331,7 +355,6 @@ void		test(t_stack *a, t_stack *b)
 			break ;
 		a_head = a_head->next;
 	}
-	b_head = b;
 	printf("\n\n######### b #########\n\n");
 	while (1)
 	{
@@ -342,8 +365,6 @@ void		test(t_stack *a, t_stack *b)
 			break ;
 		b_head = b_head->next;
 	}
-	for (;;)
-	;
 }
 
 int			main(int argc, char **argv)
