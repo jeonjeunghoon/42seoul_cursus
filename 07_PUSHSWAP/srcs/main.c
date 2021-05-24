@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/05/24 21:35:03 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/05/25 00:21:07 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,62 +178,44 @@ element		ft_pop(t_stack **head)
 
 void		sa(t_stack **a)
 {
-	t_stack	*head;
-	t_stack *first_head;
 	element	first_data;
-	element	second_data;
+	element second_data;
 
-	head = (*a);
 	if ((*a)->is_head == 1 && (*a)->next == NULL)
 	{
 		printf("No Element in A\n");
 		return ;
 	}
-	(*a) = (*a)->next;
-	first_head = (*a);
-	first_data = (*a)->data;
-	if ((*a)->next == NULL)
+	if ((*a)->next->next == NULL)
 	{
-		(*a) = head;
 		printf("Only One Element in A\n");
 		return ;
 	}
-	(*a) = (*a)->next;
-	second_data = (*a)->data;
-	(*a)->data = first_data;
-	(*a) = first_head;
-	(*a)->data = second_data;
-	(*a) = head;
+	first_data = ft_pop(a);
+	second_data = ft_pop(a);
+	ft_push(a, first_data);
+	ft_push(a, second_data);
 }
 
 void		sb(t_stack **b)
 {
-	t_stack	*head;
-	t_stack *first_head;
 	element	first_data;
 	element	second_data;
 
-	head = (*b);
 	if ((*b)->is_head == 1 && (*b)->next == NULL)
 	{
 		printf("No Element in A\n");
 		return ;
 	}
-	(*b) = (*b)->next;
-	first_head = (*b);
-	first_data = (*b)->data;
-	if ((*b)->next == NULL)
+	if ((*b)->next->next == NULL)
 	{
-		(*b) = head;
 		printf("Only One Element in A\n");
 		return ;
 	}
-	(*b) = (*b)->next;
-	second_data = (*b)->data;
-	(*b)->data = first_data;
-	(*b) = first_head;
-	(*b)->data = second_data;
-	(*b) = head;
+	first_data = ft_pop(b);
+	second_data = ft_pop(b);
+	ft_push(b, first_data);
+	ft_push(b, second_data);
 }
 
 void		ss(t_stack **a, t_stack **b)
@@ -272,10 +254,6 @@ void		ra(t_stack **a)
 {
 	t_stack	*head;
 	t_stack *first_head;
-	int		*data_arr;
-	int		first_data;
-	int		len;
-	int		i;
 
 	head = (*a);
 	if ((*a)->is_head == 1 && (*a)->next == NULL)
@@ -283,36 +261,12 @@ void		ra(t_stack **a)
 		printf("No Element in A\n");
 		return ;
 	}
-	len = lstsize(*a) - 1;
-	(*a) = (*a)->next;
-	first_head = (*a);
-	if ((*a)->next == NULL)
-	{
-		(*a) = head;
-		printf("Only One Element in A\n");
-		return ;
-	}
-	first_data = (*a)->data;
-	(*a) = (*a)->next;
-	if (!(data_arr = (int *)malloc(sizeof(int) * len)))
-		ft_exit("Error: ra\n");
-	i = 0;
-	while (i < len - 1)
-	{
-		data_arr[i] = (*a)->data;
+	first_head = (*a)->next;
+	head->next = first_head->next;
+	while ((*a)->next != NULL)
 		(*a) = (*a)->next;
-		i++;
-	}
-	data_arr[i] = first_data;
-	(*a) = first_head;
-	i = 0;
-	while (i < len)
-	{
-		(*a)->data = data_arr[i];
-		(*a) = (*a)->next;
-		i++;
-	}
-	free(data_arr);
+	(*a)->next = first_head;
+	first_head->next = NULL;
 	(*a) = head;
 }
 
@@ -320,10 +274,6 @@ void		rb(t_stack **b)
 {
 	t_stack	*head;
 	t_stack *first_head;
-	int		*data_arr;
-	int		first_data;
-	int		len;
-	int		i;
 
 	head = (*b);
 	if ((*b)->is_head == 1 && (*b)->next == NULL)
@@ -331,36 +281,12 @@ void		rb(t_stack **b)
 		printf("No Element in A\n");
 		return ;
 	}
-	len = lstsize(*b) - 1;
-	(*b) = (*b)->next;
-	first_head = (*b);
-	if ((*b)->next == NULL)
-	{
-		(*b) = head;
-		printf("Only One Element in A\n");
-		return ;
-	}
-	first_data = (*b)->data;
-	(*b) = (*b)->next;
-	if (!(data_arr = (int *)malloc(sizeof(int) * len)))
-		ft_exit("Error: ra\n");
-	i = 0;
-	while (i < len - 1)
-	{
-		data_arr[i] = (*b)->data;
+	first_head = (*b)->next;
+	head->next = first_head->next;
+	while ((*b)->next != NULL)
 		(*b) = (*b)->next;
-		i++;
-	}
-	data_arr[i] = first_data;
-	(*b) = first_head;
-	i = 0;
-	while (i < len)
-	{
-		(*b)->data = data_arr[i];
-		(*b) = (*b)->next;
-		i++;
-	}
-	free(data_arr);
+	(*b)->next = first_head;
+	first_head->next = NULL;
 	(*b) = head;
 }
 
@@ -390,36 +316,34 @@ void		test(t_stack *a, t_stack *b)
 	t_stack	*a_head;
 	t_stack	*b_head;
 
-	ft_push(&b, 5);
-	ft_push(&b, 4);
-	ft_push(&b, 3);
-	ft_push(&b, 2);
-	ft_push(&b, 1);
-	rr(&a, &b);
-	rr(&a, &b);
-	rr(&a, &b);
+	for (int i = 15; i > 0; i--)
+		ft_push(&b, i);
+	for (int i = 0; i < 1; i++)
+		ss(&a, &b);
 	a_head = a;
 	printf("######### a #########\n\n");
 	while (1)
 	{
-		if (a->is_head)
-			a = a->next;
-		printf("a = %d\n", a->data);
-		if (a->next == NULL)
+		if (a_head->is_head)
+			a_head = a->next;
+		printf("a = %d\n", a_head->data);
+		if (a_head->next == NULL)
 			break ;
-		a = a->next;
+		a_head = a_head->next;
 	}
 	b_head = b;
 	printf("\n\n######### b #########\n\n");
 	while (1)
 	{
-		if (b->is_head)
-			b = b->next;
-		printf("b = %d\n", b->data);
-		if (b->next == NULL)
+		if (b_head->is_head)
+			b_head = b_head->next;
+		printf("b = %d\n", b_head->data);
+		if (b_head->next == NULL)
 			break ;
-		b = b->next;
+		b_head = b_head->next;
 	}
+	for (;;)
+	;
 }
 
 int			main(int argc, char **argv)
