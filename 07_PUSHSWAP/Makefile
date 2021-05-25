@@ -6,12 +6,12 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/21 11:22:16 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/05/24 20:34:31 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/05/25 23:58:59 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			=	gcc
-CFLAGS		=	#-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror
 
 NAME		=	push_swap
 LIB_NAME	=	libpush_swap.a
