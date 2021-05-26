@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:46:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/05/25 23:52:45 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/05/26 14:50:47 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include "libft.h"
 
 typedef	int				element;
 
@@ -31,7 +30,9 @@ void					stack_init(t_stack **a, t_stack **b, int *num_arr, int len_of_node);
 void					num_init(int argc, char **argv, int **num_arr);
 int						is_valid_arg(int argc, char **argv);
 int						is_valid_num(int **num_arr, int size);
+size_t					ft_strlen(const char *s);
 void					ft_exit(char *msg);
+int						ft_atoi(const char *str);
 void					create_node_back(t_stack *lst, int *data);
 void					ft_del_stack(t_stack *lst);
 void					ft_push(t_stack **head, element data);
@@ -44,8 +45,8 @@ void					pb(t_stack **a, t_stack **b);
 void					ra(t_stack **a);
 void					rb(t_stack **b);
 void					rr(t_stack **a, t_stack **b);
-void					rra(t_stack **a, t_stack **b);
-void					rrb(t_stack **a, t_stack **b);
+void					rra(t_stack **a);
+void					rrb(t_stack **b);
 void					rrr(t_stack **a, t_stack **b);
 
 #endif

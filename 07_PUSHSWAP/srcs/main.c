@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/05/25 23:48:53 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/05/26 13:55:42 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void		num_init(int argc, char **argv, int **num_arr)
 		i++;
 	}
 	if ((is_valid_num(num_arr, argc - 1) == 0))
-		ft_exit("Error: num_init");
+		ft_exit("Error: num_init\n");
 }
 
 void		arg_init(int argc, char **argv, int **num_arr)
 {
 	if ((is_valid_arg(argc, argv) == 0))
-		ft_exit("Error: arg_init");
+		ft_exit("Error: arg_init\n");
 	num_init(argc, argv, num_arr);
 }
 

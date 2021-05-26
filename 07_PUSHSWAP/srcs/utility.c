@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 23:45:32 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/05/25 23:46:01 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/05/26 00:05:07 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ element		ft_pop(t_stack **head)
 	element	data;
 
 	if ((*head)->is_head == 1 && (*head)->next == NULL)
-	{
-		printf("Pop Error: No Element\n");
 		return (-42);
-	}
 	head_temp = (*head);
 	(*head) = (*head)->next;
 	ft_del_stack(head_temp);

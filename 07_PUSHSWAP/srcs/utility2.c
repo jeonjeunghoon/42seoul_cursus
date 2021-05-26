@@ -6,11 +6,23 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 23:49:19 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/05/25 23:49:32 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/05/26 14:49:56 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
+
+size_t		ft_strlen(const char *s)
+{
+	int		res;
+
+	res = 0;
+	if (!s)
+		return (0);
+	while (((unsigned char *)s)[res])
+		res++;
+	return (res);
+}
 
 int			is_valid_arg(int argc, char **argv)
 {

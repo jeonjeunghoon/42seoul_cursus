@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 23:47:45 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/05/25 23:47:48 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/05/26 00:04:46 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ void		ra(t_stack **a)
 
 	head = (*a);
 	if (head->is_head == 1 && head->next == NULL)
-	{
-		printf("No Element in A\n");
 		return ;
-	}
 	first_node = head->next;
 	head->next = first_node->next;
 	while (head->next != NULL)
@@ -38,10 +35,7 @@ void		rb(t_stack **b)
 
 	head = (*b);
 	if (head->is_head == 1 && head->next == NULL)
-	{
-		printf("No Element in A\n");
 		return ;
-	}
 	first_node = head->next;
 	head->next = first_node->next;
 	while (head->next != NULL)

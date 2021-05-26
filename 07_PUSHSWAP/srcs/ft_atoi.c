@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/08 17:25:54 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/11 17:17:20 by jeunjeon         ###   ########.fr       */
+/*   Created: 2021/05/26 14:48:57 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/05/26 14:49:07 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../inc/push_swap.h"
 
 void					ft_isspace(const unsigned char **pp)
 {
