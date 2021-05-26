@@ -6,36 +6,22 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/05/26 13:55:42 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/05/26 23:47:45 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
-#include <stdio.h>
 
-void		num_init(int argc, char **argv, int **num_arr)
+void		arg_init(int argc, char **argv, t_init **data)
 {
-	int		i;
-
-	*num_arr = (int *)malloc(sizeof(int) * (argc - 1));
-	i = 1;
-	while (argv[i])
-	{
-		(*num_arr)[i - 1] = ft_atoi(argv[i]);
-		i++;
-	}
-	if ((is_valid_num(num_arr, argc - 1) == 0))
-		ft_exit("Error: num_init\n");
-}
-
-void		arg_init(int argc, char **argv, int **num_arr)
-{
+	(*data) = (t_init *)malloc(sizeof(t_init));
 	if ((is_valid_arg(argc, argv) == 0))
 		ft_exit("Error: arg_init\n");
-	num_init(argc, argv, num_arr);
+	num_init(argc, argv, (*data));
+	(*data)->len_of_node = argc - 1;
 }
 
-void		stack_init(t_stack **a, t_stack **b, int *num_arr, int len_of_node)
+void		stack_init(t_stack **a, t_stack **b, t_init *data)
 {
 	int		i;
 	t_stack	*head;
@@ -50,56 +36,63 @@ void		stack_init(t_stack **a, t_stack **b, int *num_arr, int len_of_node)
 	(*b)->next = NULL;
 	i = 0;
 	head = (*a);
-	while (i < len_of_node)
+	while (i < data->len_of_node)
 	{
-		create_node_back((*a), &(num_arr[i]));
+		create_node_back((*a), &(data->num_arr[i]));
 		(*a) = (*a)->next;
 		i++;
 	}
 	(*a) = head;
 }
 
-void		test(t_stack *a, t_stack *b)
-{
-	t_stack	*a_head;
-	t_stack	*b_head;
+// void		test(t_stack **a, t_stack **b)
+// {
+// 	ft_push(a, 100);
+// 	ft_push(a, 110);
+// 	ft_push(a, 120);
+// 	ft_push(b, 900);
+// 	ft_push(b, 910);
+// 	ft_push(b, 920);
 
-	for (int i = 10; i > 0; i--)
-		ft_push(&b, i);
-	for (int i = 0; i < 3; i++)
-		rrr(&a, &b);
-	a_head = a;
-	b_head = b;
-	printf("######### a #########\n\n");
-	while (1)
-	{
-		if (a_head->is_head)
-			a_head = a->next;
-		printf("a = %d\n", a_head->data);
-		if (a_head->next == NULL)
-			break ;
-		a_head = a_head->next;
-	}
-	printf("\n\n######### b #########\n\n");
-	while (1)
-	{
-		if (b_head->is_head)
-			b_head = b_head->next;
-		printf("b = %d\n", b_head->data);
-		if (b_head->next == NULL)
-			break ;
-		b_head = b_head->next;
-	}
-}
+// 	t_stack	*a_head;
+// 	t_stack	*b_head;
+// 	a_head = *a;
+// 	b_head = *b;
+// 	printf("######### a #########\n\n");
+// 	while (1)
+// 	{
+// 		if (a_head->is_head)
+// 			a_head = a_head->next;
+// 		printf("a = %d\n", a_head->data);
+// 		if (a_head->next == NULL)
+// 			break ;
+// 		a_head = a_head->next;
+// 	}
+// 	printf("\n\n######### b #########\n\n");
+// 	while (1)
+// 	{
+// 		if (b_head->is_head)
+// 			b_head = b_head->next;
+// 		printf("b = %d\n", b_head->data);
+// 		if (b_head->next == NULL)
+// 			break ;
+// 		b_head = b_head->next;
+// 	}
+// }
 
 int			main(int argc, char **argv)
 {
 	t_stack	*a;
 	t_stack *b;
-	int		*num_arr;
+	t_init	*data;
 
-	arg_init(argc, argv, &num_arr);
-	stack_init(&a, &b, num_arr, argc - 1);
-	test(a, b);
+	arg_init(argc, argv, &data);
+	stack_init(&a, &b, data);
+	// test(&a, &b);
+	find_pivot(data);
+	// ft_quick_sort(&a, &b, 0, data->len_of_node - 1);
+	free(a);
+	free(b);
+	free(data);
 	return (0);
 }

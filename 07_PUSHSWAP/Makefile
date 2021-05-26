@@ -6,12 +6,12 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/21 11:22:16 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/05/26 14:51:08 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/05/26 17:40:27 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	#-Wall -Wextra -Werror
 
 NAME		=	push_swap
 SRCS		=	srcs/main.c \
@@ -20,7 +20,8 @@ SRCS		=	srcs/main.c \
 				srcs/ft_atoi.c \
 				srcs/pushswap_func.c \
 				srcs/pushswap_func2.c \
-				srcs/pushswap_func3.c
+				srcs/pushswap_func3.c \
+				srcs/ft_quick_sort.c
 
 OBJS	=		$(SRCS:.c=.o)
 INCS	=		inc
