@@ -6,11 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 23:47:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/05/21 02:47:12 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/05/29 19:20:38 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "srcs/libasm.h"
+#include "libasm.h"
 
 void		test_str(void)
 {
@@ -66,15 +66,15 @@ int			main(void)
 		printf("ft_write errno = %d\n", errno);
 
 	printf("\nTEST READ\n");
-	fd = open("text/test.txt", O_RDONLY);
-	printf("C__read fd = %zd\n", read(fd, buf, 10));
+	fd = open("srcs/ft_read.s", O_RDONLY);
+	printf("C__read fd = %zd\n", read(fd, buf, 25));
 	buf[10] = '\0';
 	printf("C__read = %s\n", buf);
 	if (errno)
 		printf("C__read errno = %d\n", errno);
 
-	ft_fd = open("text/ft_test.txt", O_RDONLY);
-	printf("ft_read fd = %zd\n", ft_read(ft_fd, ft_buf, 10));
+	ft_fd = open("srcs/ft_read.s", O_RDONLY);
+	printf("ft_read fd = %zd\n", ft_read(ft_fd, ft_buf, 25));
 	ft_buf[10] = '\0';
 	printf("ft_read = %s\n", ft_buf);
 	if (errno)

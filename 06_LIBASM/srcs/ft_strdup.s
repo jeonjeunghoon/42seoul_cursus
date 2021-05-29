@@ -34,7 +34,6 @@ is_error:
 	ret
 
 done:
-	mov rax, rdi
 	pop rdi
 	pop rsi
 	ret

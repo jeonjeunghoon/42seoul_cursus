@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 23:47:20 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/05/21 01:32:50 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/05/29 19:10:59 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS =	srcs/ft_strlen.s \
 		srcs/ft_read.s \
 		srcs/ft_strdup.s
 OBJS = $(SRCS:.s=.o)
-INC = srcs/libasm.h
+INC = libasm.h
 
 $(NAME): $(OBJS)
 	ar rc $(NAME) $(OBJS)
@@ -39,7 +39,7 @@ clean:
 	rm -rf $(OBJS)
 
 fclean:
-	rm -rf $(OBJS) $(NAME)
+	rm -rf $(OBJS) $(NAME) test
 
 re: fclean all
 

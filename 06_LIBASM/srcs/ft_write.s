@@ -8,7 +8,7 @@ _ft_write:
 	mov rax, 0x2000004
 	syscall
 	jc is_error
-	jmp done
+	ret
 
 is_error:
 	push rax
@@ -16,7 +16,4 @@ is_error:
 	pop rdx
 	mov [rax], rdx
 	mov rax, -1
-	jmp done
-
-done:
 	ret

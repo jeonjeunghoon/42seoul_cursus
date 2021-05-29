@@ -14,7 +14,7 @@ loop:
 	mov dl, byte [rsi + rcx]
 	mov byte [rdi + rcx], dl
 	inc rcx
-	cmp [rsi + rcx], byte 0x0
+	cmp [rsi + rcx], byte 0
 	jz done
 	jmp loop
 
