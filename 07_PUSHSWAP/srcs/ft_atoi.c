@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 14:48:57 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/05/26 14:49:07 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/06/28 16:47:29 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void					ft_isspace(const unsigned char **pp)
 		(*pp)++;
 }
 
-int						isminus(const unsigned char **pp)
+long long				isminus(const unsigned char **pp)
 {
-	int					sign;
+	long long			sign;
 
 	sign = 1;
 	if (**pp == '-' || **pp == '+')
@@ -52,10 +52,25 @@ long long				make_num(const unsigned char **pp, int sign)
 	return (tmp);
 }
 
+void					ft_except(const char *str, long long num)
+{
+	int					i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (i > 11)
+			ft_exit("Error: ft_atoi\n");
+		i++;
+	}
+	if (num < -2147483648 || num > 2147483647)
+		ft_exit("Error: ft_atoi\n");
+}
+
 int						ft_atoi(const char *str)
 {
 	const unsigned char	*ptr;
-	int					sign;
+	long long			sign;
 	long long			num;
 
 	sign = 1;
@@ -63,5 +78,7 @@ int						ft_atoi(const char *str)
 	ft_isspace(&ptr);
 	sign = isminus(&ptr);
 	num = make_num(&ptr, sign);
-	return ((int)(num * sign));
+	num *= sign;
+	ft_except(str, num);
+	return ((int)num);
 }

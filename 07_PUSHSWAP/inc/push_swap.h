@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:46:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/06/28 16:23:21 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/06/28 16:56:37 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,22 @@
 
 #include <stdio.h>
 
-typedef	struct			s_stack
+typedef	struct			s_node
 {
-	int					is_head;
 	int					data;
-	struct	s_stack		*next;
-}						t_stack;
+	struct	s_node		*next;
+}						t_node;
+
+typedef	struct			s_head
+{
+	t_node				node;
+}						t_head;
+
+typedef	struct			s_newstack
+{
+	t_head				a;
+	t_head				b;
+}						t_newstack;
 
 typedef	struct			s_init
 {
@@ -34,13 +44,13 @@ typedef	struct			s_init
 }						t_init;
 
 void					arg_init(int argc, char **argv, t_init **data);
-void					stack_init(t_stack **a, t_stack **b, t_init *data);
+void					stack_init(t_stack stack, t_init *data);
 size_t					ft_strlen(const char *s);
 int						is_valid_num(int *num_arr, int size);
 void					num_init(int argc, char **argv, t_init *data);
 int						is_valid_arg(int argc, char **argv);
 void					ft_exit(char *msg);
-int						ft_atoi(const char *str);
+int		 				ft_atoi(const char *str);
 void					create_node_back(t_stack *lst, int *data);
 void					ft_del_stack(t_stack *lst);
 void					ft_push(t_stack **head, int data);
