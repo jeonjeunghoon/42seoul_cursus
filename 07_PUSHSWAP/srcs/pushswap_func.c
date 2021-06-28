@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 23:46:57 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/05/26 00:03:57 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/06/28 16:24:10 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void		sa(t_stack **a)
 {
-	element	first_data;
-	element second_data;
+	int		first_data;
+	int		second_data;
 
 	if ((*a)->is_head == 1 && (*a)->next == NULL)
 		return ;
@@ -29,8 +29,8 @@ void		sa(t_stack **a)
 
 void		sb(t_stack **b)
 {
-	element	first_data;
-	element	second_data;
+	int		first_data;
+	int		second_data;
 
 	if ((*b)->is_head == 1 && (*b)->next == NULL)
 		return ;

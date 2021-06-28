@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 23:45:32 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/05/26 00:05:07 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/06/28 16:24:01 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		ft_del_stack(t_stack *lst)
 	free(lst);
 }
 
-void		ft_push(t_stack **head, element data)
+void		ft_push(t_stack **head, int data)
 {
 	t_stack	*node;
 
@@ -52,10 +52,10 @@ void		ft_push(t_stack **head, element data)
 	(*head) = node;
 }
 
-element		ft_pop(t_stack **head)
+int			ft_pop(t_stack **head)
 {
 	t_stack	*head_temp;
-	element	data;
+	int		data;
 
 	if ((*head)->is_head == 1 && (*head)->next == NULL)
 		return (-42);

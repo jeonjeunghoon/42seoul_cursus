@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:46:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/05/26 23:43:03 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/06/28 16:23:21 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@
 
 #include <stdio.h>
 
-typedef	int				element;
-
 typedef	struct			s_stack
 {
 	int					is_head;
-	element				data;
+	int					data;
 	struct	s_stack		*next;
 }						t_stack;
 
@@ -45,8 +43,8 @@ void					ft_exit(char *msg);
 int						ft_atoi(const char *str);
 void					create_node_back(t_stack *lst, int *data);
 void					ft_del_stack(t_stack *lst);
-void					ft_push(t_stack **head, element data);
-element					ft_pop(t_stack **head);
+void					ft_push(t_stack **head, int data);
+int						ft_pop(t_stack **head);
 void					sa(t_stack **a);
 void					sb(t_stack **b);
 void					ss(t_stack **a, t_stack **b);
