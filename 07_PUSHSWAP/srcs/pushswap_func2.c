@@ -6,46 +6,53 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 23:47:45 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/05/26 00:04:46 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/06/29 17:29:05 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void		ra(t_stack **a)
+void		ra(t_head *a_head)
 {
-	t_stack	*head;
-	t_stack *first_node;
+	t_node	*curr;
+	t_node	*top_node;
 
-	head = (*a);
-	if (head->is_head == 1 && head->next == NULL)
+	if (a_head->node == NULL)
 		return ;
-	first_node = head->next;
-	head->next = first_node->next;
-	while (head->next != NULL)
-		head = head->next;
-	head->next = first_node;
-	first_node->next = NULL;
+	if (a_head->node->next == NULL)
+		return ;
+	top_node = a_head->node;
+	a_head->node = top_node->next;
+	curr = a_head->node;
+	while (curr->next != NULL)
+		curr = curr->next;
+	curr->next = top_node;
+	top_node->next = NULL;
+	write(1, "ra\n", 3);
 }
 
-void		rb(t_stack **b)
+void		rb(t_head *b_head)
 {
-	t_stack	*head;
-	t_stack *first_node;
+	t_node	*curr;
+	t_node	*top_node;
 
-	head = (*b);
-	if (head->is_head == 1 && head->next == NULL)
+	if (b_head->node == NULL)
 		return ;
-	first_node = head->next;
-	head->next = first_node->next;
-	while (head->next != NULL)
-		head = head->next;
-	head->next = first_node;
-	first_node->next = NULL;
+	if (b_head->node->next == NULL)
+		return ;
+	top_node = b_head->node;
+	b_head->node = top_node->next;
+	curr = b_head->node;
+	while (curr->next != NULL)
+		curr = curr->next;
+	curr->next = top_node;
+	top_node->next = NULL;
+	write(1, "rb\n", 3);
 }
 
-void		rr(t_stack **a, t_stack **b)
+void		rr(t_head *a_head, t_head *b_head)
 {
-	ra(a);
-	rb(b);
+	ra(a_head);
+	rb(b_head);
+	write(1, "rr\n", 3);
 }

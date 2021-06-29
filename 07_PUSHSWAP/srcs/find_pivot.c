@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_quick_sort.c                                    :+:      :+:    :+:   */
+/*   find_pivot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 17:41:05 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/06/28 16:40:38 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/06/29 17:51:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,44 +54,24 @@ void			quick_sort(int *num_arr, int left, int right)
 	}
 }
 
-void			find_pivot(t_init *data)
-{
-	quick_sort(data->num_arr, 0, data->len_of_node - 1);
-	data->pivot = data->len_of_node / 2;
-}
-
-int				ft_partition(t_stack *a, t_stack *b, int left, int right)
+void			find_pivot(t_init *data, int size)
 {
 	int			pivot;
-	int			next_pivot;
-	int			compare_data;
+	int			*num_ptr;
+	int			i;
 
-	pivot = right;
-	next_pivot = left - 1;
-	while (left < right)
+	if (!(num_ptr = (int *)malloc(sizeof(int) * size)))
+		ft_exit("Error: find_pivot\n");
+	i = 0;
+	while (i < size)
 	{
-		if (pivot < compare_data)
-		{
-			ra(&a);
-			next_pivot++;
-		}
-		else if (pivot > compare_data)
-			pb(&a, &b);
-		left++;
+		num_ptr[i] = data->num_arr[i];
+		i++;
 	}
-	
-	return (next_pivot + 1);
-}
-
-void			ft_quick_sort(t_stack *a, t_stack *b, int left, int right)
-{
-	int			pivot;
-
-	pivot = 0;
-	if (left < right)
-	{
-		pivot = ft_partition(a, b, left, right);
-		ft_quick_sort(a, b, left, pivot - 1);
-		ft_quick_sort(a, b, pivot + 1, right);
-	}
+	quick_sort(num_ptr, 0, size - 1);
+	pivot = num_ptr[size / 2];
+	i = 0;
+	while (data->num_arr[i] != pivot)
+		i++;
+	data->pivot = i;
 }

@@ -1,86 +1,66 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utility2.c                                         :+:      :+:    :+:   */
+/*   utility.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/25 23:49:19 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/06/28 16:44:13 by jeunjeon         ###   ########.fr       */
+/*   Created: 2021/05/25 23:45:32 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/06/29 15:28:37 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-size_t		ft_strlen(const char *s)
+void		ft_exit(char *msg)
 {
-	int		res;
+	write(1, msg, ft_strlen(msg));
+	exit(0);
+}
 
-	res = 0;
-	if (!s)
+void		ft_push(t_head *head, int data)
+{
+	t_node	*new_node;
+
+	if (!(new_node = (t_node *)malloc(sizeof(t_node))))
+		ft_exit("Error: push\n");
+	new_node->data = data;
+	new_node->next = head->node;
+	head->node = new_node;
+}
+
+int			ft_pop(t_head *head)
+{
+	t_node	*del_node;
+	int		data;
+
+	if (!head->node)
 		return (0);
-	while (((unsigned char *)s)[res])
-		res++;
-	return (res);
+	del_node = head->node;
+	data = del_node->data;
+	head->node = del_node->next;
+	ft_del_node(del_node);
+	return (data);
 }
 
-int			is_valid_num(int *num_arr, int size)
+void		create_node_back(t_node *node, int data)
 {
-	int		i;
-	int		j;
+	t_node	*new_node;
 
-	i = 0;
-	while (i < size)
-	{
-		j = i + 1;
-		while (j < size)
-		{
-			if (num_arr[i] == num_arr[j])
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
+	if (!node)
+		ft_exit("Error: create_node_back\n");
+	if (!(new_node = (t_node *)malloc(sizeof(t_node))))
+		ft_exit("Error: create_node_back\n");
+	new_node->data = data;
+	new_node->next = NULL;
+	while (node->next != NULL)
+		node = node->next;
+	node->next = new_node;
 }
 
-void		num_init(int argc, char **argv, t_init *data)
+void		ft_del_node(t_node *node)
 {
-	int		i;
-
-	if (!(data->num_arr = (int *)malloc(sizeof(int) * (argc - 1))))
-		ft_exit("Error: num_init\n");
-	i = 1;
-	while (argv[i])
-	{
-		(data->num_arr)[i - 1] = ft_atoi(argv[i]);
-		i++;
-	}
-	if ((is_valid_num(data->num_arr, argc - 1) == 0))
-		ft_exit("Error: num_init\n");
-}
-
-int			is_valid_arg(int argc, char **argv)
-{
-	int		i;
-	int		j;
-
-	if (argc < 2)
-		return (0);
-	i = 1;
-	while (argv[i])
-	{
-		j = 0;
-		while (argv[i][j])
-		{
-			if ((argv[i][j] == '-' || argv[i][j] == '+') && j == 0)
-				j++;
-			if (argv[i][j] >= '0' && argv[i][j] <= '9')
-				j++;
-			else
-				return (0);
-		}
-		i++;
-	}
-	return (1);
+	node->data = 0;
+	node->next = NULL;
+	free(node);
 }

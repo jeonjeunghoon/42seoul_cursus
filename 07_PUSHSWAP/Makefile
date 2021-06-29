@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/21 11:22:16 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/05/26 17:40:27 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/06/29 17:20:44 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRCS		=	srcs/main.c \
 				srcs/pushswap_func.c \
 				srcs/pushswap_func2.c \
 				srcs/pushswap_func3.c \
-				srcs/ft_quick_sort.c
+				srcs/find_pivot.c \
+				srcs/push_swap.c
 
 OBJS	=		$(SRCS:.c=.o)
 INCS	=		inc

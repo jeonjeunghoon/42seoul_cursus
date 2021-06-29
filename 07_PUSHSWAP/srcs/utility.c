@@ -1,69 +1,86 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utility.c                                          :+:      :+:    :+:   */
+/*   utility2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/25 23:45:32 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/06/28 16:40:45 by jeunjeon         ###   ########.fr       */
+/*   Created: 2021/05/25 23:49:19 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/06/28 16:44:13 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void		ft_exit(char *msg)
+size_t		ft_strlen(const char *s)
 {
-	write(1, msg, ft_strlen(msg));
-	exit(0);
+	int		res;
+
+	res = 0;
+	if (!s)
+		return (0);
+	while (((unsigned char *)s)[res])
+		res++;
+	return (res);
 }
 
-void		create_node_back(t_stack *lst, int *data)
+int			is_valid_num(int *num_arr, int size)
 {
-	t_stack	*node;
+	int		i;
+	int		j;
 
-	if (!lst)
-		ft_exit("Error: create_node_back\n");
-	if (!(node = (t_stack *)malloc(sizeof(t_stack))))
-		ft_exit("Error: create_node_back\n");
-	node->data = *data;
-	node->next = NULL;
-	lst->next = node;
+	i = 0;
+	while (i < size)
+	{
+		j = i + 1;
+		while (j < size)
+		{
+			if (num_arr[i] == num_arr[j])
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
 
-void		ft_del_stack(t_stack *lst)
+void		num_init(int argc, char **argv, t_init *data)
 {
-	lst->data = 0;
-	lst->is_head = 0;
-	lst->next = NULL;
-	free(lst);
+	int		i;
+
+	if (!(data->num_arr = (int *)malloc(sizeof(int) * (argc - 1))))
+		ft_exit("Error: num_init\n");
+	i = 1;
+	while (argv[i])
+	{
+		(data->num_arr)[i - 1] = ft_atoi(argv[i]);
+		i++;
+	}
+	if ((is_valid_num(data->num_arr, argc - 1) == 0))
+		ft_exit("Error: num_init\n");
 }
 
-void		ft_push(t_stack **head, int data)
+int			is_valid_arg(int argc, char **argv)
 {
-	t_stack	*node;
+	int		i;
+	int		j;
 
-	if (!(node = (t_stack *)malloc(sizeof(t_stack))))
-		ft_exit("Error: push\n");
-	(*head)->data = data;
-	(*head)->is_head = 0;
-	node->next = (*head);
-	node->is_head = 1;
-	(*head) = node;
-}
-
-int			ft_pop(t_stack **head)
-{
-	t_stack	*head_temp;
-	int		data;
-
-	if ((*head)->is_head == 1 && (*head)->next == NULL)
-		return (-42);
-	head_temp = (*head);
-	(*head) = (*head)->next;
-	ft_del_stack(head_temp);
-	data = (*head)->data;
-	(*head)->data = 0;
-	(*head)->is_head = 1;
-	return (data);
+	if (argc < 2)
+		return (0);
+	i = 1;
+	while (argv[i])
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			if ((argv[i][j] == '-' || argv[i][j] == '+') && j == 0)
+				j++;
+			if (argv[i][j] >= '0' && argv[i][j] <= '9')
+				j++;
+			else
+				return (0);
+		}
+		i++;
+	}
+	return (1);
 }
