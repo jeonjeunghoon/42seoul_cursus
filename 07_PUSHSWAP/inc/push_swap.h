@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:46:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/06/29 17:52:40 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/06/30 11:47:38 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef	struct			s_stack
 typedef	struct			s_init
 {
 	int					*num_arr;
-	int					start;
-	int					pivot;
+	int					large_pivot;
+	int					small_pivot;
 }						t_init;
 
 void					arg_init(int argc, char **argv, t_init **data);

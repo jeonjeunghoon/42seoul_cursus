@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/06/29 17:53:37 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/06/30 11:35:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,7 @@ int			main(int argc, char **argv)
 	arg_init(argc, argv, &data);
 	stack_init(&stack, data, argc);
 	find_pivot(data, stack->a->size);
-	printf("%d\n", data->pivot);
-	printf("%d\n", data->start);
-	// push_swap(stack->a, stack->b, 0, data->len_of_node - 1);
+	// push_swap(stack->a, stack->b, 0, stack->a->size - 1);
 	// display(*(stack->a), 0);
 	// display(*(stack->b), 1);
 	return (0);
