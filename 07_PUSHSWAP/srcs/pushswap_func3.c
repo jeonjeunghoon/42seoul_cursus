@@ -6,13 +6,13 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 23:48:21 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/06/29 17:29:20 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/06/30 14:43:16 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void		rra(t_head *a_head)
+void		rra(t_head *a_head, int is_rrr)
 {
 	t_node	*curr;
 	t_node	*bottom_node;
@@ -28,10 +28,14 @@ void		rra(t_head *a_head)
 	curr->next = NULL;
 	bottom_node->next = a_head->node;
 	a_head->node = bottom_node;
-	write(1, "rra\n", 4);
+	if (is_rrr != 1)
+	{
+		times++;
+		write(1, "rra\n", 4);
+	}
 }
 
-void		rrb(t_head *b_head)
+void		rrb(t_head *b_head, int is_rrr)
 {
 	t_node	*curr;
 	t_node	*bottom_node;
@@ -47,12 +51,17 @@ void		rrb(t_head *b_head)
 	curr->next = NULL;
 	bottom_node->next = b_head->node;
 	b_head->node = bottom_node;
-	write(1, "rrb\n", 4);
+	if (is_rrr != 1)
+	{
+		times++;
+		write(1, "rrb\n", 4);
+	}
 }
 
 void		rrr(t_head *a_head, t_head *b_head)
 {
-	rra(a_head);
-	rrb(b_head);
+	rra(a_head, 1);
+	rrb(b_head, 1);
+	times++;
 	write(1, "rrr\n", 4);
 }

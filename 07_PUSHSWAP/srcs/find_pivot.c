@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 17:41:05 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/06/30 11:50:13 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/06/30 14:35:27 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,29 @@ void			quick_sort(int *num_arr, int left, int right)
 	}
 }
 
-void			find_pivot(t_init *data, int size)
+void			reset_arr(t_head head, t_init *data)
 {
-	int			pivot;
-	int			*num_ptr;
 	int			i;
 
-	if (!(num_ptr = (int *)malloc(sizeof(int) * size)))
-		ft_exit("Error: find_pivot\n");
-	i = -1;
-	while (++i < size)
-		num_ptr[i] = data->num_arr[i];
-	quick_sort(num_ptr, 0, size - 1);
+	free(data->num_arr);
+	if (!(data->num_arr = (int *)malloc(sizeof(int) * head.size)))
+		ft_exit("Error: reset_arr\n");
 	i = 0;
-	pivot = num_ptr[size / 3];
-	while (data->num_arr[i] != pivot)
+	while (i < head.size)
+	{
+		data->num_arr[i] = head.node->data;
+		head.node = head.node->next;
 		i++;
-	data->small_pivot = data->num_arr[i];
-	pivot = num_ptr[size * 2 / 3];
+	}
+}
+
+void			find_pivot(t_head *head, t_init *data, int *pivot)
+{
+	int			i;
+
+	reset_arr(*head, data);
 	i = 0;
-	while (data->num_arr[i] != pivot)
-		i++;
-	data->large_pivot = data->num_arr[i];
+	quick_sort(data->num_arr, 0, head->size - 1);
+	pivot[0] = data->num_arr[head->size / 3];
+	pivot[1] = data->num_arr[head->size * 2 / 3];
 }

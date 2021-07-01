@@ -6,11 +6,28 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/06/30 11:35:51 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/01 14:56:42 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
+
+void		free_all(t_stack **stack, t_init **data)
+{
+	t_node	*temp;
+
+	free((*data)->num_arr);
+	free(*data);
+	while ((*stack)->a->node != NULL)
+	{
+		temp = (*stack)->a->node;
+		(*stack)->a->node = (*stack)->a->node->next;
+		free(temp);
+	}
+	free((*stack)->a);
+	free((*stack)->b);
+	free(*stack);
+}
 
 void		arg_init(int argc, char **argv, t_init **data)
 {
@@ -47,6 +64,7 @@ void		display(t_head head, int alpha)
 {
 	if (!head.node)
 		return ;
+	printf("\n");
 	while (1)
 	{
 		if (head.node->next == NULL)
@@ -54,9 +72,9 @@ void		display(t_head head, int alpha)
 			printf("%d\n", head.node->data);
 			printf("___\n");
 			if (alpha == 0)
-				printf("A\n\n");
+				printf("A SIZE = %d\n", head.size);
 			else
-				printf("B\n\n");
+				printf("B SIZE = %d\n", head.size);
 			return ;
 		}
 		printf("%d\n", head.node->data);
@@ -71,9 +89,12 @@ int			main(int argc, char **argv)
 
 	arg_init(argc, argv, &data);
 	stack_init(&stack, data, argc);
-	find_pivot(data, stack->a->size);
-	// push_swap(stack->a, stack->b, 0, stack->a->size - 1);
-	// display(*(stack->a), 0);
-	// display(*(stack->b), 1);
+	a_to_b(stack->a, stack->b, data, stack->a->size);
+	display(*(stack->a), 0);
+	display(*(stack->b), 1);
+	printf("\nTIMES = %03d\n\n", times);
+	free_all(&stack, &data);
+	// for(;;)
+	// ;
 	return (0);
 }

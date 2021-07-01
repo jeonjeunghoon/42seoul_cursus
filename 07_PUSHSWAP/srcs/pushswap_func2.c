@@ -6,13 +6,13 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 23:47:45 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/06/29 17:29:05 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/06/30 14:42:36 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void		ra(t_head *a_head)
+void		ra(t_head *a_head, int is_rr)
 {
 	t_node	*curr;
 	t_node	*top_node;
@@ -28,10 +28,14 @@ void		ra(t_head *a_head)
 		curr = curr->next;
 	curr->next = top_node;
 	top_node->next = NULL;
-	write(1, "ra\n", 3);
+	if (is_rr != 1)
+	{
+		times++;
+		write(1, "ra\n", 3);
+	}
 }
 
-void		rb(t_head *b_head)
+void		rb(t_head *b_head, int is_rr)
 {
 	t_node	*curr;
 	t_node	*top_node;
@@ -47,12 +51,17 @@ void		rb(t_head *b_head)
 		curr = curr->next;
 	curr->next = top_node;
 	top_node->next = NULL;
-	write(1, "rb\n", 3);
+	if (is_rr != 1)
+	{
+		times++;
+		write(1, "rb\n", 3);
+	}
 }
 
 void		rr(t_head *a_head, t_head *b_head)
 {
-	ra(a_head);
-	rb(b_head);
+	ra(a_head, 1);
+	rb(b_head, 1);
+	times++;
 	write(1, "rr\n", 3);
 }
