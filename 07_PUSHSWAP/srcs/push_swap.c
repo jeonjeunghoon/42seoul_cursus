@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 17:21:09 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/02 15:11:33 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/02 17:18:22 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,15 @@ void			b_to_a(t_head *a_head, t_head *b_head, t_init *data, int range)
 	time_ra = 0;
 	time_rb = 0;
 	time_pa = 0;
-	if (range < 4)
+	if (range <= 1)
 	{
-		b_except(a_head, b_head, range);
+		// b_except(a_head, b_head, range);
+		pa(a_head, b_head);
 		return ;
 	}
-	find_pivot(b_head, data, pivot);
-	while (range--)
+	if ((find_pivot(b_head, data, pivot)) == 0)
+		return ;
+	while (range-- && b_head->node)
 	{
 		if (b_head->node->data < pivot[0])
 		{
@@ -139,7 +141,7 @@ void			b_to_a(t_head *a_head, t_head *b_head, t_init *data, int range)
 		{
 			pa(a_head, b_head);
 			time_pa++;
-			if (b_head->node->data <= pivot[1])
+			if (a_head->node->data < pivot[1])
 			{
 				ra(a_head, 0);
 				time_ra++;
@@ -177,13 +179,16 @@ void			a_to_b(t_head *a_head, t_head *b_head, t_init *data, int range)
 	time_ra = 0;
 	time_rb = 0;
 	time_pb = 0;
-	if (range < 4)
+	if (range <= 1)
 	{
-		a_except(a_head, range);
+		// a_except(a_head, range);
 		return ;
 	}
-	find_pivot(a_head, data, pivot);
-	while (range--)
+	if ((find_pivot(a_head, data, pivot)) == 0)
+	{
+		return ;
+	}
+	while (range-- && a_head->node)
 	{
 		if (a_head->node->data >= pivot[1])
 		{
@@ -207,12 +212,12 @@ void			a_to_b(t_head *a_head, t_head *b_head, t_init *data, int range)
 		rrr(a_head, b_head);
 		i++;
 	}
-	while (i < time_ra)
+	while (i < time_ra && a_head->node)
 	{
 		rra(a_head, 0);
 		i++;
 	}
-	while (i < time_rb)
+	while (i < time_rb && b_head->node)
 	{
 		rrb(b_head, 0);
 		i++;

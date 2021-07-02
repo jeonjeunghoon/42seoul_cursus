@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 23:46:57 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/06/30 14:41:51 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/02 17:05:18 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void		pa(t_head *a_head, t_head *b_head)
 	ft_push(a_head, ft_pop(b_head));
 	a_head->size++;
 	b_head->size--;
+	if (a_head->size == 1)
+		a_head->node->next = NULL;
 	times++;
 	write(1, "pa\n", 3);
 }
@@ -78,6 +80,8 @@ void		pb(t_head *a_head, t_head *b_head)
 	ft_push(b_head, ft_pop(a_head));
 	a_head->size--;
 	b_head->size++;
+	if (b_head->size == 1)
+		b_head->node->next = NULL;
 	times++;
 	write(1, "pb\n", 3);
 }

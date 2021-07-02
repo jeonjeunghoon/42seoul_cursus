@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:46:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/02 12:17:13 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/02 15:36:36 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void					rrr(t_head *a_head, t_head *b_head);
 void					ft_swap(int *a, int *b);
 int						partition(int *num_arr, int left, int right);
 void					quick_sort(int *num_arr, int left, int right);
-void					find_pivot(t_head *head, t_init *data, int *pivot);
+int						find_pivot(t_head *head, t_init *data, int *pivot);
 
 void					except_three(t_head *head);
 void					b_except(t_head *a_head, t_head *b_head, int modify_range);

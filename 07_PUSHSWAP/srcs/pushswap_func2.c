@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 23:47:45 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/06/30 14:42:36 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/02 17:02:38 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void		ra(t_head *a_head, int is_rr)
 	t_node	*curr;
 	t_node	*top_node;
 
+	if (a_head == NULL)
+		return ;
 	if (a_head->node == NULL)
 		return ;
 	if (a_head->node->next == NULL)
@@ -40,6 +42,8 @@ void		rb(t_head *b_head, int is_rr)
 	t_node	*curr;
 	t_node	*top_node;
 
+	if (b_head == NULL)
+		return ;
 	if (b_head->node == NULL)
 		return ;
 	if (b_head->node->next == NULL)

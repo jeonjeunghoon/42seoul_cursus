@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/02 14:36:22 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/02 17:16:59 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void		stack_init(t_stack **stack, t_init *data, int argc)
 	(*stack)->a->size = argc - 1;
 	(*stack)->a->node->data = data->num_arr[0];
 	(*stack)->a->node->next = NULL;
+	(*stack)->b->node = NULL;
+	(*stack)->b->size = 0;
 	i = 1;
 	while (i < (*stack)->a->size)
 	{
@@ -62,14 +64,13 @@ void		stack_init(t_stack **stack, t_init *data, int argc)
 
 void		display(t_head head, int alpha)
 {
-	if (!head.node)
+	if (head.size == 0)
 		return ;
 	printf("\n----------stack----------\n");
 	while (1)
 	{
 		if (head.node->next == NULL)
 		{
-			printf("%d\n", head.node->data);
 			printf("----------stack----------\n");
 			if (alpha == 0)
 				printf("A SIZE = %d\n", head.size);
@@ -77,7 +78,6 @@ void		display(t_head head, int alpha)
 				printf("B SIZE = %d\n", head.size);
 			return ;
 		}
-		printf("%d\n", head.node->data);
 		head.node = head.node->next;
 	}
 }
