@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:46:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/01 15:06:45 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/02 12:17:13 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void					ft_del_node(t_node *node);
 void					ft_push(t_head *head, int data);
 int						ft_pop(t_head *head);
 
+int						get_range(t_head *head, t_init *data);
 size_t					ft_strlen(const char *s);
 int						is_valid_num(int *num_arr, int size);
 void					num_init(int argc, char **argv, t_init *data);

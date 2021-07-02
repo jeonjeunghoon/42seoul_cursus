@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 17:41:05 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/06/30 14:35:27 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/02 11:54:50 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,7 @@ void			reset_arr(t_head head, t_init *data)
 
 void			find_pivot(t_head *head, t_init *data, int *pivot)
 {
-	int			i;
-
 	reset_arr(*head, data);
-	i = 0;
 	quick_sort(data->num_arr, 0, head->size - 1);
 	pivot[0] = data->num_arr[head->size / 3];
 	pivot[1] = data->num_arr[head->size * 2 / 3];

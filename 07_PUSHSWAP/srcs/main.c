@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/01 14:56:42 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/02 14:36:22 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ void		display(t_head head, int alpha)
 {
 	if (!head.node)
 		return ;
-	printf("\n");
+	printf("\n----------stack----------\n");
 	while (1)
 	{
 		if (head.node->next == NULL)
 		{
 			printf("%d\n", head.node->data);
-			printf("___\n");
+			printf("----------stack----------\n");
 			if (alpha == 0)
 				printf("A SIZE = %d\n", head.size);
 			else
@@ -92,7 +92,7 @@ int			main(int argc, char **argv)
 	a_to_b(stack->a, stack->b, data, stack->a->size);
 	display(*(stack->a), 0);
 	display(*(stack->b), 1);
-	printf("\nTIMES = %03d\n\n", times);
+	printf("TIMES = %03d\n\n", times);
 	free_all(&stack, &data);
 	// for(;;)
 	// ;
