@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 17:41:05 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/02 17:23:49 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/03 22:27:54 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void			quick_sort(int *num_arr, int left, int right)
 
 void			reset_arr(t_head *head, t_init *data)
 {
+	// write(1, "@@@@@\n", 6);
 	int			i;
 	t_node		*curr;
 
@@ -76,7 +77,6 @@ int				find_pivot(t_head *head, t_init *data, int *pivot)
 {
 	if (head->size < 0)
 		return (0);
-	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 	reset_arr(head, data);
 	quick_sort(data->num_arr, 0, head->size - 1);
 	pivot[0] = data->num_arr[head->size / 3];

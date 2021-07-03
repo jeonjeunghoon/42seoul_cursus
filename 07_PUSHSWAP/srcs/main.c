@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/02 17:16:59 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/03 22:44:47 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void		display(t_head head, int alpha)
 	printf("\n----------stack----------\n");
 	while (1)
 	{
+		printf("%d\n", head.node->data);
 		if (head.node->next == NULL)
 		{
 			printf("----------stack----------\n");
