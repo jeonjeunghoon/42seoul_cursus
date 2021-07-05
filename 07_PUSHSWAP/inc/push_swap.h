@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:46:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/02 15:36:36 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/05 17:35:39 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void					ft_del_node(t_node *node);
 void					ft_push(t_head *head, int data);
 int						ft_pop(t_head *head);
 
-int						get_range(t_head *head, t_init *data);
 size_t					ft_strlen(const char *s);
 int						is_valid_num(int *num_arr, int size);
 void					num_init(int argc, char **argv, t_init *data);
@@ -77,12 +76,14 @@ void					rrr(t_head *a_head, t_head *b_head);
 void					ft_swap(int *a, int *b);
 int						partition(int *num_arr, int left, int right);
 void					quick_sort(int *num_arr, int left, int right);
-int						find_pivot(t_head *head, t_init *data, int *pivot);
+int						find_pivot(t_head *head, int *pivot, int range);
 
 void					except_three(t_head *head);
 void					b_except(t_head *a_head, t_head *b_head, int modify_range);
 void					a_except(t_head *head, int modify_range);
 void					a_to_b(t_head *a_head, t_head *b_head, t_init *data, int range);
 void					b_to_a(t_head *a_head, t_head *b_head, t_init *data, int range);
+
+void					display(t_head head, int alpha);
 
 #endif
