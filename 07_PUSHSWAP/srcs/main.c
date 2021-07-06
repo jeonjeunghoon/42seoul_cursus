@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/05 18:15:56 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/06 15:13:57 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,10 @@ int			main(int argc, char **argv)
 {
 	t_stack	*stack;
 	t_init	*data;
-	t_node	*curr;
 
 	arg_init(argc, argv, &data);
 	stack_init(&stack, data, argc);
 	a_to_b(stack->a, stack->b, data, stack->a->size);
-	curr = stack->b->node;
-	while (curr)
-	{
-		pa(stack->a, stack->b);
-		curr = curr->next;
-	}
 	display(*(stack->a), 0);
 	display(*(stack->b), 1);
 	printf("TIMES = %03d\n\n", times);

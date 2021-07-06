@@ -6,14 +6,14 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/21 11:22:16 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/07/03 22:21:59 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/07/06 16:35:24 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			=	gcc
 CFLAGS		=	#-g3 -fsanitize=address #-Wall -Wextra -Werror
 
-NAME		=	push_swap
+NAME		=	push_swap_visualizer/push_swap
 SRCS		=	srcs/main.c \
 				srcs/utility.c \
 				srcs/utility2.c \

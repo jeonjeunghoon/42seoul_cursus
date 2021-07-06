@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 17:41:05 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/05 18:17:39 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/06 17:07:43 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void			reset_arr(t_head *head, int *arr, int range)
 
 	curr = head->node;
 	i = 0;
-	while (i < range)
+	while (i < range && curr)
 	{
 		arr[i] = curr->data;
 		curr = curr->next;
@@ -73,7 +73,7 @@ int				find_pivot(t_head *head, int *pivot, int range)
 {
 	int			*arr;
 
-	if (head->size < 0 || range <= 3)
+	if (head->size <= 3 || range <= 3)
 		return (0);
 	if (!(arr = (int *)malloc(sizeof(int) * range)))
 		ft_exit("Error: find_pivot\n");
@@ -81,5 +81,6 @@ int				find_pivot(t_head *head, int *pivot, int range)
 	quick_sort(arr, 0, range - 1);
 	pivot[0] = arr[0 + (range / 3)];
 	pivot[1] = arr[range - 1 - range / 3];
+	free(arr);
 	return (1);
 }
