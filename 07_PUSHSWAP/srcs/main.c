@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/06 15:13:57 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/06 17:57:15 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		free_all(t_stack **stack, t_init **data)
 void		arg_init(int argc, char **argv, t_init **data)
 {
 	(*data) = (t_init *)malloc(sizeof(t_init));
-	if ((is_valid_arg(argc, argv) == 0))
+	if ((is_valid_arg(argc, argv) == 0) || argc < 2)
 		ft_exit("Error: arg_init\n");
 	num_init(argc, argv, (*data));
 }

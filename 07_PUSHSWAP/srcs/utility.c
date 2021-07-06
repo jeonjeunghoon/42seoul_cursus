@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 23:49:19 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/02 15:05:57 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/06 18:07:28 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,27 +60,37 @@ void		num_init(int argc, char **argv, t_init *data)
 		ft_exit("Error: num_init\n");
 }
 
+void		split_str(int argc, char **argv)
+{
+	char	**num_bundle;
+
+	num_bundle = ft_split(argv[1], ' ');
+}
+
 int			is_valid_arg(int argc, char **argv)
 {
 	int		i;
 	int		j;
 
-	if (argc < 2)
-		return (0);
-	i = 1;
-	while (argv[i])
+	if (argv[1][0] == '"')
+		split_str(argc, argv);
+	else
 	{
-		j = 0;
-		while (argv[i][j])
+		i = 1;
+		while (argv[i])
 		{
-			if ((argv[i][j] == '-' || argv[i][j] == '+') && j == 0)
-				j++;
-			if (argv[i][j] >= '0' && argv[i][j] <= '9')
-				j++;
-			else
-				return (0);
+			j = 0;
+			while (argv[i][j])
+			{
+				if ((argv[i][j] == '-' || argv[i][j] == '+') && j == 0)
+					j++;
+				if (argv[i][j] >= '0' && argv[i][j] <= '9')
+					j++;
+				else
+					return (0);
+			}
+			i++;
 		}
-		i++;
 	}
 	return (1);
 }

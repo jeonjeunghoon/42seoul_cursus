@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:46:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/05 17:35:39 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/06 18:00:01 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void					arg_init(int argc, char **argv, t_init **data);
 void					stack_init(t_stack **stack, t_init *data, int argc);
 
 void					ft_exit(char *msg);
+char					**ft_split(char const *s, char c);
 int		 				ft_atoi(const char *str);
 void					create_node_back(t_node *node, int data);
 void					ft_del_node(t_node *node);
