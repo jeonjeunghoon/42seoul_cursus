@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/21 11:22:16 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/07/06 17:59:14 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/07/07 18:15:23 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ NAME		=	push_swap
 SRCS		=	srcs/main.c \
 				srcs/utility.c \
 				srcs/utility2.c \
+				srcs/ft_strncmp.c \
+				srcs/ft_strdup.c \
 				srcs/ft_split.c \
 				srcs/ft_atoi.c \
 				srcs/pushswap_func.c \

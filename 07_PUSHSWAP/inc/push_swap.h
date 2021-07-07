@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:46:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/06 18:00:01 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/07 18:15:17 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,15 @@ typedef	struct			s_stack
 	t_head				*b;
 }						t_stack;
 
+typedef	struct			s_num
+{
+	char				*num_ptr;
+	struct	s_num		*next;
+}						t_num;
+
 typedef	struct			s_init
 {
+	t_num				*num_bundle;
 	int					*num_arr;
 	int					large_pivot;
 	int					small_pivot;
@@ -49,7 +56,9 @@ typedef	struct			s_init
 void					arg_init(int argc, char **argv, t_init **data);
 void					stack_init(t_stack **stack, t_init *data, int argc);
 
+int						ft_strncmp(const char *s1, const char *s2, size_t len);
 void					ft_exit(char *msg);
+char					*ft_strdup(const char *s1);
 char					**ft_split(char const *s, char c);
 int		 				ft_atoi(const char *str);
 void					create_node_back(t_node *node, int data);
@@ -59,8 +68,8 @@ int						ft_pop(t_head *head);
 
 size_t					ft_strlen(const char *s);
 int						is_valid_num(int *num_arr, int size);
-void					num_init(int argc, char **argv, t_init *data);
-int						is_valid_arg(int argc, char **argv);
+void					num_init(t_init *data);
+int						create_num(int argc, char **argv, t_init *data);
 
 void					sa(t_head *head, int is_ss);
 void					sb(t_head *head, int is_ss);

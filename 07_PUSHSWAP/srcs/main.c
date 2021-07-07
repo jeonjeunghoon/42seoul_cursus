@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/06 17:57:15 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/07 18:23:32 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,82 @@ void		free_all(t_stack **stack, t_init **data)
 	free(*stack);
 }
 
+int			check_split(char *argv)
+{
+	int		i;
+	int		is_first;
+	int		is_empty;
+
+	i = 0;
+	is_empty = 1;
+	while (argv[i])
+	{
+		is_first = 1;
+		if ((argv[i] == '-' || argv[i] == '+') && is_first == 1)
+		{
+			i++;
+			is_first = 0;
+		}
+		else if (argv[i] >= '0' && argv[i] <= '9')
+		{
+			is_empty = 0;
+			i++;
+		}
+		else if (argv[i] == ' ')
+		{
+			i++;
+			is_first = 1;
+		}
+		else
+			return (0);
+	}
+	if (is_empty == 1)
+		return (0);
+	return (1);
+}
+
+int			is_valid_arg(char **argv)
+{
+	int		i;
+	int		j;
+
+	i = 1;
+	while (argv[i])
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			// 작은따옴표 어케 처리할까???
+			// 빈문자열도 처리해야 하나???
+			if ((argv[i][j] == '-' || argv[i][j] == '+') && j == 0)
+				j++;
+			else if (argv[i][j] >= '0' && argv[i][j] <= '9' && argv[i][j])
+				j++;
+			else if (argv[i][j] == ' ')
+			{
+				if (check_split(argv[i]))
+					break ;
+				else
+					return (0);
+			}
+			else
+				return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
 void		arg_init(int argc, char **argv, t_init **data)
 {
-	(*data) = (t_init *)malloc(sizeof(t_init));
-	if ((is_valid_arg(argc, argv) == 0) || argc < 2)
+	if (argc < 2)
 		ft_exit("Error: arg_init\n");
-	num_init(argc, argv, (*data));
+	if ((is_valid_arg(argv) == 0))
+		ft_exit("Error: arg_init\n");
+	(*data) = (t_init *)malloc(sizeof(t_init));
+	if ((create_num(argc, argv, (*data)) == 0) || argc < 2)
+		ft_exit("Error: arg_init\n");
+	num_init((*data));
 }
 
 void		stack_init(t_stack **stack, t_init *data, int argc)
