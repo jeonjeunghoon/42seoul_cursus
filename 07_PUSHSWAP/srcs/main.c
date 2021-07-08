@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/08 20:02:54 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/08 21:20:06 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,16 @@ void		free_all(t_stack **stack, t_init **data)
 void		arg_init(int argc, char **argv, t_init **data)
 {
 	if (!((*data) = (t_init *)malloc(sizeof(t_init))))
-		ft_exit("Error: arg_init\n");
+		ft_exit("Error\n");
 	if (!((*data)->bundle = (t_bundle_head *)malloc(sizeof(t_bundle_head))))
-		ft_exit("Error: arg_init\n");
+		ft_exit("Error\n");
 	if (!((*data)->bundle->node = (t_bundle_node *)malloc(sizeof(t_bundle_node))))
-		ft_exit("Error: arg_init\n");
+		ft_exit("Error\n");
 	(*data)->bundle->node->is_top = 1;
-	if (argc < 2)
-		ft_exit("Error: arg_init\n");
 	create_bundle(argv, *data);
 	create_bundle_arr(*data, (*data)->bundle);
 	if ((is_valid_arg(*data)) == 0)
-		ft_exit("Error: arg_init\n");
+		ft_exit("Error\n");
 	num_init((*data));
 }
 
@@ -60,13 +58,13 @@ void		stack_init(t_stack **stack, t_init *data, int argc)
 	int		i;
 
 	if (!((*stack) = (t_stack *)malloc(sizeof(t_stack))))
-		ft_exit("Error: stack_init1\n");
+		ft_exit("Error\n");
 	if (!((*stack)->a = (t_head *)malloc(sizeof(t_head))))
-		ft_exit("Error: stack_init1\n");
+		ft_exit("Error\n");
 	if (!((*stack)->a->node = (t_node *)malloc(sizeof(t_node))))
-		ft_exit("Error: stack_init1\n");
+		ft_exit("Error\n");
 	if (!((*stack)->b = (t_head *)malloc(sizeof(t_head))))
-		ft_exit("Error: stack_init1\n");
+		ft_exit("Error\n");
 	(*stack)->a->size = data->size;
 	(*stack)->a->node->data = data->num_arr[0];
 	(*stack)->a->node->next = NULL;

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:12:36 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/08 19:18:27 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/08 21:17:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void				create_bundle_arr(t_init *data, t_bundle_head *bundle)
 	free(del_node);
 	get_size(data, *bundle);
 	if (!(data->bundle_arr = (char **)malloc(sizeof(char *) * (data->size + 1))))
-		ft_exit("Error: create_bundle_arr\n");
+		ft_exit("Error\n");
 	data->bundle_arr[data->size] = NULL;
 	i = 0;
 	while (i < data->size && data->bundle)
@@ -56,7 +56,7 @@ void				add_bundle(char *s, t_bundle_node *node)
 	t_bundle_node	*add_node;
 
 	if (!(add_node = (t_bundle_node *)malloc(sizeof(t_bundle_node))))
-		ft_exit("Error: add_bundle\n");
+		ft_exit("Error\n");
 	add_node->num_ptr = ft_strdup(s);
 	add_node->next = NULL;
 	while (node->next != NULL)

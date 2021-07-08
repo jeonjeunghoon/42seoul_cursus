@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 23:49:19 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/08 19:19:11 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/08 21:17:59 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void			num_init(t_init *data)
 	int			i;
 
 	if (!(data->num_arr = (int *)malloc(sizeof(int) * (data->size))))
-		ft_exit("Error: num_init\n");
+		ft_exit("Error\n");
 	i = 0;
 	while (data->bundle_arr[i])
 	{
@@ -58,7 +58,7 @@ void			num_init(t_init *data)
 	}
 	i = 0;
 	if ((is_valid_num(data->num_arr, data->size) == 0))
-		ft_exit("Error: num_init\n");
+		ft_exit("Error\n");
 }
 
 int			is_valid_arg(t_init *data)

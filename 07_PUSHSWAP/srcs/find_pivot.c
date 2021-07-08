@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 17:41:05 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/06 17:07:43 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/08 21:16:11 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int				find_pivot(t_head *head, int *pivot, int range)
 	if (head->size <= 3 || range <= 3)
 		return (0);
 	if (!(arr = (int *)malloc(sizeof(int) * range)))
-		ft_exit("Error: find_pivot\n");
+		ft_exit("Error\n");
 	reset_arr(head, arr, range);
 	quick_sort(arr, 0, range - 1);
 	pivot[0] = arr[0 + (range / 3)];

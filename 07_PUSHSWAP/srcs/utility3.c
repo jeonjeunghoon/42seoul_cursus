@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 23:45:32 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/08 20:09:29 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/08 21:18:13 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		ft_push(t_head *head, int data)
 	t_node	*new_node;
 
 	if (!(new_node = (t_node *)malloc(sizeof(t_node))))
-		ft_exit("Error: push\n");
+		ft_exit("Error\n");
 	new_node->data = data;
 	new_node->next = head->node;
 	head->node = new_node;
@@ -55,9 +55,9 @@ void		create_node_back(t_node *node, int data)
 	t_node	*new_node;
 
 	if (!node)
-		ft_exit("Error: create_node_back\n");
+		ft_exit("Error\n");
 	if (!(new_node = (t_node *)malloc(sizeof(t_node))))
-		ft_exit("Error: create_node_back\n");
+		ft_exit("Error\n");
 	new_node->data = data;
 	new_node->next = NULL;
 	while (node->next != NULL)
