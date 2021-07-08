@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/21 11:22:16 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/07/07 18:15:23 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/07/08 20:34:40 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,10 @@ CFLAGS		=	#-g3 -fsanitize=address #-Wall -Wextra -Werror
 
 NAME		=	push_swap
 SRCS		=	srcs/main.c \
+				srcs/except.c \
 				srcs/utility.c \
 				srcs/utility2.c \
-				srcs/ft_strncmp.c \
+				srcs/utility3.c \
 				srcs/ft_strdup.c \
 				srcs/ft_split.c \
 				srcs/ft_atoi.c \

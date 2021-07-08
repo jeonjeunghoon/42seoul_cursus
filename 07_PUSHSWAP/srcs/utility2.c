@@ -5,62 +5,81 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/25 23:45:32 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/06 15:17:54 by jeunjeon         ###   ########.fr       */
+/*   Created: 2021/05/25 23:49:19 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/07/08 19:19:11 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void		ft_exit(char *msg)
+size_t		ft_strlen(const char *s)
 {
-	write(1, msg, ft_strlen(msg));
-	exit(0);
-}
+	int		res;
 
-void		ft_push(t_head *head, int data)
-{
-	t_node	*new_node;
-
-	if (!(new_node = (t_node *)malloc(sizeof(t_node))))
-		ft_exit("Error: push\n");
-	new_node->data = data;
-	new_node->next = head->node;
-	head->node = new_node;
-}
-
-int			ft_pop(t_head *head)
-{
-	t_node	*del_node;
-	int		data;
-
-	if (!head->node)
+	res = 0;
+	if (!s)
 		return (0);
-	del_node = head->node;
-	data = del_node->data;
-	head->node = del_node->next;
-	ft_del_node(del_node);
-	return (data);
+	while (((unsigned char *)s)[res])
+		res++;
+	return (res);
 }
 
-void		create_node_back(t_node *node, int data)
+int			is_valid_num(int *num_arr, int size)
 {
-	t_node	*new_node;
+	int		i;
+	int		j;
 
-	if (!node)
-		ft_exit("Error: create_node_back\n");
-	if (!(new_node = (t_node *)malloc(sizeof(t_node))))
-		ft_exit("Error: create_node_back\n");
-	new_node->data = data;
-	new_node->next = NULL;
-	while (node->next != NULL)
-		node = node->next;
-	node->next = new_node;
+	i = 0;
+	while (i < size)
+	{
+		j = i + 1;
+		while (j < size)
+		{
+			if (num_arr[i] == num_arr[j])
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
 
-void		ft_del_node(t_node *node)
+void			num_init(t_init *data)
 {
-	node->data = 0;
-	node->next = NULL;
-	free(node);
+	int			i;
+
+	if (!(data->num_arr = (int *)malloc(sizeof(int) * (data->size))))
+		ft_exit("Error: num_init\n");
+	i = 0;
+	while (data->bundle_arr[i])
+	{
+		(data->num_arr)[i] = ft_atoi(data->bundle_arr[i]);
+		i++;
+	}
+	i = 0;
+	if ((is_valid_num(data->num_arr, data->size) == 0))
+		ft_exit("Error: num_init\n");
+}
+
+int			is_valid_arg(t_init *data)
+{
+	int		i;
+	int		j;
+
+	i = 1;
+	while (data->bundle_arr[i])
+	{
+		j = 0;
+		while (data->bundle_arr[i][j])
+		{
+			if ((data->bundle_arr[i][j] == '-' || data->bundle_arr[i][j] == '+') && j == 0)
+				j++;
+			else if (data->bundle_arr[i][j] >= '0' && data->bundle_arr[i][j] <= '9')
+				j++;
+			else
+				return (0);
+		}
+		i++;
+	}
+	return (1);
 }

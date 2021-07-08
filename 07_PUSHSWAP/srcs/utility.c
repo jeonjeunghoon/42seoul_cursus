@@ -5,153 +5,102 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/25 23:49:19 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/07 17:49:21 by jeunjeon         ###   ########.fr       */
+/*   Created: 2021/07/08 11:12:36 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/07/08 19:18:27 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-size_t		ft_strlen(const char *s)
+void				get_size(t_init *data, t_bundle_head head)
 {
-	int		res;
+	int				size;
 
-	res = 0;
-	if (!s)
-		return (0);
-	while (((unsigned char *)s)[res])
-		res++;
-	return (res);
+	size = 0;
+	while (head.node != NULL)
+	{
+		head.node = head.node->next;
+		size++;
+	}
+	data->size = size;
 }
 
-int			is_valid_num(int *num_arr, int size)
+void				create_bundle_arr(t_init *data, t_bundle_head *bundle)
 {
-	int		i;
-	int		j;
+	int				i;
+	t_bundle_node	*node;
+	t_bundle_node	*del_node;
+
+	del_node = bundle->node;
+	bundle->node = bundle->node->next;
+	free(del_node);
+	get_size(data, *bundle);
+	if (!(data->bundle_arr = (char **)malloc(sizeof(char *) * (data->size + 1))))
+		ft_exit("Error: create_bundle_arr\n");
+	data->bundle_arr[data->size] = NULL;
+	i = 0;
+	while (i < data->size && data->bundle)
+	{
+		data->bundle_arr[i] = ft_strdup(bundle->node->num_ptr);
+		i++;
+		free(bundle->node->num_ptr);
+		del_node = bundle->node;
+		bundle->node = bundle->node->next;
+		free(del_node);
+	}
+	free(data->bundle);
+}
+
+void				add_bundle(char *s, t_bundle_node *node)
+{
+	t_bundle_node	*add_node;
+
+	if (!(add_node = (t_bundle_node *)malloc(sizeof(t_bundle_node))))
+		ft_exit("Error: add_bundle\n");
+	add_node->num_ptr = ft_strdup(s);
+	add_node->next = NULL;
+	while (node->next != NULL)
+		node = node->next;
+	node->next = add_node;
+}
+
+int				is_split(char *s)
+{
+	int			i;
 
 	i = 0;
-	while (i < size)
+	while (s[i])
 	{
-		j = i + 1;
-		while (j < size)
-		{
-			if (num_arr[i] == num_arr[j])
-				return (0);
-			j++;
-		}
+		if (s[i] == ' ')
+			return (1);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
-void		num_init(t_init *data)
+void			create_bundle(char **argv, t_init *data)
 {
-	int		i;
-	int		len;
-	t_num	*num;
-
-	len = 0;
-	num = data->num_bundle;
-	while (data->num_bundle)
-	{
-		data->num_bundle = data->num_bundle->next;
-		len++;
-	}
-	data->num_bundle = num;
-	if (!(data->num_arr = (int *)malloc(sizeof(int) * (len))))
-		ft_exit("Error: num_init\n");
-	i = 0;
-	while (data->num_bundle)
-	{
-		(data->num_arr)[i] = ft_atoi(data->num_bundle->num_ptr);
-		data->num_bundle = data->num_bundle->next;
-		i++;
-	}
-	printf("\nlen == %d\n", len);
-	for (int i = 0; i < len; i++)
-		printf("num_arr[%d] == %d\n", i, data->num_arr[i]);
-	for (;;)
-	;
-	if ((is_valid_num(data->num_arr, len) == 0))
-		ft_exit("Error: num_init\n");
-}
-
-int			need_split(char *argv)
-{
-	int		i;
-
-	i = 0;
-	while (argv[i])
-	{
-		if (argv[i] == ' ')
-			break ;
-		i++;
-	}
-	if (argv[i] == '\0')
-		return (0);
-	return (1);
-}
-
-void		create_num_back(char *s, t_init *data)
-{
-	t_num	*new_node;
-
-	if (!s)
-		return ;
-	if (!(new_node = (t_num *)malloc(sizeof(t_num))))
-		ft_exit("Error: create_num_back\n");
+	char		**split_bundle;
+	int			i;
+	int			j;
 	
-}
-
-int			create_num(int argc, char **argv, t_init *data)
-{
-	t_num	*head;
-	t_num	*new_node;
-	char	**bundle;
-	int		i;
-	int		j;
-
-	head = data->num_bundle;
-	new_node = data->num_bundle;
 	i = 1;
 	while (argv[i])
 	{
-		if (need_split(argv[i]))
+		if (is_split(argv[i]))
 		{
-			bundle = ft_split(argv[i], ' ');
+			split_bundle = ft_split(argv[i], ' ');
 			j = 0;
-			while (bundle[j])
+			while (split_bundle[j])
 			{
-				if (!(data->num_bundle = (t_num *)malloc(sizeof(t_num))))
-					ft_exit("Error: create_num\n");
-				data->num_bundle->num_ptr = NULL;
-				data->num_bundle->num_ptr = ft_strdup(bundle[j]);
-				while (data->num_bundle->next != NULL)
-					data->num_bundle = data->num_bundle->next;
-				
-				free(bundle[j]);
+				add_bundle(split_bundle[j], data->bundle->node);
+				free(split_bundle[j]);
 				j++;
 			}
-			free(bundle);
+			free(split_bundle);
 		}
 		else
-		{
-			if (!(data->num_bundle = (t_num *)malloc(sizeof(t_num))))
-				ft_exit("Error: create_num\n");
-			data->num_bundle->num_ptr = NULL;
-			data->num_bundle->next = NULL;
-			data->num_bundle->num_ptr = ft_strdup(argv[i]);
-			data->num_bundle = data->num_bundle->next;
-		}
+			add_bundle(argv[i], data->bundle->node);
 		i++;
 	}
-	data->num_bundle = head;
-	while (data->num_bundle)
-	{
-		printf("num_bundle == %s\n", data->num_bundle->num_ptr);
-		data->num_bundle = data->num_bundle->next;
-	}
-	for (;;)
-	;
-	return (1);
 }

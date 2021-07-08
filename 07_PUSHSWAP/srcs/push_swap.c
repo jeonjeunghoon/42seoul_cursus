@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 17:21:09 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/06 17:45:33 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/08 20:38:08 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,9 +205,12 @@ void			a_to_b(t_head *a_head, t_head *b_head, t_init *data, int range)
 	time_ra = 0;
 	time_rb = 0;
 	time_pb = 0;
-	if (range <= 3)
+	if (range <= 3 || range == 5)
 	{
-		a_except(a_head, range);
+		if (range <= 3)
+			a_except(a_head, range);
+		else
+			except_size_five(a_head, b_head);
 		return ;
 	}
 	if ((find_pivot(a_head, pivot, range)) == 0)

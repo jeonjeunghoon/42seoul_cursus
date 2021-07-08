@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/07 18:23:32 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/08 20:02:54 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,15 @@
 void		free_all(t_stack **stack, t_init **data)
 {
 	t_node	*temp;
+	int		i;
 
+	i = 0;
+	while ((*data)->bundle_arr[i])
+	{
+		free((*data)->bundle_arr[i]);
+		i++;
+	}
+	free((*data)->bundle_arr);
 	free((*data)->num_arr);
 	free(*data);
 	while ((*stack)->a->node != NULL)
@@ -29,80 +37,20 @@ void		free_all(t_stack **stack, t_init **data)
 	free(*stack);
 }
 
-int			check_split(char *argv)
-{
-	int		i;
-	int		is_first;
-	int		is_empty;
-
-	i = 0;
-	is_empty = 1;
-	while (argv[i])
-	{
-		is_first = 1;
-		if ((argv[i] == '-' || argv[i] == '+') && is_first == 1)
-		{
-			i++;
-			is_first = 0;
-		}
-		else if (argv[i] >= '0' && argv[i] <= '9')
-		{
-			is_empty = 0;
-			i++;
-		}
-		else if (argv[i] == ' ')
-		{
-			i++;
-			is_first = 1;
-		}
-		else
-			return (0);
-	}
-	if (is_empty == 1)
-		return (0);
-	return (1);
-}
-
-int			is_valid_arg(char **argv)
-{
-	int		i;
-	int		j;
-
-	i = 1;
-	while (argv[i])
-	{
-		j = 0;
-		while (argv[i][j])
-		{
-			// 작은따옴표 어케 처리할까???
-			// 빈문자열도 처리해야 하나???
-			if ((argv[i][j] == '-' || argv[i][j] == '+') && j == 0)
-				j++;
-			else if (argv[i][j] >= '0' && argv[i][j] <= '9' && argv[i][j])
-				j++;
-			else if (argv[i][j] == ' ')
-			{
-				if (check_split(argv[i]))
-					break ;
-				else
-					return (0);
-			}
-			else
-				return (0);
-		}
-		i++;
-	}
-	return (1);
-}
-
 void		arg_init(int argc, char **argv, t_init **data)
 {
+	if (!((*data) = (t_init *)malloc(sizeof(t_init))))
+		ft_exit("Error: arg_init\n");
+	if (!((*data)->bundle = (t_bundle_head *)malloc(sizeof(t_bundle_head))))
+		ft_exit("Error: arg_init\n");
+	if (!((*data)->bundle->node = (t_bundle_node *)malloc(sizeof(t_bundle_node))))
+		ft_exit("Error: arg_init\n");
+	(*data)->bundle->node->is_top = 1;
 	if (argc < 2)
 		ft_exit("Error: arg_init\n");
-	if ((is_valid_arg(argv) == 0))
-		ft_exit("Error: arg_init\n");
-	(*data) = (t_init *)malloc(sizeof(t_init));
-	if ((create_num(argc, argv, (*data)) == 0) || argc < 2)
+	create_bundle(argv, *data);
+	create_bundle_arr(*data, (*data)->bundle);
+	if ((is_valid_arg(*data)) == 0)
 		ft_exit("Error: arg_init\n");
 	num_init((*data));
 }
@@ -119,7 +67,7 @@ void		stack_init(t_stack **stack, t_init *data, int argc)
 		ft_exit("Error: stack_init1\n");
 	if (!((*stack)->b = (t_head *)malloc(sizeof(t_head))))
 		ft_exit("Error: stack_init1\n");
-	(*stack)->a->size = argc - 1;
+	(*stack)->a->size = data->size;
 	(*stack)->a->node->data = data->num_arr[0];
 	(*stack)->a->node->next = NULL;
 	(*stack)->b->node = NULL;
@@ -132,27 +80,6 @@ void		stack_init(t_stack **stack, t_init *data, int argc)
 	}
 }
 
-void		display(t_head head, int alpha)
-{
-	if (head.size == 0)
-		return ;
-	printf("\n----------stack----------\n");
-	while (1)
-	{
-		printf("%d\n", head.node->data);
-		if (head.node->next == NULL)
-		{
-			printf("----------stack----------\n");
-			if (alpha == 0)
-				printf("A SIZE = %d\n", head.size);
-			else
-				printf("B SIZE = %d\n", head.size);
-			return ;
-		}
-		head.node = head.node->next;
-	}
-}
-
 int			main(int argc, char **argv)
 {
 	t_stack	*stack;
@@ -160,12 +87,12 @@ int			main(int argc, char **argv)
 
 	arg_init(argc, argv, &data);
 	stack_init(&stack, data, argc);
-	a_to_b(stack->a, stack->b, data, stack->a->size);
-	display(*(stack->a), 0);
-	display(*(stack->b), 1);
-	printf("TIMES = %03d\n\n", times);
+	if (data->size == 3)
+		except_size_three(stack->a);
+	else if (data->size == 5)
+		except_size_five(stack->a, stack->b);
+	else
+		a_to_b(stack->a, stack->b, data, stack->a->size);
 	free_all(&stack, &data);
-	// for(;;)
-	// ;
 	return (0);
 }
