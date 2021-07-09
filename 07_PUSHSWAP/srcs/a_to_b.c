@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 17:21:09 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/09 19:46:03 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/09 19:59:07 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	div_stack_a(t_head *a_head, t_head *b_head, int *pivot, int *ra_rb_pb)
 	}
 }
 
-int	is_except_a(t_head *a_head, t_head *b_head, int pivot, int range)
+int	is_except_a(t_head *a_head, t_head *b_head, int range)
 {
 	if (range <= 3 || range == 5)
 	{
@@ -75,7 +75,7 @@ void	a_to_b(t_head *a_head, t_head *b_head, t_init *data, int range)
 	ra_rb_pb[0] = 0;
 	ra_rb_pb[1] = 0;
 	ra_rb_pb[2] = 0;
-	if (is_except_a(a_head, b_head, pivot, range))
+	if (is_except_a(a_head, b_head, range))
 		return ;
 	if ((find_pivot(a_head, pivot, range)) == 0)
 		return ;

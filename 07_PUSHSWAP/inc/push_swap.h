@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:46:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/09 19:46:12 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/09 20:07:39 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,38 +16,38 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef	struct				s_node
+typedef struct s_node
 {
 	int						data;
 	struct s_node			*prev;
 	struct s_node			*next;
-}							t_node;
+}	t_node;
 
-typedef	struct				s_head
+typedef struct s_head
 {
 	int						size;
 	t_node					*node;
-}							t_head;
+}	t_head;
 
-typedef	struct				s_stack
+typedef struct s_stack
 {
 	t_head					*a;
 	t_head					*b;
-}							t_stack;
+}	t_stack;
 
-typedef	struct				s_bundle_node
+typedef struct s_bundle_node
 {
 	int						is_top;
 	char					*num_ptr;
 	struct s_bundle_node	*next;
-}							t_bundle_node;
+}	t_bundle_node;
 
-typedef	struct				s_bundle_head
+typedef struct s_bundle_head
 {
 	t_bundle_node			*node;
-}							t_bundle_head;
+}	t_bundle_head;
 
-typedef	struct				s_init
+typedef struct s_init
 {
 	t_bundle_head			*bundle;
 	char					**bundle_arr;
@@ -55,7 +55,7 @@ typedef	struct				s_init
 	int						*num_arr;
 	int						large_pivot;
 	int						small_pivot;
-}							t_init;
+}	t_init;
 
 void						free_all(t_stack **stack, t_init **data);
 void						arg_init(int argc, char **argv, t_init **data);
@@ -128,12 +128,21 @@ void						a_three(t_head *head);
 void						a_size_three(t_head *head);
 void						a_except(t_head *head, int range);
 
+void						recycle_stack_b(t_head *a_head, t_head *b_head, \
+							int *ra_rb_pa);
+void						div_stack_b(t_head *a_head, t_head *b_head, \
+							int *pivot, int *ra_rb_pa);
+int							is_except_b(t_head *a_head, t_head *b_head, \
+							int range);
 void						b_to_a(t_head *a_head, t_head *b_head, \
 							t_init *data, int range);
 
-void						recycle_stack_a(t_head *a_head, t_head *b_head, int *ra_rb_pb);
-void						div_stack_a(t_head *a_head, t_head *b_head, int *pivot, int *ra_rb_pb);
-int							is_except_a(t_head *a_head, t_head *b_head, int pivot, int range);
+void						recycle_stack_a(t_head *a_head, t_head *b_head, \
+							int *ra_rb_pb);
+void						div_stack_a(t_head *a_head, t_head *b_head, \
+							int *pivot, int *ra_rb_pb);
+int							is_except_a(t_head *a_head, t_head *b_head, \
+							int range);
 void						a_to_b(t_head *a_head, t_head *b_head, \
 							t_init *data, int range);
 
