@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 18:57:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/09 20:02:52 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/09 20:35:29 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,41 @@ void	div_stack_b(t_head *a_head, t_head *b_head, int *pivot, int *ra_rb_pa)
 	}
 }
 
+void	b_except_five(t_head *a_head, t_head *b_head)
+{
+	int	pivot;
+	int	pa_rb[2];
+
+	pivot = find_mid_pivot(*b_head);
+	pa_rb[0] = 0;
+	pa_rb[1] = 0;
+	while (pa_rb[0] < 3)
+	{
+		if (b_head->node->data < pivot)
+		{
+			rb(b_head, 0);
+			pa_rb[1]++;
+		}
+		else
+		{
+			pa(a_head, b_head);
+			pa_rb[0]++;
+		}
+	}
+	a_except(a_head, 3);
+	while (pa_rb[1]--)
+		rrb(b_head, 0);
+	b_except(a_head, b_head, 2);
+}
+
 int	is_except_b(t_head *a_head, t_head *b_head, int range)
 {
-	if (range <= 3)
+	if (range <= 3 || range == 5)
 	{
-		b_except(a_head, b_head, range);
+		if (range <= 3)
+			b_except(a_head, b_head, range);
+		else
+			b_except_five(a_head, b_head);
 		return (1);
 	}
 	return (0);
