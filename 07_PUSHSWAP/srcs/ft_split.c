@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 20:53:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/08 20:48:56 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/09 18:45:38 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,9 @@ char	**make_split(char const *s, char **pp, char c)
 		j = 0;
 		if (*s != c)
 		{
-			if (!(pp[i] = (char *)malloc(sizeof(char) * (row_size(s, c) + 1))))
-			{
-				ft_free(pp);
-				return (NULL);
-			}
+			pp[i] = (char *)malloc(sizeof(char) * (row_size(s, c) + 1));
+			if (!pp[i])
+				ft_exit("Error\n");
 			while ((*s != c) && *s)
 				pp[i][j++] = *s++;
 			pp[i++][j] = 0;
@@ -93,7 +91,8 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	if (!(pp = (char **)malloc(sizeof(char *) * (col_size(s, c) + 1))))
+	pp = (char **)malloc(sizeof(char *) * (col_size(s, c) + 1));
+	if (!pp)
 		return (NULL);
 	pp = make_split(s, pp, c);
 	return (pp);

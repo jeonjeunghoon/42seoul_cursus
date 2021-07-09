@@ -6,25 +6,25 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 17:41:05 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/09 17:06:11 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/09 18:46:59 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void			ft_swap(int *a, int *b)
+void	ft_swap(int *a, int *b)
 {
-	int			temp;
+	int	temp;
 
 	temp = *a;
 	*a = *b;
 	*b = temp;
 }
 
-int				partition(int *num_arr, int left, int right)
+int	partition(int *num_arr, int left, int right)
 {
-	int			i;
-	int			pivot;
+	int	i;
+	int	pivot;
 
 	i = left - 1;
 	pivot = num_arr[right];
@@ -41,9 +41,9 @@ int				partition(int *num_arr, int left, int right)
 	return (i + 1);
 }
 
-void			quick_sort(int *num_arr, int left, int right)
+void	quick_sort(int *num_arr, int left, int right)
 {
-	int			pivot;
+	int	pivot;
 
 	pivot = 0;
 	if (left < right)
@@ -54,10 +54,10 @@ void			quick_sort(int *num_arr, int left, int right)
 	}
 }
 
-void			reset_arr(t_head *head, int *arr, int range)
+void	reset_arr(t_head *head, int *arr, int range)
 {
-	int			i;
-	t_node		*curr;
+	int		i;
+	t_node	*curr;
 
 	curr = head->node;
 	i = 0;
@@ -69,13 +69,14 @@ void			reset_arr(t_head *head, int *arr, int range)
 	}
 }
 
-int				find_pivot(t_head *head, int *pivot, int range)
+int	find_pivot(t_head *head, int *pivot, int range)
 {
-	int			*arr;
+	int	*arr;
 
 	if (head->size <= 3 || range <= 3)
 		return (0);
-	if (!(arr = (int *)malloc(sizeof(int) * range)))
+	arr = (int *)malloc(sizeof(int) * range);
+	if (!arr)
 		ft_exit("Error\n");
 	reset_arr(head, arr, range);
 	quick_sort(arr, 0, range - 1);

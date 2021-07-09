@@ -6,13 +6,13 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 20:02:59 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/09 17:13:00 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/09 18:47:49 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void		top_is_second(t_head *head)
+void	top_is_second(t_head *head)
 {
 	if (head->node->data > head->node->next->data && \
 		head->node->data < head->node->next->next->data && \
@@ -24,7 +24,7 @@ void		top_is_second(t_head *head)
 		rra(head, 0);
 }
 
-void		except_size_three(t_head *head)
+void	except_size_three(t_head *head)
 {
 	if (head->node->data < head->node->next->data && \
 		head->node->data < head->node->next->next->data)
@@ -50,10 +50,10 @@ void		except_size_three(t_head *head)
 		top_is_second(head);
 }
 
-int			find_mid_pivot(t_head head)
+int	find_mid_pivot(t_head head)
 {
-	int		*num_arr;
-	int		i;
+	int	*num_arr;
+	int	i;
 
 	num_arr = (int *)malloc(sizeof(int) * 5);
 	i = 0;
@@ -68,7 +68,7 @@ int			find_mid_pivot(t_head head)
 	return (num_arr[2]);
 }
 
-void		is_size_five(t_head *a, int time_ra)
+void	is_size_five(t_head *a, int time_ra)
 {
 	if (a->size > 5)
 	{
@@ -80,11 +80,11 @@ void		is_size_five(t_head *a, int time_ra)
 		except_size_three(a);
 }
 
-void		except_size_five(t_head *a, t_head *b)
+void	except_size_five(t_head *a, t_head *b)
 {
-	int		pivot;
-	int		time_pb;
-	int		time_ra;
+	int	pivot;
+	int	time_pb;
+	int	time_ra;
 
 	pivot = find_mid_pivot(*a);
 	time_pb = 0;

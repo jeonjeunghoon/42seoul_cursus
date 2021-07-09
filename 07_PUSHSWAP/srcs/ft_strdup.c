@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/09 15:09:10 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/07 15:20:03 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/09 18:48:40 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char	*ft_strdup(const char *s1)
 		return (NULL);
 	else
 		len = ft_strlen(s1);
-	if (!(ptr = (char *)malloc(sizeof(char) * (len + 1))))
+	ptr = (char *)malloc(sizeof(char) * (len + 1));
+	if (!ptr)
 		return (NULL);
 	ptr[len] = 0;
 	i = 0;

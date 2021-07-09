@@ -6,13 +6,13 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/09 17:05:40 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/09 18:46:09 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void		free_all(t_stack **stack, t_init **data)
+void	free_all(t_stack **stack, t_init **data)
 {
 	t_node	*temp;
 	int		i;
@@ -37,7 +37,7 @@ void		free_all(t_stack **stack, t_init **data)
 	free(*stack);
 }
 
-void		arg_init(int argc, char **argv, t_init **data)
+void	arg_init(int argc, char **argv, t_init **data)
 {
 	(*data) = (t_init *)malloc(sizeof(t_init));
 	if (!(*data))
@@ -56,9 +56,9 @@ void		arg_init(int argc, char **argv, t_init **data)
 	num_init((*data));
 }
 
-void		stack_init(t_stack **stack, t_init *data, int argc)
+void	stack_init(t_stack **stack, t_init *data, int argc)
 {
-	int		i;
+	int	i;
 
 	(*stack) = (t_stack *)malloc(sizeof(t_stack));
 	if (!(*stack))
@@ -85,7 +85,7 @@ void		stack_init(t_stack **stack, t_init *data, int argc)
 	}
 }
 
-int			main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_stack	*stack;
 	t_init	*data;

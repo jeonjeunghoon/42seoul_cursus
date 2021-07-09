@@ -6,22 +6,22 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 14:48:57 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/09 17:07:46 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/09 18:49:59 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void					ft_isspace(const unsigned char **pp)
+void	ft_isspace(const unsigned char **pp)
 {
 	while (**pp == ' ' || **pp == '\t' || **pp == '\r' \
 	|| **pp == '\n' || **pp == '\v' || **pp == '\f')
 		(*pp)++;
 }
 
-long long				isminus(const unsigned char **pp)
+long long	isminus(const unsigned char **pp)
 {
-	long long			sign;
+	long long	sign;
 
 	sign = 1;
 	if (**pp == '-' || **pp == '+')
@@ -33,10 +33,10 @@ long long				isminus(const unsigned char **pp)
 	return (sign);
 }
 
-long long				make_num(const unsigned char **pp, int sign)
+long long	make_num(const unsigned char **pp, int sign)
 {
-	long long			tmp;
-	size_t				i;
+	long long	tmp;
+	size_t		i;
 
 	i = 0;
 	tmp = 0;
@@ -48,13 +48,18 @@ long long				make_num(const unsigned char **pp, int sign)
 		i++;
 	}
 	if (i >= 20)
-		tmp = sign > 0 ? -1 : 0;
+	{
+		if (sign > 0)
+			tmp = -1;
+		else
+			tmp = 0;
+	}
 	return (tmp);
 }
 
-void					ft_except(const char *str, long long num)
+void	ft_except(const char *str, long long num)
 {
-	int					i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -67,7 +72,7 @@ void					ft_except(const char *str, long long num)
 		ft_exit("Error\n");
 }
 
-int						ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	const unsigned char	*ptr;
 	long long			sign;

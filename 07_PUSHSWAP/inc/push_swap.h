@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:46:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/09 16:14:43 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/09 19:46:12 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,25 @@ void						quick_sort(int *num_arr, int left, int right);
 void						reset_arr(t_head *head, int *arr, int range);
 int							find_pivot(t_head *head, int *pivot, int range);
 
-void						b_except_three(t_head *a_head, t_head *b_head);
-void						a_except_three(t_head *head);
+void						b_one(t_head *a_head, t_head *b_head);
+void						b_two(t_head *a_head, t_head *b_head);
+void						b_three(t_head *a_head, t_head *b_head);
+void						b_size_three(t_head *a_head, t_head *b_head);
 void						b_except(t_head *a_head, t_head *b_head, \
-							int modify_range);
-void						a_except(t_head *head, int modify_range);
+							int range);
+
+void						a_one(t_head *head);
+void						a_two(t_head *head);
+void						a_three(t_head *head);
+void						a_size_three(t_head *head);
+void						a_except(t_head *head, int range);
+
 void						b_to_a(t_head *a_head, t_head *b_head, \
 							t_init *data, int range);
+
+void						recycle_stack_a(t_head *a_head, t_head *b_head, int *ra_rb_pb);
+void						div_stack_a(t_head *a_head, t_head *b_head, int *pivot, int *ra_rb_pb);
+int							is_except_a(t_head *a_head, t_head *b_head, int pivot, int range);
 void						a_to_b(t_head *a_head, t_head *b_head, \
 							t_init *data, int range);
 
