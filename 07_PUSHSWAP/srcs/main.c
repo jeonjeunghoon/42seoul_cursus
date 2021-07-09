@@ -6,13 +6,13 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/08 21:20:06 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/09 17:05:40 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void	free_all(t_stack **stack, t_init **data)
+void		free_all(t_stack **stack, t_init **data)
 {
 	t_node	*temp;
 	int		i;
@@ -37,13 +37,16 @@ void	free_all(t_stack **stack, t_init **data)
 	free(*stack);
 }
 
-void	arg_init(int argc, char **argv, t_init **data)
+void		arg_init(int argc, char **argv, t_init **data)
 {
-	if (!((*data) = (t_init *)malloc(sizeof(t_init))))
+	(*data) = (t_init *)malloc(sizeof(t_init));
+	if (!(*data))
 		ft_exit("Error\n");
-	if (!((*data)->bundle = (t_bundle_head *)malloc(sizeof(t_bundle_head))))
+	(*data)->bundle = (t_bundle_head *)malloc(sizeof(t_bundle_head));
+	if (!(*data)->bundle)
 		ft_exit("Error\n");
-	if (!((*data)->bundle->node = (t_bundle_node *)malloc(sizeof(t_bundle_node))))
+	(*data)->bundle->node = (t_bundle_node *)malloc(sizeof(t_bundle_node));
+	if (!(*data)->bundle->node)
 		ft_exit("Error\n");
 	(*data)->bundle->node->is_top = 1;
 	create_bundle(argv, *data);
@@ -53,17 +56,21 @@ void	arg_init(int argc, char **argv, t_init **data)
 	num_init((*data));
 }
 
-void	stack_init(t_stack **stack, t_init *data, int argc)
+void		stack_init(t_stack **stack, t_init *data, int argc)
 {
 	int		i;
 
-	if (!((*stack) = (t_stack *)malloc(sizeof(t_stack))))
+	(*stack) = (t_stack *)malloc(sizeof(t_stack));
+	if (!(*stack))
 		ft_exit("Error\n");
-	if (!((*stack)->a = (t_head *)malloc(sizeof(t_head))))
+	(*stack)->a = (t_head *)malloc(sizeof(t_head));
+	if (!(*stack)->a)
 		ft_exit("Error\n");
-	if (!((*stack)->a->node = (t_node *)malloc(sizeof(t_node))))
+	(*stack)->a->node = (t_node *)malloc(sizeof(t_node));
+	if (!(*stack)->a->node)
 		ft_exit("Error\n");
-	if (!((*stack)->b = (t_head *)malloc(sizeof(t_head))))
+	(*stack)->b = (t_head *)malloc(sizeof(t_head));
+	if (!(*stack)->b)
 		ft_exit("Error\n");
 	(*stack)->a->size = data->size;
 	(*stack)->a->node->data = data->num_arr[0];
@@ -78,7 +85,7 @@ void	stack_init(t_stack **stack, t_init *data, int argc)
 	}
 }
 
-int	main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_stack	*stack;
 	t_init	*data;

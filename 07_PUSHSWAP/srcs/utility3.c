@@ -6,26 +6,26 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 23:45:32 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/08 21:18:13 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/09 17:01:20 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void	ft_exit(char *msg)
+void		ft_exit(char *msg)
 {
 	write(1, msg, ft_strlen(msg));
 	exit(0);
 }
 
-void	ft_del_node(t_node *node)
+void		ft_del_node(t_node *node)
 {
 	node->data = 0;
 	node->next = NULL;
 	free(node);
 }
 
-void	ft_push(t_head *head, int data)
+void		ft_push(t_head *head, int data)
 {
 	t_node	*new_node;
 
@@ -36,7 +36,7 @@ void	ft_push(t_head *head, int data)
 	head->node = new_node;
 }
 
-int	ft_pop(t_head *head)
+int			ft_pop(t_head *head)
 {
 	t_node	*del_node;
 	int		data;
@@ -50,7 +50,7 @@ int	ft_pop(t_head *head)
 	return (data);
 }
 
-void	create_node_back(t_node *node, int data)
+void		create_node_back(t_node *node, int data)
 {
 	t_node	*new_node;
 

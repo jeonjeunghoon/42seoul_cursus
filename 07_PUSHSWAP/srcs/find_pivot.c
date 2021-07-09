@@ -6,13 +6,13 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 17:41:05 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/08 21:16:11 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/09 17:06:11 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void	ft_swap(int *a, int *b)
+void			ft_swap(int *a, int *b)
 {
 	int			temp;
 
@@ -21,7 +21,7 @@ void	ft_swap(int *a, int *b)
 	*b = temp;
 }
 
-int	partition(int *num_arr, int left, int right)
+int				partition(int *num_arr, int left, int right)
 {
 	int			i;
 	int			pivot;
@@ -41,7 +41,7 @@ int	partition(int *num_arr, int left, int right)
 	return (i + 1);
 }
 
-void	quick_sort(int *num_arr, int left, int right)
+void			quick_sort(int *num_arr, int left, int right)
 {
 	int			pivot;
 
@@ -54,7 +54,7 @@ void	quick_sort(int *num_arr, int left, int right)
 	}
 }
 
-void	reset_arr(t_head *head, int *arr, int range)
+void			reset_arr(t_head *head, int *arr, int range)
 {
 	int			i;
 	t_node		*curr;
@@ -69,7 +69,7 @@ void	reset_arr(t_head *head, int *arr, int range)
 	}
 }
 
-int	find_pivot(t_head *head, int *pivot, int range)
+int				find_pivot(t_head *head, int *pivot, int range)
 {
 	int			*arr;
 
