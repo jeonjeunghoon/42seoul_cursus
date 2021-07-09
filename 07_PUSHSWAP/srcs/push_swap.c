@@ -12,7 +12,7 @@
 
 #include "../inc/push_swap.h"
 
-void			b_except_three(t_head *a_head, t_head *b_head)
+void	b_except_three(t_head *a_head, t_head *b_head)
 {
 	if (b_head->node->data < b_head->node->next->data && \
 		b_head->node->data < b_head->node->next->next->data)
@@ -63,7 +63,7 @@ void			b_except_three(t_head *a_head, t_head *b_head)
 	}
 }
 
-void			a_except_three(t_head *head)
+void	a_except_three(t_head *head)
 {
 	if (head->node->data < head->node->next->data && \
 		head->node->data < head->node->next->next->data)
@@ -112,7 +112,7 @@ void			a_except_three(t_head *head)
 	}
 }
 
-void			b_except(t_head *a_head, t_head *b_head, int range)
+void	b_except(t_head *a_head, t_head *b_head, int range)
 {
 	t_node		*curr;
 
@@ -129,7 +129,7 @@ void			b_except(t_head *a_head, t_head *b_head, int range)
 		b_except_three(a_head, b_head);
 }
 
-void			a_except(t_head *head, int range)
+void	a_except(t_head *head, int range)
 {
 	if (range == 1)
 		return ;
@@ -139,7 +139,7 @@ void			a_except(t_head *head, int range)
 		a_except_three(head);
 }
 
-void			b_to_a(t_head *a_head, t_head *b_head, t_init *data, int range)
+void	b_to_a(t_head *a_head, t_head *b_head, t_init *data, int range)
 {
 	int			pivot[2];
 	int			time_ra;
@@ -195,7 +195,7 @@ void			b_to_a(t_head *a_head, t_head *b_head, t_init *data, int range)
 	b_to_a(a_head, b_head, data, time_rb);
 }
 
-void			a_to_b(t_head *a_head, t_head *b_head, t_init *data, int range)
+void	a_to_b(t_head *a_head, t_head *b_head, t_init *data, int range)
 {
 	int			pivot[2];
 	int			time_ra;

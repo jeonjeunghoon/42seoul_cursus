@@ -12,7 +12,7 @@
 
 #include "../inc/push_swap.h"
 
-void		ra(t_head *a_head, int is_rr)
+void	ra(t_head *a_head, int is_rr)
 {
 	t_node	*curr;
 	t_node	*top_node;
@@ -34,7 +34,7 @@ void		ra(t_head *a_head, int is_rr)
 		write(1, "ra\n", 3);
 }
 
-void		rb(t_head *b_head, int is_rr)
+void	rb(t_head *b_head, int is_rr)
 {
 	t_node	*curr;
 	t_node	*top_node;
@@ -56,7 +56,7 @@ void		rb(t_head *b_head, int is_rr)
 		write(1, "rb\n", 3);
 }
 
-void		rr(t_head *a_head, t_head *b_head)
+void	rr(t_head *a_head, t_head *b_head)
 {
 	ra(a_head, 1);
 	rb(b_head, 1);

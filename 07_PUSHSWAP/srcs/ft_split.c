@@ -12,7 +12,7 @@
 
 #include "../inc/push_swap.h"
 
-size_t		col_size(char const *s, char c)
+size_t	col_size(char const *s, char c)
 {
 	size_t	len;
 	size_t	i;
@@ -36,7 +36,7 @@ size_t		col_size(char const *s, char c)
 	return (len);
 }
 
-size_t		row_size(char const *s, char c)
+size_t	row_size(char const *s, char c)
 {
 	size_t	len;
 
@@ -46,7 +46,7 @@ size_t		row_size(char const *s, char c)
 	return (len);
 }
 
-void		ft_free(char **pp)
+void	ft_free(char **pp)
 {
 	size_t	i;
 
@@ -60,7 +60,7 @@ void		ft_free(char **pp)
 	pp = NULL;
 }
 
-char		**make_split(char const *s, char **pp, char c)
+char	**make_split(char const *s, char **pp, char c)
 {
 	size_t	i;
 	size_t	j;
@@ -87,7 +87,7 @@ char		**make_split(char const *s, char **pp, char c)
 	return (pp);
 }
 
-char		**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**pp;
 

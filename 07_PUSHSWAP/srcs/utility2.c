@@ -12,7 +12,7 @@
 
 #include "../inc/push_swap.h"
 
-size_t		ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
 	int		res;
 
@@ -24,7 +24,7 @@ size_t		ft_strlen(const char *s)
 	return (res);
 }
 
-int			is_valid_num(int *num_arr, int size)
+int	is_valid_num(int *num_arr, int size)
 {
 	int		i;
 	int		j;
@@ -44,7 +44,7 @@ int			is_valid_num(int *num_arr, int size)
 	return (1);
 }
 
-void			num_init(t_init *data)
+void	num_init(t_init *data)
 {
 	int			i;
 
@@ -61,7 +61,7 @@ void			num_init(t_init *data)
 		ft_exit("Error\n");
 }
 
-int			is_valid_arg(t_init *data)
+int	is_valid_arg(t_init *data)
 {
 	int		i;
 	int		j;

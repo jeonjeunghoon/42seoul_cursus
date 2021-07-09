@@ -6,13 +6,13 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 23:46:57 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/08 21:17:25 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/09 13:46:10 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-void		sa(t_head *head, int is_ss)
+void	sa(t_head *head, int is_ss)
 {
 	int		first_data;
 	int		second_data;
@@ -29,7 +29,7 @@ void		sa(t_head *head, int is_ss)
 		write(1, "sa\n", 3);
 }
 
-void		sb(t_head *head, int is_ss)
+void	sb(t_head *head, int is_ss)
 {
 	int		first_data;
 	int		second_data;
@@ -46,14 +46,14 @@ void		sb(t_head *head, int is_ss)
 		write(1, "sb\n", 3);
 }
 
-void		ss(t_head *a_head, t_head *b_head)
+void	ss(t_head *a_head, t_head *b_head)
 {
 	sa(a_head, 1);
 	sb(b_head, 1);
 	write(1, "ss\n", 3);
 }
 
-void		pa(t_head *a_head, t_head *b_head)
+void	pa(t_head *a_head, t_head *b_head)
 {
 	if (b_head->node == NULL)
 		return ;
@@ -65,7 +65,7 @@ void		pa(t_head *a_head, t_head *b_head)
 	write(1, "pa\n", 3);
 }
 
-void		pb(t_head *a_head, t_head *b_head)
+void	pb(t_head *a_head, t_head *b_head)
 {
 	if (a_head->node == NULL)
 		return ;

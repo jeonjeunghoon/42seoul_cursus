@@ -12,14 +12,14 @@
 
 #include "../inc/push_swap.h"
 
-void					ft_isspace(const unsigned char **pp)
+void	ft_isspace(const unsigned char **pp)
 {
 	while (**pp == ' ' || **pp == '\t' || **pp == '\r' \
 	|| **pp == '\n' || **pp == '\v' || **pp == '\f')
 		(*pp)++;
 }
 
-long long				isminus(const unsigned char **pp)
+long long	isminus(const unsigned char **pp)
 {
 	long long			sign;
 
@@ -33,7 +33,7 @@ long long				isminus(const unsigned char **pp)
 	return (sign);
 }
 
-long long				make_num(const unsigned char **pp, int sign)
+long long	make_num(const unsigned char **pp, int sign)
 {
 	long long			tmp;
 	size_t				i;
@@ -52,7 +52,7 @@ long long				make_num(const unsigned char **pp, int sign)
 	return (tmp);
 }
 
-void					ft_except(const char *str, long long num)
+void	ft_except(const char *str, long long num)
 {
 	int					i;
 
@@ -67,7 +67,7 @@ void					ft_except(const char *str, long long num)
 		ft_exit("Error\n");
 }
 
-int						ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	const unsigned char	*ptr;
 	long long			sign;

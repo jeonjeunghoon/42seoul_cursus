@@ -12,7 +12,7 @@
 
 #include "../inc/push_swap.h"
 
-char		*ft_strdup(const char *s1)
+char	*ft_strdup(const char *s1)
 {
 	char	*ptr;
 	size_t	i;

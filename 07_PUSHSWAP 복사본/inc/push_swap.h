@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:46:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/09 16:14:43 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/09 16:13:52 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void						ft_isspace(const unsigned char **pp);
 long long					isminus(const unsigned char **pp);
 long long					make_num(const unsigned char **pp, int sign);
 void						ft_except(const char *str, long long num);
-int							ft_atoi(const char *str);
+int		 					ft_atoi(const char *str);
 
 void						get_size(t_init *data, t_bundle_head head);
 void						create_bundle_arr(t_init *data, \

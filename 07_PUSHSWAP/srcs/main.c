@@ -12,7 +12,7 @@
 
 #include "../inc/push_swap.h"
 
-void		free_all(t_stack **stack, t_init **data)
+void	free_all(t_stack **stack, t_init **data)
 {
 	t_node	*temp;
 	int		i;
@@ -37,7 +37,7 @@ void		free_all(t_stack **stack, t_init **data)
 	free(*stack);
 }
 
-void		arg_init(int argc, char **argv, t_init **data)
+void	arg_init(int argc, char **argv, t_init **data)
 {
 	if (!((*data) = (t_init *)malloc(sizeof(t_init))))
 		ft_exit("Error\n");
@@ -53,7 +53,7 @@ void		arg_init(int argc, char **argv, t_init **data)
 	num_init((*data));
 }
 
-void		stack_init(t_stack **stack, t_init *data, int argc)
+void	stack_init(t_stack **stack, t_init *data, int argc)
 {
 	int		i;
 
@@ -78,7 +78,7 @@ void		stack_init(t_stack **stack, t_init *data, int argc)
 	}
 }
 
-int			main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_stack	*stack;
 	t_init	*data;

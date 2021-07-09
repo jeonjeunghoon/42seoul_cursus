@@ -12,7 +12,7 @@
 
 #include "../inc/push_swap.h"
 
-void				get_size(t_init *data, t_bundle_head head)
+void	get_size(t_init *data, t_bundle_head head)
 {
 	int				size;
 
@@ -25,7 +25,7 @@ void				get_size(t_init *data, t_bundle_head head)
 	data->size = size;
 }
 
-void				create_bundle_arr(t_init *data, t_bundle_head *bundle)
+void	create_bundle_arr(t_init *data, t_bundle_head *bundle)
 {
 	int				i;
 	t_bundle_node	*node;
@@ -51,7 +51,7 @@ void				create_bundle_arr(t_init *data, t_bundle_head *bundle)
 	free(data->bundle);
 }
 
-void				add_bundle(char *s, t_bundle_node *node)
+void	add_bundle(char *s, t_bundle_node *node)
 {
 	t_bundle_node	*add_node;
 
@@ -64,7 +64,7 @@ void				add_bundle(char *s, t_bundle_node *node)
 	node->next = add_node;
 }
 
-int				is_split(char *s)
+int	is_split(char *s)
 {
 	int			i;
 
@@ -78,7 +78,7 @@ int				is_split(char *s)
 	return (0);
 }
 
-void			create_bundle(char **argv, t_init *data)
+void	create_bundle(char **argv, t_init *data)
 {
 	char		**split_bundle;
 	int			i;
