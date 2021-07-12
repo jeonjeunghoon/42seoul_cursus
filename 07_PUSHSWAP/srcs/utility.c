@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:12:36 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/12 14:45:01 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/12 18:19:23 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void	add_bundle(char *s, t_bundle_node *node)
 	if (!add_node)
 		ft_exit("Error\n");
 	add_node->num_ptr = ft_strdup(s);
+	if (add_node->num_ptr[0] == '\0')
+		ft_exit("Error\n");
 	add_node->next = NULL;
 	while (node->next != NULL)
 		node = node->next;
@@ -68,14 +70,24 @@ void	add_bundle(char *s, t_bundle_node *node)
 int	is_split(char *s)
 {
 	int	i;
+	int	need_split;
+	int	valid_split;
 
+	need_split = 0;
+	valid_split = 0;
 	i = 0;
 	while (s[i])
 	{
 		if (s[i] == ' ')
-			return (1);
+			need_split = 1;
+		if (s[i] >= '0' && s[i] <= '9')
+			valid_split = 1;
 		i++;
 	}
+	if (need_split == 1 && valid_split == 1)
+		return (1);
+	else if (need_split == 1 && valid_split == 0)
+		ft_exit("Error\n");
 	return (0);
 }
 
