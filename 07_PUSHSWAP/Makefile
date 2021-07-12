@@ -6,12 +6,12 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/21 11:22:16 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/07/09 19:01:56 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/07/12 17:27:03 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			=	gcc
-CFLAGS		=	#-g3 -fsanitize=address #-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror
 
 NAME		=	push_swap
 SRCS		=	srcs/main.c \
@@ -32,7 +32,6 @@ SRCS		=	srcs/main.c \
 				srcs/b_except.c
 
 OBJS	=		$(SRCS:.c=.o)
-INCS	=		inc
 
 $(NAME)		:	$(OBJS)
 				$(CC) $(CFLAGS) $(SRCS) -o $(NAME)

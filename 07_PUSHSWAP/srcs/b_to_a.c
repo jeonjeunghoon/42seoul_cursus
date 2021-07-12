@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 18:57:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/09 20:35:29 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/12 17:26:18 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	is_except_b(t_head *a_head, t_head *b_head, int range)
 	return (0);
 }
 
-void	b_to_a(t_head *a_head, t_head *b_head, t_init *data, int range)
+void	b_to_a(t_stack *stack, t_init *data, int range, int *cnt)
 {
 	int	pivot[2];
 	int	ra_rb_pa[3];
@@ -102,18 +102,19 @@ void	b_to_a(t_head *a_head, t_head *b_head, t_init *data, int range)
 	ra_rb_pa[0] = 0;
 	ra_rb_pa[1] = 0;
 	ra_rb_pa[2] = 0;
-	if (is_except_b(a_head, b_head, range))
+	(*cnt)++;
+	if (is_except_b(stack->a, stack->b, range))
 		return ;
-	if ((find_pivot(b_head, pivot, range)) == 0)
+	if ((find_pivot(stack->b, pivot, range)) == 0)
 		return ;
 	i = 0;
 	while (i < range)
 	{
-		div_stack_b(a_head, b_head, pivot, ra_rb_pa);
+		div_stack_b(stack->a, stack->b, pivot, ra_rb_pa);
 		i++;
 	}
-	a_to_b(a_head, b_head, data, ra_rb_pa[2] - ra_rb_pa[0]);
-	recycle_stack_b(a_head, b_head, ra_rb_pa);
-	a_to_b(a_head, b_head, data, ra_rb_pa[0]);
-	b_to_a(a_head, b_head, data, ra_rb_pa[1]);
+	a_to_b(stack, data, ra_rb_pa[2] - ra_rb_pa[0], cnt);
+	recycle_stack_b(stack->a, stack->b, ra_rb_pa);
+	a_to_b(stack, data, ra_rb_pa[0], cnt);
+	b_to_a(stack, data, ra_rb_pa[1], cnt);
 }

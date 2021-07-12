@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 16:59:57 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/09 19:44:10 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/12 14:45:12 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ void	b_size_three(t_head *a_head, t_head *b_head)
 
 void	b_except(t_head *a_head, t_head *b_head, int range)
 {
-	t_node		*curr;
-
 	if (range == 1)
 		pa(a_head, b_head);
 	else if (range == 2)

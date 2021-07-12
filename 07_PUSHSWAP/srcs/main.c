@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/09 18:46:09 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/12 15:46:46 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	free_all(t_stack **stack, t_init **data)
 	free(*stack);
 }
 
-void	arg_init(int argc, char **argv, t_init **data)
+void	arg_init(char **argv, t_init **data)
 {
 	(*data) = (t_init *)malloc(sizeof(t_init));
 	if (!(*data))
@@ -56,7 +56,7 @@ void	arg_init(int argc, char **argv, t_init **data)
 	num_init((*data));
 }
 
-void	stack_init(t_stack **stack, t_init *data, int argc)
+void	stack_init(t_stack **stack, t_init *data)
 {
 	int	i;
 
@@ -89,15 +89,19 @@ int	main(int argc, char **argv)
 {
 	t_stack	*stack;
 	t_init	*data;
+	int		cnt;
 
-	arg_init(argc, argv, &data);
-	stack_init(&stack, data, argc);
+	if (argc == 1)
+		return (0);
+	cnt = 0;
+	arg_init(argv, &data);
+	stack_init(&stack, data);
 	if (data->size == 3)
 		except_size_three(stack->a);
 	else if (data->size == 5)
 		except_size_five(stack->a, stack->b);
 	else
-		a_to_b(stack->a, stack->b, data, stack->a->size);
+		a_to_b(stack, data, stack->a->size, &cnt);
 	free_all(&stack, &data);
 	return (0);
 }

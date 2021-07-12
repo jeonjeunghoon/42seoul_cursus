@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 11:12:36 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/09 18:44:15 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/12 14:45:01 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	get_size(t_init *data, t_bundle_head head)
 void	create_bundle_arr(t_init *data, t_bundle_head *bundle)
 {
 	int				i;
-	t_bundle_node	*node;
 	t_bundle_node	*del_node;
 
 	del_node = bundle->node;

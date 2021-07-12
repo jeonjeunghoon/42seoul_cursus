@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:46:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/09 20:07:39 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/12 17:25:55 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ typedef struct s_init
 }	t_init;
 
 void						free_all(t_stack **stack, t_init **data);
-void						arg_init(int argc, char **argv, t_init **data);
-void						stack_init(t_stack **stack, t_init *data, int argc);
+void						arg_init(char **argv, t_init **data);
+void						stack_init(t_stack **stack, t_init *data);
 
 void						except_size_three(t_head *head);
 int							find_mid_pivot(t_head head);
@@ -134,16 +134,16 @@ void						div_stack_b(t_head *a_head, t_head *b_head, \
 							int *pivot, int *ra_rb_pa);
 int							is_except_b(t_head *a_head, t_head *b_head, \
 							int range);
-void						b_to_a(t_head *a_head, t_head *b_head, \
-							t_init *data, int range);
+void						b_to_a(t_stack *stack, t_init *data, \
+							int range, int *cnt);
 
 void						recycle_stack_a(t_head *a_head, t_head *b_head, \
-							int *ra_rb_pb);
+							int *ra_rb_pb, int *cnt);
 void						div_stack_a(t_head *a_head, t_head *b_head, \
 							int *pivot, int *ra_rb_pb);
 int							is_except_a(t_head *a_head, t_head *b_head, \
 							int range);
-void						a_to_b(t_head *a_head, t_head *b_head, \
-							t_init *data, int range);
+void						a_to_b(t_stack *stack, t_init *data, \
+							int range, int *cnt);
 
 #endif
