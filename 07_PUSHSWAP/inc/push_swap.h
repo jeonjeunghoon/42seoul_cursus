@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:46:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/13 16:24:16 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/13 17:28:23 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 typedef struct s_node
 {
 	int						data;
-	struct s_node			*prev;
 	struct s_node			*next;
 }	t_node;
 
