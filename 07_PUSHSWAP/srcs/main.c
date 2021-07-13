@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/12 18:17:50 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/13 16:24:00 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,30 @@ void	stack_init(t_stack **stack, t_init *data)
 	}
 }
 
+int	check_stack(t_head a)
+{
+	int	*arr;
+	int	i;
+
+	arr = (int *)malloc(sizeof(int) * a.size);
+	if (!arr)
+		ft_exit("Error\n");
+	reset_arr(&a, arr, a.size);
+	quick_sort(arr, 0, a.size - 1);
+	i = 0;
+	while (i < a.size)
+	{
+		if (arr[i] == a.node->data)
+			i++;
+		else
+			break ;
+		a.node = a.node->next;
+	}
+	if (i == a.size)
+		return (1);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack	*stack;
@@ -96,6 +120,8 @@ int	main(int argc, char **argv)
 	cnt = 0;
 	arg_init(argv, &data);
 	stack_init(&stack, data);
+	if (check_stack(*(stack->a)))
+		return (0);
 	if (data->size == 3)
 		except_size_three(stack->a);
 	else if (data->size == 5)

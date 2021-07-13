@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:46:56 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/12 18:16:29 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/13 16:24:16 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-
-#include <stdio.h>
 
 typedef struct s_node
 {
@@ -62,6 +60,7 @@ typedef struct s_init
 void						free_all(t_stack **stack, t_init **data);
 void						arg_init(char **argv, t_init **data);
 void						stack_init(t_stack **stack, t_init *data);
+int							check_stack(t_head a);
 
 void						except_size_three(t_head *head);
 int							find_mid_pivot(t_head head);
