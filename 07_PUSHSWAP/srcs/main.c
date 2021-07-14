@@ -104,6 +104,7 @@ int	check_stack(t_head a)
 			break ;
 		a.node = a.node->next;
 	}
+	free(arr);
 	if (i == a.size)
 		return (1);
 	return (0);
