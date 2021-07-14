@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/24 07:47:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/14 18:45:50 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/14 18:55:18 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ int	main(int argc, char **argv)
 	else
 		a_to_b(stack, data, stack->a->size, &cnt);
 	free_all(&stack, &data);
-	for (;;)
-	;
+	for (;;);
 	return (0);
 }
