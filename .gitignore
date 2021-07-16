@@ -1,2 +1,7 @@
-*.out
+push_swap_tester/
+push_swap_visualizer/
+push_swap.pdf
+*.o
+push_swap
 .DS_Store
+.gitignore
