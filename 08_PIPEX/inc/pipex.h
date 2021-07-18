@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:50:08 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/17 18:22:24 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/18 22:14:14 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/wait.h>
 # include <stdio.h>
 # include <string.h>
+# include "../lib/libft/libft.h"
 
 typedef struct	s_arg
 {
@@ -30,8 +31,5 @@ typedef struct	s_arg
 
 // main.c
 void	arg_init(int argc, char **argv, t_arg **arg);
-
-// utility.c
-void	ft_exit(char *msg);
 
 #endif
