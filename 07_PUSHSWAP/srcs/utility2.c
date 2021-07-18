@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/25 23:49:19 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/12 18:18:37 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/18 21:31:34 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	is_valid_arg(t_init *data)
 	int	i;
 	int	j;
 
-	i = 1;
+	i = 0;
 	while (data->bundle_arr[i])
 	{
 		j = 0;
