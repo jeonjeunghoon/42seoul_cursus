@@ -2,6 +2,7 @@ push_swap_tester/
 push_swap_visualizer/
 push_swap.pdf
 *.o
+lib/
 push_swap
 .DS_Store
 .gitignore

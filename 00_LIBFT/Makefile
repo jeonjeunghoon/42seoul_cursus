@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/07/17 18:21:05 by jeunjeon          #+#    #+#              #
+#    Updated: 2021/07/17 18:28:18 by jeunjeon         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME		=	libft.a
 
 CC			=	gcc
@@ -42,6 +54,7 @@ SRCS		=	./ft_memset.c \
 				./ft_putstr_fd.c \
 				./ft_putendl_fd.c \
 				./ft_putnbr_fd.c \
+				./ft_exit.c
 
 SRCS_BONUS	=	./ft_lstnew.c \
 				./ft_lstadd_front.c \

@@ -6,13 +6,13 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 15:56:50 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/10/15 19:41:49 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/17 17:47:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			is_n_in_h(const char *h, const char *n, size_t i, size_t len)
+int	is_n_in_h(const char *h, const char *n, size_t i, size_t len)
 {
 	size_t	j;
 
@@ -28,7 +28,7 @@ int			is_n_in_h(const char *h, const char *n, size_t i, size_t len)
 	return (1);
 }
 
-char		*ft_strnstr(const char *h, const char *n, size_t len)
+char	*ft_strnstr(const char *h, const char *n, size_t len)
 {
 	size_t	i;
 

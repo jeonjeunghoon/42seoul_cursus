@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:51:09 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/11 18:22:06 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/17 18:13:06 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void				*ft_memchr(const void *s, int c, size_t len)
+void	*ft_memchr(const void *s, int c, size_t len)
 {
 	unsigned char	*dest;
 

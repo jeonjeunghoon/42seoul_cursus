@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_x.h                                           :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:50:08 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/17 16:34:40 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/17 18:22:24 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPE_X_H
-# define PIPE_X_H
+#ifndef PIPEX_H
+# define PIPEX_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -28,5 +28,10 @@ typedef struct	s_arg
 	char	*cmd2;
 } t_arg;
 
+// main.c
+void	arg_init(int argc, char **argv, t_arg **arg);
+
+// utility.c
+void	ft_exit(char *msg);
 
 #endif

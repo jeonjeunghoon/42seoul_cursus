@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 17:25:54 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/11 17:17:20 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/17 18:17:25 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void					ft_isspace(const unsigned char **pp)
+void	ft_isspace(const unsigned char **pp)
 {
 	while (**pp == ' ' || **pp == '\t' || **pp == '\r' \
 	|| **pp == '\n' || **pp == '\v' || **pp == '\f')
 		(*pp)++;
 }
 
-int						isminus(const unsigned char **pp)
+int	isminus(const unsigned char **pp)
 {
-	int					sign;
+	int	sign;
 
 	sign = 1;
 	if (**pp == '-' || **pp == '+')
@@ -33,10 +33,10 @@ int						isminus(const unsigned char **pp)
 	return (sign);
 }
 
-long long				make_num(const unsigned char **pp, int sign)
+long long	make_num(const unsigned char **pp, int sign)
 {
-	long long			tmp;
-	size_t				i;
+	long long	tmp;
+	size_t		i;
 
 	i = 0;
 	tmp = 0;
@@ -48,11 +48,16 @@ long long				make_num(const unsigned char **pp, int sign)
 		i++;
 	}
 	if (i >= 20)
-		tmp = sign > 0 ? -1 : 0;
+	{
+		if (sign > 0)
+			tmp = -1;
+		else
+			tmp = 0;
+	}
 	return (tmp);
 }
 
-int						ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	const unsigned char	*ptr;
 	int					sign;

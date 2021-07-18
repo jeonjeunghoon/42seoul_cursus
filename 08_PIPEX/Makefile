@@ -6,29 +6,46 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 16:39:55 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/07/17 16:45:54 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/07/18 20:21:42 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC		=	gcc
-CFLAGS	=	#-Wall -Wextra -Werror
+NAME			=	pipex
+CC				=	gcc
+CFLAGS			=	#-Wall -Wextra -Werror
 
-NAME	=	pipex
-SRCS	=	srcs/main.c
+SRC_NAME		=	main.c
+SRC_PATH		=	./srcs
+SRC				=	$(addprefix $(SRC_PATH)/, $(SRC_NAME))
 
-OBJS	=	$(SRCS:.c=.o)
+OBJ_NAME		=	$(SRC_NAME:.c=.o)
+OBJ_PATH		=	./objs
+OBJ				=	$(addprefix $(OBJ_PATH)/, $(OBJ_NAME))
 
-$(NAME)	:	$(OBJS)
-			$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
+INC_LINK		=	-I./incs
+LIBFT			=	-L./lib/libft -lft
 
-all		:	$(NAME)
+$(OBJ_PATH)/%.o	:	$(SRC_PATH)/%.c
+					gcc $(FLAGS) $(INC_LINK) -o $@ -c $<
 
-clean	:
-			rm -rf $(OBJS)
+$(NAME)			:	$(OBJS) libft
+					$(CC) $(CFLAGS) $(OBJ) $(INC_LINK) $(LIBFT) -o $(NAME)
 
-fclean	:	clean
-			rm $(NAME)
 
-re		:	fclean all
+# libft complile
+libft			:
+					@$(MAKE) -C ./lib/libft all
 
-.PHONY	:	all, clean, fclean, re
+all				:	$(NAME)
+
+clean			:
+					@$(MAKE) -C ./lib/libft clean
+					@rm -rf ./obj
+
+fclean			:
+					@$(MAKE) -C ./lib/libft clean
+					@rm -rf ./obj $(NAME)
+
+re				:	fclean all
+
+.PHONY			:	all, clean, fclean, re

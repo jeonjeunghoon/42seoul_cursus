@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 20:53:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/11 18:01:28 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/17 18:12:54 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		col_size(char const *s, char c)
+size_t	col_size(char const *s, char c)
 {
 	size_t	len;
 	size_t	i;
@@ -36,7 +36,7 @@ size_t		col_size(char const *s, char c)
 	return (len);
 }
 
-size_t		row_size(char const *s, char c)
+size_t	row_size(char const *s, char c)
 {
 	size_t	len;
 
@@ -46,7 +46,7 @@ size_t		row_size(char const *s, char c)
 	return (len);
 }
 
-void		ft_free(char **pp)
+void	ft_free(char **pp)
 {
 	size_t	i;
 
@@ -60,7 +60,7 @@ void		ft_free(char **pp)
 	pp = NULL;
 }
 
-char		**make_split(char const *s, char **pp, char c)
+char	**make_split(char const *s, char **pp, char c)
 {
 	size_t	i;
 	size_t	j;
@@ -71,7 +71,8 @@ char		**make_split(char const *s, char **pp, char c)
 		j = 0;
 		if (*s != c)
 		{
-			if (!(pp[i] = (char *)malloc(sizeof(char) * (row_size(s, c) + 1))))
+			pp[i] = (char *)malloc(sizeof(char) * (row_size(s, c) + 1));
+			if (!pp[i])
 			{
 				ft_free(pp);
 				return (NULL);
@@ -87,13 +88,14 @@ char		**make_split(char const *s, char **pp, char c)
 	return (pp);
 }
 
-char		**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**pp;
 
 	if (!s)
 		return (NULL);
-	if (!(pp = (char **)malloc(sizeof(char *) * (col_size(s, c) + 1))))
+	pp = (char **)malloc(sizeof(char *) * (col_size(s, c) + 1));
+	if (!pp)
 		return (NULL);
 	pp = make_split(s, pp, c);
 	return (pp);

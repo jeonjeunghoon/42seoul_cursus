@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 19:51:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/11 18:08:50 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/17 18:15:41 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_strlcat(char *dest, char *src, size_t size)
+size_t	ft_strlcat(char *dest, char *src, size_t size)
 {
-	size_t i;
-	size_t j;
-	size_t dest_len;
-	size_t result;
+	size_t	i;
+	size_t	j;
+	size_t	dest_len;
+	size_t	result;
 
 	if (!dest)
 	{

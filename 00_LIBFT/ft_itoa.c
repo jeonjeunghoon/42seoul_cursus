@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/16 13:59:44 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/11 17:21:31 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/17 18:18:46 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t			get_len(long long n)
+size_t	get_len(long long n)
 {
-	size_t		len;
+	size_t	len;
 
-	len = n > 0 ? 0 : 1;
+	if (n > 0)
+		len = 0;
+	else
+		len = 1;
 	while (n)
 	{
 		n /= 10;
@@ -25,7 +28,7 @@ size_t			get_len(long long n)
 	return (len);
 }
 
-char			*ft_itoa(int num)
+char	*ft_itoa(int num)
 {
 	char		*ptr;
 	long long	n;
@@ -33,7 +36,8 @@ char			*ft_itoa(int num)
 
 	n = num;
 	len = get_len(n);
-	if (!(ptr = (char *)malloc(sizeof(char) * (len + 1))))
+	ptr = (char *)malloc(sizeof(char) * (len + 1));
+	if (!ptr)
 		return (NULL);
 	ptr[len--] = 0;
 	if (n < 0)

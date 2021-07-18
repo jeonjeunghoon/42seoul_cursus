@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/09 12:14:10 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/17 17:52:43 by jeunjeon         ###   ########.fr       */
+/*   Created: 2021/07/17 17:03:11 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/07/17 18:24:04 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isascii(int c)
+void	ft_exit(char *msg)
 {
-	if (c >= 0 && c <= 127)
-		return (1);
-	return (0);
+	write(1, msg, ft_strlen(msg));
+	exit(0);
 }
