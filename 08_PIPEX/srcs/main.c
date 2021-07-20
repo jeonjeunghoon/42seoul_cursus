@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:47:29 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/18 22:00:53 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/18 22:51:05 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	free_all(t_arg **arg)
 
 void	arg_init(int argc, char **argv, t_arg **arg)
 {
-	if (argc < 5)
+	if (argc != 5)
 		ft_exit("Error\n");
 	(*arg) = (t_arg *)malloc(sizeof(t_arg));
 	if (!(*arg))

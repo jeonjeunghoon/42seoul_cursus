@@ -5,3 +5,5 @@ push_swap.pdf
 push_swap
 .DS_Store
 .gitignore
+libft.a
+pipex

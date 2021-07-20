@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:50:08 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/18 22:14:14 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/18 22:51:46 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,8 @@ typedef struct	s_arg
 
 // main.c
 void	arg_init(int argc, char **argv, t_arg **arg);
+
+void	redirection(t_arg *arg);
+void	open_file(char *file_name);
 
 #endif

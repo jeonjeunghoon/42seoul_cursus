@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 16:39:55 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/07/18 22:12:15 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/07/18 22:21:14 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,14 +26,12 @@ INC_LINK		=	-I./inc
 LIBFT			=	-L./lib/libft -lft
 
 $(NAME)			:	$(OBJ) libft
-					gcc $(FLAGS) $(OBJ) $(INC_LINK) $(LIBFT) -o $(NAME) 
+					$(CC) $(FLAGS) $(OBJ) $(INC_LINK) $(LIBFT) -o $(NAME) 
 
 $(OBJ_PATH)/%.o	:	$(SRC_PATH)/%.c
 					@mkdir $(OBJ_PATH) 2> /dev/null || true
-					gcc $(FLAGS) $(INC_LINK) -o $@ -c $<
+					$(CC) $(FLAGS) $(INC_LINK) -o $@ -c $<
 
-
-# libft complile
 libft			:
 					@$(MAKE) -C ./lib/libft all
 
