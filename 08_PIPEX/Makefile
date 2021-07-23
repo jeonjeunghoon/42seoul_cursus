@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 16:39:55 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/07/18 22:21:14 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/07/22 18:15:51 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,10 @@ NAME			=	pipex
 CC				=	gcc
 CFLAGS			=	#-Wall -Wextra -Werror
 
-SRC_NAME		=	main.c
+SRC_NAME		=	main.c \
+					open_file.c \
+					redirect.c
+
 SRC_PATH		=	./srcs
 SRC				=	$(addprefix $(SRC_PATH)/, $(SRC_NAME))
 

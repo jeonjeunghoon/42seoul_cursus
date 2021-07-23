@@ -7,3 +7,5 @@ push_swap
 .gitignore
 libft.a
 pipex
+in
+.vscode/

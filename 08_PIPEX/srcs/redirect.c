@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirection.c                                      :+:      :+:    :+:   */
+/*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 22:48:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/18 22:48:54 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/22 18:17:10 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-void	redirection(t_arg *arg)
+void	redirect(t_arg *arg)
 {
-	
+	int	fd;
+
+	fd = 0;
+	open_read(arg->infile, &fd);
 }
