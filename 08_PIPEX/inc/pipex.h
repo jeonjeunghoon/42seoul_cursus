@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:50:08 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/25 18:21:59 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/25 19:02:13 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,16 @@
 
 typedef struct s_arg
 {
-	char	*infile;
-	char	*outfile;
-	char	*path1;
-	char	*cmd1;
-	char	*cmd1_option;
-	char	**cmd1_arg;
-	char	*path2;
-	char	*cmd2;
-	char	*cmd2_option;
-	char	**cmd2_arg;
+	char		*infile;
+	char		*outfile;
+	char		*path1;
+	char *const	*cmd1_arg;
+	char		*path2;
+	char *const	*cmd2_arg;
 }	t_arg;
 
 // main.c
+int		parse_cmd(const char **argv, t_arg **arg);
 int		arg_init(int argc, char const **argv, t_arg **arg);
 
 // redirect

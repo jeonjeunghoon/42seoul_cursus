@@ -6,13 +6,13 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 16:39:55 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/07/25 18:18:17 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/07/25 19:01:13 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	pipex
 CC				=	gcc
-CFLAGS			=	-Wall -Wextra -Werror #-g -fsanitize=address 
+CFLAGS			=	-Wall -Wextra -Werror -g -fsanitize=address 
 
 SRC_NAME		=	main.c \
 					redirect.c \
