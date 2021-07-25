@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 20:53:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/17 18:12:54 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/25 17:59:37 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ char	**make_split(char const *s, char **pp, char c)
 		if (*s)
 			s++;
 	}
-	pp[i] = 0;
 	return (pp);
 }
 
@@ -97,6 +96,7 @@ char	**ft_split(char const *s, char c)
 	pp = (char **)malloc(sizeof(char *) * (col_size(s, c) + 1));
 	if (!pp)
 		return (NULL);
+	pp[col_size(s, c)] = NULL;
 	pp = make_split(s, pp, c);
 	return (pp);
 }

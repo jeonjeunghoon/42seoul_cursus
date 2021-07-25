@@ -6,17 +6,17 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 16:39:55 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/07/22 18:15:51 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/07/25 18:18:17 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	pipex
 CC				=	gcc
-CFLAGS			=	#-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror #-g -fsanitize=address 
 
 SRC_NAME		=	main.c \
-					open_file.c \
-					redirect.c
+					redirect.c \
+					free_all.c
 
 SRC_PATH		=	./srcs
 SRC				=	$(addprefix $(SRC_PATH)/, $(SRC_NAME))
@@ -29,7 +29,7 @@ INC_LINK		=	-I./inc
 LIBFT			=	-L./lib/libft -lft
 
 $(NAME)			:	$(OBJ) libft
-					$(CC) $(FLAGS) $(OBJ) $(INC_LINK) $(LIBFT) -o $(NAME) 
+					$(CC) $(CFLAGS) $(OBJ) $(INC_LINK) $(LIBFT) -o $(NAME) 
 
 $(OBJ_PATH)/%.o	:	$(SRC_PATH)/%.c
 					@mkdir $(OBJ_PATH) 2> /dev/null || true

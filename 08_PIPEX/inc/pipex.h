@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:50:08 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/22 18:17:06 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/25 18:21:59 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,28 @@
 # include <string.h>
 # include "../lib/libft/libft.h"
 
-typedef struct	s_arg
+typedef struct s_arg
 {
 	char	*infile;
 	char	*outfile;
+	char	*path1;
 	char	*cmd1;
+	char	*cmd1_option;
+	char	**cmd1_arg;
+	char	*path2;
 	char	*cmd2;
-} t_arg;
+	char	*cmd2_option;
+	char	**cmd2_arg;
+}	t_arg;
 
 // main.c
-void	arg_init(int argc, char **argv, t_arg **arg);
+int		arg_init(int argc, char const **argv, t_arg **arg);
 
 // redirect
-void	redirect(t_arg *arg);
+int		redirect(t_arg *arg);
 
-// open_file
-void	open_read(char *path, int *fd);
+// free_all
+void	free_two_dimension(char **two_dimention);
+void	free_all(t_arg **arg);
 
 #endif
