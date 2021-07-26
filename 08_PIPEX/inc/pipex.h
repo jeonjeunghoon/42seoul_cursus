@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:50:08 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/25 19:02:13 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/26 18:09:06 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,26 @@ typedef struct s_arg
 	char		*infile;
 	char		*outfile;
 	char		*path1;
-	char *const	*cmd1_arg;
 	char		*path2;
-	char *const	*cmd2_arg;
+	char *const	*cmd_arg1;
+	char *const	*cmd_arg2;
+	char *const	*cmd_envp1;
+	char *const	*cmd_envp2;
 }	t_arg;
 
-// main.c
+// arg_init.c
 int		parse_cmd(const char **argv, t_arg **arg);
 int		arg_init(int argc, char const **argv, t_arg **arg);
 
-// redirect
-int		redirect(t_arg *arg);
+// redirect.c
+int		redirect_out(t_arg *arg);
+int		redirect_in(t_arg *arg);
 
-// free_all
-void	free_two_dimension(char **two_dimention);
+// pipe.c
+void	pipe_init(int *fd, int io);
+int		pipex(t_arg *arg, int *fd, pid_t *pid);
+
+// free_all.c
 void	free_all(t_arg **arg);
 
 #endif

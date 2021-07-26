@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 16:39:55 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/07/25 19:01:13 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/07/26 17:31:28 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,9 @@ CC				=	gcc
 CFLAGS			=	-Wall -Wextra -Werror -g -fsanitize=address 
 
 SRC_NAME		=	main.c \
+					arg_init.c \
 					redirect.c \
+					pipex.c \
 					free_all.c
 
 SRC_PATH		=	./srcs
