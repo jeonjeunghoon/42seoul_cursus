@@ -6,28 +6,28 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 22:48:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/26 14:13:24 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/27 12:15:31 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-int	redirect_out(t_arg *arg)
+void	redirect_out(t_arg *arg)
 {
 	int	fd;
 
 	fd = open(arg->outfile, O_RDWR | O_CREAT, 0644);
+
 	if (fd < 0)
 	{
 		perror(arg->outfile);
-		return (-1);
+		ft_exit(NULL);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
-	return (0);
 }
 
-int	redirect_in(t_arg *arg)
+void	redirect_in(t_arg *arg)
 {
 	int	fd;
 
@@ -35,9 +35,8 @@ int	redirect_in(t_arg *arg)
 	if (fd < 0)
 	{
 		perror(arg->infile);
-		return (-1);
+		ft_exit(NULL);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);
-	return (0);
 }

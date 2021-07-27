@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:47:29 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/26 18:30:11 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/27 12:07:05 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,11 @@
 int	main(int argc, const char **argv)
 {
 	t_arg	*arg;
-	int		fd[2];
-	pid_t	pid;
+	int		fildes[2];
 
-	if ((arg_init(argc, argv, &arg)) == -1)
+	if ((arg_init(argc, argv, &arg)) == IS_ERROR)
 		ft_exit("Error\n");
-	if ((pipe(fd)) == -1)
-	{
-		perror(pipe);
-		ft_exit(NULL);
-	}
-	if ((pid = fork()) == -1)
-	{
-		perror(NULL);
-		ft_exit(NULL);
-	}
-	if ((pipex(arg, fd, &pid)) == -1)
+	if ((pipex(arg, fildes)) == IS_ERROR)
 	{
 		perror(NULL);
 		ft_exit(NULL);
