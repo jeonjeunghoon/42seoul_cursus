@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:47:29 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/29 17:49:34 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/29 18:06:50 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ int	pipex(t_arg *arg, int *fildes)
 	pid = fork();
 	if (pid > 0)
 	{
-		if ((waitpid(pid, NULL, WNOWAIT)) == -1)
-			return (IS_ERROR);
+		waitpid(pid, NULL, WNOWAIT);
 		connect_pipe(fildes, FD_EXIT);
 		redirect_out(arg);
 		if ((execve(arg->cmd2, arg->cmd_arg2, arg->cmd_envp)) == IS_ERROR)

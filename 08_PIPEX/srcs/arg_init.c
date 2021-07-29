@@ -6,28 +6,33 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 13:43:48 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/29 17:49:05 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/29 17:56:22 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-int	parse_envp_path(char ***ptr, char const **envp)
+char	*make_cmd_path(t_arg *arg, char *arg_cmd)
 {
-	int	i;
+	int		i;
+	int		fd;
+	char	*path_cmd;
+	char	*cmd;
 
+	path_cmd = ft_strjoin("/", arg_cmd);
+	fd = 0;
 	i = 0;
-	while (envp[i])
+	while (arg->cmd_envp[i])
 	{
-		if (envp[i][0] == 'P' && envp[i][1] == 'A' && envp[i][2] == 'T' && \
-			envp[i][3] == 'H' && envp[i][4] == '=')
-			break ;
+		cmd = ft_strjoin(arg->cmd_envp[i], path_cmd);
+		fd = open(cmd, O_RDONLY);
+		if (fd != -1)
+			return (cmd);
+		close(fd);
+		free(cmd);
 		i++;
 	}
-	if ((i == ft_veclen((char **)envp)) || ft_veclen((char **)envp) == IS_ERROR)
-		return (IS_ERROR);
-	(*ptr) = ft_split(&(envp[i][5]), ':');
-	return (0);
+	return (NULL);
 }
 
 int	make_arg(char ***ptr, int argc, char const **argv, int start_point)
@@ -57,29 +62,6 @@ int	make_arg(char ***ptr, int argc, char const **argv, int start_point)
 	return (start_point);
 }
 
-char	*make_cmd_path(t_arg *arg, char *arg_cmd)
-{
-	int		i;
-	int		fd;
-	char	*path_cmd;
-	char	*cmd;
-
-	path_cmd = ft_strjoin("/", arg_cmd);
-	fd = 0;
-	i = 0;
-	while (arg->cmd_envp[i])
-	{
-		cmd = ft_strjoin(arg->cmd_envp[i], path_cmd);
-		fd = open(cmd, O_RDONLY);
-		if (fd != -1)
-			return (cmd);
-		close(fd);
-		free(cmd);
-		i++;
-	}
-	return (NULL);
-}
-
 int	parse_solo_quotation(int argc, const char **argv, t_arg **arg)
 {
 	int	start_point;
@@ -102,5 +84,23 @@ int	parse_double_quotation(const char **argv, t_arg **arg)
 		return (IS_ERROR);
 	(*arg)->cmd1 = make_cmd_path((*arg), (*arg)->cmd_arg1[0]);
 	(*arg)->cmd2 = make_cmd_path((*arg), (*arg)->cmd_arg2[0]);
+	return (0);
+}
+
+int	parse_envp_path(char ***ptr, char const **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (envp[i][0] == 'P' && envp[i][1] == 'A' && envp[i][2] == 'T' && \
+			envp[i][3] == 'H' && envp[i][4] == '=')
+			break ;
+		i++;
+	}
+	if ((i == ft_veclen((char **)envp)) || ft_veclen((char **)envp) == IS_ERROR)
+		return (IS_ERROR);
+	(*ptr) = ft_split(&(envp[i][5]), ':');
 	return (0);
 }
