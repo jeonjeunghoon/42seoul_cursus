@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 15:32:22 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/17 18:24:30 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/29 14:30:47 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
+size_t				ft_veclen(char **vec);
+
 
 typedef struct s_list
 {

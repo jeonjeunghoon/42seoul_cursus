@@ -1,5 +1,7 @@
 push_swap_tester/
 push_swap_visualizer/
+pipex-tester/
+pipex_medic/
 push_swap.pdf
 *.o
 push_swap
