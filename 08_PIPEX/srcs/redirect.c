@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 22:48:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/29 17:26:59 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/30 19:43:19 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	redirect_out(t_arg *arg)
 {
 	int	fd;
 
-	unlink(arg->outfile);
-	fd = open(arg->outfile, O_RDWR | O_CREAT, 0644);
+	fd = open(arg->outfile, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 	{
 		perror(arg->outfile);
