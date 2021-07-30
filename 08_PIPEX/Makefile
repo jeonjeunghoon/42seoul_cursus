@@ -5,51 +5,48 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/07/17 16:39:55 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/07/29 17:50:56 by jeunjeon         ###   ########.fr        #
+#    Created: 2021/07/30 18:28:22 by jeunjeon          #+#    #+#              #
+#    Updated: 2021/07/30 18:34:49 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			=	pipex
-CC				=	gcc
-CFLAGS			=	-Wall -Wextra -Werror -g -fsanitize=address 
+NAME				=	pipex
+CC					=	gcc
+CFLAGS				=	-Wall -Wextra -Werror -g -fsanitize=address
 
-SRC_NAME		=	main.c \
-					arg_init.c \
-					redirect.c \
-					connect_pipe.c \
-					free_all.c
+SRCS_NAME			=	main.c \
+						arg_init.c \
+						redirect.c \
+						connect_pipe.c
 
-SRC_PATH		=	./srcs
-SRC				=	$(addprefix $(SRC_PATH)/, $(SRC_NAME))
+SRCS_PATH			=	./srcs
+SRCS				=	$(addprefix $(SRCS_PATH)/, $(SRCS_NAME))
 
-OBJ_NAME		=	$(SRC_NAME:.c=.o)
-OBJ_PATH		=	./objs
-OBJ				=	$(addprefix $(OBJ_PATH)/, $(OBJ_NAME))
+OBJS_NAME			=	$(SRCS_NAME:.c=.o)
+OBJS_PATH			=	./objs
+OBJS				=	$(addprefix $(OBJS_PATH)/, $(OBJS_NAME))
 
-INC_LINK		=	-I./inc
-LIBFT			=	-L./lib/libft -lft
+INC_LINK			=	-I./inc
+LIBFT				=	-L./lib/libft -lft
 
-$(NAME)			:	$(OBJ) libft
-					$(CC) $(CFLAGS) $(OBJ) $(INC_LINK) $(LIBFT) -o $(NAME) 
+$(NAME)				:	$(OBJS)
+						@$(MAKE) -C ./lib/libft all
+						$(CC) $(CFLAGS) $(OBJS) $(INC_LINK) $(LIBFT) -o $@
 
-$(OBJ_PATH)/%.o	:	$(SRC_PATH)/%.c
-					@mkdir $(OBJ_PATH) 2> /dev/null || true
-					$(CC) $(FLAGS) $(INC_LINK) -o $@ -c $<
+$(OBJS_PATH)/%.o	:	$(SRCS_PATH)/%.c
+						@mkdir $(OBJS_PATH) 2> /dev/null || true
+						$(CC) $(CFLAGS) $(INC_LINK) -c $< -o $@
 
-libft			:
-					@$(MAKE) -C ./lib/libft all
+all					:	$(NAME)
 
-all				:	$(NAME)
+clean				:
+						@$(MAKE) -C ./lib/libft clean
+						rm -rf $(OBJS)
+fclean				:
+						@$(MAKE) -C ./lib/libft fclean
+						rm -rf $(OBJS)
+						rm -rf $(NAME)
 
-clean			:
-					@$(MAKE) -C ./lib/libft clean
-					rm -rf $(OBJ)
-fclean			:
-					@$(MAKE) -C ./lib/libft fclean
-					rm -rf $(OBJ)
-					rm -rf $(NAME)
+re					:	fclean all
 
-re				:	fclean all
-
-.PHONY			:	all clean fclean re
+.PHONY				:	all clean fclean re

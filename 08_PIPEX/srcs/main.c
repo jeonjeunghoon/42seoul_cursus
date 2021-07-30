@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:47:29 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/29 18:06:50 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/30 16:26:57 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	arg_init(int argc, const char **argv, const char **envp, t_arg **arg)
 	}
 	else if (argc > 5)
 	{
-		if ((parse_solo_quotation(argc, argv, arg)) == IS_ERROR)
+		if ((parse_solo_quotation(argv, arg)) == IS_ERROR)
 			return (IS_ERROR);
 	}
 	else

@@ -56,7 +56,6 @@ void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 size_t				ft_veclen(char **vec);
 
-
 typedef struct s_list
 {
 	void			*content;

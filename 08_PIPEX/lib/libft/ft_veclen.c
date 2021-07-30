@@ -6,15 +6,15 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 14:30:34 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/29 14:30:38 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/30 16:25:55 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_veclen(char **vec)
+int	ft_veclen(char **vec)
 {
-	size_t	size;
+	int	size;
 
 	if (vec == NULL)
 		return (-1);

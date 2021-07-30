@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:50:08 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/29 17:49:53 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/07/30 18:34:37 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int		pipex(t_arg *arg, int *fildes);
 // arg_init.c
 int		parse_envp_path(char ***ptr, char const **envp);
 char	*make_cmd_path(t_arg *arg, char *arg_cmd);
-int		make_arg(char ***ptr, int argc, char const **argv, int start_point);
-int		parse_solo_quotation(int argc, const char **argv, t_arg **arg);
+int		make_arg(char ***ptr, char const **argv, int start_point);
+int		parse_solo_quotation(const char **argv, t_arg **arg);
 int		parse_double_quotation(const char **argv, t_arg **arg);
 
 // redirect.c
