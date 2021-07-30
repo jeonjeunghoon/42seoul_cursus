@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/30 18:28:22 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/07/30 18:34:49 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/07/30 19:04:25 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,24 +26,26 @@ OBJS_NAME			=	$(SRCS_NAME:.c=.o)
 OBJS_PATH			=	./objs
 OBJS				=	$(addprefix $(OBJS_PATH)/, $(OBJS_NAME))
 
-INC_LINK			=	-I./inc
-LIBFT				=	-L./lib/libft -lft
+INC_PATH			=	./inc
+
+LIBFT_NAME			=	ft
+LIBFT_PATH			=	./lib/libft
 
 $(NAME)				:	$(OBJS)
-						@$(MAKE) -C ./lib/libft all
-						$(CC) $(CFLAGS) $(OBJS) $(INC_LINK) $(LIBFT) -o $@
+						@$(MAKE) -C $(LIBFT_PATH) all
+						$(CC) $(CFLAGS) $(OBJS) -I$(INC_PATH) -L$(LIBFT_PATH) -l$(LIBFT_NAME) -o $@
 
 $(OBJS_PATH)/%.o	:	$(SRCS_PATH)/%.c
-						@mkdir $(OBJS_PATH) 2> /dev/null || true
-						$(CC) $(CFLAGS) $(INC_LINK) -c $< -o $@
+						mkdir $(OBJS_PATH) 2> /dev/null || true
+						$(CC) $(CFLAGS) -I$(INC_PATH) -c $< -o $@
 
 all					:	$(NAME)
 
 clean				:
-						@$(MAKE) -C ./lib/libft clean
+						@$(MAKE) -C $(LIBFT_PATH) clean
 						rm -rf $(OBJS)
 fclean				:
-						@$(MAKE) -C ./lib/libft fclean
+						@$(MAKE) -C $(LIBFT_PATH) fclean
 						rm -rf $(OBJS)
 						rm -rf $(NAME)
 
