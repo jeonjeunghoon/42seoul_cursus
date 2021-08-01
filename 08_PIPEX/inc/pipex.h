@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:50:08 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/30 18:34:37 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/01 14:23:11 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ typedef struct s_arg
 
 // main.c
 int		is_valid_arg(int argc, const char **argv);
-int		arg_init(int argc, char const **argv, const char **envp, t_arg **arg);
-int		pipex(t_arg *arg, int *fildes);
+int		arg_init(int argc, char const **argv, char **envp, t_arg **arg);
+int		pipex(t_arg *arg, int *fildes, char **envp);
 
 // arg_init.c
-int		parse_envp_path(char ***ptr, char const **envp);
+int		parse_envp_path(char ***ptr, char **envp);
 char	*make_cmd_path(t_arg *arg, char *arg_cmd);
 int		make_arg(char ***ptr, char const **argv, int start_point);
 int		parse_solo_quotation(const char **argv, t_arg **arg);

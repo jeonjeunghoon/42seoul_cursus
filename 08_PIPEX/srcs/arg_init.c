@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 13:43:48 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/30 18:10:18 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/01 14:23:19 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	parse_double_quotation(const char **argv, t_arg **arg)
 	return (0);
 }
 
-int	parse_envp_path(char ***ptr, char const **envp)
+int	parse_envp_path(char ***ptr, char **envp)
 {
 	int	i;
 

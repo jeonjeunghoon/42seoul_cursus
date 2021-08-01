@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:47:29 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/30 19:43:23 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/01 14:23:32 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	is_valid_arg(int argc, const char **argv)
 	return (0);
 }
 
-int	arg_init(int argc, const char **argv, const char **envp, t_arg **arg)
+int	arg_init(int argc, const char **argv, char **envp, t_arg **arg)
 {
 	(*arg) = (t_arg *)malloc(sizeof(t_arg));
 	if ((*arg) == NULL)
@@ -62,7 +62,7 @@ int	arg_init(int argc, const char **argv, const char **envp, t_arg **arg)
 	return (0);
 }
 
-int	pipex(t_arg *arg, int *fildes)
+int	pipex(t_arg *arg, int *fildes, char **envp)
 {
 	pid_t	pid;
 
@@ -72,14 +72,14 @@ int	pipex(t_arg *arg, int *fildes)
 		waitpid(pid, NULL, WNOWAIT);
 		connect_pipe(fildes, FD_EXIT);
 		redirect_out(arg);
-		if ((execve(arg->cmd2, arg->cmd_arg2, arg->cmd_envp)) == IS_ERROR)
+		if ((execve(arg->cmd2, arg->cmd_arg2, envp)) == IS_ERROR)
 			perror(arg->cmd2);
 	}
 	else if (pid == 0)
 	{
 		redirect_in(arg);
 		connect_pipe(fildes, FD_ENTRY);
-		if ((execve(arg->cmd1, arg->cmd_arg1, arg->cmd_envp)) == IS_ERROR)
+		if ((execve(arg->cmd1, arg->cmd_arg1, envp)) == IS_ERROR)
 			perror(arg->cmd1);
 	}
 	else
@@ -87,7 +87,7 @@ int	pipex(t_arg *arg, int *fildes)
 	return (0);
 }
 
-int	main(int argc, const char **argv, const char **envp)
+int	main(int argc, const char **argv, char **envp)
 {
 	t_arg	*arg;
 	int		fildes[2];
@@ -101,7 +101,7 @@ int	main(int argc, const char **argv, const char **envp)
 		perror("pipe");
 		ft_exit(NULL);
 	}
-	if ((pipex(arg, fildes)) == IS_ERROR)
+	if ((pipex(arg, fildes, envp)) == IS_ERROR)
 	{
 		perror(NULL);
 		ft_exit(NULL);
