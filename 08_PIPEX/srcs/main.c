@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:47:29 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/01 15:49:35 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/01 20:52:42 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,11 @@ int	arg_init(int argc, const char **argv, char **envp, t_arg **arg)
 	return (0);
 }
 
-int	pipex(t_arg *arg, int *fildes, char **envp)
+int	pipex(t_arg *arg, int *fildes, char **envp, pid_t *pid)
 {
-	pid_t	pid;
-
-	pid = fork();
-	if (pid > 0)
+	if (*pid > 0)
 	{
-		waitpid(pid, NULL, WNOWAIT);
+		waitpid(*pid, NULL, WNOWAIT);
 		connect_pipe(fildes, FD_EXIT);
 		redirect_out(arg);
 		if ((execve(arg->cmd2, arg->cmd_arg2, envp)) == IS_ERROR)
@@ -78,7 +75,7 @@ int	pipex(t_arg *arg, int *fildes, char **envp)
 			ft_exit(NULL, 1);
 		}
 	}
-	else if (pid == 0)
+	else if (*pid == 0)
 	{
 		redirect_in(arg);
 		connect_pipe(fildes, FD_ENTRY);
@@ -97,6 +94,7 @@ int	main(int argc, const char **argv, char **envp)
 {
 	t_arg	*arg;
 	int		fildes[2];
+	pid_t	pid;
 
 	if ((is_valid_arg(argc, argv)) == IS_ERROR)
 		ft_exit(NULL, 1);
@@ -107,7 +105,8 @@ int	main(int argc, const char **argv, char **envp)
 		perror("pipe");
 		ft_exit(NULL, 1);
 	}
-	if ((pipex(arg, fildes, envp)) == IS_ERROR)
+	pid = fork();
+	if ((pipex(arg, fildes, envp, &pid)) == IS_ERROR)
 	{
 		perror(NULL);
 		ft_exit(NULL, 1);

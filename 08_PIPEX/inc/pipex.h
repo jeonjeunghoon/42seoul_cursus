@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:50:08 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/01 14:23:11 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/01 20:52:04 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_arg
 // main.c
 int		is_valid_arg(int argc, const char **argv);
 int		arg_init(int argc, char const **argv, char **envp, t_arg **arg);
-int		pipex(t_arg *arg, int *fildes, char **envp);
+int		pipex(t_arg *arg, int *fildes, char **envp, pid_t *pid);
 
 // arg_init.c
 int		parse_envp_path(char ***ptr, char **envp);
