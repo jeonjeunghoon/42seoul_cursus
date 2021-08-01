@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/18 22:48:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/30 19:43:19 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/01 15:24:31 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	redirect_out(t_arg *arg)
 	if (fd < 0)
 	{
 		perror(arg->outfile);
-		ft_exit(NULL);
+		ft_exit(NULL, 1);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
@@ -34,7 +34,7 @@ void	redirect_in(t_arg *arg)
 	if (fd < 0)
 	{
 		perror(arg->infile);
-		ft_exit(NULL);
+		ft_exit(NULL, 1);
 	}
 	dup2(fd, STDIN_FILENO);
 	close(fd);

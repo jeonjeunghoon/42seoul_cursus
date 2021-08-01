@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 13:43:48 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/01 14:23:19 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/01 16:01:39 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*make_cmd_path(t_arg *arg, char *arg_cmd)
 	while (arg->cmd_envp[i])
 	{
 		cmd = ft_strjoin(arg->cmd_envp[i], path_cmd);
-		fd = access(cmd, 0);
+		fd = access(cmd, X_OK);
 		if (fd != -1)
 			return (cmd);
 		close(fd);
@@ -71,6 +71,11 @@ int	parse_solo_quotation(const char **argv, t_arg **arg)
 	make_arg(&((*arg)->cmd_arg2), argv, start_point);
 	(*arg)->cmd1 = make_cmd_path((*arg), (*arg)->cmd_arg1[0]);
 	(*arg)->cmd2 = make_cmd_path((*arg), (*arg)->cmd_arg2[0]);
+	if ((*arg)->cmd1 == NULL || (*arg)->cmd2 == NULL)
+	{
+		write(1, "command not found\n", 19);
+		return (IS_ERROR);
+	}
 	return (0);
 }
 
@@ -84,6 +89,11 @@ int	parse_double_quotation(const char **argv, t_arg **arg)
 		return (IS_ERROR);
 	(*arg)->cmd1 = make_cmd_path((*arg), (*arg)->cmd_arg1[0]);
 	(*arg)->cmd2 = make_cmd_path((*arg), (*arg)->cmd_arg2[0]);
+	if ((*arg)->cmd1 == NULL || (*arg)->cmd2 == NULL)
+	{
+		write(1, "command not found\n", 19);
+		return (IS_ERROR);
+	}
 	return (0);
 }
 
