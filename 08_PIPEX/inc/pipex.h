@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:50:08 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/02 21:11:40 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/02 22:43:55 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 
 typedef struct s_arg
 {
+	int			is_heredoc;
+	char		*eof;
 	char		*infile;
 	char		*outfile;
 	char		*cmd1;
@@ -49,8 +51,8 @@ int		parse_solo_quotation(const char **argv, t_arg **arg);
 int		parse_double_quotation(const char **argv, t_arg **arg);
 
 // redirect.c
-void	redirect_out(t_arg *arg);
-void	redirect_in(t_arg *arg);
+void	redirect_out(char *file_path);
+void	redirect_in(char *file_path);
 
 // pipex.c
 void	connect_pipe(int *fildes, int io);
