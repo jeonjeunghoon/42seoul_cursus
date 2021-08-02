@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/30 18:28:22 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/07/30 19:04:25 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/08/02 21:11:50 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,15 @@ CFLAGS				=	-Wall -Wextra -Werror -g -fsanitize=address
 
 SRCS_NAME			=	main.c \
 						arg_init.c \
+						parse_func.c \
 						redirect.c \
-						connect_pipe.c
+						pipex.c
 
 SRCS_PATH			=	./srcs
 SRCS				=	$(addprefix $(SRCS_PATH)/, $(SRCS_NAME))
 
 OBJS_NAME			=	$(SRCS_NAME:.c=.o)
+
 OBJS_PATH			=	./objs
 OBJS				=	$(addprefix $(OBJS_PATH)/, $(OBJS_NAME))
 
