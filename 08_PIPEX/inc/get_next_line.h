@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/08 17:03:12 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/03 22:49:35 by jeunjeon         ###   ########.fr       */
+/*   Created: 2020/11/13 21:35:16 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/08/03 23:01:14 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-int	ft_strncmp(const char *s1, const char *s2, size_t len)
-{
-	while (len--)
-	{
-		if ((*(unsigned char *)s1 != *(unsigned char *)s2) || \
-		(!*(unsigned char *)s1 || !*(unsigned char *)s2))
-			return (*(unsigned char *)s1 - *(unsigned char *)s2);
-		s1++;
-		s2++;
-	}
-	return (0);
-}
+# include <unistd.h>
+# include <stdlib.h>
+# define OPEN_MAX 4096
+# define BUFFER_SIZE 1024
+
+char		*add_room(char *room, char *buf);
+char		*add_line(char **line, char *room);
+int			is_continue(int byte, char **line, char *room);
+int			get_next_line(int fd, char **line);
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:50:08 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/02 22:43:55 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/03 22:17:11 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <string.h>
 # include "../lib/libft/libft.h"
+# include "get_next_line.h"
 
 # define IS_ERROR -1
 # define FD_EXIT 0
@@ -51,10 +52,12 @@ int		parse_solo_quotation(const char **argv, t_arg **arg);
 int		parse_double_quotation(const char **argv, t_arg **arg);
 
 // redirect.c
-void	redirect_out(char *file_path);
+void	redirect_out(char *file_path, int is_heredoc);
 void	redirect_in(char *file_path);
 
 // pipex.c
+int		clear_temp(void);
+int		heredoc(const char *eof);
 void	connect_pipe(int *fildes, int io);
 int		pipex_bonus(t_arg *arg, int *fildes, char **envp, pid_t *pid);
 int		pipex(t_arg *arg, int *fildes, char **envp, pid_t *pid);

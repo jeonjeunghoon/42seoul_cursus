@@ -6,22 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 21:34:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/03 17:24:11 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/03 23:02:30 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-
-void	ft_free(void **p)
-{
-	if (!p || !*p)
-		return ;
-	else
-	{
-		free(*p);
-		*p = NULL;
-	}
-}
+#include "../inc/pipex.h"
 
 char	*add_room(char *room, char *buf)
 {
@@ -30,9 +19,9 @@ char	*add_room(char *room, char *buf)
 	if (room)
 	{
 		temp = ft_strjoin(room, buf);
-		ft_free((void *)&room);
+		free(room);
 		room = ft_strdup(temp);
-		ft_free((void *)&temp);
+		free(temp);
 	}
 	else
 	{
@@ -44,7 +33,7 @@ char	*add_room(char *room, char *buf)
 char	*add_line(char **line, char *room)
 {
 	char	*temp;
-	int		i;
+	size_t	i;
 
 	i = 0;
 	while (room[i])
@@ -57,30 +46,20 @@ char	*add_line(char **line, char *room)
 	{
 		*line = ft_substr(room, 0, i);
 		temp = ft_substr(room, i + 1, ft_strlen(room));
-		ft_free((void *)&room);
+		free(room);
 		room = ft_strdup(temp);
-		ft_free((void *)&temp);
+		free(temp);
 	}
 	return (room);
 }
 
-int	is_continue(int fd, int byte, char **line, char **room)
+void	byte_is_zero(char **line, char *room)
 {
-	if (byte == 0)
-	{
-		if (!room[fd])
-			*line = ft_strdup("");
-		else
-			*line = ft_strdup(room[fd]);
-		ft_free((void *)&(room[fd]));
-		return (0);
-	}
+	if (!room)
+		*line = ft_strdup("");
 	else
-	{
-		room[fd] = add_line(line, room[fd]);
-		ft_free((void *)&(room[fd]));
-		return (1);
-	}
+		*line = ft_strdup(room);
+	free((room));
 }
 
 int	get_next_line(int fd, char **line)
@@ -92,6 +71,7 @@ int	get_next_line(int fd, char **line)
 	if (!line)
 		return (-1);
 	byte = read(fd, buf, 1);
+	printf("byte = %d\nbuf = %s\n", byte, buf);
 	while (byte)
 	{
 		if (byte < 0)
@@ -102,8 +82,11 @@ int	get_next_line(int fd, char **line)
 			break ;
 		byte = read(fd, buf, 1);
 	}
-	if (is_continue(fd, byte, line, room) == 1)
-		return (1);
-	else
+	if (byte == 0)
+	{
+		byte_is_zero(line, room[fd]);
 		return (0);
+	}
+	room[fd] = add_line(line, room[fd]);
+	return (1);
 }

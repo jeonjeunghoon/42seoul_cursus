@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/26 13:06:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/22 13:07:54 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/03 17:26:08 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-int				ft_strlen(char *s)
+int	ft_strlen(char *s)
 {
-	int			i;
+	int	i;
 
 	if (!s)
 		return (0);
@@ -24,9 +24,9 @@ int				ft_strlen(char *s)
 	return (i);
 }
 
-int				ft_strchr(char *s, char c)
+int	ft_strchr(char *s, char c)
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -38,16 +38,17 @@ int				ft_strchr(char *s, char c)
 	return (0);
 }
 
-char			*ft_strdup(char *s)
+char	*ft_strdup(char *s)
 {
-	char		*ptr;
-	int			i;
-	int			len;
+	char	*ptr;
+	int		i;
+	int		len;
 
 	if (!s)
 		return (NULL);
 	len = ft_strlen(s);
-	if (!(ptr = (char *)malloc(sizeof(char) * (len + 1))))
+	ptr = (char *)malloc(sizeof(char) * (len + 1));
+	if (!ptr)
 		return (NULL);
 	i = 0;
 	while (s[i])
@@ -59,16 +60,16 @@ char			*ft_strdup(char *s)
 	return (ptr);
 }
 
-char			*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	char		*ptr;
-	int			i;
-	int			j;
+	char	*ptr;
+	int		i;
+	int		j;
 
 	if (!s1 || !s2)
 		return (NULL);
-	if (!(ptr = (char *)malloc(sizeof(char) * \
-	(ft_strlen(s1) + ft_strlen(s2) + 1))))
+	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!ptr)
 		return (NULL);
 	i = 0;
 	while (s1[i])
@@ -86,14 +87,15 @@ char			*ft_strjoin(char *s1, char *s2)
 	return (ptr);
 }
 
-char			*ft_substr(char *s, int begin, int end)
+char	*ft_substr(char *s, int begin, int end)
 {
-	char		*ptr;
-	int			len;
-	int			i;
+	char	*ptr;
+	int		len;
+	int		i;
 
 	len = end - begin;
-	if (!(ptr = (char *)malloc(sizeof(char) * (len + 1))))
+	ptr = (char *)malloc(sizeof(char) * (len + 1));
+	if (!ptr)
 		return (NULL);
 	i = 0;
 	while (i < len && s[begin + i])
