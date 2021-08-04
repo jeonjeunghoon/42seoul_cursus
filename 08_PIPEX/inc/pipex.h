@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:50:08 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/04 17:04:09 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/04 22:54:15 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,18 @@ typedef struct s_arg
 }	t_arg;
 
 // arg_init.c
+char	*is_valid_cmd(t_arg *arg, char *arg_cmd);
 int		parse_argv(char **argv, t_arg *arg);
 int		parse_envp_path(char ***ptr, char **envp);
 int		arg_init(int argc, char **argv, char **envp, t_arg **arg);
-
-// parse_func.c
-void	free_cmd_arg(char **cmd_arg);
-char	*is_valid_cmd(t_arg *arg, char *arg_cmd);
 
 // redirect.c
 void	redirect_out(char *file_path);
 void	redirect_in(char *file_path);
 
 // pipex.c
-void	connect_pipe(int *fildes, int io);
+void	pipe_out(int *fildes);
+void	pipe_in(int *fildes);
 int		pipex(t_arg *arg, int *fildes, char **envp, pid_t *pid);
 
 #endif
