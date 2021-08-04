@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/30 18:28:22 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/08/03 17:30:37 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/08/04 17:04:44 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,6 @@ SRCS_NAME			=	main.c \
 						arg_init.c \
 						parse_func.c \
 						redirect.c \
-						get_next_line.c \
 						pipex.c
 
 SRCS_PATH			=	./srcs
