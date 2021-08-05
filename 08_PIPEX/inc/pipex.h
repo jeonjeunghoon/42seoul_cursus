@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/16 17:50:08 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/04 22:54:15 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/05 17:37:09 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	redirect_out(char *file_path);
 void	redirect_in(char *file_path);
 
 // pipex.c
-void	pipe_out(int *fildes);
-void	pipe_in(int *fildes);
+void	set_pipe_exit(int *fildes);
+void	set_pipe_entry(int *fildes);
 int		pipex(t_arg *arg, int *fildes, char **envp, pid_t *pid);
 
 #endif
