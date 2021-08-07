@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 14:45:21 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/04 22:54:34 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/07 17:31:59 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ int	parse_argv(char **argv, t_arg *arg)
 	arg->cmd2 = is_valid_cmd(arg, arg->cmd_arg2[0]);
 	if (arg->cmd1 == NULL)
 	{
-		write(1, "zsh: command not found: ", 24);
-		write(1, arg->cmd_arg1[0], (ft_strlen(arg->cmd_arg1[0])));
+		write(1, "command not found: ", 19);
+		write(1, arg->cmd_arg1[0], ft_strlen(arg->cmd_arg1[0]));
 		write(1, "\n", 1);
 	}
 	if (arg->cmd2 == NULL)
 	{
-		write(1, "zsh: command not found: ", 24);
-		write(1, arg->cmd_arg2[0], (ft_strlen(arg->cmd_arg2[0])));
+		write(1, "command not found: ", 19);
+		write(1, arg->cmd_arg2[0], ft_strlen(arg->cmd_arg2[0]));
 		write(1, "\n", 1);
 	}
 	return (0);

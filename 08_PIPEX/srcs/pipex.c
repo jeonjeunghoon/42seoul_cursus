@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 13:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/05 17:37:32 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/07 17:31:41 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,15 @@ int	pipex(t_arg *arg, int *fildes, char **envp, pid_t *pid)
 	if (*pid > 0)
 	{
 		waitpid(*pid, NULL, WNOHANG);
-		if (arg->cmd2 == NULL)
-			return (IS_ERROR);
 		set_pipe_exit(fildes);
 		redirect_out(arg->outfile);
-		if ((execve(arg->cmd2, arg->cmd_arg2, envp)) == IS_ERROR)
-			perror(arg->cmd2);
+		execve(arg->cmd2, arg->cmd_arg2, envp);
 	}
 	else if (*pid == 0)
 	{
 		redirect_in(arg->infile);
-		if (arg->cmd1 == NULL)
-			return (IS_ERROR);
 		set_pipe_entry(fildes);
-		if ((execve(arg->cmd1, arg->cmd_arg1, envp)) == IS_ERROR)
-			perror(arg->cmd1);
+		execve(arg->cmd1, arg->cmd_arg1, envp);
 	}
 	return (IS_ERROR);
 }
