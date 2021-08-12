@@ -6,15 +6,15 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:55:09 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/12 22:33:53 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/12 22:54:21 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	*routine(void *arg)
+void	*philo_routine(void *arg)
 {
-	printf("thread\n");
+	printf("%d thread\n", (int)arg);
 }
 
 int	philo_init(t_philo *philo, t_arg *arg)
@@ -29,7 +29,9 @@ int	philo_init(t_philo *philo, t_arg *arg)
 	philo->arg = NULL;
 	while (i < arg->num_of_philo + 1)
 	{
-		pthread_create(&(philo->thread[i]), NULL, (void *)routine, (void *)philo->arg);
+		philo->arg = i;
+		pthread_create(&(philo->thread[i]), NULL, \
+		(void *)philo_routine, (void *)philo->arg);
 		i++;
 	}
 	i = 1;
