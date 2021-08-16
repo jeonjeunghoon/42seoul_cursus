@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/26 14:48:57 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/12 22:16:47 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/16 20:22:48 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,9 @@ void	ft_except(const char *str, long long num)
 			exit(1);
 		i++;
 	}
-	if (num < -2147483648 || num > 2147483647)
-		exit(1);
 }
 
-int	ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
 	const unsigned char	*ptr;
 	long long			sign;
@@ -85,5 +83,5 @@ int	ft_atoi(const char *str)
 	num = make_num(&ptr, sign);
 	num *= sign;
 	ft_except(str, num);
-	return ((int)num);
+	return (num);
 }

@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   time_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/12 21:55:09 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/16 20:21:01 by jeunjeon         ###   ########.fr       */
+/*   Created: 2021/08/16 21:49:00 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/08/16 22:08:33 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int	main(int argc, const char **argv)
+int	is_dead(int *start, int *end, t_philo *philo)
 {
-	t_philo	*philo;
+	get_time(end, philo->die_end);
+	if ((time_diff(start, end)) < 0)
+		return (IS_DEAD);
+	return (0);
+}
 
-	philo = (t_philo *)malloc(sizeof(t_philo));
-	philo->arg = (t_arg *)malloc(sizeof(t_arg));
-	if (philo->arg == NULL || philo == NULL)
-		exit(1);
-	if ((init(argc, argv, philo)) == IS_ERROR)
-		exit(1);
-	if ((philo_func(philo)) == IS_ERROR)
-		exit(1);
-	pthread_mutex_destroy(&g_mutex);
+int	time_diff(int *start, int *end)
+{
+	int	left_time;
+
+	left_time = ((end[0] - start[0]) * 1000) + ((end[1] - start[1]) / 1000);
+	return (left_time);
+}
+
+int	get_time(int *arr, struct timeval time)
+{
+	gettimeofday(&time, NULL);
+	arr[0] = time.tv_sec;
+	arr[1] = time.tv_usec;
 	return (0);
 }
