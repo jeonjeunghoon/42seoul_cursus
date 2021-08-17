@@ -6,51 +6,42 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:57:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/16 22:08:18 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/17 18:04:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	*philo_routine(void *arg)
+void	*philo_routine(void *routine_arg)
 {
-	t_philo		*philo;
-	int			order;
-	int			start[2];
-	int			end[2];
+	t_base	*base;
+	t_philo	*philo;
+	t_arg	*arg;
 
-	philo = (t_philo *)arg;
-	order = philo->order;
+	base = (t_base *)routine_arg;
+	philo = base->philo;
+	arg = base->arg;
+	printf("thread[%d]\n", philo->num);
+	base->start_time = get_time_ms();
 	while (1)
-	{
-		get_time(start, philo->die_start);
-		if ((philo_act(philo, order, start, end)) == IS_DEAD)
-		{
-			printf("is DEAD!!!!!!!!!!!!!!\n\n");
-			return ((void *)IS_DEAD);
-		}
-		if ((is_dead(start, end, philo)) == IS_DEAD)
-			return ((void *)IS_DEAD);
-	}
+		philo_act(base);
 }
 
-int	philo_func(t_philo *philo)
+int	philo_func(t_base *base, t_philo *philo, t_arg *arg)
 {
 	int		i;
 	void	**value_ptr;
 
 	i = 0;
-	while (i < philo->arg->num_of_philo)
+	while (i < arg->num_philo)
 	{
-		philo->philo_arg = (void *)philo;
-		philo->order = i;
 		pthread_create(&(philo->thread[i]), NULL, \
-						(void *)philo_routine, (void *)philo->philo_arg);
+						(void *)philo_routine, (void *)philo->routine_arg);
 		usleep(200);
 		i++;
 	}
 	i = 0;
-	while (i < philo->arg->num_of_philo)
+	while (i < arg->num_philo)
 	{
 		pthread_detach(philo->thread[i]);
 		// pthread_join(philo->thread[i], value_ptr);

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/16 22:06:37 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/17 18:28:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,32 @@
 
 typedef struct s_arg
 {
-	int			num_of_philo;
-	int			num_of_fork;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-	int			must_eat_times;
+	int						num_philo;
+	int						num_fork;
+	int						time_die;
+	int						time_eat;
+	int						time_sleep;
+	int						num_eat;
 }	t_arg;
 
 typedef struct s_philo
 {
-	t_arg					*arg;
-	int						order;
-	int						*fork;
 	pthread_t				*thread;
 	const pthread_attr_t	*attr;
-	void					*philo_arg;
-	struct timeval			die_start;
-	struct timeval			die_end;
-	long long				left_time;
+	void					*routine_arg;
+	int						num;
+	int						left_fork;
+	int						right_fork;
 }	t_philo;
+
+typedef struct s_base
+{
+	t_arg					*arg;
+	t_philo					*philo;
+	char					*fork;
+	long long				start_time;
+	long long				end_time;
+}	t_base;
 
 pthread_mutex_t	g_mutex;
 
@@ -52,25 +58,23 @@ pthread_mutex_t	g_mutex;
 
 /* init */
 int			arg_check(int argc, const char **argv);
-int			philo_init(int argc, const char **argv, t_philo *philo);
+int			philo_init(int argc, const char **argv, t_base *base);
 int			arg_init(int argc, const char **argv, t_arg *arg);
-int			init(int argc, const char **argv, t_philo *arg);
+int			init(int argc, const char **argv, t_base *base);
 
 
 /* philo_func */
 void		*philo_routine(void *philo);
-int			philo_func(t_philo *philo);
+int			philo_func(t_base *base, t_philo *philo, t_arg *arg);
 
 /* philo_act */
-int			sleeping(t_philo *philo, int *start, int *end);
-int			switch_fork(int left_fork, int right_fork);
-int			eating(t_philo *philo, int order);
-int			philo_act(t_philo *philo, int order, int *start, int *end);
+int			sleeping(t_base *base);
+int			switch_fork(char *left_fork, char *right_fork);
+int			eating(t_base *base);
+int			philo_act(t_base *base);
 
 /* time_func */
-int			is_dead(int *start, int *end, t_philo *philo);
-int			get_time(int *arr, struct timeval time);
-int			time_diff(int *start, int *end);
+long long	get_time_ms(void);
 
 
 /* ft_isdigit */

@@ -6,72 +6,74 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:34:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/16 22:07:09 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/17 18:28:32 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int	sleeping(t_philo *philo, int *start, int *end)
+void	thinking(void)
 {
-	usleep(philo->arg->time_to_sleep * 1000);
-	if ((is_dead(start, end, philo)) == IS_DEAD)
-			return (IS_DEAD);
+	return ;
+}
+
+int	sleeping(t_base *base)
+{
+	usleep(base->arg->time_sleep * 1000);
 	return (0);
 }
 
-int	switch_fork(int left_fork, int right_fork)
+int	switch_fork(char *left_fork, char *right_fork)
 {
-	if (left_fork == 1 && right_fork == 1)
+	if (*left_fork == 1 && *right_fork == 1)
 	{
-		left_fork = 0;
-		right_fork = 0;
+		*left_fork = 0;
+		*right_fork = 0;
 	}
-	else if (left_fork == 0 && right_fork == 0)
+	else if (*left_fork == 0 && *right_fork == 0)
 	{
-		left_fork = 1;
-		right_fork = 1;
+		*left_fork = 1;
+		*right_fork = 1;
 	}
 	else
 		return (IS_ERROR);
 	return (0);
 }
 
-int	eating(t_philo *philo, int order)
+int	eating(t_base *base)
 {
-	pthread_mutex_lock(&g_mutex);
-	switch_fork(philo->fork[(order + 1) % philo->arg->num_of_fork], \
-				philo->fork[order]);
-	usleep(philo->arg->time_to_eat * 1000);
-	switch_fork(philo->fork[(order + 1) % philo->arg->num_of_fork], \
-				philo->fork[order]);
-	pthread_mutex_unlock(&g_mutex);
+	switch_fork(&(base->fork[base->philo->left_fork]), \
+				&(base->fork[base->philo->right_fork]));
+	printf("thread[%d] : get fork!\n", base->philo->num + 1);
+
+	usleep(base->arg->time_eat * 1000);
+
+	printf("thread[%d] : eating . . .\n", base->philo->num + 1);
+	switch_fork(&(base->fork[base->philo->left_fork]), \
+				&(base->fork[base->philo->right_fork]));
+	printf("thread[%d] : put fork!\n\n", base->philo->num + 1);
 	return (0);
 }
 
-int	philo_act(t_philo *philo, int order, int *start, int *end)
+int	philo_act(t_base *base)
 {
-	if ((is_dead(start, end, philo)) == IS_DEAD)
-			return (IS_DEAD);
 	while (1)
 	{
-		get_time(start, philo->die_start);
-		if (philo->fork[(order + 1) % philo->arg->num_of_fork] && \
-			philo->fork[order])
+		if (base->fork[base->philo->left_fork] == 1 && \
+			base->fork[base->philo->right_fork] == 1)
 		{
-			if ((is_dead(start, end, philo)) == IS_DEAD)
-				return (IS_DEAD);
-			eating(philo, order);
-			get_time(start, philo->die_start);
+			pthread_mutex_lock(&g_mutex);
+			printf("thread[%d] : in fork\n", base->philo->num + 1);
+			eating(base);
+			pthread_mutex_unlock(&g_mutex);
 			break ;
 		}
-		if ((is_dead(start, end, philo)) == IS_DEAD)
-			return (IS_DEAD);
+		else
+		{
+			printf("thread[%d] : thinking . . .\n", base->philo->num + 1);
+			thinking();
+		}
 	}
-	if ((is_dead(start, end, philo)) == IS_DEAD)
-			return (IS_DEAD);
-	get_time(start, philo->die_start);
-	sleeping(philo, start, end);
-	get_time(start, philo->die_start);
+	sleeping(base);
 	return (0);
 }
