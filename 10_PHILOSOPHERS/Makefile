@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/16 17:05:04 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/08/16 21:53:21 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/08/19 16:36:54 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC					=	gcc
 CFLAGS				=	-g -fsanitize=address #-Wall -Wextra -Werror
 
 SRCS_NAME			=	main.c \
-						init.c \
+						base_init.c \
 						philo_func.c \
 						philo_act.c \
 						time_func.c \
@@ -42,6 +42,7 @@ all					:	$(NAME)
 
 clean				:
 						rm -rf $(OBJS)
+						rm -rf *.o
 
 fclean				:	clean
 						rm -rf $(NAME)
