@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/20 15:39:39 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/20 17:01:09 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,16 @@ int			base_init(int argc, const char **argv, t_base *base);
 
 /* philo_func */
 void		*philo_routine(void *philo);
-int			philo_func(t_base *base, t_philo *philo, t_arg *arg);
+int			philo_func(t_base *base, t_arg *arg, t_philo *philo);
 
 /* philo_act */
 int			sleeping(t_base base, t_arg arg, t_philo *philo);
-int			switch_fork(int *left_fork, int *right_fork);
+int			switch_fork(t_base base, t_arg arg, t_philo *philo);
 int			eating(t_base base, t_arg arg, t_philo *philo);
 int			philo_act(t_base base, t_arg arg, t_philo *philo);
 
 /* time_func */
-int			is_dead(t_base base, t_philo philo, t_arg arg);
+int			is_dead(t_base base, t_arg arg, t_philo philo);
 long long	get_time_ms(void);
 
 

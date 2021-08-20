@@ -6,13 +6,13 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 21:49:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/20 14:58:57 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/20 17:01:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int	is_dead(t_base base, t_philo philo, t_arg arg)
+int	is_dead(t_base base, t_arg arg, t_philo philo)
 {
 	int	i;
 
