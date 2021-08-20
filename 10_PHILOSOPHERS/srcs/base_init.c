@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:02:47 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/19 18:22:08 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/20 15:52:22 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,13 @@ int	arg_init(int argc, const char **argv, t_arg *arg)
 	if (arg->num_philo == 0)
 		return (IS_ERROR);
 	arg->num_fork = arg->num_philo;
-	arg->time_die = ft_atoi(argv[2]);
-	arg->time_eat = ft_atoi(argv[3]);
-	arg->time_sleep = ft_atoi(argv[4]);
+	arg->time_die_ms = ft_atoi(argv[2]);
+	arg->time_eat_ms = ft_atoi(argv[3]);
+	arg->time_sleep_ms = ft_atoi(argv[4]);
 	if (argc == 6)
 		arg->num_eat = ft_atoi(argv[5]);
+	else
+		arg->num_eat = 0;
 	return (0);
 }
 

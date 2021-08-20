@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/19 18:16:25 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/20 15:39:39 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@
 
 # define IS_ERROR -1
 # define IS_DEAD -42
+# define IS_DONE 0
 
 typedef struct s_arg
 {
 	int						num_philo;
 	int						num_fork;
-	int						time_die;
-	int						time_eat;
-	int						time_sleep;
+	long long				time_die_ms;
+	long long				time_eat_ms;
+	long long				time_sleep_ms;
 	int						num_eat;
 }	t_arg;
 
@@ -78,6 +79,7 @@ int			eating(t_base base, t_arg arg, t_philo *philo);
 int			philo_act(t_base base, t_arg arg, t_philo *philo);
 
 /* time_func */
+int			is_dead(t_base base, t_philo philo, t_arg arg);
 long long	get_time_ms(void);
 
 
