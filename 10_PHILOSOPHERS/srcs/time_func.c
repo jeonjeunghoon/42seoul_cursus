@@ -6,29 +6,34 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 21:49:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/20 17:01:51 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/22 21:05:19 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int	is_dead(t_base base, t_arg arg, t_philo philo)
+void	ft_usleep_ms(long long usleep_time)
 {
-	int	i;
+	long long	start_time;
+	long long	end_time;
+	long long	diff_time;
 
-	if (philo.end_time - philo.start_time < arg.time_die_ms)
+	start_time = get_time_ms();
+	diff_time = 0;
+	while (diff_time < usleep_time)
+	{
+		end_time = get_time_ms();
+		diff_time = end_time - start_time;
+		usleep(100);
+	}
+}
+
+int	is_dead(t_base base, t_arg arg, t_philo *philo)
+{
+	if (philo->end_time - philo->start_time < arg.time_die_ms)
 		return (0);
 	else
-	{
-		printf("\n###################\nthread[%d] - death\n###################\n", philo.num);
-		i = 0;
-		while (i < base.num_thread)
-		{
-			pthread_detach(*(philo.thread));
-			i++;
-		}
-	}
-	exit(1);
+		return (IS_DEAD);
 }
 
 long long	get_time_ms(void)

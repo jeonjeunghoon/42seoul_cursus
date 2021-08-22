@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/20 17:01:09 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/22 21:05:06 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <string.h>
 
 # define IS_ERROR -1
-# define IS_DEAD -42
+# define IS_DEAD 1
 # define IS_DONE 0
 
 typedef struct s_arg
@@ -42,7 +42,6 @@ typedef struct s_philo
 	int						right_fork;
 	long long				num_eating;
 	long long				num_sleeping;
-	long long				num_thinking;
 	long long				start_time;
 	long long				end_time;
 }	t_philo;
@@ -79,7 +78,8 @@ int			eating(t_base base, t_arg arg, t_philo *philo);
 int			philo_act(t_base base, t_arg arg, t_philo *philo);
 
 /* time_func */
-int			is_dead(t_base base, t_arg arg, t_philo philo);
+void		ft_usleep_ms(long long usleep_time);
+int			is_dead(t_base base, t_arg arg, t_philo *philo);
 long long	get_time_ms(void);
 
 

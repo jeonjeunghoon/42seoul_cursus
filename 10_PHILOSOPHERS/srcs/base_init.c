@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:02:47 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/20 15:52:22 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/22 20:25:48 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	philo_init(int argc, const char **argv, t_base *base)
 		base->philo[i].right_fork = base->philo[i].num - 1;
 		base->philo[i].num_eating = 0;
 		base->philo[i].num_sleeping = 0;
-		base->philo[i].num_thinking = 0;
 		base->philo[i].start_time = 0;
 		base->philo[i].end_time = 0;
 		i++;

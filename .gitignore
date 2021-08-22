@@ -3,7 +3,7 @@ push_swap_visualizer
 pipex-tester/
 pipex_medic/
 평가표/
-push_swap.pdf
+*.pdf
 *.o
 push_swap
 .DS_Store

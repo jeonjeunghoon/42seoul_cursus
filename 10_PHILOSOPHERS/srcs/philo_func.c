@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:57:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/20 17:16:16 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/22 21:12:03 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,16 @@ void	*philo_routine(void *routine_arg)
 	while (1)
 	{
 		philo.start_time = get_time_ms();
-		philo_act(*base, arg, &philo);
+		if ((philo_act(*base, arg, &philo)) == IS_DEAD)
+		{
+			printf("\n##################\nthread[%d] is dead\n##################\n\n", philo.num);
+			exit(1);
+		}
+		else
+		{
+			printf("\n@@@@@@@@@@@@@@@@@@\nthread[%d] is done\n@@@@@@@@@@@@@@@@@@\n\n", philo.num);
+			exit(1);
+		}
 	}
 }
 
