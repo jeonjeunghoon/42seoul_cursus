@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:02:47 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/22 20:25:48 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/23 18:26:14 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	philo_init(int argc, const char **argv, t_base *base)
 		base->philo[i].num_sleeping = 0;
 		base->philo[i].start_time = 0;
 		base->philo[i].end_time = 0;
+		base->philo[i].flag_eat = 0;
 		i++;
 	}
 	return (0);
@@ -58,6 +59,8 @@ int	arg_check(int argc, const char **argv)
 
 int	arg_init(int argc, const char **argv, t_arg *arg)
 {
+	int	i;
+
 	if ((arg_check(argc, argv)) == IS_ERROR)
 		return (IS_ERROR);
 	arg->num_philo = ft_atoi(argv[1]);
@@ -68,7 +71,10 @@ int	arg_init(int argc, const char **argv, t_arg *arg)
 	arg->time_eat_ms = ft_atoi(argv[3]);
 	arg->time_sleep_ms = ft_atoi(argv[4]);
 	if (argc == 6)
+	{
 		arg->num_eat = ft_atoi(argv[5]);
+		arg->is_done = 0;
+	}
 	else
 		arg->num_eat = 0;
 	return (0);
@@ -97,5 +103,6 @@ int	base_init(int argc, const char **argv, t_base *base)
 	while (i < base->arg->num_fork)
 		base->fork[i++] = 1;
 	base->num_thread = 0;
+	base->finish_flag = 1;
 	return (0);
 }

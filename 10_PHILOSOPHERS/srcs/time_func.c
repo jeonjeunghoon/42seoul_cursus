@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 21:49:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/22 21:05:19 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/23 18:33:19 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_usleep_ms(long long usleep_time)
 	}
 }
 
-int	is_dead(t_base base, t_arg arg, t_philo *philo)
+int	is_dead(t_arg *arg, t_philo *philo)
 {
 	if (philo->end_time - philo->start_time < arg.time_die_ms)
 		return (0);
