@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:57:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/25 17:25:06 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/25 17:38:05 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	*philo_routine(void *routine_arg)
 	base = (t_base *)routine_arg;
 	arg = base->arg;
 	philo = base->philo[base->thread_index];
-	wait_thread(base);
+	// wait_thread(base);
 	base->timestamp_start_ms = get_time_ms();
 	philo.start_time_ms = get_time_ms();
 	if (philo.num % 2 == 0)
-		ft_usleep_ms(100);
+		usleep(100 * (arg->num_philo - base->thread_index));
 	while (1)
 		philo_act(base, arg, &philo);
 }
