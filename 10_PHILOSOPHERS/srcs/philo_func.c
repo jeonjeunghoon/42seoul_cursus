@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:57:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/23 18:30:39 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/24 16:24:39 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,19 @@ int	wait_thread(t_base *base)
 void	*philo_routine(void *routine_arg)
 {
 	t_base	*base;
+	t_arg	*arg;
 	t_philo	philo;
 
 	base = (t_base *)routine_arg;
+	arg = base->arg;
 	philo = base->philo[base->num_thread];
 	wait_thread(base);
+	base->time_stamp = get_time_ms();
+	philo.start_time = get_time_ms();
 	while (1)
 	{
-		philo.start_time = get_time_ms();
-		base->finish_flag = philo_act(base, base->arg, &philo);
-		if (base->finish_flag == IS_DEAD)
+		base->finish_flag = philo_act(base, arg, &philo);
+		if (base->finish_flag == IS_DIED)
 		{
 			printf("\n\nPhilosopher[%d] is Dead\n\n\n", philo.num);
 			exit(1);
