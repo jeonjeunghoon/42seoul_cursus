@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:02:47 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/24 16:19:00 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/25 17:22:28 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	philo_init(int argc, const char **argv, t_base *base)
 		base->philo[i].right_fork = base->philo[i].num - 1;
 		base->philo[i].num_eating = 0;
 		base->philo[i].num_sleeping = 0;
-		base->philo[i].start_time = 0;
-		base->philo[i].end_time = 0;
+		base->philo[i].start_time_ms = 0;
+		base->philo[i].end_time_ms = 0;
 		base->philo[i].flag_eat = 0;
 		i++;
 	}
@@ -103,8 +103,10 @@ int	base_init(int argc, const char **argv, t_base *base)
 	i = 0;
 	while (i < base->arg->num_fork)
 		base->fork[i++] = 1;
-	base->num_thread = 0;
+	base->thread_index = 0;
 	base->finish_flag = 1;
-	base->time_stamp = 0;
+	base->timestamp_start_ms = 0;
+	base->timestamp_end_ms = 0;
+	base->timestamp_diff_ms = 0;
 	return (0);
 }

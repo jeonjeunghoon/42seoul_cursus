@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:57:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/24 16:24:39 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/25 17:25:06 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	wait_thread(t_base *base)
 {
 	while (1)
 	{
-		if (base->num_thread == base->arg->num_philo - 1)
+		if (base->thread_index == base->arg->num_philo - 1)
 			return (0);
 	}
 }
@@ -29,24 +29,14 @@ void	*philo_routine(void *routine_arg)
 
 	base = (t_base *)routine_arg;
 	arg = base->arg;
-	philo = base->philo[base->num_thread];
+	philo = base->philo[base->thread_index];
 	wait_thread(base);
-	base->time_stamp = get_time_ms();
-	philo.start_time = get_time_ms();
+	base->timestamp_start_ms = get_time_ms();
+	philo.start_time_ms = get_time_ms();
+	if (philo.num % 2 == 0)
+		ft_usleep_ms(100);
 	while (1)
-	{
-		base->finish_flag = philo_act(base, arg, &philo);
-		if (base->finish_flag == IS_DIED)
-		{
-			printf("\n\nPhilosopher[%d] is Dead\n\n\n", philo.num);
-			exit(1);
-		}
-		else if (base->finish_flag == IS_DONE)
-		{
-			printf("\n\nPhilosophers are Full\n\n\n");
-			exit(1);
-		}
-	}
+		philo_act(base, arg, &philo);
 }
 
 int	philo_func(t_base *base, t_arg *arg, t_philo *philo)
@@ -57,7 +47,7 @@ int	philo_func(t_base *base, t_arg *arg, t_philo *philo)
 	i = 0;
 	while (i < arg->num_philo)
 	{
-		base->num_thread = i;
+		base->thread_index = i;
 		pthread_create(philo[i].thread, base->attr, \
 						(void *)philo_routine, (void *)base->routine_arg);
 		usleep(200);

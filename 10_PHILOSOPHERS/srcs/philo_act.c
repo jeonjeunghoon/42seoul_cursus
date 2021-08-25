@@ -6,104 +6,113 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:34:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/24 16:29:19 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/25 17:20:37 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int	time_stamp(t_base *base, t_arg *arg, t_philo *philo, int flag)
+void	is_done(t_base *base, t_arg *arg, t_philo *philo)
 {
-	if (flag == IS_DIED)
-		printf("timestamp_in_ms %d died\n", philo->num);
-	else if (flag == IS_FORK)
-		printf("timestamp_in_ms %d has taken a fork\n", philo->num);
-	else if (flag == IS_EATING)
-		printf("timestamp_in_ms %d is eating\n", philo->num);
-	else if (flag == IS_SLEEPING)
-		printf("timestamp_in_ms %d is sleeping\n", philo->num);
-	else if (flag == IS_THINKING)
-		printf("timestamp_in_ms %d is thinking\n", philo->num);
+	philo->end_time_ms = get_time_ms();
+	is_died(base, arg, philo);
+	if ((philo->num_eating == arg->num_eat) && philo->flag_eat != 1)
+	{
+		arg->is_done++;
+		philo->flag_eat = 1;
+		if (arg->is_done == arg->num_philo)
+		{
+			time_stamp(base, arg, philo, IS_DONE);
+			exit(1);
+		}
+	}
 }
 
-int	sleeping(t_base *base, t_arg *arg, t_philo *philo)
+void	is_died(t_base *base, t_arg *arg, t_philo *philo)
 {
-	philo->end_time = get_time_ms();
-	if ((is_died(*arg, philo)) == IS_DIED)
-		return (IS_DIED);
-	// 가능한지 검사
+	if (philo->end_time_ms - philo->start_time_ms < arg->time_die_ms)
+		return ;
+	time_stamp(base, arg, philo, IS_DIED);
+	exit(1);
+}
+
+void	sleeping(t_base *base, t_arg *arg, t_philo *philo)
+{
+	philo->end_time_ms = get_time_ms();
+	is_died(base, arg, philo);
+	is_enough(base, arg, philo, arg->time_sleep_ms);
 	ft_usleep_ms(arg->time_sleep_ms);
 	philo->num_sleeping++;
+	time_stamp(base, arg, philo, IS_SLEEPING);
+}
+
+void	put_fork(t_base *base, t_arg *arg, t_philo *philo)
+{
+	philo->end_time_ms = get_time_ms();
+	is_died(base, arg, philo);
+	if (base->fork[philo->left_fork] == 0 && \
+		base->fork[philo->right_fork] == 0 && \
+		base->arg->num_philo != 1)
+	{
+		pthread_mutex_lock(&(base->mutex));
+		base->fork[philo->left_fork] = 1;
+		base->fork[philo->right_fork] = 1;
+		pthread_mutex_unlock(&(base->mutex));
+	}
+}
+
+int	take_fork(t_base *base, t_arg *arg, t_philo *philo)
+{
+	philo->end_time_ms = get_time_ms();
+	is_died(base, arg, philo);
+	if (base->fork[philo->left_fork] == 1 && \
+		base->fork[philo->right_fork] == 1 && \
+		base->arg->num_philo != 1)
+	{
+		pthread_mutex_lock(&(base->mutex));
+		base->fork[philo->left_fork] = 0;
+		base->fork[philo->right_fork] = 0;
+		time_stamp(base, arg, philo, IS_FORK);
+		pthread_mutex_unlock(&(base->mutex));
+		return (1);
+	}
 	return (0);
 }
 
-int	switch_fork(t_base *base, t_arg *arg, t_philo *philo)
+void	eating(t_base *base, t_arg *arg, t_philo *philo)
 {
-	philo->end_time = get_time_ms();
-	if ((is_died(*arg, philo)) == IS_DIED)
-		return (IS_DIED);
-	if (philo->left_fork == 1 && philo->right_fork == 1)
+	philo->end_time_ms = get_time_ms();
+	is_died(base, arg, philo);
+	if (base->fork[philo->left_fork] == 0 && \
+		base->fork[philo->right_fork] == 0)
 	{
-		philo->left_fork = 0;
-		philo->right_fork = 0;
-		// time_stamp 호출;
+		is_enough(base, arg, philo, arg->time_eat_ms);
+		ft_usleep_ms(arg->time_eat_ms);
+		philo->start_time_ms = get_time_ms();
+		philo->num_eating++;
+		time_stamp(base, arg, philo, IS_EATING);
 	}
-	else if (philo->left_fork == 0 && philo->right_fork == 0)
-	{
-		philo->left_fork = 1;
-		philo->right_fork = 1;
-	}
-	else
-		return (IS_ERROR);
-	return (0);
 }
 
-int	eating(t_base *base, t_arg *arg, t_philo *philo)
+void	thinking(t_base *base, t_arg *arg, t_philo *philo)
 {
-	philo->end_time = get_time_ms();
-	if ((is_died(*arg, philo)) == IS_DIED)
-		return (IS_DIED);
-	if ((switch_fork(base, arg, philo)) == IS_ERROR)
-		return (IS_ERROR);
-	// 가능한 지 검사
-	ft_usleep_ms(arg->time_eat_ms);
-	philo->num_eating++;
-	philo->start_time = get_time_ms();
-	if ((switch_fork(base, arg, philo)) == IS_ERROR)
-		return (IS_ERROR);
-	return (0);
+	philo->end_time_ms = get_time_ms();
+	is_died(base, arg, philo);
+	time_stamp(base, arg, philo, IS_THINKING);
 }
 
 int	philo_act(t_base *base, t_arg *arg, t_philo *philo)
 {
 	while (1)
 	{
-		// thinking 함수
-		if (base->fork[philo->left_fork] == 1 && \
-			base->fork[philo->right_fork] == 1 && \
-			base->arg->num_philo != 1)
-		{
-			// 세가지 함수로 나누가
-			pthread_mutex_lock(&base->mutex);
-			if ((eating(base, arg, philo)) == IS_DIED)
-				return (IS_DIED);
-			pthread_mutex_unlock(&base->mutex);
-			// 요기 까지
-
-			// 6번째 인자 있을 때
-			if (arg->num_eat > 0 && (philo->num_eating == arg->num_eat) && philo->flag_eat != 1)
-			{
-				arg->is_done++;
-				philo->flag_eat = 1;
-				if (arg->is_done == arg->num_philo)
-					return (IS_DONE);
-			}
-			// 사용
-			
-			break ;
-		}
+		thinking(base, arg, philo);
+		if ((take_fork(base, arg, philo)) == 1)
+			break ;	
 	}
-	if ((sleeping(base, arg, philo)) == IS_DIED)
-		return (IS_DIED);
+	eating(base, arg, philo);
+	put_fork(base, arg, philo);
+	if (arg->num_eat > 0)
+		is_done(base, arg, philo);
+	sleeping(base, arg, philo);
 	return (1);
 }
