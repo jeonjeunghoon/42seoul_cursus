@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:34:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/25 17:20:37 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/25 18:00:04 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	is_done(t_base *base, t_arg *arg, t_philo *philo)
 			exit(1);
 		}
 	}
+	philo->end_time_ms = get_time_ms();
+	is_died(base, arg, philo);
 }
 
 void	is_died(t_base *base, t_arg *arg, t_philo *philo)
@@ -44,6 +46,8 @@ void	sleeping(t_base *base, t_arg *arg, t_philo *philo)
 	ft_usleep_ms(arg->time_sleep_ms);
 	philo->num_sleeping++;
 	time_stamp(base, arg, philo, IS_SLEEPING);
+	philo->end_time_ms = get_time_ms();
+	is_died(base, arg, philo);
 }
 
 void	put_fork(t_base *base, t_arg *arg, t_philo *philo)
@@ -59,6 +63,8 @@ void	put_fork(t_base *base, t_arg *arg, t_philo *philo)
 		base->fork[philo->right_fork] = 1;
 		pthread_mutex_unlock(&(base->mutex));
 	}
+	philo->end_time_ms = get_time_ms();
+	is_died(base, arg, philo);
 }
 
 int	take_fork(t_base *base, t_arg *arg, t_philo *philo)
@@ -76,6 +82,8 @@ int	take_fork(t_base *base, t_arg *arg, t_philo *philo)
 		pthread_mutex_unlock(&(base->mutex));
 		return (1);
 	}
+	philo->end_time_ms = get_time_ms();
+	is_died(base, arg, philo);
 	return (0);
 }
 
@@ -92,6 +100,8 @@ void	eating(t_base *base, t_arg *arg, t_philo *philo)
 		philo->num_eating++;
 		time_stamp(base, arg, philo, IS_EATING);
 	}
+	philo->end_time_ms = get_time_ms();
+	is_died(base, arg, philo);
 }
 
 void	thinking(t_base *base, t_arg *arg, t_philo *philo)

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 21:49:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/25 17:25:58 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/25 17:59:27 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,17 @@ void	is_enough(t_base *base, t_arg *arg, t_philo *philo, long long required_time
 
 void	ft_usleep_ms(long long usleep_time)
 {
-	long long	start_time;
-	long long	end_time;
-	long long	diff_time;
+	long long	start_time_ms;
+	long long	end_time_ms;
+	long long	diff_time_ms;
 
-	start_time = get_time_ms();
-	end_time = get_time_ms();
-	diff_time = end_time - start_time;
-	while (diff_time < usleep_time)
+	start_time_ms = get_time_ms();
+	diff_time_ms = 0;
+	while (diff_time_ms < usleep_time)
 	{
-		end_time = get_time_ms();
-		diff_time = end_time - start_time;
+		end_time_ms = get_time_ms();
+		diff_time_ms = end_time_ms - start_time_ms;
+		usleep(50);
 	}
 }
 

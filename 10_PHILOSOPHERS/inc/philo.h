@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/25 17:22:09 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/25 17:49:45 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int			arg_init(int argc, const char **argv, t_arg *arg);
 int			base_init(int argc, const char **argv, t_base *base);
 
 /* philo_func */
-int			wait_thread(t_base *base);
 void		*philo_routine(void *philo);
 int			philo_func(t_base *base, t_arg *arg, t_philo *philo);
 
