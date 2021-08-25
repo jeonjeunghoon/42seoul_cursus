@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/25 17:49:45 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/25 18:08:40 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,20 @@ int			philo_func(t_base *base, t_arg *arg, t_philo *philo);
 /* philo_act */
 void		is_done(t_base *base, t_arg *arg, t_philo *philo);
 void		is_died(t_base *base, t_arg *arg, t_philo *philo);
+int			philo_act(t_base *base, t_arg *arg, t_philo *philo);
+
+/* philo_act2 */
 void		sleeping(t_base *base, t_arg *arg, t_philo *philo);
 void		put_fork(t_base *base, t_arg *arg, t_philo *philo);
 int			take_fork(t_base *base, t_arg *arg, t_philo *philo);
 void		eating(t_base *base, t_arg *arg, t_philo *philo);
 void		thinking(t_base *base, t_arg *arg, t_philo *philo);
-int			philo_act(t_base *base, t_arg *arg, t_philo *philo);
 
 /* time_func */
-void		time_stamp(t_base *base, t_arg *arg, t_philo *philo, int flag);
-void		is_enough(t_base *base, t_arg *arg, t_philo *philo, long long required_time_ms);
+void		time_stamp(t_base *base, t_arg *arg, t_philo *philo, \
+			int flag);
+void		is_enough(t_base *base, t_arg *arg, t_philo *philo, \
+			long long required_time_ms);
 void		ft_usleep_ms(long long usleep_time);
 long long	get_time_ms(void);
 

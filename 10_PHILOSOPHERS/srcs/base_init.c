@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:02:47 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/25 17:22:28 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/25 18:04:34 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,6 @@ int	base_init(int argc, const char **argv, t_base *base)
 	i = 0;
 	while (i < base->arg->num_fork)
 		base->fork[i++] = 1;
-	base->thread_index = 0;
 	base->finish_flag = 1;
-	base->timestamp_start_ms = 0;
-	base->timestamp_end_ms = 0;
-	base->timestamp_diff_ms = 0;
 	return (0);
 }

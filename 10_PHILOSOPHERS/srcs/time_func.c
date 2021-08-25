@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 21:49:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/25 17:59:27 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/25 18:06:20 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	time_stamp(t_base *base, t_arg *arg, t_philo *philo, int flag)
 	if (flag == IS_DIED)
 		printf("%lld %d died\n", base->timestamp_diff_ms, philo->num);
 	else if (flag == IS_FORK)
-		printf("%lld %d has taken a fork\n", base->timestamp_diff_ms, philo->num);
+		printf("%lld %d has taken a fork\n", base->timestamp_diff_ms, \
+											philo->num);
 	else if (flag == IS_EATING)
 		printf("%lld %d is eating\n", \
 		base->timestamp_diff_ms, philo->num);
@@ -32,7 +33,8 @@ void	time_stamp(t_base *base, t_arg *arg, t_philo *philo, int flag)
 		printf("%lld philosophers are full\n", base->timestamp_diff_ms);
 }
 
-void	is_enough(t_base *base, t_arg *arg, t_philo *philo, long long required_time_ms)
+void	is_enough(t_base *base, t_arg *arg, t_philo *philo, \
+				long long required_time_ms)
 {
 	long long	left_time_ms;
 

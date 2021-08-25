@@ -6,18 +6,19 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/16 17:05:04 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/08/19 16:36:54 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/08/25 18:10:22 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				=	philo
 CC					=	gcc
-CFLAGS				=	-g -fsanitize=address #-Wall -Wextra -Werror
+CFLAGS				=	-g -fsanitize=address -Wall -Wextra -Werror
 
 SRCS_NAME			=	main.c \
 						base_init.c \
 						philo_func.c \
 						philo_act.c \
+						philo_act2.c \
 						time_func.c \
 						ft_isdigit.c \
 						ft_atoi.c
