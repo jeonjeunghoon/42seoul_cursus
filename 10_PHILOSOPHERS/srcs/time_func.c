@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 21:49:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/26 15:11:19 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/26 18:47:53 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	time_stamp(t_base *base, t_philo *philo, int flag)
 	else if (flag == IS_SLEEPING)
 		printf("%lld %d is sleeping\n", \
 		base->timestamp_diff_ms, philo->num);
-	// else if (flag == IS_THINKING)
-	// 	printf("%lld %d is thinking\n", base->timestamp_diff_ms, philo->num);
+	else if (flag == IS_THINKING)
+		printf("%lld %d is thinking\n", base->timestamp_diff_ms, philo->num);
 	else if (flag == IS_DONE)
 		printf("%lld philosophers are full\n", base->timestamp_diff_ms);
 }

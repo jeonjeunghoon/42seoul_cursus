@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/26 17:57:29 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/26 18:46:26 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_base
 int			fork_mutex_init(t_base *base);
 int			philo_init(t_base *base);
 int			arg_check(int argc, const char **argv);
-int			arg_init(int argc, const char **argv, t_arg *arg);
+int			arg_init(int argc, const char **argv, t_base *base);
 int			base_init(int argc, const char **argv, t_base **base);
 
 /* philo_func */

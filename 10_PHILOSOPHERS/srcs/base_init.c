@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:02:47 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/26 17:59:42 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/26 18:47:40 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	fork_mutex_init(t_base *base)
 	base->fork = (int *)malloc(sizeof(int) * (base->arg->num_fork));
 	if (base->fork == NULL)
 		return (IS_ERROR);
-	base->mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * (base->arg->num_fork));
+	base->mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * \
+											(base->arg->num_fork));
 	if (base->mutex == NULL)
 		return (IS_ERROR);
 	i = 0;
@@ -36,6 +37,9 @@ int	philo_init(t_base *base)
 {
 	int	i;
 
+	base->philo = (t_philo *)malloc(sizeof(t_philo) * (base->arg->num_philo));
+	if (base->philo == NULL)
+		return (IS_ERROR);
 	i = 0;
 	while (i < base->arg->num_philo)
 	{
@@ -77,44 +81,41 @@ int	arg_check(int argc, const char **argv)
 	return (0);
 }
 
-int	arg_init(int argc, const char **argv, t_arg *arg)
+int	arg_init(int argc, const char **argv, t_base *base)
 {
-	(*base)->arg = (t_arg *)malloc(sizeof(t_arg));
-	if ((*base)->arg == NULL)
+	base->arg = (t_arg *)malloc(sizeof(t_arg));
+	if (base->arg == NULL)
 		return (IS_ERROR);
 	if ((arg_check(argc, argv)) == IS_ERROR)
 		return (IS_ERROR);
-	arg->num_philo = ft_atoi(argv[1]);
-	if (arg->num_philo == 0)
+	base->arg->num_philo = ft_atoi(argv[1]);
+	if (base->arg->num_philo == 0)
 		return (IS_ERROR);
-	arg->num_fork = arg->num_philo;
-	arg->time_die_ms = ft_atoi(argv[2]);
-	arg->time_eat_ms = ft_atoi(argv[3]);
-	arg->time_sleep_ms = ft_atoi(argv[4]);
+	base->arg->num_fork = base->arg->num_philo;
+	base->arg->time_die_ms = ft_atoi(argv[2]);
+	base->arg->time_eat_ms = ft_atoi(argv[3]);
+	base->arg->time_sleep_ms = ft_atoi(argv[4]);
 	if (argc == 6)
 	{
-		arg->num_eat = ft_atoi(argv[5]);
-		arg->is_done = 0;
+		base->arg->num_eat = ft_atoi(argv[5]);
+		base->arg->is_done = 0;
 	}
 	else
-		arg->num_eat = 0;
+		base->arg->num_eat = 0;
 	return (0);
 }
 
 int	base_init(int argc, const char **argv, t_base **base)
 {
 	(*base) = (t_base *)malloc(sizeof(t_base));
-	if ((*base)== NULL)
+	(*base)->attr = NULL;
+	(*base)->routine_arg = (void *)(*base);
+	if ((*base) == NULL)
 		exit(1);
-	if ((arg_init(argc, argv, (*base)->arg)) == IS_ERROR)
-		return (IS_ERROR);
-	(*base)->philo = (t_philo *)malloc(sizeof(t_philo) * ((*base)->arg->num_philo));
-	if ((*base)->philo == NULL)
+	if ((arg_init(argc, argv, *base)) == IS_ERROR)
 		return (IS_ERROR);
 	if ((philo_init(*base)) == IS_ERROR)
 		return (IS_ERROR);
-	(*base)->attr = NULL;
-	(*base)->routine_arg = (void *)(*base);
 	if ((fork_mutex_init(*base)) == IS_ERROR)
 		return (IS_ERROR);
 	(*base)->finish_flag = 1;
