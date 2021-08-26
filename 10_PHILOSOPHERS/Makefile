@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/16 17:05:04 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/08/25 18:10:22 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/08/26 17:56:07 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS_NAME			=	main.c \
 						philo_act.c \
 						philo_act2.c \
 						time_func.c \
+						base_free.c \
 						ft_isdigit.c \
 						ft_atoi.c
 

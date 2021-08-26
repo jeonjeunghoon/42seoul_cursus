@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/26 15:12:12 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/26 17:57:29 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ typedef struct s_base
 	t_philo					*philo;
 	const pthread_attr_t	*attr;
 	void					*routine_arg;
-	pthread_mutex_t			mutex;
 	int						*fork;
+	pthread_mutex_t			*mutex;
 	int						thread_index;
 	long long				timestamp_start_ms;
 	long long				timestamp_end_ms;
@@ -68,10 +68,11 @@ typedef struct s_base
 }	t_base;
 
 /* init */
-int			arg_check(int argc, const char **argv);
+int			fork_mutex_init(t_base *base);
 int			philo_init(t_base *base);
+int			arg_check(int argc, const char **argv);
 int			arg_init(int argc, const char **argv, t_arg *arg);
-int			base_init(int argc, const char **argv, t_base *base);
+int			base_init(int argc, const char **argv, t_base **base);
 
 /* philo_func */
 void		*philo_routine(void *philo);
@@ -96,6 +97,12 @@ void		is_enough(t_base *base, t_arg *arg, t_philo *philo, \
 			long long required_time_ms);
 void		ft_usleep_ms(long long usleep_time);
 long long	get_time_ms(void);
+
+/* base_free */
+int			fork_mutex_free(t_base *base, int num_fork);
+int			philo_free(t_philo **philo, int num_philo);
+int			arg_free(t_arg **arg);
+int			base_free(t_base **base);
 
 /* ft_isdigit */
 int			ft_isdigit(int c);

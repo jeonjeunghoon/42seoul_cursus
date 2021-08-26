@@ -6,11 +6,31 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:02:47 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/26 15:10:20 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/26 17:59:42 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+int	fork_mutex_init(t_base *base)
+{
+	int	i;
+
+	base->fork = (int *)malloc(sizeof(int) * (base->arg->num_fork));
+	if (base->fork == NULL)
+		return (IS_ERROR);
+	base->mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * (base->arg->num_fork));
+	if (base->mutex == NULL)
+		return (IS_ERROR);
+	i = 0;
+	while (i < base->arg->num_fork)
+	{
+		base->fork[i] = 1;
+		pthread_mutex_init(&(base->mutex[i]), NULL);
+		i++;
+	}
+	return (0);
+}
 
 int	philo_init(t_base *base)
 {
@@ -59,6 +79,9 @@ int	arg_check(int argc, const char **argv)
 
 int	arg_init(int argc, const char **argv, t_arg *arg)
 {
+	(*base)->arg = (t_arg *)malloc(sizeof(t_arg));
+	if ((*base)->arg == NULL)
+		return (IS_ERROR);
 	if ((arg_check(argc, argv)) == IS_ERROR)
 		return (IS_ERROR);
 	arg->num_philo = ft_atoi(argv[1]);
@@ -78,29 +101,22 @@ int	arg_init(int argc, const char **argv, t_arg *arg)
 	return (0);
 }
 
-int	base_init(int argc, const char **argv, t_base *base)
+int	base_init(int argc, const char **argv, t_base **base)
 {
-	int	i;
-
-	base->arg = (t_arg *)malloc(sizeof(t_arg));
-	if (base->arg == NULL)
+	(*base) = (t_base *)malloc(sizeof(t_base));
+	if ((*base)== NULL)
+		exit(1);
+	if ((arg_init(argc, argv, (*base)->arg)) == IS_ERROR)
 		return (IS_ERROR);
-	if ((arg_init(argc, argv, base->arg)) == IS_ERROR)
+	(*base)->philo = (t_philo *)malloc(sizeof(t_philo) * ((*base)->arg->num_philo));
+	if ((*base)->philo == NULL)
 		return (IS_ERROR);
-	base->philo = (t_philo *)malloc(sizeof(t_philo) * (base->arg->num_philo));
-	if (base->philo == NULL)
+	if ((philo_init(*base)) == IS_ERROR)
 		return (IS_ERROR);
-	if ((philo_init(base)) == IS_ERROR)
+	(*base)->attr = NULL;
+	(*base)->routine_arg = (void *)(*base);
+	if ((fork_mutex_init(*base)) == IS_ERROR)
 		return (IS_ERROR);
-	base->attr = NULL;
-	base->routine_arg = (void *)base;
-	pthread_mutex_init(&(base->mutex), NULL);
-	base->fork = (int *)malloc(sizeof(int) * (base->arg->num_fork));
-	if (base->fork == NULL)
-		return (IS_ERROR);
-	i = 0;
-	while (i < base->arg->num_fork)
-		base->fork[i++] = 1;
-	base->finish_flag = 1;
+	(*base)->finish_flag = 1;
 	return (0);
 }
