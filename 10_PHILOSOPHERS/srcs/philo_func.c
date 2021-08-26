@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:57:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/25 17:52:04 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/26 15:12:43 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	philo_func(t_base *base, t_arg *arg, t_philo *philo)
 		usleep(200);
 		i++;
 	}
+	value_ptr = NULL;
 	i = 0;
 	while (i < arg->num_philo)
 	{

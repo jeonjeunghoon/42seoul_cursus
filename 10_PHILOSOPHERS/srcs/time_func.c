@@ -6,13 +6,13 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 21:49:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/25 18:06:20 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/26 15:11:19 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	time_stamp(t_base *base, t_arg *arg, t_philo *philo, int flag)
+void	time_stamp(t_base *base, t_philo *philo, int flag)
 {
 	base->timestamp_end_ms = get_time_ms();
 	base->timestamp_diff_ms = base->timestamp_end_ms - base->timestamp_start_ms;
@@ -42,7 +42,7 @@ void	is_enough(t_base *base, t_arg *arg, t_philo *philo, \
 	left_time_ms = philo->end_time_ms - philo->start_time_ms + required_time_ms;
 	if (left_time_ms >= arg->time_die_ms)
 	{
-		time_stamp(base, arg, philo, IS_DIED);
+		time_stamp(base, philo, IS_DIED);
 		exit(1);
 	}
 }

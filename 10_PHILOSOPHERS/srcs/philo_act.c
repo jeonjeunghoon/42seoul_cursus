@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:34:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/25 18:09:14 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/26 15:11:40 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	is_done(t_base *base, t_arg *arg, t_philo *philo)
 		philo->flag_eat = 1;
 		if (arg->is_done == arg->num_philo)
 		{
-			time_stamp(base, arg, philo, IS_DONE);
+			time_stamp(base, philo, IS_DONE);
 			exit(1);
 		}
 	}
@@ -34,7 +34,7 @@ void	is_died(t_base *base, t_arg *arg, t_philo *philo)
 {
 	if (philo->end_time_ms - philo->start_time_ms < arg->time_die_ms)
 		return ;
-	time_stamp(base, arg, philo, IS_DIED);
+	time_stamp(base, philo, IS_DIED);
 	exit(1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/25 18:08:40 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/26 15:12:12 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_base
 
 /* init */
 int			arg_check(int argc, const char **argv);
-int			philo_init(int argc, const char **argv, t_base *base);
+int			philo_init(t_base *base);
 int			arg_init(int argc, const char **argv, t_arg *arg);
 int			base_init(int argc, const char **argv, t_base *base);
 
@@ -90,7 +90,7 @@ void		eating(t_base *base, t_arg *arg, t_philo *philo);
 void		thinking(t_base *base, t_arg *arg, t_philo *philo);
 
 /* time_func */
-void		time_stamp(t_base *base, t_arg *arg, t_philo *philo, \
+void		time_stamp(t_base *base, t_philo *philo, \
 			int flag);
 void		is_enough(t_base *base, t_arg *arg, t_philo *philo, \
 			long long required_time_ms);
@@ -104,7 +104,7 @@ int			ft_isdigit(int c);
 void		ft_isspace(const unsigned char **pp);
 long long	isminus(const unsigned char **pp);
 long long	make_num(const unsigned char **pp, int sign);
-void		ft_except(const char *str, long long num);
+void		ft_except(const char *str);
 long long	ft_atoi(const char *str);
 
 #endif

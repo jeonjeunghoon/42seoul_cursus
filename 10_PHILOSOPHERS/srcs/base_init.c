@@ -6,13 +6,13 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:02:47 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/25 18:04:34 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/26 15:10:20 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int	philo_init(int argc, const char **argv, t_base *base)
+int	philo_init(t_base *base)
 {
 	int	i;
 
@@ -59,8 +59,6 @@ int	arg_check(int argc, const char **argv)
 
 int	arg_init(int argc, const char **argv, t_arg *arg)
 {
-	int	i;
-
 	if ((arg_check(argc, argv)) == IS_ERROR)
 		return (IS_ERROR);
 	arg->num_philo = ft_atoi(argv[1]);
@@ -92,7 +90,7 @@ int	base_init(int argc, const char **argv, t_base *base)
 	base->philo = (t_philo *)malloc(sizeof(t_philo) * (base->arg->num_philo));
 	if (base->philo == NULL)
 		return (IS_ERROR);
-	if ((philo_init(argc, argv, base)) == IS_ERROR)
+	if ((philo_init(base)) == IS_ERROR)
 		return (IS_ERROR);
 	base->attr = NULL;
 	base->routine_arg = (void *)base;
