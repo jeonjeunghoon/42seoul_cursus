@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:57:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/27 01:38:23 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/27 02:13:27 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,13 @@ void	*philo_routine(void *routine_arg)
 	philo->start_ms = get_time_ms();
 	if (philo->num % 2 == 1)
 		usleep(10 * (arg->num_philo - base->thread_index));
-	is_died(base, arg, philo);
+	if ((is_die(base, arg, philo)) == IS_DIE)
+		return ((void **)IS_DIE);
 	while (1)
-		philo_act(base, arg, philo);
+	{
+		if ((philo_act(base, arg, philo)) == IS_DIE)
+			return ((void **)IS_DIE);
+	}
 }
 
 int	philo_func(t_base *base, t_arg *arg, t_philo *philo)
@@ -41,7 +45,6 @@ int	philo_func(t_base *base, t_arg *arg, t_philo *philo)
 		base->thread_index = i;
 		pthread_create(philo[i].thread, base->attr, \
 						(void *)philo_routine, (void *)base->routine_arg);
-		usleep(200);
 		i++;
 	}
 	value_ptr = NULL;

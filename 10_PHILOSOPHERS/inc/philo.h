@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/27 01:32:13 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/27 02:16:27 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define IS_EATING 1
 # define IS_SLEEPING 2
 # define IS_THINKING 3
-# define IS_DIED 4
+# define IS_DIE 4
 # define IS_DONE 5
 
 typedef struct s_arg
@@ -60,12 +60,16 @@ typedef struct s_base
 	const pthread_attr_t	*attr;
 	void					*routine_arg;
 	pthread_mutex_t			*fork;
+	int						*philo_fork;
 	int						thread_index;
 	long long				timestamp_start_ms;
 	long long				timestamp_end_ms;
 	long long				timestamp_diff_ms;
-	int						finish_flag;
+	int						is_die;
 }	t_base;
+
+/* main */
+int			except(int argc);
 
 /* init */
 int			fork_mutex_init(t_base *base);
@@ -79,21 +83,21 @@ void		*philo_routine(void *philo);
 int			philo_func(t_base *base, t_arg *arg, t_philo *philo);
 
 /* philo_act */
-void		act_except(t_base *base, t_arg *arg, t_philo *philo);
-void		is_done(t_base *base, t_arg *arg, t_philo *philo);
-void		is_died(t_base *base, t_arg *arg, t_philo *philo);
+int			is_done(t_base *base, t_arg *arg, t_philo *philo);
+int			is_die(t_base *base, t_arg *arg, t_philo *philo);
+int			act_except(t_base *base, t_arg *arg, t_philo *philo);
 int			philo_act(t_base *base, t_arg *arg, t_philo *philo);
 
 /* philo_act2 */
-void		sleeping(t_base *base, t_arg *arg, t_philo *philo);
-void		put_fork(t_base *base, t_arg *arg, t_philo *philo);
+int			thinking(t_base *base, t_arg *arg, t_philo *philo);
+int			sleeping(t_base *base, t_arg *arg, t_philo *philo);
+int			put_fork(t_base *base, t_arg *arg, t_philo *philo);
+int			eating(t_base *base, t_arg *arg, t_philo *philo);
 int			take_fork(t_base *base, t_arg *arg, t_philo *philo);
-void		eating(t_base *base, t_arg *arg, t_philo *philo);
-void		thinking(t_base *base, t_arg *arg, t_philo *philo);
 
 /* time_func */
 void		time_stamp(t_base *base, t_philo *philo, int flag);
-void		is_enough(t_base *base, t_arg *arg, t_philo *philo, \
+int			is_enough(t_base *base, t_arg *arg, t_philo *philo, \
 			long long required_time_ms);
 void		ft_usleep_ms(long long usleep_time);
 long long	get_time_ms(void);

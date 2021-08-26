@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 21:49:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/27 01:32:23 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/27 02:08:55 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	time_stamp(t_base *base, t_philo *philo, int flag)
 
 	end_ms = get_time_ms();
 	diff_ms = end_ms - base->timestamp_start_ms;
-	if (flag == IS_DIED)
+	if (flag == IS_DIE)
 		printf("%lld %d died\n", diff_ms, philo->num);
 	else if (flag == IS_FORK)
 		printf("%lld %d has taken a fork\n", diff_ms, philo->num);
@@ -33,7 +33,7 @@ void	time_stamp(t_base *base, t_philo *philo, int flag)
 		printf("%lld philosophers are full\n", diff_ms);
 }
 
-void	is_enough(t_base *base, t_arg *arg, t_philo *philo, \
+int	is_enough(t_base *base, t_arg *arg, t_philo *philo, \
 				long long required_ms)
 {
 	long long	left_ms;
@@ -43,9 +43,10 @@ void	is_enough(t_base *base, t_arg *arg, t_philo *philo, \
 	if (left_ms >= arg->die_ms)
 	{
 		ft_usleep_ms(required_ms);
-		time_stamp(base, philo, IS_DIED);
-		exit(1);
+		is_die(base, arg, philo);
+		return (IS_DIE);
 	}
+	return (0);
 }
 
 void	ft_usleep_ms(long long time_ms)

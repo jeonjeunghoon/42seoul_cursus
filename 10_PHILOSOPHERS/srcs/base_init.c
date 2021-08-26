@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:02:47 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/27 01:32:44 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/27 02:01:47 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ int	fork_mutex_init(t_base *base)
 											(base->arg->num_fork));
 	if (base->fork == NULL)
 		return (IS_ERROR);
+	base->philo_fork = (int *)malloc(sizeof(int) * base->arg->num_fork);
+	if (base->philo_fork == NULL)
+		return (IS_ERROR);
 	i = 0;
 	while (i < base->arg->num_fork)
 	{
 		pthread_mutex_init(&(base->fork[i]), NULL);
+		base->philo_fork[i] = 0;
 		i++;
 	}
 	return (0);
@@ -114,6 +118,6 @@ int	base_init(int argc, const char **argv, t_base **base)
 		return (IS_ERROR);
 	if ((fork_mutex_init(*base)) == IS_ERROR)
 		return (IS_ERROR);
-	(*base)->finish_flag = 1;
+	(*base)->is_die = 0;
 	return (0);
 }
