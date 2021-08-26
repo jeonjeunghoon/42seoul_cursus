@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/26 17:37:41 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/26 18:48:07 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/27 01:23:55 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@ int	fork_mutex_free(t_base *base, int num_fork)
 	i = 0;
 	while (i < num_fork)
 	{
-		pthread_mutex_destroy(&(base->mutex[i]));
+		pthread_mutex_destroy(&(base->fork[i]));
 		i++;
 	}
-	free(base->fork);
-	free(base->mutex);
 	return (0);
 }
 

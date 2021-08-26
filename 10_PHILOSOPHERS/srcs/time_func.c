@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 21:49:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/26 18:47:53 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/27 01:32:23 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,52 @@
 
 void	time_stamp(t_base *base, t_philo *philo, int flag)
 {
-	base->timestamp_end_ms = get_time_ms();
-	base->timestamp_diff_ms = base->timestamp_end_ms - base->timestamp_start_ms;
+	long long	end_ms;
+	long long	diff_ms;
+
+	end_ms = get_time_ms();
+	diff_ms = end_ms - base->timestamp_start_ms;
 	if (flag == IS_DIED)
-		printf("%lld %d died\n", base->timestamp_diff_ms, philo->num);
+		printf("%lld %d died\n", diff_ms, philo->num);
 	else if (flag == IS_FORK)
-		printf("%lld %d has taken a fork\n", base->timestamp_diff_ms, \
-											philo->num);
+		printf("%lld %d has taken a fork\n", diff_ms, philo->num);
 	else if (flag == IS_EATING)
-		printf("%lld %d is eating\n", \
-		base->timestamp_diff_ms, philo->num);
+		printf("%lld %d is eating\n", diff_ms, philo->num);
 	else if (flag == IS_SLEEPING)
-		printf("%lld %d is sleeping\n", \
-		base->timestamp_diff_ms, philo->num);
+		printf("%lld %d is sleeping\n", diff_ms, philo->num);
 	else if (flag == IS_THINKING)
-		printf("%lld %d is thinking\n", base->timestamp_diff_ms, philo->num);
+		printf("%lld %d is thinking\n", diff_ms, philo->num);
 	else if (flag == IS_DONE)
-		printf("%lld philosophers are full\n", base->timestamp_diff_ms);
+		printf("%lld philosophers are full\n", diff_ms);
 }
 
 void	is_enough(t_base *base, t_arg *arg, t_philo *philo, \
-				long long required_time_ms)
+				long long required_ms)
 {
-	long long	left_time_ms;
+	long long	left_ms;
 
-	philo->end_time_ms = get_time_ms();
-	left_time_ms = philo->end_time_ms - philo->start_time_ms + required_time_ms;
-	if (left_time_ms >= arg->time_die_ms)
+	philo->end_ms = get_time_ms();
+	left_ms = philo->end_ms - philo->start_ms + required_ms;
+	if (left_ms >= arg->die_ms)
 	{
+		ft_usleep_ms(required_ms);
 		time_stamp(base, philo, IS_DIED);
 		exit(1);
 	}
 }
 
-void	ft_usleep_ms(long long usleep_time)
+void	ft_usleep_ms(long long time_ms)
 {
-	long long	start_time_ms;
-	long long	end_time_ms;
-	long long	diff_time_ms;
+	long long	start_ms;
+	long long	end_ms;
+	long long	diff_ms;
 
-	start_time_ms = get_time_ms();
-	diff_time_ms = 0;
-	while (diff_time_ms < usleep_time)
+	start_ms = get_time_ms();
+	diff_ms = 0;
+	while (diff_ms <= time_ms)
 	{
-		end_time_ms = get_time_ms();
-		diff_time_ms = end_time_ms - start_time_ms;
-		usleep(50);
+		end_ms = get_time_ms();
+		diff_ms = end_ms - start_ms;
 	}
 }
 

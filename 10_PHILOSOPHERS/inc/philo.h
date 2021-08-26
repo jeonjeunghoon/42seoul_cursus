@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/26 18:46:26 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/27 01:32:13 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ typedef struct s_arg
 {
 	int						num_philo;
 	int						num_fork;
-	long long				time_die_ms;
-	long long				time_eat_ms;
-	long long				time_sleep_ms;
+	long long				die_ms;
+	long long				eat_ms;
+	long long				sleep_ms;
 	int						num_eat;
 	int						is_done;
 }	t_arg;
@@ -47,8 +47,9 @@ typedef struct s_philo
 	int						right_fork;
 	long long				num_eating;
 	long long				num_sleeping;
-	long long				start_time_ms;
-	long long				end_time_ms;
+	long long				start_ms;
+	long long				end_ms;
+	long long				diff_ms;
 	int						flag_eat;
 }	t_philo;
 
@@ -58,8 +59,7 @@ typedef struct s_base
 	t_philo					*philo;
 	const pthread_attr_t	*attr;
 	void					*routine_arg;
-	int						*fork;
-	pthread_mutex_t			*mutex;
+	pthread_mutex_t			*fork;
 	int						thread_index;
 	long long				timestamp_start_ms;
 	long long				timestamp_end_ms;
@@ -79,6 +79,7 @@ void		*philo_routine(void *philo);
 int			philo_func(t_base *base, t_arg *arg, t_philo *philo);
 
 /* philo_act */
+void		act_except(t_base *base, t_arg *arg, t_philo *philo);
 void		is_done(t_base *base, t_arg *arg, t_philo *philo);
 void		is_died(t_base *base, t_arg *arg, t_philo *philo);
 int			philo_act(t_base *base, t_arg *arg, t_philo *philo);
@@ -91,8 +92,7 @@ void		eating(t_base *base, t_arg *arg, t_philo *philo);
 void		thinking(t_base *base, t_arg *arg, t_philo *philo);
 
 /* time_func */
-void		time_stamp(t_base *base, t_philo *philo, \
-			int flag);
+void		time_stamp(t_base *base, t_philo *philo, int flag);
 void		is_enough(t_base *base, t_arg *arg, t_philo *philo, \
 			long long required_time_ms);
 void		ft_usleep_ms(long long usleep_time);
