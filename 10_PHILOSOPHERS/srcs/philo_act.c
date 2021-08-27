@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/25 18:07:30 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/28 01:29:07 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/28 01:37:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	sleeping(t_base *base, t_arg *arg, t_philo *philo)
 		return (IS_DIE);
 	time_stamp(base, philo, IS_SLEEPING);
 	ft_usleep_ms(arg->sleep_ms);
+	usleep(200);
 	philo->num_sleeping++;
 	if ((is_die(base, arg, philo)) == IS_DIE)
 		return (IS_DIE);

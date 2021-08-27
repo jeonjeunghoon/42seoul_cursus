@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 21:49:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/28 01:24:08 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/28 01:31:37 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ void	time_stamp(t_base *base, t_philo *philo, int flag)
 int	is_enough(t_base *base, t_arg *arg, t_philo *philo, \
 				long long required_ms)
 {
-	long long	left_ms;
+	long long	require_ms;
 	long long	time_ms;
 
 	philo->end_ms = get_time_ms();
-	left_ms = philo->end_ms - philo->start_ms + required_ms;
-	if (left_ms >= arg->die_ms)
+	require_ms = philo->end_ms - philo->start_ms + required_ms;
+	if (require_ms > arg->die_ms)
 	{
 		time_ms = arg->die_ms - (philo->end_ms - philo->start_ms);
 		ft_usleep_ms(time_ms);
