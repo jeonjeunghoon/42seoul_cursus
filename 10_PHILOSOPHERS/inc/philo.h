@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/27 16:49:57 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/28 00:55:45 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_base
 	const pthread_attr_t	*attr;
 	void					*routine_arg;
 	pthread_mutex_t			*fork;
-	pthread_mutex_t			print_mutex;
+	pthread_mutex_t			ft_mutex;
 	int						*philo_fork;
 	int						thread_index;
 	long long				timestamp_start_ms;
@@ -80,22 +80,21 @@ int			arg_init(int argc, const char **argv, t_base *base);
 int			base_init(int argc, const char **argv, t_base **base);
 
 /* philo_func */
-void		wait_create_thread(t_base *base, t_arg *arg, t_philo *philo);
+void		wait_thread(t_base *base, t_arg *arg, t_philo *philo);
 void		*philo_routine(void *philo);
 int			philo_func(t_base *base, t_arg *arg, t_philo *philo);
 
 /* philo_act */
-int			is_done(t_base *base, t_arg *arg, t_philo *philo);
-int			is_die(t_base *base, t_arg *arg, t_philo *philo);
-int			act_except(t_base *base, t_arg *arg, t_philo *philo);
-int			philo_act(t_base *base, t_arg *arg, t_philo *philo);
-
-/* philo_act2 */
 int			thinking(t_base *base, t_arg *arg, t_philo *philo);
 int			sleeping(t_base *base, t_arg *arg, t_philo *philo);
 int			put_fork(t_base *base, t_arg *arg, t_philo *philo);
 int			eating(t_base *base, t_arg *arg, t_philo *philo);
 int			take_fork(t_base *base, t_arg *arg, t_philo *philo);
+
+/* philo_act2 */
+int			is_done(t_base *base, t_arg *arg, t_philo *philo);
+int			is_die(t_base *base, t_arg *arg, t_philo *philo);
+int			act_except(t_base *base, t_arg *arg, t_philo *philo);
 
 /* time_func */
 void		time_stamp(t_base *base, t_philo *philo, int flag);

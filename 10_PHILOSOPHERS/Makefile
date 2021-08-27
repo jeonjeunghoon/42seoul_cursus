@@ -6,13 +6,13 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/16 17:05:04 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/08/26 17:56:07 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/08/28 01:13:30 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				=	philo
 CC					=	gcc
-CFLAGS				=	-g -fsanitize=address -Wall -Wextra -Werror
+CFLAGS				=	-Wall -Wextra -Werror
 
 SRCS_NAME			=	main.c \
 						base_init.c \
@@ -34,7 +34,7 @@ OBJS				=	$(addprefix $(OBJS_PATH)/, $(OBJS_NAME))
 INC_PATH			=	./inc
 
 $(NAME)				:	$(OBJS)
-					$(CC) $(CFLAGS) $(OBJS) -I$(INC_PATH) -o $@
+						$(CC) $(CFLAGS) $(OBJS) -I$(INC_PATH) -o $@
 
 $(OBJS_PATH)/%.o	:	$(SRCS_PATH)/%.c
 						mkdir $(OBJS_PATH) 2> /dev/null || true

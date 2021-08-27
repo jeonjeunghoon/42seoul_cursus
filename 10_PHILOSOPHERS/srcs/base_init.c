@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:02:47 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/27 16:51:32 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/28 00:55:59 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	fork_mutex_init(t_base *base)
 	while (i < base->arg->num_fork)
 	{
 		pthread_mutex_init(&(base->fork[i]), NULL);
-		base->philo_fork[i] = 0;
+		base->philo_fork[i] = 1;
 		i++;
 	}
-	pthread_mutex_init(&(base->print_mutex), NULL);
+	pthread_mutex_init(&(base->ft_mutex), NULL);
 	return (0);
 }
 

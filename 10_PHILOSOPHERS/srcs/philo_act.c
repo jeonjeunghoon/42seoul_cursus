@@ -5,77 +5,68 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/16 17:34:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/27 16:45:25 by jeunjeon         ###   ########.fr       */
+/*   Created: 2021/08/25 18:07:30 by jeunjeon          #+#    #+#             */
+/*   Updated: 2021/08/28 01:18:29 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int	is_done(t_base *base, t_arg *arg, t_philo *philo)
+int	thinking(t_base *base, t_arg *arg, t_philo *philo)
 {
 	if ((is_die(base, arg, philo)) == IS_DIE)
 		return (IS_DIE);
-	if ((philo->num_eating == arg->num_eat) && philo->flag_eat != 1)
-	{
-		arg->is_done++;
-		philo->flag_eat = 1;
-		if (arg->is_done == arg->num_philo)
-		{
-			time_stamp(base, philo, IS_DONE);
-			return (IS_DONE);
-		}
-	}
+	time_stamp(base, philo, IS_THINKING);
+	return (0);
+}
+
+int	sleeping(t_base *base, t_arg *arg, t_philo *philo)
+{
+	if ((is_die(base, arg, philo)) == IS_DIE)
+		return (IS_DIE);
+	if ((is_enough(base, arg, philo, arg->sleep_ms)) == IS_DIE)
+		return (IS_DIE);
+	time_stamp(base, philo, IS_SLEEPING);
+	ft_usleep_ms(arg->sleep_ms);
+	philo->num_sleeping++;
 	if ((is_die(base, arg, philo)) == IS_DIE)
 		return (IS_DIE);
 	return (0);
 }
 
-int	is_die(t_base *base, t_arg *arg, t_philo *philo)
+int	put_fork(t_base *base, t_arg *arg, t_philo *philo)
 {
-	philo->end_ms = get_time_ms();
-	if ((philo->end_ms - philo->start_ms < arg->die_ms) && base->is_die != IS_DIE)
-		return (0);
-	if (base->philo_fork[philo->left_fork] == 1 && \
-	base->philo_fork[philo->right_fork] == 1)
-	{
-		pthread_mutex_unlock(&(base->fork[philo->left_fork]));
-		pthread_mutex_unlock(&(base->fork[philo->right_fork]));
-	}
-	time_stamp(base, philo, IS_DIE);
-	base->is_die = IS_DIE;
-	return (IS_DIE);
-}
-
-int	act_except(t_base *base, t_arg *arg, t_philo *philo)
-{
-	if (arg->num_philo == 1)
-	{
-		ft_usleep_ms(arg->die_ms);
-		if ((is_die(base, arg, philo)) == IS_DIE)
-			return (IS_DIE);
-	}
+	base->philo_fork[philo->left_fork] = 1;
+	base->philo_fork[philo->right_fork] = 1;
+	pthread_mutex_unlock(&(base->fork[philo->left_fork]));
+	pthread_mutex_unlock(&(base->fork[philo->right_fork]));
 	return (0);
 }
 
-int	philo_act(t_base *base, t_arg *arg, t_philo *philo)
+int	eating(t_base *base, t_arg *arg, t_philo *philo)
 {
-	if ((act_except(base, arg, philo)) == IS_DIE)
+	if ((is_die(base, arg, philo)) == IS_DIE)
 		return (IS_DIE);
-	if ((take_fork(base, arg, philo)) == IS_DIE)
+	if ((is_enough(base, arg, philo, arg->eat_ms)) == IS_DIE)
 		return (IS_DIE);
-	if ((eating(base, arg, philo)) == IS_DIE)
+	time_stamp(base, philo, IS_EATING);
+	ft_usleep_ms(arg->eat_ms);
+	philo->num_eating++;
+	philo->start_ms = get_time_ms();
+	if ((is_die(base, arg, philo)) == IS_DIE)
 		return (IS_DIE);
-	if ((put_fork(base, arg, philo)) == IS_DIE)
+	return (0);
+}
+
+int	take_fork(t_base *base, t_arg *arg, t_philo *philo)
+{
+	if ((is_die(base, arg, philo)) == IS_DIE)
 		return (IS_DIE);
-	if ((sleeping(base, arg, philo)) == IS_DIE)
-		return (IS_DIE);
-	if ((thinking(base, arg, philo)) == IS_DIE)
-		return (IS_DIE);
-	if (arg->num_eat > 0)
-	{
-		if ((is_done(base, arg, philo)) == IS_DIE)
-			return (IS_DIE);
-	}
-	return (1);
+	pthread_mutex_lock(&(base->fork[philo->left_fork]));
+	base->philo_fork[philo->left_fork] = 0;
+	time_stamp(base, philo, IS_FORK);
+	pthread_mutex_lock(&(base->fork[philo->right_fork]));
+	base->philo_fork[philo->right_fork] = 0;
+	time_stamp(base, philo, IS_FORK);
+	return (0);
 }
