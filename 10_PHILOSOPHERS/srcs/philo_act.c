@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/25 18:07:30 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/28 01:18:29 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/28 01:24:41 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,14 @@ int	sleeping(t_base *base, t_arg *arg, t_philo *philo)
 
 int	put_fork(t_base *base, t_arg *arg, t_philo *philo)
 {
+	if ((is_die(base, arg, philo)) == IS_DIE)
+		return (IS_DIE);
 	base->philo_fork[philo->left_fork] = 1;
 	base->philo_fork[philo->right_fork] = 1;
 	pthread_mutex_unlock(&(base->fork[philo->left_fork]));
 	pthread_mutex_unlock(&(base->fork[philo->right_fork]));
+	if ((is_die(base, arg, philo)) == IS_DIE)
+		return (IS_DIE);
 	return (0);
 }
 
@@ -68,5 +72,7 @@ int	take_fork(t_base *base, t_arg *arg, t_philo *philo)
 	pthread_mutex_lock(&(base->fork[philo->right_fork]));
 	base->philo_fork[philo->right_fork] = 0;
 	time_stamp(base, philo, IS_FORK);
+	if ((is_die(base, arg, philo)) == IS_DIE)
+		return (IS_DIE);
 	return (0);
 }

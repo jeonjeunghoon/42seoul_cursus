@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 21:49:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/28 00:57:00 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/28 01:24:08 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	ft_usleep_ms(long long time_ms)
 	{
 		end_ms = get_time_ms();
 		diff_ms = end_ms - start_ms;
+		usleep(100);
 	}
 }
 
