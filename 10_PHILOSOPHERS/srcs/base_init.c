@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:02:47 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/27 14:17:33 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/27 16:51:32 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	fork_mutex_init(t_base *base)
 		base->philo_fork[i] = 0;
 		i++;
 	}
+	pthread_mutex_init(&(base->print_mutex), NULL);
 	return (0);
 }
 
@@ -46,9 +47,8 @@ int	philo_init(t_base *base)
 		base->philo[i].thread = (pthread_t *)malloc(sizeof(pthread_t));
 		if (base->philo[i].thread == NULL)
 			return (IS_ERROR);
-		base->philo[i].num = i + 1;
-		base->philo[i].right_fork = (base->philo[i].num) % base->arg->num_fork;
-		base->philo[i].left_fork = base->philo[i].num - 1;
+		base->philo[i].right_fork = (i + 1) % base->arg->num_fork;
+		base->philo[i].left_fork = i;
 		base->philo[i].num_eating = 0;
 		base->philo[i].num_sleeping = 0;
 		base->philo[i].start_ms = 0;

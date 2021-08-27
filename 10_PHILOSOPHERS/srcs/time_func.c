@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 21:49:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/27 02:08:55 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/27 16:51:57 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,22 @@
 
 void	time_stamp(t_base *base, t_philo *philo, int flag)
 {
-	long long	end_ms;
-	long long	diff_ms;
-
-	end_ms = get_time_ms();
-	diff_ms = end_ms - base->timestamp_start_ms;
+	pthread_mutex_lock(&(base->print_mutex));
+	base->timestamp_end_ms = get_time_ms();
+	base->timestamp_diff_ms = base->timestamp_end_ms - base->timestamp_start_ms;
 	if (flag == IS_DIE)
-		printf("%lld %d died\n", diff_ms, philo->num);
+		printf("%lld %d died\n", base->timestamp_diff_ms, philo->num + 1);
 	else if (flag == IS_FORK)
-		printf("%lld %d has taken a fork\n", diff_ms, philo->num);
+		printf("%lld %d has taken a fork\n", base->timestamp_diff_ms, philo->num + 1);
 	else if (flag == IS_EATING)
-		printf("%lld %d is eating\n", diff_ms, philo->num);
+		printf("%lld %d is eating\n", base->timestamp_diff_ms, philo->num + 1);
 	else if (flag == IS_SLEEPING)
-		printf("%lld %d is sleeping\n", diff_ms, philo->num);
+		printf("%lld %d is sleeping\n", base->timestamp_diff_ms, philo->num + 1);
 	else if (flag == IS_THINKING)
-		printf("%lld %d is thinking\n", diff_ms, philo->num);
+		printf("%lld %d is thinking\n", base->timestamp_diff_ms, philo->num + 1);
 	else if (flag == IS_DONE)
-		printf("%lld philosophers are full\n", diff_ms);
+		printf("%lld philosophers are full\n", base->timestamp_diff_ms);
+	pthread_mutex_unlock(&(base->print_mutex));
 }
 
 int	is_enough(t_base *base, t_arg *arg, t_philo *philo, \

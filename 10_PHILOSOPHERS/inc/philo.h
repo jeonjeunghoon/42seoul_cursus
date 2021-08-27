@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/27 14:45:28 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/27 16:49:57 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define IS_EATING 1
 # define IS_SLEEPING 2
 # define IS_THINKING 3
-# define IS_DIE 4
+# define IS_DIE -1
 # define IS_DONE 5
 
 typedef struct s_arg
@@ -60,6 +60,7 @@ typedef struct s_base
 	const pthread_attr_t	*attr;
 	void					*routine_arg;
 	pthread_mutex_t			*fork;
+	pthread_mutex_t			print_mutex;
 	int						*philo_fork;
 	int						thread_index;
 	long long				timestamp_start_ms;
