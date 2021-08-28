@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/28 00:55:45 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/28 01:47:52 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ typedef struct s_philo
 	int						right_fork;
 	long long				num_eating;
 	long long				num_sleeping;
+	int						can_taking;
+	int						can_eating;
+	int						can_putting;
+	int						can_sleeping;
+	int						can_thinking;
 	long long				start_ms;
 	long long				end_ms;
 	long long				diff_ms;

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:34:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/28 00:54:40 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/28 12:08:22 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	is_done(t_base *base, t_arg *arg, t_philo *philo)
 int	is_die(t_base *base, t_arg *arg, t_philo *philo)
 {
 	philo->end_ms = get_time_ms();
-	if ((philo->end_ms - philo->start_ms < arg->die_ms) && base->is_die != IS_DIE)
+	if ((philo->end_ms - philo->start_ms < arg->die_ms) && \
+		base->is_die != IS_DIE)
 		return (0);
 	if (base->philo_fork[philo->left_fork] == 0)
 	{
