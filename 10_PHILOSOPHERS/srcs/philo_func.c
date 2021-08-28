@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:57:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/28 12:25:04 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/28 12:40:12 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 int	philo_act(t_base *base, t_arg *arg, t_philo *philo)
 {
-	if ((take_fork(base, arg, philo)) == IS_DIE)
-		return (IS_DIE);
-	if ((eating(base, arg, philo)) == IS_DIE)
-		return (IS_DIE);
-	if ((put_fork(base, arg, philo)) == IS_DIE)
-		return (IS_DIE);
-	if ((sleeping(base, arg, philo)) == IS_DIE)
-		return (IS_DIE);
-	if ((thinking(base, arg, philo)) == IS_DIE)
-		return (IS_DIE);
+	if ((take_fork(base, arg, philo)) == IS_FINISH)
+		return (IS_FINISH);
+	if ((eating(base, arg, philo)) == IS_FINISH)
+		return (IS_FINISH);
+	if ((put_fork(base, arg, philo)) == IS_FINISH)
+		return (IS_FINISH);
+	if ((sleeping(base, arg, philo)) == IS_FINISH)
+		return (IS_FINISH);
+	if ((thinking(base, arg, philo)) == IS_FINISH)
+		return (IS_FINISH);
 	if (arg->num_eat > 0)
 	{
-		if ((is_done(base, arg, philo)) == IS_DIE)
-			return (IS_DIE);
+		if ((is_done(base, arg, philo)) == IS_FINISH)
+			return (IS_FINISH);
 	}
 	return (1);
 }
@@ -61,14 +61,14 @@ void	*philo_routine(void *routine_arg)
 	wait_create_thread(base, arg, philo);
 	if (philo->num % 2 == 1)
 		usleep(200 * (arg->num_philo - philo->num + 1));
-	if ((act_except(base, arg, philo)) == IS_DIE)
-		return ((void **)IS_DIE);
-	while (base->is_die != IS_DIE)
+	if ((act_except(base, arg, philo)) == IS_FINISH)
+		return ((void **)IS_FINISH);
+	while (base->is_finish != IS_FINISH)
 	{
-		if ((philo_act(base, arg, philo)) == IS_DIE)
+		if ((philo_act(base, arg, philo)) == IS_FINISH)
 			break ;
 	}
-	return ((void **)IS_DIE);
+	return ((void **)IS_FINISH);
 }
 
 int	philo_func(t_base *base, t_arg *arg, t_philo *philo)

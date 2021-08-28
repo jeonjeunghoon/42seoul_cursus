@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/28 12:24:38 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/28 12:41:22 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 # include <string.h>
 
 # define IS_ERROR -1
+# define IS_FINISH 42
 # define IS_FORK 0
 # define IS_EATING 1
 # define IS_SLEEPING 2
 # define IS_THINKING 3
-# define IS_DIE -1
 # define IS_DONE 5
 
 typedef struct s_arg
@@ -71,7 +71,8 @@ typedef struct s_base
 	long long				timestamp_start_ms;
 	long long				timestamp_end_ms;
 	long long				timestamp_diff_ms;
-	int						is_die;
+	int						is_finish;
+	int						is_done;
 }	t_base;
 
 /* main */

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 21:49:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/28 01:31:37 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/28 12:38:09 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	time_stamp(t_base *base, t_philo *philo, int flag)
 	pthread_mutex_lock(&(base->ft_mutex));
 	base->timestamp_end_ms = get_time_ms();
 	base->timestamp_diff_ms = base->timestamp_end_ms - base->timestamp_start_ms;
-	if (flag == IS_DIE)
+	if (flag == IS_FINISH)
 		printf("%lld %d died\n", base->timestamp_diff_ms, philo_num);
 	else if (flag == IS_FORK)
 		printf("%lld %d has taken a fork\n", base->timestamp_diff_ms, philo_num);
@@ -48,7 +48,7 @@ int	is_enough(t_base *base, t_arg *arg, t_philo *philo, \
 		time_ms = arg->die_ms - (philo->end_ms - philo->start_ms);
 		ft_usleep_ms(time_ms);
 		is_die(base, arg, philo);
-		return (IS_DIE);
+		return (IS_FINISH);
 	}
 	return (0);
 }

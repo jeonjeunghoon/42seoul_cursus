@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:02:47 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/28 12:09:48 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/28 12:41:41 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int	base_init(int argc, const char **argv, t_base **base)
 		return (IS_ERROR);
 	if ((fork_mutex_init(*base)) == IS_ERROR)
 		return (IS_ERROR);
-	(*base)->is_die = 0;
+	(*base)->is_finish = 0;
+	(*base)->is_done = 0;
 	return (0);
 }
