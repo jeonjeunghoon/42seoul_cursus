@@ -6,11 +6,31 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:57:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/28 01:36:45 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/28 12:25:04 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+int	philo_act(t_base *base, t_arg *arg, t_philo *philo)
+{
+	if ((take_fork(base, arg, philo)) == IS_DIE)
+		return (IS_DIE);
+	if ((eating(base, arg, philo)) == IS_DIE)
+		return (IS_DIE);
+	if ((put_fork(base, arg, philo)) == IS_DIE)
+		return (IS_DIE);
+	if ((sleeping(base, arg, philo)) == IS_DIE)
+		return (IS_DIE);
+	if ((thinking(base, arg, philo)) == IS_DIE)
+		return (IS_DIE);
+	if (arg->num_eat > 0)
+	{
+		if ((is_done(base, arg, philo)) == IS_DIE)
+			return (IS_DIE);
+	}
+	return (1);
+}
 
 void	wait_create_thread(t_base *base, t_arg *arg, t_philo *philo)
 {
@@ -45,21 +65,8 @@ void	*philo_routine(void *routine_arg)
 		return ((void **)IS_DIE);
 	while (base->is_die != IS_DIE)
 	{
-		if ((take_fork(base, arg, philo)) == IS_DIE)
+		if ((philo_act(base, arg, philo)) == IS_DIE)
 			break ;
-		if ((eating(base, arg, philo)) == IS_DIE)
-			break ;
-		if ((put_fork(base, arg, philo)) == IS_DIE)
-			break ;
-		if ((sleeping(base, arg, philo)) == IS_DIE)
-			break ;
-		if ((thinking(base, arg, philo)) == IS_DIE)
-			break ;
-		if (arg->num_eat > 0)
-		{
-			if ((is_done(base, arg, philo)) == IS_DIE)
-				break ;
-		}
 	}
 	return ((void **)IS_DIE);
 }
