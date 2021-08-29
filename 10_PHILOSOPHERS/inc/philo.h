@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/28 12:41:22 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/30 00:07:17 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,9 @@ typedef struct s_philo
 	int						num;
 	int						left_fork;
 	int						right_fork;
-	long long				num_eating;
-	long long				num_sleeping;
-	int						can_taking;
-	int						can_eating;
-	int						can_putting;
-	int						can_sleeping;
-	int						can_thinking;
 	long long				start_ms;
 	long long				end_ms;
-	long long				diff_ms;
+	long long				num_eating;
 	int						flag_eat;
 }	t_philo;
 
@@ -66,7 +59,7 @@ typedef struct s_base
 	void					*routine_arg;
 	pthread_mutex_t			*fork;
 	pthread_mutex_t			ft_mutex;
-	int						*philo_fork;
+	int						*table_fork;
 	int						thread_index;
 	long long				timestamp_start_ms;
 	long long				timestamp_end_ms;

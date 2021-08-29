@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:34:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/28 12:41:54 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/30 00:06:22 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ int	is_die(t_base *base, t_arg *arg, t_philo *philo)
 	if ((philo->end_ms - philo->start_ms < arg->die_ms) && \
 		base->is_finish != IS_FINISH)
 		return (0);
-	if (base->philo_fork[philo->left_fork] == 0)
+	if (base->table_fork[philo->left_fork] == 0)
 	{
-		base->philo_fork[philo->left_fork] = 1;
+		base->table_fork[philo->left_fork] = 1;
 		pthread_mutex_unlock(&(base->fork[philo->left_fork]));
 	}
-	if (base->philo_fork[philo->right_fork] == 0)
+	if (base->table_fork[philo->right_fork] == 0)
 	{
-		base->philo_fork[philo->right_fork] = 1;
+		base->table_fork[philo->right_fork] = 1;
 		pthread_mutex_unlock(&(base->fork[philo->right_fork]));
 	}
 	if (base->is_done == 1)

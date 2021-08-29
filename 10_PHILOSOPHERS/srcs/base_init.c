@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:02:47 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/28 12:41:41 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/30 00:06:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ int	fork_mutex_init(t_base *base)
 											(base->arg->num_fork));
 	if (base->fork == NULL)
 		return (IS_ERROR);
-	base->philo_fork = (int *)malloc(sizeof(int) * base->arg->num_fork);
-	if (base->philo_fork == NULL)
+	base->table_fork = (int *)malloc(sizeof(int) * base->arg->num_fork);
+	if (base->table_fork == NULL)
 		return (IS_ERROR);
 	i = 0;
 	while (i < base->arg->num_fork)
 	{
 		pthread_mutex_init(&(base->fork[i]), NULL);
-		base->philo_fork[i] = 1;
+		base->table_fork[i] = 1;
 		i++;
 	}
 	pthread_mutex_init(&(base->ft_mutex), NULL);
@@ -47,12 +47,11 @@ int	philo_init(t_base *base)
 		base->philo[i].thread = (pthread_t *)malloc(sizeof(pthread_t));
 		if (base->philo[i].thread == NULL)
 			return (IS_ERROR);
-		base->philo[i].right_fork = (i + 1) % base->arg->num_fork;
 		base->philo[i].left_fork = i;
-		base->philo[i].num_eating = 0;
-		base->philo[i].num_sleeping = 0;
+		base->philo[i].right_fork = (i + 1) % base->arg->num_fork;
 		base->philo[i].start_ms = 0;
 		base->philo[i].end_ms = 0;
+		base->philo[i].num_eating = 0;
 		base->philo[i].flag_eat = 0;
 		i++;
 	}
