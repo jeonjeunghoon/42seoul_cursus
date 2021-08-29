@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/30 00:07:17 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/30 01:01:34 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@
 # include <string.h>
 
 # define IS_ERROR -1
-# define IS_FINISH 42
 # define IS_FORK 0
 # define IS_EATING 1
 # define IS_SLEEPING 2
 # define IS_THINKING 3
+# define IS_DIE 4
 # define IS_DONE 5
+# define IS_FINISH 42
 
 typedef struct s_arg
 {
@@ -80,6 +81,7 @@ int			base_init(int argc, const char **argv, t_base **base);
 
 /* philo_func */
 int			philo_act(t_base *base, t_arg *arg, t_philo *philo);
+int			act_except(t_base *base, t_arg *arg, t_philo *philo);
 void		wait_thread(t_base *base, t_arg *arg, t_philo *philo);
 void		*philo_routine(void *philo);
 int			philo_func(t_base *base, t_arg *arg, t_philo *philo);
@@ -94,7 +96,6 @@ int			take_fork(t_base *base, t_arg *arg, t_philo *philo);
 /* philo_act2 */
 int			is_done(t_base *base, t_arg *arg, t_philo *philo);
 int			is_die(t_base *base, t_arg *arg, t_philo *philo);
-int			act_except(t_base *base, t_arg *arg, t_philo *philo);
 
 /* time_func */
 void		time_stamp(t_base *base, t_philo *philo, int flag);

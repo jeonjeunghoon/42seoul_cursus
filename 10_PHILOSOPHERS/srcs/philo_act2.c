@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 17:34:42 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/30 00:06:22 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/30 01:01:53 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,7 @@ int	is_die(t_base *base, t_arg *arg, t_philo *philo)
 	}
 	if (base->is_done == 1)
 		return (IS_FINISH);
-	time_stamp(base, philo, IS_FINISH);
+	time_stamp(base, philo, IS_DIE);
 	base->is_finish = IS_FINISH;
 	return (IS_FINISH);
-}
-
-int	act_except(t_base *base, t_arg *arg, t_philo *philo)
-{
-	if (arg->num_philo == 1)
-	{
-		ft_usleep_ms(arg->die_ms);
-		if ((is_die(base, arg, philo)) == IS_FINISH)
-			return (IS_FINISH);
-	}
-	return (0);
 }

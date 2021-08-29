@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:57:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/30 00:19:11 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/30 00:46:07 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,17 @@ int	philo_act(t_base *base, t_arg *arg, t_philo *philo)
 			return (IS_FINISH);
 	}
 	return (1);
+}
+
+int	act_except(t_base *base, t_arg *arg, t_philo *philo)
+{
+	if (arg->num_philo == 1)
+	{
+		ft_usleep_ms(arg->die_ms);
+		if ((is_die(base, arg, philo)) == IS_FINISH)
+			return (IS_FINISH);
+	}
+	return (0);
 }
 
 void	wait_create_thread(t_base *base, t_arg *arg, t_philo *philo)
