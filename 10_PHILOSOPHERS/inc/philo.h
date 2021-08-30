@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 21:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/30 01:01:34 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/08/30 20:16:18 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,6 @@ typedef struct s_base
 	int						is_finish;
 	int						is_done;
 }	t_base;
-
-/* main */
-int			except(int argc);
 
 /* init */
 int			fork_mutex_init(t_base *base);
