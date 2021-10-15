@@ -1,5 +1,4 @@
 #include <readline/readline.h>
-#include <readline/history.h>
 #include <stdlib.h>
 
 int	main(void)
@@ -15,6 +14,7 @@ int	main(void)
 			break ;
 		add_history(str);
 		free(str);
+		rl_redisplay();
 	}
 	return (0);
 }

@@ -1,5 +1,4 @@
 #include <readline/readline.h>
-#include <readline/history.h>
 #include <stdlib.h>
 
 int	main(void)
