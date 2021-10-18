@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/10/15 15:33:26 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/10/18 16:14:27 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 typedef struct s_mini
 {
-	char	*line;
-	int		is_finish;
+	char	*line;			// 사용자의 입력 라인
+	char	*pwd;			// 현재 셸의 위치
+	int		is_finish;		// 셸의 종료 시그널
 } t_mini;
 
 
