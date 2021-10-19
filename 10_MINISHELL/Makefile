@@ -5,36 +5,31 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/07/30 18:28:22 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/08/04 22:54:06 by jeunjeon         ###   ########.fr        #
+#    Created: 2021/10/19 14:19:40 by jeunjeon          #+#    #+#              #
+#    Updated: 2021/10/19 15:25:08 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME				=	pipex
+NAME				=	minishell
 CC					=	gcc
-CFLAGS				=	-Wall -Wextra -Werror
+CFLAGS				=	# -Wall -Wextra -Werror
 
-SRCS_NAME			=	main.c \
-						arg_init.c \
-						redirect.c \
-						pipex.c
-
+SRCS_NAME			=	main.c
 SRCS_PATH			=	./srcs
 SRCS				=	$(addprefix $(SRCS_PATH)/, $(SRCS_NAME))
 
 OBJS_NAME			=	$(SRCS_NAME:.c=.o)
-
 OBJS_PATH			=	./objs
 OBJS				=	$(addprefix $(OBJS_PATH)/, $(OBJS_NAME))
 
 INC_PATH			=	./inc
 
 LIBFT_NAME			=	ft
-LIBFT_PATH			=	./lib/libft
+LIBFT_PATH			=	./libft
 
 $(NAME)				:	$(OBJS)
 						@$(MAKE) -C $(LIBFT_PATH) all
-						$(CC) $(CFLAGS) $(OBJS) -I$(INC_PATH) -L$(LIBFT_PATH) -l$(LIBFT_NAME) -o $@
+						$(CC) $(CFLAGS) $(OBJS) -I$(INC_PATH) -L$(LIBFT_PATH) -l$(LIBFT_NAME) -lreadline -o $@
 
 $(OBJS_PATH)/%.o	:	$(SRCS_PATH)/%.c
 						mkdir $(OBJS_PATH) 2> /dev/null || true
@@ -45,6 +40,7 @@ all					:	$(NAME)
 clean				:
 						@$(MAKE) -C $(LIBFT_PATH) clean
 						rm -rf $(OBJS)
+
 fclean				:
 						@$(MAKE) -C $(LIBFT_PATH) fclean
 						rm -rf $(OBJS)

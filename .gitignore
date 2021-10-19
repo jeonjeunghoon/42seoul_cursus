@@ -6,6 +6,7 @@ pipex_medic/
 *.pdf
 *.o
 push_swap
+minishell
 .DS_Store
 .gitignore
 libft.a
@@ -15,3 +16,4 @@ out
 .vscode/
 a.out
 philo
+prac/
