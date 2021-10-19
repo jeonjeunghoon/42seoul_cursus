@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/10/18 16:16:07 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/10/19 13:40:55 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int	check_command(t_mini *mini)
 	return (0);
 }
 
-int	is_finish(t_mini *mini) // 종료 시그널 체크 함수
+int	is_exit(t_mini *mini) // 종료 시그널 체크 함수
 {
-	if (mini->is_finish == 0)
+	if (mini->exit_flag == 0)
 		return (0);
-	else if (mini->is_finish == 1)
+	else if (mini->exit_flag == 1)
 		return (1);
 }
 
@@ -49,7 +49,7 @@ int	minishell_init(t_mini **mini)
 	if (*mini == NULL)
 		return (1);
 	(*mini)->line = NULL;
-	(*mini)->is_finish = 0;
+	(*mini)->exit_flag = 0;
 	return (0);
 }
 
@@ -72,11 +72,11 @@ int	main(int argc, const char **argv) // return (1)은 에러 시그널
 		if ((loop_init(mini)) == 1)
 			continue ;
 		new_prompt(mini);
-		if ((is_finish(mini)) == 1)
+		if ((is_exit(mini)) == 1)
 			break ;
 		if ((check_command(mini)) == 1)
 			continue ;
-		mini->is_finish = execute_command(mini);
+		mini->exit_flag = execute_command(mini);
 	}
 	free_resource(mini);
 	return (0);
