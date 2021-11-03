@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 18:01:51 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/11/03 17:57:56 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/11/04 00:33:20 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_map
 {
 	t_node	*front;
 	t_node	*rear;
-	int		**map;
+	char	**map;
 	int		x;
 	int		y;
 	int		player;
@@ -93,10 +93,11 @@ void	player_init(t_player *player);
 int		game_init(t_game *game);
 
 /* assets_parsing */
-int		check_surrounded(char *buf);
-int		check_elements(t_game *game, char *buf, int x_len);
-int		check_map(t_game *game, char *map_file, int fd);
+int		check_surrounded(char *map);
+int		check_elements(t_map *map_val, char *map);
+int		check_map(t_game *game);
 int		make_buf_map(t_game *game, char *map_file, int fd);
+int		make_map(t_game *game, char *map_file, int fd);
 int		assets_parsing(t_game *game, char *map_file);
 
 /* start_game */

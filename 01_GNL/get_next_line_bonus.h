@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/29 14:55:39 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/22 13:07:41 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/11/03 18:38:10 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # define OPEN_MAX 4096
+# define TRUE 1
 
 int			ft_strlen(char *s);
 int			ft_strchr(char *s, char c);
