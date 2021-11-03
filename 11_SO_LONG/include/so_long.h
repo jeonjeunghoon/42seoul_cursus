@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 18:01:51 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/11/03 03:53:22 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/11/03 17:57:56 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define EXIT 4
 
 # define OPEN_MAX 4896
-# define BUFFER_SIZE 1
+# define BUFFER_SIZE 100
 
 typedef struct s_enemy
 {
@@ -113,9 +113,9 @@ void	end_game(t_game *game);
 void	move_player(t_game *game, int check_x, int check_y);	
 
 /* GNL */
-char	*add_room(char *room, char *buf);
-char	*add_line(char **line, char *room);
+void	add_line(char **line, char **room);
 int		is_continue(int fd, int byte, char **line, char **room);
+void	add_room(char **room, char *buf);
 int		get_next_line(int fd, char **line);
 
 #endif

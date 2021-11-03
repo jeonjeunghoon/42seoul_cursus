@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 01:50:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/11/03 04:12:20 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/11/03 18:36:44 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,17 @@ int	make_buf_map(t_game *game, char *map_file, int fd)
 	while (reading)
 	{
 		reading = get_next_line(fd, &buf);
-		printf("%s\n", buf);
-		// game->map->front->buf_map = ft_strdup(buf);
-		// new_front = (t_node *)malloc(sizeof(t_node));
-		// if (new_front == NULL)
-		// 	return (ERROR);
-		// new_front->next = NULL;
-		// game->map->front->next = new_front;
-		// game->map->front = new_front;
+		printf("%s\n\n", buf);
+		game->map->front->buf_map = ft_strdup(buf);
+		new_front = (t_node *)malloc(sizeof(t_node));
+		if (new_front == NULL)
+			return (ERROR);
+		new_front->next = NULL;
+		game->map->front->next = new_front;
+		game->map->front = new_front;
 		game->map->y++;
 	}
+	free(buf);
 	return (0);
 }
 
@@ -114,12 +115,13 @@ int	assets_parsing(t_game *game, char *argv)
 	if (fd == -1)
 		return (ERROR);
 	make_buf_map(game, map_file, fd);
+	system("leaks so_long");
+	while (1);
 	// while (game->map->rear != NULL)
 	// {
 	// 	printf("%s\n", game->map->rear->buf_map);
 	// 	game->map->rear = game->map->rear->next;
 	// }
-	while (1);
 	close(fd);
 	if (check_map(game, map_file, fd) == ERROR)
 		return (ERROR);
