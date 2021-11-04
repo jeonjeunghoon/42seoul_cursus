@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 02:25:32 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/11/05 03:45:42 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/11/05 04:06:27 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	check_direction(t_map *map, int x, int y, t_enemy *head)
 void	enemy_action(t_game *game)
 {
 	t_enemy	*head;
-	int	wall;
+	int		wall;
 
 	head = game->map->e_rear;
 	while (head->next != NULL)
