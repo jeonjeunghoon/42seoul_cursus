@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assets_parsing.c                                   :+:      :+:    :+:   */
+/*   assets_parsing_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 01:50:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/11/05 03:54:13 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/11/05 03:45:45 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../inc_bonus/so_long_bonus.h"
 
 int	check_map(t_game *game)
 {
@@ -25,7 +25,9 @@ int	check_map(t_game *game)
 	while (game->map->map[i])
 	{
 		if (game->map->x != ft_strlen(game->map->map[i]))
+		{
 			return (ERROR);
+		}
 		if (check_elements(game, game->map, game->map->map[i], i) == ERROR)
 			return (ERROR);
 		i++;
