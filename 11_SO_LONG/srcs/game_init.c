@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 01:49:24 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/11/03 03:54:42 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/11/05 00:53:55 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,26 @@ void	player_init(t_player *player)
 	player->bad_ending = FALSE;
 }
 
-int	game_init(t_game *game)
+int	game_init(t_game **game)
 {
-	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, 500, 500, "so_long");
-	game->is_error = FALSE;
-	game->player = (t_player *)malloc(sizeof(t_player));
-	if (game->player == NULL)
+	(*game) = (t_game *)malloc(sizeof(t_game));
+	if (*game == NULL)
 		return (ERROR);
-	player_init(game->player);
-	game->map = (t_map *)malloc(sizeof(t_map));
-	if (game->map == NULL)
+	(*game)->mlx = mlx_init();
+	(*game)->win = mlx_new_window((*game)->mlx, 500, 500, "so_long");
+	(*game)->error = FALSE;
+	(*game)->player = (t_player *)malloc(sizeof(t_player));
+	if ((*game)->player == NULL)
 		return (ERROR);
-	if (map_init(game->map) == ERROR)
+	player_init((*game)->player);
+	(*game)->map = (t_map *)malloc(sizeof(t_map));
+	if ((*game)->map == NULL)
 		return (ERROR);
-	game->enemy = (t_enemy *)malloc(sizeof(t_enemy));
-	if (game->enemy == NULL)
+	if (map_init((*game)->map) == ERROR)
 		return (ERROR);
-	enemy_init(game->enemy);
+	(*game)->enemy = (t_enemy *)malloc(sizeof(t_enemy));
+	if ((*game)->enemy == NULL)
+		return (ERROR);
+	enemy_init((*game)->enemy);
 	return (0);
 }

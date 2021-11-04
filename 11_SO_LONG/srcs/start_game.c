@@ -6,38 +6,28 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 01:50:34 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/11/03 02:06:44 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/11/05 01:01:53 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	encounter_enemy(t_game *game, int check_x, int check_y)
-{
-	move_player(game, check_x, check_y); // 플레이어 이동 함수
-	game->player->bad_ending = TRUE; // 플레이어 사망
-}
-
-void	collect_func(t_game *game, int check_x, int check_y)
-{
-	move_player(game, check_x, check_y);
-	game->player->collectible++; // 플레이어가 모은 수집품
-	game->map->map[game->player->y][game->player->x] = 0; // 맵 업데이트
-	game->map->collectible--; // 맵에 남아있는 수집품
-}
-
 void	check_path(t_game *game, int check_x, int check_y)
 {
-	if (game->map->map[check_y][check_x] == ROAD) // 갈 수 있는 경우
+	if (check_x < 0 || check_y < 0)
+		game->error = TRUE;
+	else if (game->map->map[check_y][check_x] == ROAD) // 길
 		move_player(game, check_x, check_y);
-	else if (game->map->map[check_y][check_x] == COLLECTIBLE) // 수집품인 경우
+	else if (game->map->map[check_y][check_x] == COLLECTIBLE) // 수집품
 		collect_func(game, check_x, check_y);
-	else if (game->map->map[check_y][check_x] == ENEMY) // 적인 경우
-		encounter_enemy(game, check_x, check_y);
-	else if (game->map->map[check_y][check_x] == WALL) // 벽인 경우
+	else if (game->map->map[check_y][check_x] == ENEMY) // 적
+		end_game(game, check_x, check_y, BAD);
+	else if (game->map->map[check_y][check_x] == EXIT) // 출구
+		end_game(game, check_x, check_y, HAPPY);
+	else if (game->map->map[check_y][check_x] == WALL) // 벽
 		return ;
 	else // 그 외의 알 수 없는 에러 발생 시
-		game->is_error = TRUE;
+		game->error = TRUE;
 }
 
 int	ft_key(int keycode, t_game *game)
@@ -61,16 +51,15 @@ int	ft_key(int keycode, t_game *game)
 	return (0);
 }
 
-int	start_game(t_game *game)
+int	so_long(t_game *game)
 {
-	// mlx_loop_hook(game->mlx, , game);
-	mlx_hook(game->win, EVENT_KEY_PRESS, 0, ft_key, game);
-	mlx_hook(game->win, EVENT_EXIT, 0, ft_exit, "EXIT SO_LONG\n");
-	if (game->player->happy_ending == TRUE || \
-		game->player->bad_ending == TRUE) // 게임 종료 조건: 수집품을 다 모으거나 적과 닿아서 죽거나
-		return (0);
-	if (game->is_error == TRUE)
-		return (ERROR);
-	mlx_loop(game->mlx);
+	if (game->player->happy_ending == TRUE)
+	{
+		ft_exit("happy ending!\n");
+	}
+	if (game->player->bad_ending == TRUE)
+	{
+		ft_exit("bad ending!\n");
+	}
 	return (0);
 }

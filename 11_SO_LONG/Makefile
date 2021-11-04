@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/02 20:00:42 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/11/03 03:55:05 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/11/05 00:37:11 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRCS_NAME = main.c \
 			game_init.c \
 			assets_parsing.c \
 			start_game.c \
-			end_game.c \
+			finish_game.c \
 			utility.c \
 			get_next_line.c
 

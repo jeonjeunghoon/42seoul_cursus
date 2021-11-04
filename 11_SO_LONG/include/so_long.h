@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/30 18:01:51 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/11/04 00:33:20 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/11/05 00:54:14 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@
 # define KEY_S 1
 # define KEY_D 2
 # define KEY_ESC 53
-# define ROAD 0
-# define WALL 1
-# define COLLECTIBLE 2
-# define ENEMY 3
-# define EXIT 4
+# define ROAD '0'
+# define WALL '1'
+# define COLLECTIBLE 'C'
+# define ENEMY 'D'
+# define EXIT 'E'
+# define HAPPY 0
+# define BAD 1
 
 # define OPEN_MAX 4896
 # define BUFFER_SIZE 100
@@ -60,6 +62,7 @@ typedef struct s_map
 	int		player;
 	int		collectible;
 	int		exit;
+	int		open;
 }	t_map;
 
 typedef struct s_player
@@ -77,7 +80,8 @@ typedef struct s_game
 	void		*mlx;
 	void		*win;
 	int			fd;
-	int			is_error;
+	int			finish;
+	int			error;
 	t_player	*player;
 	t_map		*map;
 	t_enemy		*enemy;
@@ -90,27 +94,28 @@ int		exception(int argc, char *map_file);
 void	enemy_init(t_enemy *enemy);
 int		map_init(t_map *map);
 void	player_init(t_player *player);
-int		game_init(t_game *game);
+int		game_init(t_game **game);
 
 /* assets_parsing */
-int		check_surrounded(char *map);
-int		check_elements(t_map *map_val, char *map);
 int		check_map(t_game *game);
-int		make_buf_map(t_game *game, char *map_file, int fd);
-int		make_map(t_game *game, char *map_file, int fd);
+int		make_map(t_game *game);
+int		make_buf(t_game *game, char *map_file, int fd);
 int		assets_parsing(t_game *game, char *map_file);
 
 /* start_game */
-void	encounter_enemy(t_game *game, int check_x, int check_y);
-void	collect_func(t_game *game, int check_x, int check_y);
 void	check_path(t_game *game, int check_x, int check_y);
 int		ft_key(int keycode, t_game *game);
-int		start_game(t_game *game);
+int		so_long(t_game *game);
+
 
 /* end_game */
-void	end_game(t_game *game);
+void	finish_game(t_game **game);
 
 /* utility */
+void	end_game(t_game *game, int check_x, int check_y, int ending_flag);
+void	collect_func(t_game *game, int check_x, int check_y);
+int		check_surrounded(char *map);
+int		check_elements(t_game *game, t_map *map_val, char *map, int y);
 void	move_player(t_game *game, int check_x, int check_y);	
 
 /* GNL */
