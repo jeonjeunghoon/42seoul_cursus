@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   game_init.c                                        :+:      :+:    :+:   */
+/*   game_init_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 01:49:24 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/11/20 16:52:53 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/11/20 17:14:40 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../inc_bonus/so_long_bonus.h"
 
-int	map_init(t_map *map)
+void	map_init(t_map *map)
 {
 	map->front = (t_node *)malloc(sizeof(t_node));
 	map->rear = map->front;
@@ -21,9 +21,11 @@ int	map_init(t_map *map)
 	map->y = 0;
 	map->player = 0;
 	map->collectible = 0;
+	map->enemy = 0;
+	map->e_front = (t_enemy *)malloc(sizeof(t_enemy));
+	map->e_rear = map->e_front;
 	map->exit = 0;
 	map->open = FALSE;
-	return (0);
 }
 
 void	player_init(t_player *player)
@@ -34,6 +36,17 @@ void	player_init(t_player *player)
 	player->movement = 0;
 	player->happy_ending = FALSE;
 	player->bad_ending = FALSE;
+}
+
+void	draw_init(t_game *game)
+{
+	game->draw->ani_time = 0;
+	game->draw->ani_flag = 0;
+	game->img.img = mlx_new_image(game->mlx, game->width, game->height);
+	game->img.data = (int *)mlx_get_data_addr(game->img.img, \
+	&game->img.bpp, &game->img.size_line, &game->img.endian);
+	sprite_init1(game);
+	sprite_init2(game);
 }
 
 int	game_init(t_game *game)
@@ -51,7 +64,6 @@ int	game_init(t_game *game)
 	game->player = (t_player *)malloc(sizeof(t_player));
 	player_init(game->player);
 	game->map = (t_map *)malloc(sizeof(t_map));
-	if (map_init(game->map) == ERROR)
-		return (ERROR);
+	map_init(game->map);
 	return (0);
 }

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assets_parsing.c                                   :+:      :+:    :+:   */
+/*   assets_parsing_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 01:50:02 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/11/20 16:51:55 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/11/20 17:56:13 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../inc_bonus/so_long_bonus.h"
 
 int	check_map(t_game *game)
 {
@@ -70,6 +70,8 @@ void	make_buf(t_game *game, int fd)
 		reading = get_next_line(fd, &buf);
 		new_front = (t_node *)malloc(sizeof(t_node));
 		game->map->front->buf_map = ft_strdup(buf);
+		free(buf);
+		buf = NULL;
 		new_front->next = NULL;
 		game->map->front->next = new_front;
 		game->map->front = new_front;

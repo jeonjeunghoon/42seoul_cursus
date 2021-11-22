@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:40:25 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/11/20 17:23:41 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/11/20 17:58:37 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../inc_bonus/so_long_bonus.h"
 
 void	add_line(char **line, char **room)
 {
@@ -34,7 +34,7 @@ void	add_line(char **line, char **room)
 	}
 }
 
-int	is_continue(int fd, int byte, char **line, char **room)
+int	is_eof(int fd, int byte, char **line, char **room)
 {
 	if (byte == 0)
 	{
@@ -43,14 +43,9 @@ int	is_continue(int fd, int byte, char **line, char **room)
 		else
 			*line = ft_strdup(room[fd]);
 		free((room[fd]));
-		return (0);
+		return (TRUE);
 	}
-	else
-	{
-		add_line(line, &(room[fd]));
-		free(*line);
-		return (1);
-	}
+	return (0);
 }
 
 void	add_room(char **room, char *buf)
@@ -74,7 +69,7 @@ int	get_next_line(int fd, char **line)
 	char		buf[BUFFER_SIZE + 1];
 	int			byte;
 
-	if (line == NULL)
+	if (line == NULL || *line != NULL)
 		return (-1);
 	byte = 1;
 	while (byte)
@@ -87,7 +82,8 @@ int	get_next_line(int fd, char **line)
 		if (ft_strchr(buf, '\n'))
 			break ;
 	}
-	if (is_continue(fd, byte, line, room) == TRUE)
-		return (TRUE);
-	return (0);
+	if (is_eof(fd, byte, line, room) == TRUE)
+		return (0);
+	add_line(line, &(room[fd]));
+	return (1);
 }

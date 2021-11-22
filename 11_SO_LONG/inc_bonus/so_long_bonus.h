@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:38:54 by jeujeon           #+#    #+#             */
-/*   Updated: 2021/11/20 16:49:59 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:28:03 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
@@ -144,11 +144,6 @@ typedef struct s_game
 	t_map		*map;
 }	t_game;
 
-/* draw_init */
-void	sprite_init1(t_game *game);
-void	sprite_init2(t_game *game);
-void	draw_init(t_game *game);
-
 /* draw_set_cam */
 void	set_camera_var(t_game *game);
 void	set_max_screen_var(t_game *game);
@@ -167,9 +162,14 @@ void	make_animation(t_game *game);
 int		exception(int argc, char *map_file);
 
 /* game_init */
-int		map_init(t_map *map);
+void	map_init(t_map *map);
+void	draw_init(t_game *game);
 void	player_init(t_player *player);
 int		game_init(t_game *game);
+
+/* draw_init */
+void	sprite_init1(t_game *game);
+void	sprite_init2(t_game *game);
 
 /* assets_parsing */
 int		check_map(t_game *game);
@@ -184,6 +184,12 @@ void	move_player(t_game *game, int check_x, int check_y);
 void	check_path(t_game *game, int check_x, int check_y);
 int		ft_key(int keycode, t_game *game);
 
+/* enemy */
+void	move_enemy(t_game *game, t_enemy *head);
+int		check_direction(t_map *map, int x, int y);
+void	is_player_die(t_game *game, t_enemy *head);
+void	enemy_action(t_game *game);
+
 /* so_long */
 void	ending(t_game *game);
 void	draw_map(t_game *game);
@@ -197,7 +203,7 @@ int		to_coord(t_game *game, int x, int y);
 
 /* GNL */
 void	add_line(char **line, char **room);
-int		is_continue(int fd, int byte, char **line, char **room);
+int		is_eof(int fd, int byte, char **line, char **room);
 void	add_room(char **room, char *buf);
 int		get_next_line(int fd, char **line);
 

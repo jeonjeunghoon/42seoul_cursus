@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_key.c                                           :+:      :+:    :+:   */
+/*   ft_key_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 01:03:35 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/11/20 16:52:48 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/11/20 18:00:58 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../inc_bonus/so_long_bonus.h"
 
 void	end_game(t_game *game, int check_x, int check_y, int ending_flag)
 {
@@ -70,7 +70,7 @@ int	ft_key(int keycode, t_game *game)
 	check_x = game->player->x;
 	check_y = game->player->y;
 	if (keycode == KEY_ESC)
-		ft_exit("EXIT SO_LONG\n");
+		ft_exit("EXIT GAME\n");
 	if (keycode == KEY_D)
 		check_x++;
 	else if (keycode == KEY_A)

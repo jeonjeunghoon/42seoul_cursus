@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utility.c                                          :+:      :+:    :+:   */
+/*   utility_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 01:58:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/11/20 16:53:52 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/11/20 16:55:16 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "../inc_bonus/so_long_bonus.h"
+
+void	get_enemy_data(t_game *game, int x, int y)
+{
+	t_enemy	*new_e_front;
+
+	new_e_front = (t_enemy *)malloc(sizeof(t_enemy));
+	game->map->e_front->x = x;
+	game->map->e_front->y = y;
+	game->map->e_front->direction = BLOCKED;
+	game->map->e_front->move = FALSE;
+	new_e_front->next = NULL;
+	game->map->e_front->next = new_e_front;
+	game->map->e_front = new_e_front;
+	game->map->enemy++;
+}
 
 int	check_elements(t_game *game, t_map *map_val, char *map, int y)
 {
@@ -33,6 +48,8 @@ int	check_elements(t_game *game, t_map *map_val, char *map, int y)
 			map_val->collectible++;
 		else if (map[i] == EXIT)
 			map_val->exit++;
+		else if (map[i] == ENEMY)
+			get_enemy_data(game, i, y);
 		else if (map[i] != ROAD && map[i] != WALL)
 			return (ERROR);
 	}
