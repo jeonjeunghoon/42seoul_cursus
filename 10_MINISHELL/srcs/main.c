@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/10/19 16:13:51 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/12/27 17:31:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	minishell_init(t_mini **mini)
 
 int	main(int argc, const char **argv) // return (1)은 에러 시그널
 {
-	t_mini	*mini;
+	t_mini	*mini; // 구조체를 포인터로 선언하는 이유는 함수로 넘어갈 때 매개변수가 복사되어 넘어간다/구조체가 커질 수록 메모리 관리에 비효율적이다.
 
 	minishell_init(&mini);
 	while (1)

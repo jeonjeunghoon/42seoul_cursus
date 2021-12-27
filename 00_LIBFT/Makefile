@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 18:21:05 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/07/29 14:31:02 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/12/27 14:42:14 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,9 +79,6 @@ $(NAME):		${OBJS}
 
 all:			${NAME}
 
-bonus:			${NAME} ${OBJS_BONUS}
-				${LIBC} ${NAME} ${OBJS_BONUS}
-
 clean:
 				${RM} ${OBJS} ${OBJS_BONUS}
 
@@ -89,3 +86,8 @@ fclean:			clean
 				${RM} ${NAME} ${bonus}
 
 re:				fclean all
+
+bonus:			${NAME} ${OBJS_BONUS}
+				${LIBC} ${NAME} ${OBJS_BONUS}
+
+.PHONY:			all clean fclean re bonus

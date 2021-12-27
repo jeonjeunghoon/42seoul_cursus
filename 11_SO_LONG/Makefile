@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/20 16:44:07 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/11/20 16:44:26 by jeunjeon         ###   ########.fr        #
+#    Updated: 2021/11/22 21:24:16 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,11 +71,9 @@ $(NAME) : $(OBJS)
 	-framework OpenGL -framework Appkit -lz $^ -o $@
 
 $(OBJS_PATH)/%.o : $(SRCS_PATH)/%.c
-	mkdir $(OBJS_PATH) 2> /dev/null || true
 	$(CC) $(CFLAGS) -I$(INC_PATH) -I$(MLX_PATH) -I$(LIB_PATH) -c $< -o $@
 
 $(BOBJS_PATH)/%.o : $(BSRCS_PATH)/%.c
-	mkdir $(BOBJS_PATH) 2> /dev/null || true
 	$(CC) $(CFLAGS) -I$(INC_PATH) -I$(MLX_PATH) -I$(LIB_PATH) -c $< -o $@
 
 .PHONY: all clean fclean
