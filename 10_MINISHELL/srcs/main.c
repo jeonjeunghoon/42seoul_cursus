@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/12/29 18:13:30 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/12/29 18:14:56 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	loop_init(t_mini *mini) // 현재 위치 갱신 함수
 	splited_strs = ft_split(mini->pwd, '/');
 	strs_len = ft_veclen(splited_strs);
 	// strs_len을 이용해 working_dir 문자열 완성
+	// working_dir과 usr 문자열을 이용해 프롬프트 표시 문자열 완성
 	// splited_strs 프리 필요
 	return (0);
 }
