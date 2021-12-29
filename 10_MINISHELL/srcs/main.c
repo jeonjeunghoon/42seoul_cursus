@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/12/27 17:31:51 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2021/12/29 18:13:30 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,50 +56,48 @@ void	new_prompt(t_mini *mini) // 프롬프트 생성 함수
 	free(str);
 }
 
-void	loop_init(t_mini *mini) // 현재 위치 갱신 함수
+int	loop_init(t_mini *mini) // 현재 위치 갱신 함수
 {
-	char	**split_str;
-	int		i;
+	char	**splited_strs;
+	char	*working_dir;
+	int		strs_len;
 
 	getcwd(mini->pwd, 1024);
-	split_str = ft_split(mini->pwd, '/');
-	if (split_str == NULL)
-		error_func(mini);
-	i = 0;
-	while (split_str[i])
-		i++;
-	if (i == 2)
-		mini->locate = ft_strdup("~");
-	else
-		mini->locate = ft_strdup(split_str[i - 1]);
-	i = 0;
-	while (split_str[i])
-	{
-		free(split_str[i]);
-		i++;
-	}
-	free(split_str);
+	if (mini->pwd == NULL)
+		return (-1);
+	splited_strs = ft_split(mini->pwd, '/');
+	strs_len = ft_veclen(splited_strs);
+	// strs_len을 이용해 working_dir 문자열 완성
+	// splited_strs 프리 필요
+	return (0);
 }
 
-void	minishell_init(t_mini **mini)
+int	minishell_init(t_mini **mini)
 {
 	*mini = (t_mini *)malloc(sizeof(t_mini));
 	if (*mini == NULL)
-		error_func(*mini);
+		return (-1);
 	(*mini)->pwd = (char *)malloc(sizeof(char) * 1024);
 	if ((*mini)->pwd == NULL)
-		error_func(*mini);
+		return (-1);
 	(*mini)->exit_flag = 0;
+	return (0);
 }
 
 int	main(int argc, const char **argv) // return (1)은 에러 시그널
 {
-	t_mini	*mini; // 구조체를 포인터로 선언하는 이유는 함수로 넘어갈 때 매개변수가 복사되어 넘어간다/구조체가 커질 수록 메모리 관리에 비효율적이다.
+	t_mini	*mini;
+	/*
+	구조체를 포인터로 선언하는 이유는 함수로 넘어갈 때 매개변수가 복사되어 넘어간다
+	구조체가 커질 수록 메모리 관리에 비효율적이다.
+	*/
 
-	minishell_init(&mini);
+	if ((minishell_init(&mini)) == -1)
+		error_func(mini);
 	while (1)
 	{
-		loop_init(mini);
+		if ((loop_init(mini)) == -1)
+			error_func(mini);
 		new_prompt(mini);
 		is_exit(mini);
 		check_command(mini);
