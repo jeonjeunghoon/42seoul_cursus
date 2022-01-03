@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 17:29:40 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/03 17:36:42 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ int	ft_command(t_mini *mini, char *input, char **strs)
 	free(mini->cmd);
 	/*
 	여기 까지 했는데 지금 까지 한게 머냐면
-	
+	명령프롬프트 생성하고
+	cmd 절대경로 파싱해서 명령어 유효성 검사했음
+	근데 ft_bulitin 을 실행해야 하기 때문에 is_valid_cmd와 순서 변경이 필요하다.
 	*/
 	return (0);
 }
