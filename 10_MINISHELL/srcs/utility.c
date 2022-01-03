@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   utility.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/03 13:57:37 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 13:58:34 by jeunjeon         ###   ########.fr       */
+/*   Created: 2022/01/03 10:42:11 by jeunjeon          #+#    #+#             */
+/*   Updated: 2022/01/03 14:00:14 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+# include "../inc/minishell.h"
 
-void	ft_pwd(void)
+void	error_msg(char *input, char *error_msg)
 {
-	char	*cwd;
+	printf("%s: %s\n", input, error_msg);
+}
 
-	cwd = getcwd(NULL, 0);
-	if (cwd)
-		printf("%s\n", cwd);
-	else
-		error_msg("pwd", strerror(errno));
-	free(cwd);
+void	error_func(t_mini *mini)
+{
+	exit(1);
 }

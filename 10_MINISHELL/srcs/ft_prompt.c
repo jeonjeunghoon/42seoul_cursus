@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_prompt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/03 13:57:37 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 13:58:34 by jeunjeon         ###   ########.fr       */
+/*   Created: 2022/01/03 10:42:58 by jeunjeon          #+#    #+#             */
+/*   Updated: 2022/01/03 13:44:43 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_pwd(void)
+int	ft_prompt(t_mini *mini)
 {
-	char	*cwd;
+	char	*user_input;
 
-	cwd = getcwd(NULL, 0);
-	if (cwd)
-		printf("%s\n", cwd);
-	else
-		error_msg("pwd", strerror(errno));
-	free(cwd);
+	if (prompt_init(mini) == ERROR)
+		return (ERROR);
+	user_input = NULL;
+	user_input = readline(mini->prompt);
+	if (user_input == NULL)
+		return (ERROR);
+	if ((ft_command(mini, user_input)) != ENTER)
+		add_history(user_input);
+	free(user_input);
+	return (0);
 }

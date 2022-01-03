@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_command.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/03 13:57:37 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 13:58:34 by jeunjeon         ###   ########.fr       */
+/*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
+/*   Updated: 2022/01/03 14:04:29 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+# include "../inc/minishell.h"
 
-void	ft_pwd(void)
+void	execute_command(t_mini *mini)
 {
-	char	*cwd;
 
-	cwd = getcwd(NULL, 0);
-	if (cwd)
-		printf("%s\n", cwd);
+}
+
+int	check_command(t_mini *mini)
+{
+	
+	return (0);
+}
+
+int	ft_command(t_mini *mini, char *user_input)
+{
+	if (user_input[0] == '\0')
+		return (ENTER);
+	if (check_command(mini) == ERROR)
+		printf("bash: %s: command not found\n", user_input);
 	else
-		error_msg("pwd", strerror(errno));
-	free(cwd);
+		execute_command(mini);
+	return (0);
 }

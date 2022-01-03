@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 14:19:40 by jeunjeon          #+#    #+#              #
-#    Updated: 2021/10/19 15:25:08 by jeunjeon         ###   ########.fr        #
+#    Updated: 2022/01/03 13:58:57 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,13 @@ NAME				=	minishell
 CC					=	gcc
 CFLAGS				=	# -Wall -Wextra -Werror
 
-SRCS_NAME			=	main.c
+SRCS_NAME			=	main.c \
+						minishell_init.c \
+						ft_prompt.c \
+						prompt_init.c \
+						ft_command.c \
+						utility.c \
+						ft_pwd.c
 SRCS_PATH			=	./srcs
 SRCS				=	$(addprefix $(SRCS_PATH)/, $(SRCS_NAME))
 
