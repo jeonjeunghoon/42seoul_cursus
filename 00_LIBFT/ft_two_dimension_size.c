@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_init.c                                   :+:      :+:    :+:   */
+/*   ft_two_dimension_size.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/03 09:48:00 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 17:18:34 by jeunjeon         ###   ########.fr       */
+/*   Created: 2021/07/29 14:30:34 by jeunjeon          #+#    #+#             */
+/*   Updated: 2022/01/03 14:28:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "libft.h"
 
-int	minishell_init(t_mini **mini)
+size_t	ft_two_dimension_size(char **strs)
 {
-	char	*envp_str;
+	size_t	size;
 
-	*mini = (t_mini *)malloc(sizeof(t_mini));
-	if (*mini == NULL)
-		return (ERROR);
-	envp_str = getenv("PATH");
-	(*mini)->envp = ft_split(envp_str, ':');
-	return (0);
+	if (strs == NULL)
+		return (-1);
+	size = 0;
+	while (strs[size])
+		size++;
+	return (size);
 }

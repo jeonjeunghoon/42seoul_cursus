@@ -1,11 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/03 15:52:24 by jeunjeon          #+#    #+#             */
+/*   Updated: 2022/01/03 15:52:47 by jeunjeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-/*
-** Prints the environment variable on the screen
-**
-** @param		N/A
-** @returns	N/A
-*/
+#include "../inc/minishell.h"
 
 void			print_env(void)
 {
@@ -15,13 +20,6 @@ void			print_env(void)
 	while (g_envv[++i])
 		ft_putendl(g_envv[i]);
 }
-
-/*
-** Returns the length of the parent shell environment variable
-**
-** @param	envv	The parent shell environment variable
-** @return	The length of envv
-*/
 
 static int		envv_len(char **envv)
 {
@@ -34,18 +32,6 @@ static int		envv_len(char **envv)
 		count++;
 	return (count);
 }
-
-/*
-** Makes a copy of the environment variable of the parent shell into the
-** global variable g_envv
-** NOTE: I'm using a global variable so I can be able to free the memory once
-** the program gets killed
-**
-** @param	ac		argument counts
-** @param	av		argument variables
-** @param	envv	The parent shell environment variable
-** @return	N/A
-*/
 
 void			init_envv(int ac, char **av, char **envv)
 {
@@ -61,16 +47,6 @@ void			init_envv(int ac, char **av, char **envv)
 			exit_shell();
 	}
 }
-
-/*
-** Removes a variable from the environment variable list
-** NOTE: Always make sure to search for the variable before using this
-** function, it expects that you're sure the variable already exists
-** in the environment
-**
-** @param		var_pos		The position at which the variable was found
-** @return	N/A
-*/
 
 static void		remove_env_var(int var_pos)
 {
@@ -90,13 +66,6 @@ static void		remove_env_var(int var_pos)
 	}
 	g_envv = realloc_envv(var_count - 1);
 }
-
-/*
-** Executes the builtin unsetenv command
-**
-** @param		args		The arguments to pass to unsetenv
-** @return	1 on completion
-*/
 
 int				unsetenv_builtin(char **args)
 {

@@ -1,19 +1,20 @@
-/*
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/03 15:52:13 by jeunjeon          #+#    #+#             */
+/*   Updated: 2022/01/03 15:54:04 by jeunjeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-https://github.com/paulahemsi/minishell/blob/main/sources/builtins/exit.c
-
-원래 다른 함수들 더 있는데 서브젝트에 옵션 없이 작성하라 해서
-$> exit
-기능만 넣었음
-$> exit 100 << 숫자가 옵션인지 모르겠다.
-
-*/
-
-#include "minishell.h"
+#include "../inc/minishell.h"
 
 static int	get_argc(char **argv)
 {
-	int	argc;
+	int		argc;
 
 	argc = 0;
 	while (argv[argc] != NULL)

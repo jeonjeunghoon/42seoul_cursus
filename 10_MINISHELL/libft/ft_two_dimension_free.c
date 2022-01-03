@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_veclen.c                                        :+:      :+:    :+:   */
+/*   ft_two_dimension_free.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/29 14:30:34 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/29 14:30:38 by jeunjeon         ###   ########.fr       */
+/*   Created: 2022/01/03 14:28:17 by jeunjeon          #+#    #+#             */
+/*   Updated: 2022/01/03 14:30:24 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_veclen(char **vec)
+void	ft_two_dimension_free(char **strs)
 {
-	size_t	size;
+	int	i;
 
-	if (vec == NULL)
-		return (-1);
-	size = 0;
-	while (vec[size])
-		size++;
-	return (size);
+	i = 0;
+	while (strs[i] != NULL)
+	{
+		free(strs[i]);
+		strs[i] = NULL;
+		i++;
+	}
+	free(strs);
+	strs = NULL;
 }
