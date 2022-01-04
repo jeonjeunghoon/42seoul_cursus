@@ -6,13 +6,14 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:44:33 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/04 15:46:46 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:32:16 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_cd(void)
+void	ft_cd(t_mini *mini, char **argv)
 {
+	mini->minicmd_flag = TRUE;
 	return ;
 }

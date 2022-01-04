@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:13 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/04 15:54:13 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:32:30 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ static int	get_argc(char **argv)
 	return (argc);
 }
 
-void	ft_exit(char **argv)
+void	ft_exit(t_mini *mini, char **argv)
 {
 	int	argc;
 
+	mini->minicmd_flag = TRUE;
 	argc = get_argc(argv);
 	if (argc > 1)
 	{

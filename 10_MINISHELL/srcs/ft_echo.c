@@ -6,17 +6,18 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/04 15:53:16 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:32:23 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
  
-int		ft_echo(char **argv)
+int		ft_echo(t_mini *mini, char **argv)
 {
 	int	i;
 	int	n_flag;
 
+	mini->minicmd_flag = TRUE;
 	n_flag = FALSE;
 	if (argv[0] == NULL)
 	{
