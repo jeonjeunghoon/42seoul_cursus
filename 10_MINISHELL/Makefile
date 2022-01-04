@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 14:19:40 by jeunjeon          #+#    #+#              #
-#    Updated: 2022/01/03 14:35:05 by jeunjeon         ###   ########.fr        #
+#    Updated: 2022/01/04 15:48:24 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,13 @@ SRCS_NAME			=	main.c \
 						prompt_init.c \
 						ft_command.c \
 						utility.c \
-						ft_pwd.c
+						ft_echo.c \
+						ft_cd.c \
+						ft_pwd.c \
+						ft_export.c \
+						ft_unset.c \
+						ft_env.c \
+						ft_exit.c
 SRCS_PATH			=	./srcs
 SRCS				=	$(addprefix $(SRCS_PATH)/, $(SRCS_NAME))
 

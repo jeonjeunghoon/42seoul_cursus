@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 17:24:34 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:04:03 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ typedef struct s_mini
 	char	*prompt;
 	char	*line;
 	char	*cmd;
-	int		exit_flag;
 	char	*user;
 	char	**splitted_input;
 	char	**envp;
+	int		exit_flag;
+	int		minicmd_flag;
 }	t_mini;
 
 // main
@@ -61,15 +62,34 @@ int		prompt_init(t_mini *mini);
 int		ft_prompt(t_mini *mini);
 
 // ft_command
-void	execute_command(t_mini *mini);
-int		check_command(t_mini *mini);
+void	builtin_command(t_mini *mini);
+char	*shell_command(t_mini *mini, char *cmd);
+int		mini_command(t_mini *mini, char *cmd);
 int		ft_command(t_mini *mini, char *input, char **strs);
 
 // utility
 void	error_msg(char *input, char *error_msg);
 void	error_func(t_mini *mini);
 
-// ft_pwd.c
+// ft_echo
+int		ft_echo(char **argv);
+
+// ft_cd
+void	ft_cd(void);
+
+// ft_pwd
 void	ft_pwd(void);
+
+// ft_export
+void	ft_export(void);
+
+// ft_unset
+void	ft_unset(void);
+
+// ft_env
+void	ft_env(void);
+
+// ft_exit
+void	ft_exit(char **argv);
 
 #endif

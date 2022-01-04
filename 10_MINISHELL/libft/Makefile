@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 18:21:05 by jeunjeon          #+#    #+#              #
-#    Updated: 2022/01/03 14:27:14 by jeunjeon         ###   ########.fr        #
+#    Updated: 2022/01/04 15:29:18 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,6 @@ SRCS		=	./ft_memset.c \
 				./ft_putstr_fd.c \
 				./ft_putendl_fd.c \
 				./ft_putnbr_fd.c \
-				./ft_exit.c \
 				./ft_two_dimension_size.c \
 				./ft_two_dimension_free.c
 

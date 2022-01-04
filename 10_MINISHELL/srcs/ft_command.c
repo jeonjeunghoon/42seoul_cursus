@@ -6,18 +6,18 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 17:36:42 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:03:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	execute_command(t_mini *mini)
+void	bulitin_command(t_mini *mini)
 {
 	return ;
 }
 
-char	*is_valid_cmd(t_mini *mini, char *cmd)
+char	*shell_command(t_mini *mini, char *cmd)
 {
 	int		i;
 	int		fd;
@@ -44,25 +44,47 @@ char	*is_valid_cmd(t_mini *mini, char *cmd)
 	return (NULL);
 }
 
-int	ft_builtin(t_mini *mini)
+int	mini_command(t_mini *mini, char *cmd)
 {
-	return (0);
+	// if ((ft_strncmp(cmd, "echo", 5)) == 0)
+	// 	ft_echo();
+	if ((ft_strncmp(cmd, "cd", 3)) == 0)
+		ft_cd();
+	else if ((ft_strncmp(cmd, "pwd", 4)) == 0)
+		ft_pwd();
+	else if ((ft_strncmp(cmd, "export", 7)) == 0)
+		ft_export();
+	else if ((ft_strncmp(cmd, "unset", 6)) == 0)
+		ft_unset();
+	else if ((ft_strncmp(cmd, "env", 4)) == 0)
+		ft_env();
+	// else if ((ft_strncmp(cmd, "exit", 5)) == 0)
+	// 	ft_exit();
+	if (mini->minicmd_flag == FALSE)
+		return (FALSE);
+	return (TRUE);
 }
 
 int	ft_command(t_mini *mini, char *input, char **strs)
 {
 	if (input[0] == '\0')
 		return (ENTER);
-	mini->cmd = is_valid_cmd(mini, strs[0]);
-	if (mini->cmd == NULL)
-		printf("-bash: %s: command not found\n", strs[0]);
-	ft_builtin(mini);
+	if ((mini_command(mini, strs[0])) == TRUE)
+	{
+		mini->minicmd_flag = FALSE;
+		return (0);
+	}
+	else
+	{
+		mini->cmd = shell_command(mini, strs[0]);
+		if (mini->cmd == NULL)
+		{
+			printf("-bash: %s: command not found\n", strs[0]);
+			return (0);
+		}
+		execve(mini->cmd, &(strs[1]), NULL);
+	}
 	free(mini->cmd);
-	/*
-	여기 까지 했는데 지금 까지 한게 머냐면
-	명령프롬프트 생성하고
-	cmd 절대경로 파싱해서 명령어 유효성 검사했음
-	근데 ft_bulitin 을 실행해야 하기 때문에 is_valid_cmd와 순서 변경이 필요하다.
-	*/
+	mini->cmd = NULL;
 	return (0);
 }

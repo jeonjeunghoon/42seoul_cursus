@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/17 17:03:11 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/01 15:24:44 by jeunjeon         ###   ########.fr       */
+/*   Created: 2022/01/04 15:44:33 by jeunjeon          #+#    #+#             */
+/*   Updated: 2022/01/04 15:46:46 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../inc/minishell.h"
 
-void	ft_exit(char *msg, int is_error)
+void	ft_cd(void)
 {
-	write(1, msg, ft_strlen(msg));
-	if (is_error == 0)
-		exit(0);
-	else if (is_error == 1)
-		exit(1);
+	return ;
 }
