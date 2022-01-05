@@ -6,16 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/04 16:32:07 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/05 16:32:11 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	bulitin_command(t_mini *mini)
-{
-	return ;
-}
 
 char	*shell_command(t_mini *mini, char *cmd)
 {
@@ -67,8 +62,6 @@ int	mini_command(t_mini *mini, char **argv)
 
 int	ft_command(t_mini *mini, char *input, char **argv)
 {
-	if (input[0] == '\0')
-		return (ENTER);
 	if ((mini_command(mini, argv)) == TRUE)
 	{
 		mini->minicmd_flag = FALSE;
@@ -76,15 +69,15 @@ int	ft_command(t_mini *mini, char *input, char **argv)
 	}
 	else
 	{
-		mini->cmd = shell_command(mini, argv[0]);
-		if (mini->cmd == NULL)
+		mini->shell_cmd = shell_command(mini, argv[0]);
+		if (mini->shell_cmd == NULL)
 		{
 			printf("-bash: %s: command not found\n", argv[0]);
 			return (0);
 		}
-		execve(mini->cmd, &(argv[1]), NULL);
+		execve(mini->shell_cmd, &(argv[1]), NULL);
 	}
-	free(mini->cmd);
-	mini->cmd = NULL;
+	free(mini->shell_cmd);
+	mini->shell_cmd = NULL;
 	return (0);
 }

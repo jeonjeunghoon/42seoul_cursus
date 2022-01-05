@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/05 16:22:16 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/05 17:17:18 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 # define TRUE 1
 # define FALSE 0
 # define ERROR -1
-# define ENTER 1
 
 typedef struct s_mini
 {
@@ -40,10 +39,9 @@ typedef struct s_mini
 	char	*locate;
 	char	*prompt;
 	char	*line;
-	char	*cmd;
+	char	*shell_cmd;
 	char	*user;
-	char	**input;
-	char	**splitted_input;
+	char	**argv;
 	char	**envp;
 	int		exit_flag;
 	int		minicmd_flag;
@@ -60,6 +58,7 @@ int		locate_init(t_mini *mini, char *buffer);
 int		load_prompt(t_mini *mini);
 
 // ft_prompt
+int		get_user_input(char **prompt, char **user_input, char ***argv);
 int		ft_prompt(t_mini *mini);
 
 // ft_command
