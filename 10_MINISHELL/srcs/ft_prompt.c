@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:42:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 17:28:34 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/05 16:22:25 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_prompt(t_mini *mini)
 	char	*user_input;
 	int		i;
 
-	if (prompt_init(mini) == ERROR)
+	if (load_prompt(mini) == ERROR)
 		return (ERROR);
 	user_input = NULL;
 	user_input = readline(mini->prompt);

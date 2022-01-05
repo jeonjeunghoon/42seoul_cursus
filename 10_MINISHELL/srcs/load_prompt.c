@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_init.c                                      :+:      :+:    :+:   */
+/*   load_prompt.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:53:32 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 15:51:52 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/05 16:22:03 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	locate_init(t_mini *mini, char *buffer)
 	return (0);
 }
 
-int	prompt_init(t_mini *mini)
+int	load_prompt(t_mini *mini)
 {
 	char	*buffer;
 

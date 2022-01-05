@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/04 16:33:43 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/05 16:22:16 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		minishell_init(t_mini **mini);
 // prompt_init
 int		create_prompt(t_mini *mini);
 int		locate_init(t_mini *mini, char *buffer);
-int		prompt_init(t_mini *mini);
+int		load_prompt(t_mini *mini);
 
 // ft_prompt
 int		ft_prompt(t_mini *mini);
