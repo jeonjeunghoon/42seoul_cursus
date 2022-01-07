@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/05 17:17:18 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/07 18:15:25 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,23 @@
 # define FALSE 0
 # define ERROR -1
 
+typedef struct s_node
+{
+	int				is_head;
+	char			*cmd;
+	char			**argv;
+	struct s_node	*next;
+}	t_node;
+
 typedef struct s_mini
 {
-	char	*pwd;
 	char	*locate;
 	char	*prompt;
-	char	*line;
 	char	*shell_cmd;
-	char	*user;
 	char	**argv;
 	char	**envp;
 	int		exit_flag;
+	int		continue_flag;
 	int		minicmd_flag;
 }	t_mini;
 
@@ -65,7 +71,7 @@ int		ft_prompt(t_mini *mini);
 void	builtin_command(t_mini *mini);
 char	*shell_command(t_mini *mini, char *cmd);
 int		mini_command(t_mini *mini, char **argv);
-int		ft_command(t_mini *mini, char *input, char **strs);
+int		ft_command(t_mini *mini, char *cmd, char **argv);
 
 // utility
 void	error_msg(char *input, char *error_msg);

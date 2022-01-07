@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/05 16:32:11 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/07 15:47:29 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,9 @@ int	mini_command(t_mini *mini, char **argv)
 	return (TRUE);
 }
 
-int	ft_command(t_mini *mini, char *input, char **argv)
+int	ft_command(t_mini *mini, char *cmd, char **argv)
 {
-	if ((mini_command(mini, argv)) == TRUE)
-	{
-		mini->minicmd_flag = FALSE;
-		return (0);
-	}
-	else
+	if ((mini_command(mini, argv)) == FALSE)
 	{
 		mini->shell_cmd = shell_command(mini, argv[0]);
 		if (mini->shell_cmd == NULL)
@@ -76,8 +71,9 @@ int	ft_command(t_mini *mini, char *input, char **argv)
 			return (0);
 		}
 		execve(mini->shell_cmd, &(argv[1]), NULL);
+		free(mini->shell_cmd);
+		mini->shell_cmd = NULL;
 	}
-	free(mini->shell_cmd);
-	mini->shell_cmd = NULL;
+	mini->minicmd_flag = FALSE;
 	return (0);
 }
