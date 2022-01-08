@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:42:11 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/08 17:40:15 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/08 18:53:35 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	too_many_arguments(char *cmd)
 
 void	command_not_found(char *cmd)
 {
-	printf("bash: command not found: %s\n", cmd);
+	printf("minishell: command not found: %s\n", cmd);
 }
 
-void	error_msg(char *cmd, char *error_msg)
+void	error_msg(char *cmd, char *argv, char *msg)
 {
-	printf("bash: %s: %s\n", cmd, error_msg);
+	printf("minishell: %s: %s: %s\n", cmd, argv, msg);
 }

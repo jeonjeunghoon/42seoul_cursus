@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/08 17:40:07 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/08 18:54:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		ft_command(t_mini *mini, t_node *head);
 // utility
 void	too_many_arguments(char *cmd);
 void	command_not_found(char *cmd);
-void	error_msg(char *cmd, char *error_msg);
+void	error_msg(char *cmd, char *argv, char *error_msg);
 
 // ft_echo
 int		ft_echo(t_mini *mini, char **argv);
