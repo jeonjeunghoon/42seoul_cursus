@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:42:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/08 15:52:09 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/08 17:24:26 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,9 @@ void	clear_resource(t_node **head, char ***argv, char *user_input)
 			free(tmp);
 			continue ;
 		}
-		free(tmp->cmd);
 		if (tmp->argv != NULL)
 			ft_two_dimension_free(tmp->argv);
 		tmp->argv = NULL;
-		tmp->cmd = NULL;
 		free(tmp);
 	}
 	ft_two_dimension_free(*argv);
@@ -66,10 +64,8 @@ void	make_input_node(t_node *head, char **argv, int start, int end)
 		head = head->next;
 	new_node = (t_node *)malloc(sizeof(t_node));
 	head->next = new_node;
-	new_node->cmd = ft_strdup(argv[start]);
 	new_node->argv = NULL;
 	i = 0;
-	start++;
 	if (start < end)
 	{
 		new_node->argv = (char **)malloc(sizeof(char *) * (end - start + 1));
@@ -113,7 +109,6 @@ t_node	*set_input(t_mini *mini, char **argv)
 	end = 0;
 	head = (t_node *)malloc(sizeof(t_node));
 	head->is_head = TRUE;
-	head->cmd = NULL;
 	head->argv = NULL;
 	head->next = NULL;
 	while (argv[end])
@@ -138,7 +133,6 @@ void	print_list(t_node *head)
 		tmp = tmp->next;
 	while (tmp != NULL)
 	{
-		printf("cmd: %s\n", tmp->cmd);
 		if (tmp->argv != NULL)
 		{
 			for (int i = 0; tmp->argv[i]; i++)

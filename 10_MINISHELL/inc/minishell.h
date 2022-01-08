@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/08 15:58:41 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/08 17:40:07 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@
 typedef struct s_node
 {
 	int				is_head;
-	char			*cmd;
 	char			**argv;
 	struct s_node	*next;
 }	t_node;
@@ -45,7 +44,7 @@ typedef struct s_mini
 {
 	char	*locate;
 	char	*prompt;
-	char	*shell_cmd;
+	char	*path_of_cmd;
 	char	**argv;
 	char	**envp;
 	int		exit_flag;
@@ -69,13 +68,14 @@ int		ft_prompt(t_mini *mini);
 
 // ft_command
 void	builtin_command(t_mini *mini);
-char	*shell_command(t_mini *mini, char *cmd, char **argv);
+char	*shell_command(t_mini *mini, char *cmd);
 int		mini_command(t_mini *mini, char *cmd, char **argv);
 int		ft_command(t_mini *mini, t_node *head);
 
 // utility
-void	error_msg(char *input, char *error_msg);
-void	error_func(t_mini *mini);
+void	too_many_arguments(char *cmd);
+void	command_not_found(char *cmd);
+void	error_msg(char *cmd, char *error_msg);
 
 // ft_echo
 int		ft_echo(t_mini *mini, char **argv);

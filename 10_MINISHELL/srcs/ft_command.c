@@ -6,13 +6,13 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/08 16:17:40 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/08 17:38:33 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*shell_command(t_mini *mini, char *cmd, char **argv)
+char	*shell_command(t_mini *mini, char *cmd)
 {
 	int		i;
 	int		fd;
@@ -66,17 +66,17 @@ int	ft_command(t_mini *mini, t_node *head)
 		head = head->next;
 	while (head != NULL)
 	{
-		if ((mini_command(mini, head->cmd, head->argv)) == FALSE)
+		if ((mini_command(mini, head->argv[0], head->argv)) == FALSE)
 		{
-			mini->shell_cmd = shell_command(mini, head->cmd, head->argv);
-			// if (mini->shell_cmd == NULL)
-			// {
-			// 	printf("-bash: %s: command not found\n", head->cmd);
-			// 	return (0);
-			// }
-			execve(mini->shell_cmd, head->argv, NULL);
-			free(mini->shell_cmd);
-			mini->shell_cmd = NULL;
+			mini->path_of_cmd = shell_command(mini, head->argv[0]);
+			if (mini->path_of_cmd == NULL)
+			{
+				command_not_found(mini->argv[0]);
+				return (0);
+			}
+			execve(mini->path_of_cmd, head->argv, mini->envp);
+			free(mini->path_of_cmd);
+			mini->path_of_cmd = NULL;
 		}
 		mini->minicmd_flag = FALSE;
 		head = head->next;
