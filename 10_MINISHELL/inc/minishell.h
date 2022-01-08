@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/07 18:15:25 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/08 15:58:41 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ int		ft_prompt(t_mini *mini);
 
 // ft_command
 void	builtin_command(t_mini *mini);
-char	*shell_command(t_mini *mini, char *cmd);
-int		mini_command(t_mini *mini, char **argv);
-int		ft_command(t_mini *mini, char *cmd, char **argv);
+char	*shell_command(t_mini *mini, char *cmd, char **argv);
+int		mini_command(t_mini *mini, char *cmd, char **argv);
+int		ft_command(t_mini *mini, t_node *head);
 
 // utility
 void	error_msg(char *input, char *error_msg);

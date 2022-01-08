@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:42:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/07 18:35:22 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/08 15:52:09 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +161,7 @@ int	ft_prompt(t_mini *mini)
 	{
 		add_history(user_input);
 		head = set_input(mini, mini->argv);
-		print_list(head);
-		// ft_command(mini, mini->argv[0], &(mini->argv[1]));
+		ft_command(mini, head);
 	}
 	clear_resource(&head, &(mini->argv), user_input);
 	return (0);
