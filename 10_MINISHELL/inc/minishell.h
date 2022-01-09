@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/08 18:54:02 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/09 14:31:59 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,24 @@ typedef struct s_mini
 // minishell_init
 int		minishell_init(t_mini **mini);
 
-// prompt_init
+// load_prompt
 int		create_prompt(t_mini *mini);
 int		locate_init(t_mini *mini, char *buffer);
 int		load_prompt(t_mini *mini);
 
 // ft_prompt
+void	clear_resource(t_node **head, char ***argv, char *user_input);
+int		is_empty_input(char **argv);
 int		get_user_input(char **prompt, char **user_input, char ***argv);
 int		ft_prompt(t_mini *mini);
 
+// set_input
+void	print_list(t_node *head);
+void	make_input_node(t_node *head, char **argv, int start, int end);
+int		need_split(char *argv);
+t_node	*set_input(t_mini *mini, char **argv);
+
 // ft_command
-void	builtin_command(t_mini *mini);
 char	*shell_command(t_mini *mini, char *cmd);
 int		mini_command(t_mini *mini, char *cmd, char **argv);
 int		ft_command(t_mini *mini, t_node *head);
@@ -78,9 +85,11 @@ void	command_not_found(char *cmd);
 void	error_msg(char *cmd, char *argv, char *error_msg);
 
 // ft_echo
+int		n_option(char *argv, int *start_ptr);
 int		ft_echo(t_mini *mini, char **argv);
 
 // ft_cd
+char	*get_path(char *argv);
 void	ft_cd(t_mini *mini, char **argv);
 
 // ft_pwd

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/08 19:01:01 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/09 14:58:57 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	mini_command(t_mini *mini, char *cmd, char **argv)
 
 int	ft_command(t_mini *mini, t_node *head)
 {
+	pid_t	pid;
+
 	if (head->is_head == TRUE)
 		head = head->next;
 	while (head != NULL)
@@ -74,7 +76,14 @@ int	ft_command(t_mini *mini, t_node *head)
 				command_not_found(mini->argv[0]);
 				return (0);
 			}
-			execve(mini->path_of_cmd, head->argv, mini->envp);
+			pid = fork();
+			if (pid > 0)
+				wait(0);
+			else if (pid == 0)
+			{
+				execve(mini->path_of_cmd, head->argv, mini->envp);
+				exit(0);
+			}
 			free(mini->path_of_cmd);
 			mini->path_of_cmd = NULL;
 		}
