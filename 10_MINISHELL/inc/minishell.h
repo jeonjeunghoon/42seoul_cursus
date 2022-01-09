@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/09 14:31:59 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/09 17:48:36 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_mini
 	int		continue_flag;
 	int		minicmd_flag;
 }	t_mini;
+
+int	g_exit_state;
 
 // main
 

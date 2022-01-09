@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/09 14:21:29 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/09 14:21:51 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/09 16:31:09 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_list(t_node *head)
 {
-	t_node *tmp;
+	t_node	*tmp;
 
 	tmp = head;
 	if (tmp->is_head == TRUE)

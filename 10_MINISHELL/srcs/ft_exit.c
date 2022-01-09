@@ -6,33 +6,40 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:13 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/08 18:30:38 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/09 17:55:45 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static int	get_argc(char **argv)
+int	check_argv(char *argv)
 {
-	int		argc;
+	int	i;
 
-	argc = 0;
-	while (argv[argc] != NULL)
-		argc++;
-	return (argc);
+	i = 0;
+	while (argv[i])
+	{
+		if (argv[i] > '0' || argv[i] < '9')
+			return (ERROR);
+		i++;
+	}
+	return (0);
 }
 
 void	ft_exit(t_mini *mini, char **argv)
 {
 	int	argc;
 
+	argc = 0;
 	mini->minicmd_flag = TRUE;
-	argc = get_argc(argv);
-	if (argc > 1)
+	argc = ft_two_dimension_size(argv);
+	if (argc > 2)
 	{
-		too_many_arguments(argv[0]);
+		too_many_arguments("exit");
 		return ;
 	}
-	printf("exit\n");
-	exit(0);
+	if (argc == 2 && check_argv(argv[1]) == 0)
+		g_exit_state = ft_atoi(argv[1]);
+	printf("logout\n");
+	exit(EXIT_SUCCESS);
 }

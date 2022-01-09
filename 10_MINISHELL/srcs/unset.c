@@ -6,15 +6,15 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:24 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 15:52:47 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/09 16:32:14 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void			print_env(void)
+void	print_env(void)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	while (g_envv[++i])
@@ -33,9 +33,9 @@ static int		envv_len(char **envv)
 	return (count);
 }
 
-void			init_envv(int ac, char **av, char **envv)
+void	init_envv(int ac, char **av, char **envv)
 {
-	int		i;
+	int	i;
 
 	(void)ac;
 	(void)av;
@@ -48,10 +48,10 @@ void			init_envv(int ac, char **av, char **envv)
 	}
 }
 
-static void		remove_env_var(int var_pos)
+static void	remove_env_var(int var_pos)
 {
-	int		i;
-	int		var_count;
+	int	i;
+	int	var_count;
 
 	free(g_envv[var_pos]);
 	g_envv[var_pos] = NULL;
@@ -67,10 +67,10 @@ static void		remove_env_var(int var_pos)
 	g_envv = realloc_envv(var_count - 1);
 }
 
-int				unsetenv_builtin(char **args)
+int	unsetenv_builtin(char **args)
 {
-	int			i;
-	int			var_pos;
+	int	i;
+	int	var_pos;
 
 	if (!args[0])
 	{
