@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/10 13:12:08 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/10 15:28:52 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_mini
 	char	*locate;
 	char	*prompt;
 	char	*path_of_cmd;
-	char	**argv;
 	char	**envp;
 	int		continue_flag;
 	int		minicmd_flag;
@@ -59,38 +58,29 @@ int	g_exit_state;
 int		minishell_init(t_mini **mini);
 
 // load_prompt
-int		create_prompt(t_mini *mini);
-int		locate_init(t_mini *mini, char *buffer);
 int		load_prompt(t_mini *mini);
 
 // ft_prompt
-void	clear_resource(t_node **head, char ***argv, char *user_input);
-int		is_empty_input(char **argv);
-int		get_user_input(char **prompt, char **user_input, char ***argv);
 int		ft_prompt(t_mini *mini);
 
+// tokenize_input
+int		tokenize_input(char *user_input);
+
 // set_input
-void	print_list(t_node *head);
-void	make_input_node(t_node *head, char **argv, int start, int end);
-int		need_split(char *argv);
-t_node	*set_input(t_mini *mini, char **argv);
+t_node	*set_input(t_mini *mini);
 
 // ft_command
-char	*shell_command(t_mini *mini, char *cmd);
-int		mini_command(t_mini *mini, char *cmd, char **argv);
 int		ft_command(t_mini *mini, t_node *head);
 
-// utility
+// error_msg
 void	too_many_arguments(char *cmd);
 void	command_not_found(char *cmd);
 void	error_msg(char *cmd, char *argv, char *error_msg);
 
 // ft_echo
-int		n_option(char *argv, int *start_ptr);
 int		ft_echo(t_mini *mini, char **argv);
 
 // ft_cd
-char	*get_path(char *argv);
 void	ft_cd(t_mini *mini, char **argv);
 
 // ft_pwd
