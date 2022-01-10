@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:53:32 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/05 16:22:03 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/10 13:15:45 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ int	create_prompt(t_mini *mini)
 	char	*tmp;
 	char	*tmp2;
 
+	tmp = NULL;
 	tmp = ft_strjoin(mini->locate, " ");
 	if (tmp == NULL)
 		return (ERROR);
 	free(mini->locate);
 	mini->locate = NULL;
+	tmp2 = NULL;
 	tmp2 = ft_strjoin(getenv("USER"), "$ ");
 	if (tmp2 == NULL)
 		return (ERROR);
@@ -29,7 +31,9 @@ int	create_prompt(t_mini *mini)
 	if (mini->prompt == NULL)
 		return (ERROR);
 	free(tmp);
+	tmp = NULL;
 	free(tmp2);
+	tmp2 = NULL;
 	return (0);
 }
 
@@ -38,6 +42,8 @@ int	locate_init(t_mini *mini, char *buffer)
 	char	**splitted_strs;
 	int		strs_len;
 
+	splitted_strs = NULL;
+	strs_len = 0;
 	splitted_strs = ft_split(buffer, '/');
 	strs_len = ft_two_dimension_size(splitted_strs);
 	if (strs_len == 0)
@@ -47,6 +53,7 @@ int	locate_init(t_mini *mini, char *buffer)
 	else
 		mini->locate = ft_strdup(splitted_strs[strs_len - 1]);
 	ft_two_dimension_free(splitted_strs);
+	splitted_strs = NULL;
 	return (0);
 }
 
@@ -54,6 +61,7 @@ int	load_prompt(t_mini *mini)
 {
 	char	*buffer;
 
+	buffer = NULL;
 	buffer = getcwd(NULL, 0);
 	if (buffer == NULL)
 		return (ERROR);

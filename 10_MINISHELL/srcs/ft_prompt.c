@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:42:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/09 15:07:54 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/10 13:35:18 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,11 @@ void	clear_resource(t_node **head, char ***argv, char *user_input)
 {
 	t_node	*tmp;
 
+	tmp = NULL;
 	while (*head != NULL)
 	{
 		tmp = *head;
 		*head = (*head)->next;
-		if (tmp->is_head == TRUE)
-		{
-			free(tmp);
-			continue ;
-		}
 		if (tmp->argv != NULL)
 			ft_two_dimension_free(tmp->argv);
 		tmp->argv = NULL;
@@ -36,14 +32,29 @@ void	clear_resource(t_node **head, char ***argv, char *user_input)
 	user_input = NULL;
 }
 
-int	is_empty_input(char **argv)
+int	exception_handling_input(char *user_input, char **argv)
 {
-	if (argv[0] != NULL)
-		return (FALSE);
-	return (TRUE);
+	int	i;
+	int	num_quotation;
+
+	num_quotation = 0;
+	i = 0;
+	while (user_input[i])
+	{
+		if (user_input[i] == ';' || user_input[i] == '\\')
+			return (ERROR);
+		if (user_input[i] == '\'' || user_input[i] == '\"')
+			num_quotation++;
+		i++;
+	}
+	if (argv[0] == NULL)
+		return (ERROR);
+	if (num_quotation % 2 != 0)
+		return (ERROR);
+	return (0);
 }
 
-int	get_user_input(char **prompt, char **user_input, char ***argv)
+int	parsing_input(char **prompt, char **user_input, char ***argv)
 {
 	*user_input = NULL;
 	*user_input = readline(*prompt);
@@ -66,9 +77,9 @@ int	ft_prompt(t_mini *mini)
 	pid = 0;
 	if (load_prompt(mini) == ERROR)
 		return (ERROR);
-	if (get_user_input(&(mini->prompt), &user_input, &(mini->argv)) == ERROR)
+	if (parsing_input(&(mini->prompt), &user_input, &(mini->argv)) == ERROR)
 		return (ERROR);
-	if (is_empty_input(mini->argv) == FALSE)
+	if (exception_handling_input(user_input, mini->argv) != ERROR)
 	{
 		add_history(user_input);
 		head = set_input(mini, mini->argv);

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/09 17:48:36 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/10 13:12:08 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct s_mini
 	char	*path_of_cmd;
 	char	**argv;
 	char	**envp;
-	int		exit_flag;
 	int		continue_flag;
 	int		minicmd_flag;
 }	t_mini;
