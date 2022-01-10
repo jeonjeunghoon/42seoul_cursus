@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/10 15:21:46 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/10 16:55:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,20 @@ int	mini_command(t_mini *mini, char *cmd, char **argv)
 	return (TRUE);
 }
 
-int	ft_command(t_mini *mini, t_node *head)
+int	ft_command(t_mini *mini)
 {
 	pid_t	pid;
+	char	*path_of_cmd;
 
+	path_of_cmd = NULL;
 	if (head->is_head == TRUE)
 		head = head->next;
 	while (head != NULL)
 	{
 		if ((mini_command(mini, head->argv[0], head->argv)) == FALSE)
 		{
-			mini->path_of_cmd = shell_command(mini, head->argv[0]);
-			if (mini->path_of_cmd == NULL)
+			path_of_cmd = shell_command(mini, head->argv[0]);
+			if (path_of_cmd == NULL)
 			{
 				command_not_found(head->argv[0]);
 				return (0);
@@ -81,11 +83,11 @@ int	ft_command(t_mini *mini, t_node *head)
 				wait(0);
 			else if (pid == 0)
 			{
-				execve(mini->path_of_cmd, head->argv, mini->envp);
+				execve(path_of_cmd, head->argv, mini->envp);
 				exit(0);
 			}
-			free(mini->path_of_cmd);
-			mini->path_of_cmd = NULL;
+			free(path_of_cmd);
+			path_of_cmd = NULL;
 		}
 		mini->minicmd_flag = FALSE;
 		head = head->next;

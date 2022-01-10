@@ -6,80 +6,72 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:42:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/10 15:31:59 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/10 16:54:33 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	clear_resource(t_node **head, char **user_input)
+int	prompt_set(t_mini *mini)
 {
-	t_node	*tmp;
+	char	*tmp;
+	char	*tmp2;
 
 	tmp = NULL;
-	while (*head != NULL)
-	{
-		tmp = *head;
-		*head = (*head)->next;
-		if (tmp->argv != NULL)
-			ft_two_dimension_free(tmp->argv);
-		tmp->argv = NULL;
-		free(tmp);
-	}
-	free(*user_input);
-	*user_input = NULL;
-}
-
-int	exception_handle_input(char *user_input)
-{
-	int	i;
-	int	num_quotation;
-
-	num_quotation = 0;
-	i = 0;
-	while (user_input[i])
-	{
-		if (user_input[i] == ';' || user_input[i] == '\\')
-			return (ERROR);
-		if (user_input[i] == '\'' || user_input[i] == '\"')
-			num_quotation++;
-		i++;
-	}
-	if (num_quotation % 2 != 0)
+	tmp = ft_strjoin(mini->prompt->locate, " ");
+	if (tmp == NULL)
 		return (ERROR);
+	tmp2 = NULL;
+	tmp2 = ft_strjoin(getenv("USER"), "$ ");
+	if (tmp2 == NULL)
+		return (ERROR);
+	mini->prompt->prompt = ft_strjoin(tmp, tmp2);
+	if (mini->prompt->prompt == NULL)
+		return (ERROR);
+	free(tmp);
+	tmp = NULL;
+	free(tmp2);
+	tmp2 = NULL;
 	return (0);
 }
 
-int	parsing_input(char **prompt, char **user_input)
+int	locate_set(t_mini *mini, char *buffer)
 {
-	*user_input = NULL;
-	*user_input = readline(*prompt);
-	free(*prompt);
-	*prompt = NULL;
-	if (*user_input == NULL)
-		return (ERROR);
+	char	**splitted_strs;
+	int		strs_len;
+
+	splitted_strs = NULL;
+	strs_len = 0;
+	splitted_strs = ft_split(buffer, '/');
+	strs_len = ft_two_dimension_size(splitted_strs);
+	if (strs_len == 0)
+		mini->prompt->locate = ft_strdup("/");
+	else if (strs_len == 2)
+		mini->prompt->locate = ft_strdup("~");
+	else
+		mini->prompt->locate = ft_strdup(splitted_strs[strs_len - 1]);
+	ft_two_dimension_free(splitted_strs);
+	splitted_strs = NULL;
 	return (0);
 }
 
 int	ft_prompt(t_mini *mini)
 {
-	char	*user_input;
-	t_node	*head;
+	char	*buffer;
 
-	user_input = NULL;
-	head = NULL;
-	if (parsing_input(&(mini->prompt), &user_input) == ERROR)
+	buffer = NULL;
+	buffer = getcwd(NULL, 0);
+	if (buffer == NULL)
 		return (ERROR);
-	if (user_input[0] != '\0')
-	{
-		add_history(user_input);
-		if (exception_handle_input(user_input) == ERROR)
-			return (ERROR);
-		// head = tokenize_input(user_input);
-		// if (head == NULL)
-		// 	return (ERROR);
-		// ft_command(mini, head);
-	}
-	clear_resource(&head, &user_input);
+	if ((locate_set(mini, buffer)) == ERROR)
+		return (ERROR);
+	free(buffer);
+	buffer = NULL;
+	if ((prompt_set(mini)) == ERROR)
+		return (ERROR);
+	mini->input->user_input = readline(mini->prompt->prompt);
+	if (mini->input->user_input == NULL)
+		return (ERROR);
+	add_history(mini->input->user_input);
 	return (0);
 }

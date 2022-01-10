@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/10 15:28:52 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/10 16:59:01 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,49 +33,58 @@
 # define FALSE 0
 # define ERROR -1
 
-typedef struct s_node
-{
-	int				is_head;
-	char			**argv;
-	struct s_node	*next;
-}	t_node;
+typedef int BOOL;
 
-typedef struct s_mini
+typedef struct s_prompt
 {
 	char	*locate;
 	char	*prompt;
 	char	*path_of_cmd;
 	char	**envp;
+}	t_prompt;
+
+typedef struct s_token
+{
+	char			**cmdline;
+	bool			quote;
+	struct s_token	*next;
+}	t_token;
+
+typedef struct s_input
+{
+	t_token	*token;
+	char	*user_input;
+}	t_input;
+
+typedef struct s_flag
+{
 	int		continue_flag;
 	int		minicmd_flag;
+}	t_flag;
+
+typedef struct s_mini
+{
+	t_prompt	*prompt;
+	t_input		*input;
+	t_flag		*flag;
 }	t_mini;
 
 int	g_exit_state;
 
 // main
-
-// minishell_init
-int		minishell_init(t_mini **mini);
-
-// load_prompt
-int		load_prompt(t_mini *mini);
+int		main(int argc, const char **argv);
 
 // ft_prompt
 int		ft_prompt(t_mini *mini);
 
-// tokenize_input
-int		tokenize_input(char *user_input);
+// ft_parsing
+int		ft_parsing(t_mini *mini);
 
-// set_input
-t_node	*set_input(t_mini *mini);
+// ft_signal
+int		ft_signal(t_mini *mini);
 
 // ft_command
-int		ft_command(t_mini *mini, t_node *head);
-
-// error_msg
-void	too_many_arguments(char *cmd);
-void	command_not_found(char *cmd);
-void	error_msg(char *cmd, char *argv, char *error_msg);
+int		ft_command(t_mini *mini, t_token *head);
 
 // ft_echo
 int		ft_echo(t_mini *mini, char **argv);
@@ -97,5 +106,11 @@ void	ft_env(t_mini *mini, char **argv);
 
 // ft_exit
 void	ft_exit(t_mini *mini, char **argv);
+
+// error_msg
+void	ft_error(void);
+void	too_many_arguments(char *cmd);
+void	command_not_found(char *cmd);
+void	error_msg(char *cmd, char *argv, char *error_msg);
 
 #endif

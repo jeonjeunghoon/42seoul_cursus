@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 14:19:40 by jeunjeon          #+#    #+#              #
-#    Updated: 2022/01/10 15:29:24 by jeunjeon         ###   ########.fr        #
+#    Updated: 2022/01/10 17:00:23 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,18 +16,17 @@ CFLAGS				=	# -Wall -Wextra -Werror
 
 SRCS_NAME			=	main.c \
 						ft_prompt.c \
-						load_prompt.c \
-						tokenize_input.c \
-						set_input.c \
-						ft_command.c \
-						ft_echo.c \
-						ft_cd.c \
-						ft_pwd.c \
-						ft_export.c \
-						ft_unset.c \
-						ft_env.c \
-						ft_exit.c \
-						error_msg.c
+						ft_parsing.c \
+						ft_signal.c \
+						ft_error.c
+						# ft_command.c \
+						# ft_echo.c \
+						# ft_cd.c \
+						# ft_pwd.c \
+						# ft_export.c \
+						# ft_unset.c \
+						# ft_env.c \
+						# ft_exit.c
 SRCS_PATH			=	./srcs
 SRCS				=	$(addprefix $(SRCS_PATH)/, $(SRCS_NAME))
 

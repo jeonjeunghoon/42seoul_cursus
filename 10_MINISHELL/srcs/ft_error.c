@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_msg.c                                        :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:42:11 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/10 15:29:07 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/10 17:00:44 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,10 @@ void	command_not_found(char *cmd)
 void	error_msg(char *cmd, char *argv, char *msg)
 {
 	printf("minishell: %s: %s: %s\n", cmd, argv, msg);
+}
+
+void	ft_error(void)
+{
+	printf("Minishell error !!!\n");
+	exit(1);
 }

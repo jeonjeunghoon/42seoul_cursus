@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_input.c                                        :+:      :+:    :+:   */
+/*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/09 14:21:29 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/10 15:31:53 by jeunjeon         ###   ########.fr       */
+/*   Created: 2022/01/10 16:39:07 by jeunjeon          #+#    #+#             */
+/*   Updated: 2022/01/10 17:02:00 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-// void	make_input_node(t_node *head, char **argv, int start, int end)
+// void	make_input_token(t_token *head, char **argv, int start, int end)
 // {
-// 	t_node	*new_node;
+// 	t_token	*new_token;
 // 	int		i;
 
 // 	while (head->next != NULL)
@@ -56,27 +56,65 @@
 // 	return (FALSE);
 // }
 
-t_node	*set_input(t_mini *mini)
-{
-	t_node	*head;
-	int		start;
-	int		end;
+// int	token_init(t_token **token)
+// {
+// 	*token = NULL
+// 	*token = (t_token *)malloc(sizeof(t_token));
+// 	(*token == NULL)
+// 		return (ERROR);
+// 	(*token)->argv = NULL;
+// 	(*token)->next = NULL;
+// }
 
-	start = 0;
-	end = 0;
-	head = (t_node *)malloc(sizeof(t_node));
-	head->is_head = TRUE;
-	head->argv = NULL;
-	head->next = NULL;
-	// while (argv[end])
-	// {
-	// 	if (need_split(argv[end]) == TRUE)
-	// 	{
-	// 		make_input_node(head, argv, start, end);
-	// 		start = end + 1;
-	// 	}
-	// 	end++;
-	// }
-	// make_input_node(head, argv, start, end);
-	return (head);
+// t_token	*tokenize_input(char *user_input)
+// {
+// 	t_token	*head;
+// 	int		i;
+
+// 	head = NULL;
+// 	head = (t_token *)malloc(sizeof(t_token));
+// 	head->is_head = TRUE;
+// 	head->argv = NULL;
+// 	head->next = NULL;
+// 	i = 0;
+// 	while (user_input[])
+// 	{
+// 		while (is_space() == TRUE)
+// 			i++;
+		
+// 	}
+// 	make_input_token(head, argv, start, end);
+// 	return (head);
+// }
+
+
+
+
+int	exception_handle_input(char *user_input)
+{
+	int	i;
+	int	num_quotation;
+
+	num_quotation = 0;
+	i = 0;
+	while (user_input[i])
+	{
+		if (user_input[i] == ';' || user_input[i] == '\\')
+			return (ERROR);
+		if (user_input[i] == '\'' || user_input[i] == '\"')
+			num_quotation++;
+		i++;
+	}
+	if (num_quotation % 2 != 0)
+		return (ERROR);
+	return (0);
+}
+
+int	ft_parsing(t_mini *mini)
+{
+	if (exception_handle_input(mini->input->user_input) == ERROR)
+		return (ERROR);
+	// 여기 까지 문제 없음 파싱부터 하면 됨
+	// tokenize_input(mini);
+	return (0);
 }
