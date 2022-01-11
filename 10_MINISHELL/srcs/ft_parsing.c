@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 16:39:07 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/11 17:06:35 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/11 21:12:31 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	append_lst(t_list *token_lst, t_token *token)
 
 void	token_init(t_token *token)
 {
-	token->argv = FALSE;
+	token->argv = NULL;
 	token->double_quote = FALSE;
 	token->pipe_flag = FALSE;
 	token->input = FALSE;
