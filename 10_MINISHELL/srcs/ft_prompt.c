@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:42:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/10 16:54:33 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/11 12:07:13 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,5 @@ int	ft_prompt(t_mini *mini)
 	mini->input->user_input = readline(mini->prompt->prompt);
 	if (mini->input->user_input == NULL)
 		return (ERROR);
-	add_history(mini->input->user_input);
 	return (0);
 }

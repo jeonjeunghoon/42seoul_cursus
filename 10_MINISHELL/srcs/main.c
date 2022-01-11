@@ -6,31 +6,37 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/10 16:59:27 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/11 16:46:59 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+void	lst_free(t_list *lst)
+{
+	t_list	*head;
+
+	head = NULL;
+	while (lst != NULL)
+	{
+		head = lst;
+		lst = lst->next;
+		free(head->content->argv);
+		head->content->argv = NULL;
+		free(head->content);
+		head->content = NULL;
+		free(head);
+		head = NULL;
+	}
+}
+
 void	clear_resource(t_mini *mini)
 {
-	t_token	*tmp;
-
 	free(mini->prompt->locate);
 	free(mini->prompt->prompt);
 	free(mini->prompt->envp);
+	lst_free(mini->input->token_lst);
 	free(mini->input->user_input);
-	// tmp = NULL;
-	// while (*head != NULL)
-	// {
-	// 	tmp = *head;
-	// 	*head = (*head)->next;
-	// 	if (tmp->cmdline != NULL)
-	// 		ft_two_dimension_free(tmp->cmdline);
-	// 	tmp->cmdline = NULL;
-	// 	free(tmp);
-	// }
-	free(mini->input->token);
 }
 
 int	minishell_init(t_mini *mini)
@@ -39,10 +45,9 @@ int	minishell_init(t_mini *mini)
 	mini->prompt->prompt = NULL;
 	mini->prompt->envp = NULL;
 	mini->prompt->path_of_cmd = NULL;
+	mini->input->token_lst = NULL;
 	mini->input->user_input = NULL;
-	mini->input->token = NULL;
 	mini->flag->minicmd_flag = FALSE;
-	mini->flag->continue_flag = FALSE;
 
 	// envp_str = getenv("PATH");
 	// if (envp_str == NULL)
@@ -71,12 +76,17 @@ int	main(int argc, const char **argv)
 			ft_error();
 		if (ft_prompt(mini) == ERROR)
 			ft_error();
-		if (ft_parsing(mini) == ERROR)
-			ft_error();
-		if (ft_signal(mini) == ERROR)
-			ft_error();
-		// if (ft_command(mini) == ERROR)
-		// 	ft_error();
+		if (mini->input->user_input[0] != '\0')
+		{
+			if (ft_parsing(mini) == ERROR)
+				ft_error();
+			if (ft_signal(mini) == ERROR)
+				ft_error();
+			if (ft_stream(mini) == ERROR)
+				ft_error();
+			// if (ft_command(mini) == ERROR)
+			// 	ft_error();
+		}
 		clear_resource(mini);
 	}
 	return (0);

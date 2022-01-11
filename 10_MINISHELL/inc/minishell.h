@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/10 16:59:01 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/11 16:57:33 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,30 @@
 
 typedef int BOOL;
 
+typedef struct s_cmdline
+{
+	
+}	t_cmdline;
+
+typedef struct s_token
+{
+	char	*argv;
+	bool	double_quote;
+	bool	pipe_flag; // |
+	bool	output; // >
+	bool	append;	// >>
+	bool	input; // <
+	bool	heredoc; // <<
+	bool	ampersand; // &&
+	bool	vertical; // ||
+}	t_token;
+
+typedef struct s_input
+{
+	t_list	*token_lst;
+	char	*user_input;
+}	t_input;
+
 typedef struct s_prompt
 {
 	char	*locate;
@@ -43,29 +67,17 @@ typedef struct s_prompt
 	char	**envp;
 }	t_prompt;
 
-typedef struct s_token
-{
-	char			**cmdline;
-	bool			quote;
-	struct s_token	*next;
-}	t_token;
-
-typedef struct s_input
-{
-	t_token	*token;
-	char	*user_input;
-}	t_input;
-
 typedef struct s_flag
 {
-	int		continue_flag;
-	int		minicmd_flag;
+	bool	single_flag;
+	bool	double_flag;
+	bool	minicmd_flag;
 }	t_flag;
 
 typedef struct s_mini
 {
-	t_prompt	*prompt;
 	t_input		*input;
+	t_prompt	*prompt;
 	t_flag		*flag;
 }	t_mini;
 
