@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/11 16:46:59 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/12 17:38:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,20 @@
 void	lst_free(t_list *lst)
 {
 	t_list	*head;
+	t_token	*token;
 
-	head = NULL;
 	while (lst != NULL)
 	{
-		head = lst;
-		lst = lst->next;
-		free(head->content->argv);
-		head->content->argv = NULL;
-		free(head->content);
-		head->content = NULL;
-		free(head);
 		head = NULL;
+		token = NULL;
+		head = lst;
+		token = head->content;
+		lst = lst->next;
+		free(token->argv);
+		token->argv = NULL;
+		free(token);
+		token = NULL;
+		free(head);
 	}
 }
 
@@ -47,6 +49,8 @@ int	minishell_init(t_mini *mini)
 	mini->prompt->path_of_cmd = NULL;
 	mini->input->token_lst = NULL;
 	mini->input->user_input = NULL;
+	mini->flag->single_flag = FALSE;
+	mini->flag->double_flag = FALSE;
 	mini->flag->minicmd_flag = FALSE;
 
 	// envp_str = getenv("PATH");

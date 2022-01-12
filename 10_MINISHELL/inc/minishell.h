@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/11 16:57:33 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/12 15:18:35 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,10 @@
 
 typedef int BOOL;
 
-typedef struct s_cmdline
-{
-	
-}	t_cmdline;
-
 typedef struct s_token
 {
 	char	*argv;
+	bool	single_quote;
 	bool	double_quote;
 	bool	pipe_flag; // |
 	bool	output; // >
@@ -94,6 +90,9 @@ int		ft_parsing(t_mini *mini);
 
 // ft_signal
 int		ft_signal(t_mini *mini);
+
+// ft_stream
+int		ft_stream(t_mini *mini);
 
 // ft_command
 int		ft_command(t_mini *mini, t_token *head);

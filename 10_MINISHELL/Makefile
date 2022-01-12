@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 14:19:40 by jeunjeon          #+#    #+#              #
-#    Updated: 2022/01/10 17:00:23 by jeunjeon         ###   ########.fr        #
+#    Updated: 2022/01/12 16:35:59 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS_NAME			=	main.c \
 						ft_prompt.c \
 						ft_parsing.c \
 						ft_signal.c \
+						ft_stream.c \
 						ft_error.c
 						# ft_command.c \
 						# ft_echo.c \
@@ -40,7 +41,7 @@ LIBFT_NAME			=	ft
 LIBFT_PATH			=	./libft
 
 $(NAME)				:	$(OBJS)
-						@$(MAKE) -C $(LIBFT_PATH) all
+						@$(MAKE) -C $(LIBFT_PATH) bonus
 						$(CC) $(CFLAGS) $(OBJS) -I$(INC_PATH) -L$(LIBFT_PATH) -l$(LIBFT_NAME) -lreadline -o $@
 
 $(OBJS_PATH)/%.o	:	$(SRCS_PATH)/%.c
