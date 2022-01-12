@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 19:36:45 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/17 18:20:52 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/12 17:06:20 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,26 @@
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*head;
-	t_list	*res;
+	t_list	*temp;
 
-	if (!lst)
+	if (lst == NULL || f == NULL)
 		return (NULL);
-	res = ft_lstnew(f(lst->content));
-	if (!res)
+	head = NULL;
+	head = ft_lstnew(f(lst->content));
+	if (head == NULL)
 		return (NULL);
-	head = res;
-	while (lst)
+	temp = NULL;
+	lst = lst->next;
+	while (lst != NULL)
 	{
-		if (!(ft_lstnew(f(lst->content))))
+		temp = ft_lstnew(f(lst->content));
+		if (temp == NULL)
 		{
-			ft_lstclear(&res, del);
+			ft_lstclear(&head, del);
 			return (NULL);
 		}
-		ft_lstadd_back(&head, ft_lstnew(f(lst->content)));
+		ft_lstadd_back(&head, temp);
 		lst = lst->next;
 	}
-	return (res);
+	return (head);
 }

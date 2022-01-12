@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 15:49:35 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/17 18:07:35 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/12 16:52:01 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	ft_lstsize(t_list *lst)
 {
-	int	len;
+	int	size;
 
-	len = 0;
-	while (lst)
+	size = 0;
+	while (lst != NULL)
 	{
 		lst = lst->next;
-		len++;
+		size++;
 	}
-	return (len);
+	return (size);
 }

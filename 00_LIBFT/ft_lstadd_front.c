@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/17 14:57:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/17 18:11:12 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/12 16:37:59 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	if (!(*lst))
+	if (*lst == NULL)
 	{
 		*lst = new;
-		new->next = 0;
+		new->next = NULL;
 		return ;
 	}
 	else
