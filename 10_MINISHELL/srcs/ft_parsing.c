@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 16:39:07 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/13 22:38:27 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/13 23:12:35 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,30 @@ void	print_lst(t_list *lst)
 	}
 }
 
+int	stream_flag_str(t_token *token)
+{
+	int		i;
+	char	*str;
+
+	if (token->single_quote == TRUE || token->double_quote == TRUE)
+		return (0);
+	i = 0;
+	str = token->token;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '|' || str[i] == '>' || str[i] == '<' || str[i] == '&')
+			return (TRUE);
+		i++;
+	}
+	return (0);
+}
+
 void	token_init(t_token *token)
 {
 	token->token = NULL;
 	token->single_quote = FALSE;
 	token->double_quote = FALSE;
-	token->pipe_flag = FALSE;
+	token->pipe = FALSE;
 	token->input = FALSE;
 	token->output = FALSE;
 	token->append = FALSE;
@@ -97,14 +115,16 @@ int	double_quote_parse(t_token *token, char *input, int *end)
 	return (0);
 }
 
-int	basic_parse(t_token *token, char *input, int *end)
+int	stream_parse(t_token *token, char *input, int *end)
 {
 	int	start;
 	int	len;
 
 	start = *end;
 	len = 0;
-	while (input[start] && input[start] != ' ' && input[start] != '\'' && input[start] != '\"')
+	while (input[start] && input[start] != ' ' && input[start] != '\'' && \
+			input[start] != '\"' && (input[start] == '|' || \
+			input[start] == '>' || input[start] == '<' || input[start] == '&'))
 	{
 		start++;
 		len++;
@@ -112,7 +132,39 @@ int	basic_parse(t_token *token, char *input, int *end)
 	token->token = (char *)malloc(sizeof(char) * (len + 1));
 	token->token[len] = '\0';
 	start = 0;
-	while (input[*end] && input[*end] != ' ' && input[*end] != '\'' && input[*end] != '\"')
+	while (input[*end] && input[*end] != ' ' && input[*end] != '\'' && \
+			input[*end] != '\"' && (input[*end] == '|' || \
+			input[*end] == '>' || input[*end] == '<' || input[*end] == '&'))
+	{
+		token->token[start] = input[*end];
+		start++;
+		(*end)++;
+	}
+	if (start < len)
+		return (ERROR);
+	return (0);
+}
+
+int	str_parse(t_token *token, char *input, int *end)
+{
+	int	start;
+	int	len;
+
+	start = *end;
+	len = 0;
+	while (input[start] && input[start] != ' ' && input[start] != '\'' && \
+			input[start] != '\"' && input[start] != '|' && \
+			input[start] != '>' && input[start] != '<' && input[start] != '&')
+	{
+		start++;
+		len++;
+	}
+	token->token = (char *)malloc(sizeof(char) * (len + 1));
+	token->token[len] = '\0';
+	start = 0;
+	while (input[*end] && input[*end] != ' ' && input[*end] != '\'' && \
+			input[*end] != '\"' && input[*end] != '|' && \
+			input[*end] != '>' && input[*end] != '<' && input[*end] != '&')
 	{
 		token->token[start] = input[*end];
 		start++;
@@ -141,8 +193,14 @@ int	tokenize(t_token *token, char *input, int *start)
 		if (double_quote_parse(token, input, start) == ERROR)
 			return (ERROR);
 	}
+	else if (input[*start] == '|' || input[*start] == '>' || \
+			input[*start] == '<' || input[*start] == '&')
+	{
+		if (stream_parse(token, input, start) == ERROR)
+			return (ERROR);
+	}
 	else
-		if (basic_parse(token, input, start) == ERROR)
+		if (str_parse(token, input, start) == ERROR)
 			return (ERROR);
 	return (0);
 }
@@ -208,32 +266,14 @@ int	exception_handling(char *input, bool sin, bool dou)
 	return (0);
 }
 
-int	need_split(t_token	*token)
-{
-	int		i;
-	char	*str;
-
-	if (token->single_quote == TRUE || token->double_quote == TRUE)
-		return (0);
-	i = 0;
-	str = token->token;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '|' || str[i] == '>' || str[i] == '<' || str[i] == '&')
-			return (TRUE);
-		i++;
-	}
-	return (0);
-}
-
 void	create_argv(t_argv *argv, t_list *head, int size)
 {
-	int	i;
+	int		i;
 
 	argv->argv = (char **)malloc(sizeof(char *) * (size + 1));
 	argv->argv[size] = NULL;
 	i = 0;
-	while (head != NULL && i < size && need_split(head->content) == FALSE)
+	while (head != NULL && i < size && stream_flag_str(head->content) == FALSE)
 	{
 		argv->argv[i] = ((t_token *)head->content)->token;
 		i++;
@@ -252,15 +292,24 @@ int	create_argv_lst(t_list **argv_lst, t_list *token_lst)
 	head = token_lst;
 	while (token_lst != NULL)
 	{
-		if (need_split(token_lst->content) == FALSE)
+		if (stream_flag_str(token_lst->content) == FALSE)
 			size++;
-		if (need_split(token_lst->content) == TRUE || token_lst->next == NULL)
+		if (stream_flag_str(token_lst->content) == TRUE || token_lst->next == NULL)
 		{
 			argv = (t_argv *)malloc(sizeof(t_argv));
 			create_argv(argv, head, size);
 			ft_lstadd_back(argv_lst, ft_lstnew(argv));
 			size = 0;
 			argv = NULL;
+			if (token_lst->next != NULL)
+			{
+				argv = (t_argv *)malloc(sizeof(t_argv));
+				argv->argv = (char **)malloc(sizeof(char *) * 2);
+				argv->argv[1] = NULL;
+				argv->argv[0] = ft_strdup(((t_token *)token_lst->content)->token);
+				ft_lstadd_back(argv_lst, ft_lstnew(argv));
+				argv = NULL;
+			}
 			head = token_lst->next;
 		}
 		token_lst = token_lst->next;
@@ -300,7 +349,7 @@ int	ft_parsing(t_mini *mini)
 	add_history(mini->input->user_input);
 	if (create_token_lst(&(mini->input->token_lst), mini->input->user_input) == ERROR)
 		return (ERROR);
-	// print_lst(mini->input->token_lst);
+	print_lst(mini->input->token_lst);
 	if (create_argv_lst(&(mini->input->argv_lst), mini->input->token_lst) == ERROR)
 		return (ERROR);
 	print_lst2(mini->input->argv_lst);

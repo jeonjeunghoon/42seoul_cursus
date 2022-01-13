@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/13 16:57:06 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/13 22:47:57 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_token
 	char	*token;
 	bool	single_quote;
 	bool	double_quote;
-	bool	pipe_flag; // |
+	bool	pipe; // |
 	bool	output; // >
 	bool	append;	// >>
 	bool	input; // <
