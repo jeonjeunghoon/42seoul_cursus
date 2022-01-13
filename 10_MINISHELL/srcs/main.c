@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/12 17:38:51 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/13 12:59:44 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	lst_free(t_list *lst)
 		head = lst;
 		token = head->content;
 		lst = lst->next;
-		free(token->argv);
-		token->argv = NULL;
+		free(token->token);
+		token->token = NULL;
 		free(token);
 		token = NULL;
 		free(head);
@@ -48,6 +48,7 @@ int	minishell_init(t_mini *mini)
 	mini->prompt->envp = NULL;
 	mini->prompt->path_of_cmd = NULL;
 	mini->input->token_lst = NULL;
+	mini->input->argv_lst = NULL;
 	mini->input->user_input = NULL;
 	mini->flag->single_flag = FALSE;
 	mini->flag->double_flag = FALSE;

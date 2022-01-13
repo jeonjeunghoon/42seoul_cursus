@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/12 15:18:35 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/13 13:13:26 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef int BOOL;
 
 typedef struct s_token
 {
-	char	*argv;
+	char	*token;
 	bool	single_quote;
 	bool	double_quote;
 	bool	pipe_flag; // |
@@ -49,9 +49,15 @@ typedef struct s_token
 	bool	vertical; // ||
 }	t_token;
 
+typedef struct s_argv
+{
+	char	**argv;
+}	t_argv;
+
 typedef struct s_input
 {
 	t_list	*token_lst;
+	t_list	*argv_lst;
 	char	*user_input;
 }	t_input;
 
