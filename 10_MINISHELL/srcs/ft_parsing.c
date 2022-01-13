@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 16:39:07 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/13 17:07:42 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/13 22:38:27 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,11 +233,9 @@ void	create_argv(t_argv *argv, t_list *head, int size)
 	argv->argv = (char **)malloc(sizeof(char *) * (size + 1));
 	argv->argv[size] = NULL;
 	i = 0;
-	printf("size: %d\n", size);
 	while (head != NULL && i < size && need_split(head->content) == FALSE)
 	{
 		argv->argv[i] = ((t_token *)head->content)->token;
-		printf("argv[%d]: %s\n", i, argv->argv[i]);
 		i++;
 		head = head->next;
 	}
@@ -254,6 +252,8 @@ int	create_argv_lst(t_list **argv_lst, t_list *token_lst)
 	head = token_lst;
 	while (token_lst != NULL)
 	{
+		if (need_split(token_lst->content) == FALSE)
+			size++;
 		if (need_split(token_lst->content) == TRUE || token_lst->next == NULL)
 		{
 			argv = (t_argv *)malloc(sizeof(t_argv));
@@ -263,8 +263,6 @@ int	create_argv_lst(t_list **argv_lst, t_list *token_lst)
 			argv = NULL;
 			head = token_lst->next;
 		}
-		if (need_split(token_lst->content) == FALSE)
-			size++;
 		token_lst = token_lst->next;
 	}
 	return (0);
@@ -274,23 +272,21 @@ void	print_lst2(t_list *argv)
 {
 	int	i;
 	int	j;
-	t_argv *a;
+	char **str;
 
 	if (argv == NULL)
 		return ;
 	j = 1;
 	while (argv != NULL)
 	{
-		a = argv->content;
+		str = ((t_argv *)argv->content)->argv;
 		i = 0;
-		// printf("node\n");
-		while (a->argv[i])
+		while (str[i])
 		{
-			printf("argv[%d]: %s\n", i, a->argv[i]);
+			printf("argv[%d]: %s\n", i, str[i]);
 			i++;
 		}
 		printf("\n");
-		// printf("next\n");
 		argv = argv->next;
 		j++;
 	}
@@ -305,7 +301,6 @@ int	ft_parsing(t_mini *mini)
 	if (create_token_lst(&(mini->input->token_lst), mini->input->user_input) == ERROR)
 		return (ERROR);
 	// print_lst(mini->input->token_lst);
-	// 파싱 오류가 있음 리스트에 담기는 과정에서
 	if (create_argv_lst(&(mini->input->argv_lst), mini->input->token_lst) == ERROR)
 		return (ERROR);
 	print_lst2(mini->input->argv_lst);
