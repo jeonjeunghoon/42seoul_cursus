@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 16:39:07 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/13 14:36:37 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/13 17:07:42 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,22 +208,6 @@ int	exception_handling(char *input, bool sin, bool dou)
 	return (0);
 }
 
-void	create_argv(t_argv *argv, t_list *head, int size)
-{
-	int	i;
-
-	printf("size = %d\n", size);
-	argv->argv = (char **)malloc(sizeof(char *) * (size + 1));
-	argv->argv[size] = NULL;
-	i = 0;
-	while (head != NULL && i < size)
-	{
-		argv->argv[i] = ((t_token *)head->content)->token;
-		i++;
-		head = head->next;
-	}
-}
-
 int	need_split(t_token	*token)
 {
 	int		i;
@@ -242,6 +226,23 @@ int	need_split(t_token	*token)
 	return (0);
 }
 
+void	create_argv(t_argv *argv, t_list *head, int size)
+{
+	int	i;
+
+	argv->argv = (char **)malloc(sizeof(char *) * (size + 1));
+	argv->argv[size] = NULL;
+	i = 0;
+	printf("size: %d\n", size);
+	while (head != NULL && i < size && need_split(head->content) == FALSE)
+	{
+		argv->argv[i] = ((t_token *)head->content)->token;
+		printf("argv[%d]: %s\n", i, argv->argv[i]);
+		i++;
+		head = head->next;
+	}
+}
+
 int	create_argv_lst(t_list **argv_lst, t_list *token_lst)
 {
 	int		size;
@@ -253,7 +254,7 @@ int	create_argv_lst(t_list **argv_lst, t_list *token_lst)
 	head = token_lst;
 	while (token_lst != NULL)
 	{
-		if (need_split(token_lst->content) == TRUE)
+		if (need_split(token_lst->content) == TRUE || token_lst->next == NULL)
 		{
 			argv = (t_argv *)malloc(sizeof(t_argv));
 			create_argv(argv, head, size);
@@ -262,8 +263,9 @@ int	create_argv_lst(t_list **argv_lst, t_list *token_lst)
 			argv = NULL;
 			head = token_lst->next;
 		}
+		if (need_split(token_lst->content) == FALSE)
+			size++;
 		token_lst = token_lst->next;
-		size++;
 	}
 	return (0);
 }
@@ -271,22 +273,26 @@ int	create_argv_lst(t_list **argv_lst, t_list *token_lst)
 void	print_lst2(t_list *argv)
 {
 	int	i;
+	int	j;
 	t_argv *a;
 
 	if (argv == NULL)
 		return ;
-	a = argv->content;
+	j = 1;
 	while (argv != NULL)
 	{
+		a = argv->content;
 		i = 0;
-		printf("node\n");
+		// printf("node\n");
 		while (a->argv[i])
 		{
-			printf("%s\n", a->argv[i]);
+			printf("argv[%d]: %s\n", i, a->argv[i]);
 			i++;
 		}
-		printf("next\n");
+		printf("\n");
+		// printf("next\n");
 		argv = argv->next;
+		j++;
 	}
 }
 
