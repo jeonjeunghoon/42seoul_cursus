@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 16:39:07 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/13 23:12:35 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/14 16:47:41 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,9 +349,9 @@ int	ft_parsing(t_mini *mini)
 	add_history(mini->input->user_input);
 	if (create_token_lst(&(mini->input->token_lst), mini->input->user_input) == ERROR)
 		return (ERROR);
-	print_lst(mini->input->token_lst);
+	// print_lst(mini->input->token_lst);
 	if (create_argv_lst(&(mini->input->argv_lst), mini->input->token_lst) == ERROR)
 		return (ERROR);
-	print_lst2(mini->input->argv_lst);
+	// print_lst2(mini->input->argv_lst);
 	return (0);
 }

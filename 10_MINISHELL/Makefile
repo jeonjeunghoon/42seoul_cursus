@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 14:19:40 by jeunjeon          #+#    #+#              #
-#    Updated: 2022/01/12 16:35:59 by jeunjeon         ###   ########.fr        #
+#    Updated: 2022/01/14 16:27:27 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,15 +19,15 @@ SRCS_NAME			=	main.c \
 						ft_parsing.c \
 						ft_signal.c \
 						ft_stream.c \
+						ft_command.c \
+						ft_echo.c \
+						ft_cd.c \
+						ft_pwd.c \
+						ft_export.c \
+						ft_unset.c \
+						ft_env.c \
+						ft_exit.c \
 						ft_error.c
-						# ft_command.c \
-						# ft_echo.c \
-						# ft_cd.c \
-						# ft_pwd.c \
-						# ft_export.c \
-						# ft_unset.c \
-						# ft_env.c \
-						# ft_exit.c
 SRCS_PATH			=	./srcs
 SRCS				=	$(addprefix $(SRCS_PATH)/, $(SRCS_NAME))
 

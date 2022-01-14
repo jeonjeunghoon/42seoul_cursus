@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/10 16:55:51 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/14 16:56:25 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,27 +55,26 @@ int	mini_command(t_mini *mini, char *cmd, char **argv)
 		ft_env(mini, argv);
 	else if ((ft_strncmp(cmd, "exit", 5)) == 0)
 		ft_exit(mini, argv);
-	if (mini->minicmd_flag == FALSE)
+	if (mini->flag->minicmd_flag == FALSE)
 		return (FALSE);
 	return (TRUE);
 }
 
-int	ft_command(t_mini *mini)
+int	ft_command(t_mini *mini, t_list *argv_lst)
 {
 	pid_t	pid;
 	char	*path_of_cmd;
 
 	path_of_cmd = NULL;
-	if (head->is_head == TRUE)
-		head = head->next;
-	while (head != NULL)
+	while (argv_lst != NULL)
 	{
-		if ((mini_command(mini, head->argv[0], head->argv)) == FALSE)
+		if ((mini_command(mini, ((t_argv *)argv_lst->content)->argv[0], \
+								((t_argv *)argv_lst->content)->argv)) == FALSE)
 		{
-			path_of_cmd = shell_command(mini, head->argv[0]);
+			path_of_cmd = shell_command(mini, ((t_argv *)argv_lst->content)->argv[0]);
 			if (path_of_cmd == NULL)
 			{
-				command_not_found(head->argv[0]);
+				command_not_found(((t_argv *)argv_lst->content)->argv[0]);
 				return (0);
 			}
 			pid = fork();
@@ -83,14 +82,15 @@ int	ft_command(t_mini *mini)
 				wait(0);
 			else if (pid == 0)
 			{
-				execve(path_of_cmd, head->argv, mini->envp);
+				execve(path_of_cmd, ((t_argv *)argv_lst->content)->argv, \
+						mini->envp);
 				exit(0);
 			}
 			free(path_of_cmd);
 			path_of_cmd = NULL;
 		}
-		mini->minicmd_flag = FALSE;
-		head = head->next;
+		mini->flag->minicmd_flag = FALSE;
+		argv_lst = argv_lst->next;
 	}
 	return (0);
 }

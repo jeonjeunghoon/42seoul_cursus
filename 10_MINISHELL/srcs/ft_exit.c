@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:13 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/09 17:55:45 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/14 16:27:52 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_exit(t_mini *mini, char **argv)
 	int	argc;
 
 	argc = 0;
-	mini->minicmd_flag = TRUE;
+	mini->flag->minicmd_flag = TRUE;
 	argc = ft_two_dimension_size(argv);
 	if (argc > 2)
 	{

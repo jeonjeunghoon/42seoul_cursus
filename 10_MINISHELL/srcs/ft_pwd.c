@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:57:37 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/09 12:23:12 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/14 16:27:59 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_pwd(t_mini *mini, char **argv)
 {
 	char	*cwd;
 
-	mini->minicmd_flag = TRUE;
+	mini->flag->minicmd_flag = TRUE;
 	cwd = getcwd(NULL, 0);
 	if (cwd)
 		printf("%s\n", cwd);

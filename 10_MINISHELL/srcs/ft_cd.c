@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:44:33 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/10 13:04:59 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/14 16:28:19 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_cd(t_mini *mini, char **argv)
 	int		check;
 	int		i;
 
-	mini->minicmd_flag = TRUE;
+	mini->flag->minicmd_flag = TRUE;
 	check = 0;
 	i = 1;
 	while (argv[i])
