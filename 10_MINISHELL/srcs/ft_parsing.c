@@ -6,24 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 16:39:07 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/14 16:47:41 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/16 23:58:06 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	print_lst(t_list *lst)
-{
-	int	i;
-	
-	i = 0;
-	while (lst != NULL)
-	{
-		printf("%d: %s\n", i, ((t_token *)lst->content)->token);
-		lst = lst->next;
-		i++;
-	}
-}
 
 int	stream_flag_str(t_token *token)
 {
@@ -275,20 +262,29 @@ void	create_argv(t_argv *argv, t_list *head, int size)
 	i = 0;
 	while (head != NULL && i < size && stream_flag_str(head->content) == FALSE)
 	{
-		argv->argv[i] = ((t_token *)head->content)->token;
+		argv->argv[i] = ft_strdup(((t_token *)head->content)->token);
 		i++;
 		head = head->next;
 	}
 }
 
+void	create_stream(t_argv *stream, t_list *head)
+{
+	stream->argv = (char **)malloc(sizeof(char *) * 2);
+	stream->argv[0] = ft_strdup(((t_token *)head->content)->token);
+	stream->argv[1] = NULL;
+}
+
 int	create_argv_lst(t_list **argv_lst, t_list *token_lst)
 {
 	int		size;
-	t_argv	*argv;
+	t_argv	*str;
+	t_argv	*stream;
 	t_list	*head;
 
 	size = 0;
-	argv = NULL;
+	str = NULL;
+	stream = NULL;
 	head = token_lst;
 	while (token_lst != NULL)
 	{
@@ -296,20 +292,21 @@ int	create_argv_lst(t_list **argv_lst, t_list *token_lst)
 			size++;
 		if (stream_flag_str(token_lst->content) == TRUE || token_lst->next == NULL)
 		{
-			argv = (t_argv *)malloc(sizeof(t_argv));
-			create_argv(argv, head, size);
-			ft_lstadd_back(argv_lst, ft_lstnew(argv));
-			size = 0;
-			argv = NULL;
-			if (token_lst->next != NULL)
+			if (size != 0)
 			{
-				argv = (t_argv *)malloc(sizeof(t_argv));
-				argv->argv = (char **)malloc(sizeof(char *) * 2);
-				argv->argv[1] = NULL;
-				argv->argv[0] = ft_strdup(((t_token *)token_lst->content)->token);
-				ft_lstadd_back(argv_lst, ft_lstnew(argv));
-				argv = NULL;
+				str = (t_argv *)malloc(sizeof(t_argv));
+				create_argv(str, head, size);
+				ft_lstadd_back(argv_lst, ft_lstnew(str));
 			}
+			if (stream_flag_str(token_lst->content) == TRUE)
+			{
+				stream = (t_argv *)malloc(sizeof(t_argv));
+				create_stream(stream, head);
+				ft_lstadd_back(argv_lst, ft_lstnew(stream));
+			}
+			size = 0;
+			str = NULL;
+			stream = NULL;
 			head = token_lst->next;
 		}
 		token_lst = token_lst->next;
@@ -338,6 +335,19 @@ void	print_lst2(t_list *argv)
 		printf("\n");
 		argv = argv->next;
 		j++;
+	}
+}
+
+void	print_lst(t_list *lst)
+{
+	int	i;
+	
+	i = 0;
+	while (lst != NULL)
+	{
+		printf("%d: %s\n", i, ((t_token *)lst->content)->token);
+		lst = lst->next;
+		i++;
 	}
 }
 

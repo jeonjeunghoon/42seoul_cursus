@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/14 16:54:03 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/16 21:37:40 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,9 @@ void	ft_error(void);
 void	too_many_arguments(char *cmd);
 void	command_not_found(char *cmd);
 void	error_msg(char *cmd, char *argv, char *error_msg);
+
+// utilty
+void	token_free(t_list *lst);
+void	argv_free(t_list *lst);
 
 #endif

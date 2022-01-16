@@ -6,51 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 21:34:06 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/16 23:58:12 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	token_free(t_list *lst)
-{
-	t_list	*head;
-	t_token	*token;
-
-	while (lst != NULL)
-	{
-		head = NULL;
-		token = NULL;
-		head = lst;
-		token = head->content;
-		lst = lst->next;
-		free(token->token);
-		token->token = NULL;
-		free(token);
-		token = NULL;
-		free(head);
-	}
-}
-
-void	argv_free(t_list *lst)
-{
-	t_list	*head;
-	t_argv	*argv;
-
-	while (lst != NULL)
-	{
-		head = NULL;
-		argv = NULL;
-		head = lst;
-		argv = head->content;
-		lst = lst->next;
-		free(argv->argv);
-		argv->argv = NULL;
-		free(argv);
-		argv = NULL;
-		free(head);
-	}
-}
 
 void	clear_resource(t_mini *mini)
 {
@@ -85,16 +45,23 @@ int	minishell_init(t_mini *mini)
 	return (0);
 }
 
+int	memory_allocation(t_mini **mini)
+{
+	(*mini) = (t_mini *)malloc(sizeof(t_mini));
+	(*mini)->prompt = (t_prompt *)malloc(sizeof(t_prompt));
+	(*mini)->input = (t_input *)malloc(sizeof(t_input));
+	(*mini)->flag = (t_flag *)malloc(sizeof(t_flag));
+	if ((*mini) == NULL || (*mini)->prompt == NULL || \
+		(*mini)->input == NULL || (*mini)->flag == NULL)
+		return (ERROR);
+	return (0);
+}
+
 int	main(int argc, const char **argv)
 {
 	t_mini	*mini;
 
-	mini = (t_mini *)malloc(sizeof(t_mini));
-	mini->prompt = (t_prompt *)malloc(sizeof(t_prompt));
-	mini->input = (t_input *)malloc(sizeof(t_input));
-	mini->flag = (t_flag *)malloc(sizeof(t_flag));
-	if (mini == NULL || mini->prompt == NULL || \
-		mini->input == NULL || mini->flag == NULL)
+	if (memory_allocation(&mini) == ERROR)
 		ft_error();
 	while (TRUE)
 	{
