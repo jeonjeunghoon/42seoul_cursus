@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 21:37:40 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/17 00:39:52 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,21 @@
 # define FALSE 0
 # define ERROR -1
 
-typedef int BOOL;
+typedef int	t_bool;
+int			g_exit_state;
 
 typedef struct s_token
 {
 	char	*token;
-	bool	single_quote;
-	bool	double_quote;
-	bool	pipe; // |
-	bool	output; // >
-	bool	append;	// >>
-	bool	input; // <
-	bool	heredoc; // <<
-	bool	ampersand; // &&
-	bool	vertical; // ||
+	t_bool	single_quote;
+	t_bool	double_quote;
+	t_bool	pipe;
+	t_bool	output;
+	t_bool	append;
+	t_bool	input;
+	t_bool	heredoc;
+	t_bool	ampersand;
+	t_bool	vertical;
 }	t_token;
 
 typedef struct s_argv
@@ -82,8 +83,6 @@ typedef struct s_mini
 	t_prompt	*prompt;
 	t_flag		*flag;
 }	t_mini;
-
-int	g_exit_state;
 
 // main
 int		main(int argc, const char **argv);
@@ -130,8 +129,27 @@ void	too_many_arguments(char *cmd);
 void	command_not_found(char *cmd);
 void	error_msg(char *cmd, char *argv, char *error_msg);
 
-// utilty
+// utility
 void	token_free(t_list *lst);
 void	argv_free(t_list *lst);
+
+// parse_utility
+int		stream_flag_str(t_token *token);
+void	token_init(t_token *token);
+int		is_space(char ch);
+void	create_argv(t_argv **str, t_list *head, t_list **argv_lst, int size);
+void	create_stream(t_argv **stream, t_list *head, t_list **argv_lst);
+
+// tokenize
+int		single_quote_parse(t_token *token, char *input, int *end);
+int		double_quote_parse(t_token *token, char *input, int *end);
+int		stream_parse(t_token *token, char *input, int *end);
+int		str_parse(t_token *token, char *input, int *end);
+int		tokenize(t_token *token, char *input, int *start);
+
+// tokenize_utility
+int		stream_parse_condition(char ch);
+int		str_parse_condition(char ch);
+
 
 #endif

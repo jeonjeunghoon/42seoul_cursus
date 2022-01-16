@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 14:19:40 by jeunjeon          #+#    #+#              #
-#    Updated: 2022/01/16 21:40:25 by jeunjeon         ###   ########.fr        #
+#    Updated: 2022/01/17 00:43:57 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,10 @@ SRCS_NAME			=	main.c \
 						ft_env.c \
 						ft_exit.c \
 						ft_error.c \
-						utility.c
+						utility.c \
+						parse_utility.c \
+						tokenize.c \
+						tokenize_utility.c
 SRCS_PATH			=	./srcs
 SRCS				=	$(addprefix $(SRCS_PATH)/, $(SRCS_NAME))
 

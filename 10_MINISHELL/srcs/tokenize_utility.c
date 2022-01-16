@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_signal.c                                        :+:      :+:    :+:   */
+/*   tokenize_utility.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 16:52:37 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/17 00:43:01 by jeunjeon         ###   ########.fr       */
+/*   Created: 2022/01/17 00:37:13 by jeunjeon          #+#    #+#             */
+/*   Updated: 2022/01/17 00:39:26 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_signal(t_mini *mini)
+int	stream_parse_condition(char ch)
 {
-	return (0);
+	if (ch != '\0' && ch != ' ' && ch != '\'' && ch != '\"' && \
+		(ch == '|' || ch == '>' || ch == '<' || ch == '&'))
+		return (TRUE);
+	return (FALSE);
+}
+
+int	str_parse_condition(char ch)
+{
+	if (ch != '\0' && ch != ' ' && ch != '\'' && ch != '\"' && \
+		ch != '|' && ch != '>' && ch != '<' && ch != '&')
+		return (TRUE);
+	return (FALSE);
 }

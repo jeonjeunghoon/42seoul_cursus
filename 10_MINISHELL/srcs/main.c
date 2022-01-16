@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 23:58:12 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/17 00:44:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	memory_allocation(t_mini **mini)
 	return (0);
 }
 
-int	main(int argc, const char **argv)
+int	main()
 {
 	t_mini	*mini;
 

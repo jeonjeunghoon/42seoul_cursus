@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 23:55:12 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/17 00:21:40 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,41 +55,48 @@ int	mini_command(t_mini *mini, char *cmd, char **argv)
 		ft_env(mini, argv);
 	else if ((ft_strncmp(cmd, "exit", 5)) == 0)
 		ft_exit(mini, argv);
-	if (mini->flag->minicmd_flag == FALSE)
+	else
 		return (FALSE);
 	return (TRUE);
 }
 
-int	ft_command(t_mini *mini, t_list *argv_lst)
+void	exe_cmd(char *path_of_cmd, char **argv, char **envp)
 {
 	pid_t	pid;
+
+	pid = 0;
+	if (path_of_cmd == NULL)
+	{
+		command_not_found(argv[0]);
+		return ;
+	}
+	pid = fork();
+	if (pid > 0)
+		wait(0);
+	else if (pid == 0)
+	{
+		execve(path_of_cmd, argv, envp);
+		exit(0);
+	}
+}
+
+int	ft_command(t_mini *mini, t_list *argv_lst)
+{
 	char	*path_of_cmd;
 
 	path_of_cmd = NULL;
 	while (argv_lst != NULL)
 	{
 		if ((mini_command(mini, ((t_argv *)argv_lst->content)->argv[0], \
-								((t_argv *)argv_lst->content)->argv)) == FALSE)
+						((t_argv *)argv_lst->content)->argv)) == FALSE)
 		{
-			path_of_cmd = shell_command(mini, ((t_argv *)argv_lst->content)->argv[0]);
-			if (path_of_cmd == NULL)
-			{
-				command_not_found(((t_argv *)argv_lst->content)->argv[0]);
-				return (0);
-			}
-			pid = fork();
-			if (pid > 0)
-				wait(0);
-			else if (pid == 0)
-			{
-				execve(path_of_cmd, ((t_argv *)argv_lst->content)->argv, \
-						mini->envp);
-				exit(0);
-			}
+			path_of_cmd = shell_command(mini, \
+									((t_argv *)argv_lst->content)->argv[0]);
+			exe_cmd(path_of_cmd, ((t_argv *)argv_lst->content)->argv, \
+					mini->envp);
 			free(path_of_cmd);
 			path_of_cmd = NULL;
 		}
-		mini->flag->minicmd_flag = FALSE;
 		argv_lst = argv_lst->next;
 	}
 	return (0);

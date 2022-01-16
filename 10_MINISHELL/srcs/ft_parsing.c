@@ -6,204 +6,51 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 16:39:07 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 23:58:06 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/17 00:31:48 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	stream_flag_str(t_token *token)
+void	argv_lst_init(t_argv **str, t_argv **stream, int *size)
 {
-	int		i;
-	char	*str;
+	*size = 0;
+	*str = NULL;
+	*stream = NULL;
+}
 
-	if (token->single_quote == TRUE || token->double_quote == TRUE)
-		return (0);
-	i = 0;
-	str = token->token;
-	while (str[i] != '\0')
+int	create_argv_lst(t_list **argv_lst, t_list *token_lst)
+{
+	int		size;
+	t_argv	*str;
+	t_argv	*stream;
+	t_list	*head;
+
+	argv_lst_init(&str, &stream, &size);
+	head = token_lst;
+	while (token_lst != NULL)
 	{
-		if (str[i] == '|' || str[i] == '>' || str[i] == '<' || str[i] == '&')
-			return (TRUE);
-		i++;
+		if (stream_flag_str(token_lst->content) == FALSE)
+			size++;
+		if (stream_flag_str(token_lst->content) == TRUE || \
+							token_lst->next == NULL)
+		{
+			if (size != 0)
+				create_argv(&str, head, argv_lst, size);
+			if (stream_flag_str(token_lst->content) == TRUE)
+				create_stream(&stream, head, argv_lst);
+			argv_lst_init(&str, &stream, &size);
+			head = token_lst->next;
+		}
+		token_lst = token_lst->next;
 	}
 	return (0);
-}
-
-void	token_init(t_token *token)
-{
-	token->token = NULL;
-	token->single_quote = FALSE;
-	token->double_quote = FALSE;
-	token->pipe = FALSE;
-	token->input = FALSE;
-	token->output = FALSE;
-	token->append = FALSE;
-	token->heredoc = FALSE;
-	token->ampersand = FALSE;
-	token->vertical = FALSE;
-}
-
-int	single_quote_parse(t_token *token, char *input, int *end)
-{
-	int	start;
-	int	len;
-
-	start = *end;
-	len = 0;
-	while (input[start] && input[start] != '\'')
-	{
-		start++;
-		len++;
-	}
-	if (input[start] != '\'')
-		return (ERROR);
-	token->token = (char *)malloc(sizeof(char) * (len + 1));
-	token->token[len] = '\0';
-	start = 0;
-	while (input[*end] && input[*end] != '\'')
-	{
-		token->token[start] = input[*end];
-		start++;
-		(*end)++;
-	}
-	if ((start < len) || input[*end] != '\'')
-		return (ERROR);
-	(*end)++;
-	return (0);
-}
-
-int	double_quote_parse(t_token *token, char *input, int *end)
-{
-	int	start;
-	int	len;
-
-	start = *end;
-	len = 0;
-	while (input[start] && input[start] != '\"')
-	{
-		start++;
-		len++;
-	}
-	if (input[start] != '\"')
-		return (ERROR);
-	token->token = (char *)malloc(sizeof(char) * (len + 1));
-	token->token[len] = '\0';
-	start = 0;
-	while (input[*end] && input[*end] != '\"')
-	{
-		token->token[start] = input[*end];
-		start++;
-		(*end)++;
-	}
-	if ((start < len) || input[*end] != '\"')
-		return (ERROR);
-	(*end)++;
-	return (0);
-}
-
-int	stream_parse(t_token *token, char *input, int *end)
-{
-	int	start;
-	int	len;
-
-	start = *end;
-	len = 0;
-	while (input[start] && input[start] != ' ' && input[start] != '\'' && \
-			input[start] != '\"' && (input[start] == '|' || \
-			input[start] == '>' || input[start] == '<' || input[start] == '&'))
-	{
-		start++;
-		len++;
-	}
-	token->token = (char *)malloc(sizeof(char) * (len + 1));
-	token->token[len] = '\0';
-	start = 0;
-	while (input[*end] && input[*end] != ' ' && input[*end] != '\'' && \
-			input[*end] != '\"' && (input[*end] == '|' || \
-			input[*end] == '>' || input[*end] == '<' || input[*end] == '&'))
-	{
-		token->token[start] = input[*end];
-		start++;
-		(*end)++;
-	}
-	if (start < len)
-		return (ERROR);
-	return (0);
-}
-
-int	str_parse(t_token *token, char *input, int *end)
-{
-	int	start;
-	int	len;
-
-	start = *end;
-	len = 0;
-	while (input[start] && input[start] != ' ' && input[start] != '\'' && \
-			input[start] != '\"' && input[start] != '|' && \
-			input[start] != '>' && input[start] != '<' && input[start] != '&')
-	{
-		start++;
-		len++;
-	}
-	token->token = (char *)malloc(sizeof(char) * (len + 1));
-	token->token[len] = '\0';
-	start = 0;
-	while (input[*end] && input[*end] != ' ' && input[*end] != '\'' && \
-			input[*end] != '\"' && input[*end] != '|' && \
-			input[*end] != '>' && input[*end] != '<' && input[*end] != '&')
-	{
-		token->token[start] = input[*end];
-		start++;
-		(*end)++;
-	}
-	if (start < len)
-		return (ERROR);
-	return (0);
-}
-
-int	tokenize(t_token *token, char *input, int *start)
-{
-	int	end;
-
-	if (input[*start] == '\'')
-	{
-		(*start)++;
-		token->single_quote = TRUE;
-		if (single_quote_parse(token, input, start) == ERROR)
-			return (ERROR);
-	}
-	else if (input[*start] == '\"')
-	{
-		(*start)++;
-		token->double_quote = TRUE;
-		if (double_quote_parse(token, input, start) == ERROR)
-			return (ERROR);
-	}
-	else if (input[*start] == '|' || input[*start] == '>' || \
-			input[*start] == '<' || input[*start] == '&')
-	{
-		if (stream_parse(token, input, start) == ERROR)
-			return (ERROR);
-	}
-	else
-		if (str_parse(token, input, start) == ERROR)
-			return (ERROR);
-	return (0);
-}
-
-int	is_space(char ch)
-{
-	if (ch == ' ' || ch == '\n' || ch == '\t' || \
-		ch == '\v' || ch == '\r' || ch == '\f')
-		return (TRUE);
-	return (FALSE);
 }
 
 int	create_token_lst(t_list **lst, char *input)
 {
-	t_token *token;
-	int	i;
+	t_token	*token;
+	int		i;
 
 	i = 0;
 	while (input[i])
@@ -223,12 +70,12 @@ int	create_token_lst(t_list **lst, char *input)
 	return (0);
 }
 
-int	exception_handling(char *input, bool sin, bool dou)
+int	exception_handling(char *input, t_bool sin, t_bool dou)
 {
 	int		i;
 
-	i = 0;
-	while (input[i])
+	i = -1;
+	while (input[++i])
 	{
 		if (input[i] == ';' || input[i] == '\\')
 			return (ERROR);
@@ -246,109 +93,10 @@ int	exception_handling(char *input, bool sin, bool dou)
 			else if (dou == TRUE && sin == FALSE)
 				dou = FALSE;
 		}
-		i++;
 	}
 	if (sin == TRUE || dou == TRUE)
 		return (ERROR);
 	return (0);
-}
-
-void	create_argv(t_argv *argv, t_list *head, int size)
-{
-	int		i;
-
-	argv->argv = (char **)malloc(sizeof(char *) * (size + 1));
-	argv->argv[size] = NULL;
-	i = 0;
-	while (head != NULL && i < size && stream_flag_str(head->content) == FALSE)
-	{
-		argv->argv[i] = ft_strdup(((t_token *)head->content)->token);
-		i++;
-		head = head->next;
-	}
-}
-
-void	create_stream(t_argv *stream, t_list *head)
-{
-	stream->argv = (char **)malloc(sizeof(char *) * 2);
-	stream->argv[0] = ft_strdup(((t_token *)head->content)->token);
-	stream->argv[1] = NULL;
-}
-
-int	create_argv_lst(t_list **argv_lst, t_list *token_lst)
-{
-	int		size;
-	t_argv	*str;
-	t_argv	*stream;
-	t_list	*head;
-
-	size = 0;
-	str = NULL;
-	stream = NULL;
-	head = token_lst;
-	while (token_lst != NULL)
-	{
-		if (stream_flag_str(token_lst->content) == FALSE)
-			size++;
-		if (stream_flag_str(token_lst->content) == TRUE || token_lst->next == NULL)
-		{
-			if (size != 0)
-			{
-				str = (t_argv *)malloc(sizeof(t_argv));
-				create_argv(str, head, size);
-				ft_lstadd_back(argv_lst, ft_lstnew(str));
-			}
-			if (stream_flag_str(token_lst->content) == TRUE)
-			{
-				stream = (t_argv *)malloc(sizeof(t_argv));
-				create_stream(stream, head);
-				ft_lstadd_back(argv_lst, ft_lstnew(stream));
-			}
-			size = 0;
-			str = NULL;
-			stream = NULL;
-			head = token_lst->next;
-		}
-		token_lst = token_lst->next;
-	}
-	return (0);
-}
-
-void	print_lst2(t_list *argv)
-{
-	int	i;
-	int	j;
-	char **str;
-
-	if (argv == NULL)
-		return ;
-	j = 1;
-	while (argv != NULL)
-	{
-		str = ((t_argv *)argv->content)->argv;
-		i = 0;
-		while (str[i])
-		{
-			printf("argv[%d]: %s\n", i, str[i]);
-			i++;
-		}
-		printf("\n");
-		argv = argv->next;
-		j++;
-	}
-}
-
-void	print_lst(t_list *lst)
-{
-	int	i;
-	
-	i = 0;
-	while (lst != NULL)
-	{
-		printf("%d: %s\n", i, ((t_token *)lst->content)->token);
-		lst = lst->next;
-		i++;
-	}
 }
 
 int	ft_parsing(t_mini *mini)
@@ -357,11 +105,11 @@ int	ft_parsing(t_mini *mini)
 		mini->flag->single_flag, mini->flag->double_flag) == ERROR)
 		return (ERROR);
 	add_history(mini->input->user_input);
-	if (create_token_lst(&(mini->input->token_lst), mini->input->user_input) == ERROR)
+	if (create_token_lst(&(mini->input->token_lst), \
+						mini->input->user_input) == ERROR)
 		return (ERROR);
-	// print_lst(mini->input->token_lst);
-	if (create_argv_lst(&(mini->input->argv_lst), mini->input->token_lst) == ERROR)
+	if (create_argv_lst(&(mini->input->argv_lst), \
+						mini->input->token_lst) == ERROR)
 		return (ERROR);
-	// print_lst2(mini->input->argv_lst);
 	return (0);
 }
