@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/14 17:08:32 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/16 21:34:06 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	argv_free(t_list *lst)
 		head = lst;
 		argv = head->content;
 		lst = lst->next;
-		ft_two_dimension_free(argv->argv);
+		free(argv->argv);
 		argv->argv = NULL;
 		free(argv);
 		argv = NULL;
@@ -58,7 +58,6 @@ void	clear_resource(t_mini *mini)
 	free(mini->prompt->locate);
 	free(mini->prompt->prompt);
 	token_free(mini->input->token_lst);
-	for(;;);
 	argv_free(mini->input->argv_lst);
 	free(mini->input->user_input);
 }
