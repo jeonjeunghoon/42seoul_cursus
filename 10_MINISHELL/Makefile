@@ -6,13 +6,15 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 14:19:40 by jeunjeon          #+#    #+#              #
-#    Updated: 2022/01/17 00:43:57 by jeunjeon         ###   ########.fr        #
+#    Updated: 2022/01/18 22:48:37 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				=	minishell
 CC					=	gcc
 CFLAGS				=	# -Wall -Wextra -Werror
+LINKING_FLAGS		=	-lreadline -L/opt/homebrew/opt/readline/lib
+COMFILE_FLAGS		=	-I/opt/homebrew/opt/readline/include
 
 SRCS_NAME			=	main.c \
 						ft_prompt.c \
@@ -46,11 +48,11 @@ LIBFT_PATH			=	./libft
 
 $(NAME)				:	$(OBJS)
 						@$(MAKE) -C $(LIBFT_PATH) bonus
-						$(CC) $(CFLAGS) $(OBJS) -I$(INC_PATH) -L$(LIBFT_PATH) -l$(LIBFT_NAME) -lreadline -o $@
+						$(CC) $(CFLAGS) $(OBJS) -I$(INC_PATH) -L$(LIBFT_PATH) -l$(LIBFT_NAME) $(LINKING_FLAGS) -o $@
 
 $(OBJS_PATH)/%.o	:	$(SRCS_PATH)/%.c
 						mkdir $(OBJS_PATH) 2> /dev/null || true
-						$(CC) $(CFLAGS) -I$(INC_PATH) -c $< -o $@
+						$(CC) $(CFLAGS) -I$(INC_PATH) $(COMFILE_FLAGS) -c $< -o $@
 
 all					:	$(NAME)
 

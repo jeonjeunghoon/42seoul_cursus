@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/17 00:44:38 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 22:20:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <string.h>
 # include <fcntl.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/ioctl.h>
@@ -85,7 +86,7 @@ typedef struct s_mini
 }	t_mini;
 
 // main
-int		main(int argc, const char **argv);
+int		main(void);
 
 // ft_prompt
 int		ft_prompt(t_mini *mini);
@@ -94,7 +95,8 @@ int		ft_prompt(t_mini *mini);
 int		ft_parsing(t_mini *mini);
 
 // ft_signal
-int		ft_signal(t_mini *mini);
+void	sig_handler(int sig);
+void	ft_signal(void);
 
 // ft_stream
 int		ft_stream(t_mini *mini);

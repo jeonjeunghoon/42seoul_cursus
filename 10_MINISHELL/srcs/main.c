@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/17 00:44:02 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/18 22:15:33 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,11 @@ int	memory_allocation(t_mini **mini)
 	return (0);
 }
 
-int	main()
+int	main(void)
 {
 	t_mini	*mini;
 
+	ft_signal();
 	if (memory_allocation(&mini) == ERROR)
 		ft_error();
 	while (TRUE)
@@ -72,8 +73,6 @@ int	main()
 		if (mini->input->user_input[0] != '\0')
 		{
 			if (ft_parsing(mini) == ERROR)
-				ft_error();
-			if (ft_signal(mini) == ERROR)
 				ft_error();
 			if (ft_stream(mini) == ERROR)
 				ft_error();
