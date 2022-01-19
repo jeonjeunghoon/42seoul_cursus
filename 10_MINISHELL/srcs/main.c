@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 17:32:39 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 23:00:48 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	memory_allocation(t_mini **mini)
 	(*mini)->prompt = (t_prompt *)malloc(sizeof(t_prompt));
 	(*mini)->input = (t_input *)malloc(sizeof(t_input));
 	(*mini)->flag = (t_flag *)malloc(sizeof(t_flag));
-	tcgetattr(STDIN_FILENO, &((*mini)->term));
+	if (tcgetattr(STDIN_FILENO, &((*mini)->term));
     ((*mini)->term).c_lflag &= ~(ECHOCTL);
     tcsetattr(STDIN_FILENO, TCSANOW, &((*mini)->term));
 	if ((*mini) == NULL || (*mini)->prompt == NULL || \

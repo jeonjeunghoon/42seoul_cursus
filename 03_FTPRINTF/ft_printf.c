@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/30 14:31:46 by jeunjeon          #+#    #+#             */
-/*   Updated: 2020/12/08 17:53:33 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 23:53:32 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
+#include <stdio.h>
 
 void				get_flag(const char **ppf, va_list ap)
 {
@@ -92,7 +93,7 @@ int					ft_printf(const char *format, ...)
 			ft_putchar_fd(*format, 1);
 		format++;
 	}
-	ft_free(*format, (void **)&p);
 	va_end(ap);
 	return (g_count);
 }
+
