@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/18 22:20:51 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/19 17:19:57 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_mini
 	t_input		*input;
 	t_prompt	*prompt;
 	t_flag		*flag;
+	struct termios term;
 }	t_mini;
 
 // main
