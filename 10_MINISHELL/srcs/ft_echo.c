@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/14 16:27:44 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:47:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	ft_echo(t_mini *mini, char **argv)
 	if (argv[1] == NULL)
 	{
 		write(1, "\n", 1);
+		exit_num_set(EXIT_SUCCESS);
 		return (1);
 	}
 	start_ptr = 1;
@@ -78,5 +79,6 @@ int	ft_echo(t_mini *mini, char **argv)
 		print_msg(argv, start_ptr, n_flag);
 		start_ptr++;
 	}
+	exit_num_set(EXIT_SUCCESS);
 	return (1);
 }

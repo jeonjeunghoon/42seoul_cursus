@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 15:26:30 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:39:12 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void	check_cmd(t_mini *mini, char *cmd)
 		i++;
 	}
 	free(tmp);
-	mini->cmd_path = file_path;
+	if (mini->path[i] == NULL)
+		mini->cmd_path = NULL;
+	else
+		mini->cmd_path = file_path;
 }
 
 int	mini_command(t_mini *mini, char *cmd, char **argv)
@@ -66,7 +69,10 @@ void	exe_cmd(char *cmd_path, char **argv, char **envp)
 	}
 	pid = fork();
 	if (pid > 0)
+	{
 		wait(0);
+		g_exit_state = 0;
+	}
 	else if (pid == 0)
 		execve(cmd_path, argv, envp);
 }

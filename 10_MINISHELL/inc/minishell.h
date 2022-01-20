@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 15:23:33 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:42:55 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,12 @@ typedef struct s_flag
 
 typedef struct s_mini
 {
-	char		**path;
-	char		*cmd_path;
-	t_input		*input;
-	t_prompt	*prompt;
-	t_flag		*flag;
-	struct termios term;
+	char			**path;
+	char			*cmd_path;
+	t_input			*input;
+	t_prompt		*prompt;
+	t_flag			*flag;
+	struct termios	term;
 }	t_mini;
 
 // main
@@ -134,6 +134,7 @@ void	command_not_found(char *cmd);
 void	error_msg(char *cmd, char *argv, char *error_msg);
 
 // utility
+void	exit_num_set(int num);
 void	token_free(t_list *lst);
 void	argv_free(t_list *lst);
 

@@ -6,11 +6,16 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:37:12 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/16 23:58:32 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:42:37 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	exit_num_set(int num)
+{
+	g_exit_state = num;
+}
 
 void	token_free(t_list *lst)
 {
