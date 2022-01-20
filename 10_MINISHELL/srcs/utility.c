@@ -6,11 +6,31 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:37:12 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 15:42:37 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 18:56:27 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+char		*ft_getenv(char **envp, char *name)
+{
+	int		i;
+	char	*tmp;
+	char	*tmp2;
+
+	tmp = ft_strdup("=");
+	tmp2 = ft_strjoin(name, tmp);
+	free(tmp);
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strncmp(envp[i], tmp2, ft_strlen(tmp2)) == 0)
+			return (name);
+		i++;
+	}
+	free(tmp2);
+	return (NULL);
+}
 
 void	exit_num_set(int num)
 {

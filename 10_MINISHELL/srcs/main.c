@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 15:28:17 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 17:52:15 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,21 @@ int	minishell_init(t_mini *mini)
 	return (0);
 }
 
-int	memory_allocation(t_mini **mini)
+int	memory_allocation(t_mini **mini, char **envp)
 {
+	int	i;
+	int	size;
+
 	(*mini) = (t_mini *)malloc(sizeof(t_mini));
+	size = ft_two_dimension_size(envp);
+	(*mini)->envp = (char **)malloc(sizeof(char *) * (size + 1));
+	(*mini)->envp[size] = NULL;
+	i = 0;
+	while (envp[i])
+	{
+		(*mini)->envp[i] = ft_strdup(envp[i]);
+		i++;
+	}
 	(*mini)->prompt = (t_prompt *)malloc(sizeof(t_prompt));
 	(*mini)->input = (t_input *)malloc(sizeof(t_input));
 	(*mini)->flag = (t_flag *)malloc(sizeof(t_flag));
@@ -62,11 +74,11 @@ int	memory_allocation(t_mini **mini)
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, const char **argv, char **envp)
 {
 	t_mini	*mini;
 
-	if (memory_allocation(&mini) == ERROR)
+	if (memory_allocation(&mini, envp) == ERROR)
 		ft_error();
 	ft_signal();
 	while (TRUE)

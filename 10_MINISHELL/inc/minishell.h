@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 15:42:55 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 18:43:55 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_flag
 
 typedef struct s_mini
 {
+	char			**envp;
 	char			**path;
 	char			*cmd_path;
 	t_input			*input;
@@ -88,7 +89,7 @@ typedef struct s_mini
 }	t_mini;
 
 // main
-int		main(void);
+int		main(int argc, const char **argv, char **envp);
 
 // ft_prompt
 int		ft_prompt(t_mini *mini);
@@ -134,6 +135,7 @@ void	command_not_found(char *cmd);
 void	error_msg(char *cmd, char *argv, char *error_msg);
 
 // utility
+char	*ft_getenv(char **envp, char *name);
 void	exit_num_set(int num);
 void	token_free(t_list *lst);
 void	argv_free(t_list *lst);

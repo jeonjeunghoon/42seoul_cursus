@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 15:39:12 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 16:23:50 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ int	mini_command(t_mini *mini, char *cmd, char **argv)
 		ft_cd(mini, argv);
 	else if ((ft_strncmp(cmd, "pwd", 4)) == 0)
 		ft_pwd(mini, argv);
+	else if ((ft_strncmp(cmd, "env", 4)) == 0)
+		ft_env(mini, argv);
 	else if ((ft_strncmp(cmd, "export", 7)) == 0)
 		ft_export(mini, argv);
 	else if ((ft_strncmp(cmd, "unset", 6)) == 0)
 		ft_unset(mini, argv);
-	else if ((ft_strncmp(cmd, "env", 4)) == 0)
-		ft_env(mini, argv);
 	else if ((ft_strncmp(cmd, "exit", 5)) == 0)
 		ft_exit(mini, argv);
 	else
