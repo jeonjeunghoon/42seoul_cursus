@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:42:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 17:28:45 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 22:15:18 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	locate_set(t_mini *mini, char *buffer)
 		mini->prompt->locate = ft_strdup("~");
 	else
 		mini->prompt->locate = ft_strdup(splitted_strs[strs_len - 1]);
-	ft_two_dimension_free(splitted_strs);
+	ft_two_dimension_free(&splitted_strs);
 	splitted_strs = NULL;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:45:59 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 16:59:30 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 23:38:38 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	ft_env(t_mini *mini, char **argv)
 	mini->flag->minicmd_flag = TRUE;
 	if (ft_two_dimension_size(argv) != 1)
 	{
-		printf("minishell: %s: %s: With no options or arguments\n", argv[0], argv[1]);
+		printf("minishell: %s: %s: With no options or arguments\n", \
+				argv[0], argv[1]);
 		return ;
 	}
 	show_env(mini->envp);

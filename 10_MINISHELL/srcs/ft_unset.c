@@ -6,13 +6,23 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:45:35 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 19:08:28 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 23:49:59 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	**create_new_envp(char ***envp, char *offset)
+int	ft_numlen(int *ptr)
+{
+	int	i;
+
+	i = 0;
+	while (ptr[i] != -1)
+		i++;
+	return (i);
+}
+
+char	**create_new_envp(char **envp, int *offset)
 {
 	char	**new;
 	int		size;
@@ -20,35 +30,32 @@ char	**create_new_envp(char ***envp, char *offset)
 	int		j;
 	int		k;
 
-	size = ft_two_dimension_size(*envp) - ft_strlen(offset);
-	new = (char **)malloc(sizeof(char *) * size);
-	new[size - 1] = NULL;
+	size = ft_two_dimension_size(envp) - ft_numlen(offset);
+	new = (char **)malloc(sizeof(char *) * (size + 1));
+	new[size] = NULL;
 	i = 0;
 	j = 0;
 	k = 0;
-	while (i < size && (*envp)[j])
+	while (i < size && envp[j])
 	{
-		if (j == offset[k])
+		if (j == offset[k] && offset[k] != -1)
 		{
 			j++;
 			k++;
 		}
-		new[i] = ft_strdup((*envp)[j]);
-		printf("new[%d]=%s\n", i, new[i]);
+		new[i] = ft_strdup(envp[j]);
 		i++;
 		j++;
 	}
-	printf("size======%d\n", ft_two_dimension_size(new)); // 이부분 진짜 이상함
-	ft_two_dimension_free((*envp));
-	*envp = NULL;
 	return (new);
 }
 
-void	get_offset(char *offset, char **envp, char **argv)
+void	get_offset(int *offset, char **envp, char **argv)
 {
-	int	i;
-	int	j;
-	int	k;
+	int		i;
+	int		j;
+	int		k;
+	char	*envname;
 
 	i = 1;
 	k = 0;
@@ -57,21 +64,21 @@ void	get_offset(char *offset, char **envp, char **argv)
 		if (ft_getenv(envp, argv[i]) != NULL)
 		{
 			j = 0;
-			while (envp[j])
+			envname = get_envname(argv[i]);
+			while (envp[j] && offset[k] != -1)
 			{
-				if (ft_strncmp(envp[j], argv[i], ft_strlen(argv[i])) == 0)
-				{
-					offset[k] = j;
-					k++;
-				}
+				if (ft_strncmp(envp[j], envname, ft_strlen(envname)) == 0)
+					offset[k++] = j;
 				j++;
 			}
+			free(envname);
+			envname = NULL;
 		}
 		i++;
 	}
 }
 
-void	offset_init(char **offset, char **envp, char **argv)
+void	offset_init(int **offset, char **envp, char **argv)
 {
 	int	i;
 	int	size;
@@ -84,29 +91,34 @@ void	offset_init(char **offset, char **envp, char **argv)
 			size++;
 		i++;
 	}
-	*offset = (char *)malloc(sizeof(char) * (size + 1));
-	(*offset)[size] = '\0';
+	*offset = (int *)malloc(sizeof(int) * (size + 1));
+	(*offset)[size] = -1;
+	i = 0;
+	while ((*offset)[i] != -1)
+	{
+		(*offset)[i] = 0;
+		i++;
+	}
 }
 
 void	ft_unset(t_mini *mini, char **argv)
 {
-	int		i;
-	char	*offset;
+	int		*offset;
+	char	**new;
 
 	mini->flag->minicmd_flag = TRUE;
-	i = 1;
 	if (ft_two_dimension_size(argv) > 1)
 	{
-		// printf("1\n");
 		offset_init(&offset, mini->envp, argv);
-		// printf("2\n");
 		get_offset(offset, mini->envp, argv);
-		if (ft_strlen(offset) != 0)
-			mini->envp = create_new_envp(&(mini->envp), offset);
-		// printf("3\n");
+		if (ft_numlen(offset) != 0)
+		{
+			new = create_new_envp(mini->envp, offset);
+			ft_two_dimension_free(&(mini->envp));
+			mini->envp = new;
+		}
 		free(offset);
 		offset = NULL;
 	}
 	exit_num_set(EXIT_SUCCESS);
-	return ;
 }

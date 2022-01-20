@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 18:43:55 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 23:35:16 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void	command_not_found(char *cmd);
 void	error_msg(char *cmd, char *argv, char *error_msg);
 
 // utility
+char	*get_envname(char *name);
 char	*ft_getenv(char **envp, char *name);
 void	exit_num_set(int num);
 void	token_free(t_list *lst);

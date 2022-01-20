@@ -6,29 +6,40 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:37:12 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 18:56:27 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 23:48:07 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char		*ft_getenv(char **envp, char *name)
+char	*get_envname(char *name)
 {
-	int		i;
 	char	*tmp;
-	char	*tmp2;
+	char	*res;
 
 	tmp = ft_strdup("=");
-	tmp2 = ft_strjoin(name, tmp);
+	res = ft_strjoin(name, tmp);
 	free(tmp);
+	return (res);
+}
+
+char	*ft_getenv(char **envp, char *name)
+{
+	int		i;
+	char	*envname;
+
+	envname = get_envname(name);
 	i = 0;
 	while (envp[i])
 	{
-		if (ft_strncmp(envp[i], tmp2, ft_strlen(tmp2)) == 0)
+		if (ft_strncmp(envp[i], envname, ft_strlen(envname)) == 0)
+		{
+			free(envname);
 			return (name);
+		}
 		i++;
 	}
-	free(tmp2);
+	free(envname);
 	return (NULL);
 }
 
@@ -69,7 +80,7 @@ void	argv_free(t_list *lst)
 		head = lst;
 		argv = head->content;
 		lst = lst->next;
-		ft_two_dimension_free(argv->argv);
+		ft_two_dimension_free(&(argv->argv));
 		free(argv);
 		argv = NULL;
 		free(head);
