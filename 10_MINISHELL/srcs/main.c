@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 23:00:48 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:19:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	clear_resource(t_mini *mini)
 {
-	ft_two_dimension_free(mini->envp);
+	ft_two_dimension_free(mini->path);
 	free(mini->prompt->locate);
 	free(mini->prompt->prompt);
 	token_free(mini->input->token_lst);
@@ -24,23 +24,23 @@ void	clear_resource(t_mini *mini)
 
 int	minishell_init(t_mini *mini)
 {
-	char	*envp_str;
+	char	*path_str;
 
-	mini->envp = NULL;
+	mini->path = NULL;
+	mini->cmd_path = NULL;
 	mini->prompt->locate = NULL;
 	mini->prompt->prompt = NULL;
-	mini->prompt->path_of_cmd = NULL;
 	mini->input->token_lst = NULL;
 	mini->input->argv_lst = NULL;
 	mini->input->user_input = NULL;
 	mini->flag->single_flag = FALSE;
 	mini->flag->double_flag = FALSE;
 	mini->flag->minicmd_flag = FALSE;
-	envp_str = getenv("PATH");
-	if (envp_str == NULL)
+	path_str = getenv("PATH");
+	if (path_str == NULL)
 		return (ERROR);
-	mini->envp = ft_split(envp_str, ':');
-	if (mini->envp == NULL)
+	mini->path = ft_split(path_str, ':');
+	if (mini->path == NULL)
 		return (ERROR);
 	return (0);
 }
@@ -51,9 +51,11 @@ int	memory_allocation(t_mini **mini)
 	(*mini)->prompt = (t_prompt *)malloc(sizeof(t_prompt));
 	(*mini)->input = (t_input *)malloc(sizeof(t_input));
 	(*mini)->flag = (t_flag *)malloc(sizeof(t_flag));
-	if (tcgetattr(STDIN_FILENO, &((*mini)->term));
+	if (tcgetattr(STDIN_FILENO, &((*mini)->term)) == -1)
+		return (ERROR);
     ((*mini)->term).c_lflag &= ~(ECHOCTL);
-    tcsetattr(STDIN_FILENO, TCSANOW, &((*mini)->term));
+    if (tcsetattr(STDIN_FILENO, TCSANOW, &((*mini)->term)) == -1)
+		return (ERROR);
 	if ((*mini) == NULL || (*mini)->prompt == NULL || \
 		(*mini)->input == NULL || (*mini)->flag == NULL)
 		return (ERROR);

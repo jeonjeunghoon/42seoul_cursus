@@ -6,37 +6,31 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/17 00:21:40 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:26:30 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*shell_command(t_mini *mini, char *cmd)
+void	check_cmd(t_mini *mini, char *cmd)
 {
-	int		i;
-	int		fd;
-	char	*absolute_path_cmd;
-	char	*tmp_cmd;
+	struct stat	file_info;
+	char		*file_path;
+	char		*tmp;
+	int			i;
 
-	absolute_path_cmd = ft_strjoin("/", cmd);
-	fd = 0;
+	tmp = ft_strjoin("/", cmd);
 	i = 0;
-	while (mini->envp[i])
+	while (mini->path[i])
 	{
-		tmp_cmd = ft_strjoin(mini->envp[i], absolute_path_cmd);
-		fd = access(tmp_cmd, X_OK);
-		if (fd != ERROR)
-		{
-			free(absolute_path_cmd);
-			return (tmp_cmd);
-		}
-		close(fd);
-		free(tmp_cmd);
+		file_path = ft_strjoin(mini->path[i], tmp);
+		if (stat(file_path, &file_info) == SUCCESS)
+			break ;
+		free(file_path);
 		i++;
 	}
-	free(absolute_path_cmd);
-	return (NULL);
+	free(tmp);
+	mini->cmd_path = file_path;
 }
 
 int	mini_command(t_mini *mini, char *cmd, char **argv)
@@ -60,12 +54,12 @@ int	mini_command(t_mini *mini, char *cmd, char **argv)
 	return (TRUE);
 }
 
-void	exe_cmd(char *path_of_cmd, char **argv, char **envp)
+void	exe_cmd(char *cmd_path, char **argv, char **envp)
 {
 	pid_t	pid;
 
 	pid = 0;
-	if (path_of_cmd == NULL)
+	if (cmd_path == NULL)
 	{
 		command_not_found(argv[0]);
 		return ;
@@ -74,28 +68,21 @@ void	exe_cmd(char *path_of_cmd, char **argv, char **envp)
 	if (pid > 0)
 		wait(0);
 	else if (pid == 0)
-	{
-		execve(path_of_cmd, argv, envp);
-		exit(0);
-	}
+		execve(cmd_path, argv, envp);
 }
 
 int	ft_command(t_mini *mini, t_list *argv_lst)
 {
-	char	*path_of_cmd;
-
-	path_of_cmd = NULL;
 	while (argv_lst != NULL)
 	{
 		if ((mini_command(mini, ((t_argv *)argv_lst->content)->argv[0], \
 						((t_argv *)argv_lst->content)->argv)) == FALSE)
 		{
-			path_of_cmd = shell_command(mini, \
-									((t_argv *)argv_lst->content)->argv[0]);
-			exe_cmd(path_of_cmd, ((t_argv *)argv_lst->content)->argv, \
-					mini->envp);
-			free(path_of_cmd);
-			path_of_cmd = NULL;
+			check_cmd(mini, ((t_argv *)argv_lst->content)->argv[0]);
+			exe_cmd(mini->cmd_path, ((t_argv *)argv_lst->content)->argv, \
+					mini->path);
+			free(mini->cmd_path);
+			mini->cmd_path = NULL;
 		}
 		argv_lst = argv_lst->next;
 	}

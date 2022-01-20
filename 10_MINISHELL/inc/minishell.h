@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/19 21:03:10 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:23:33 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 
 # define TRUE 1
 # define FALSE 0
+# define SUCCESS 0
 # define ERROR -1
 
 typedef int	t_bool;
@@ -67,7 +68,6 @@ typedef struct s_prompt
 {
 	char	*locate;
 	char	*prompt;
-	char	*path_of_cmd;
 }	t_prompt;
 
 typedef struct s_flag
@@ -79,7 +79,8 @@ typedef struct s_flag
 
 typedef struct s_mini
 {
-	char		**envp;
+	char		**path;
+	char		*cmd_path;
 	t_input		*input;
 	t_prompt	*prompt;
 	t_flag		*flag;
