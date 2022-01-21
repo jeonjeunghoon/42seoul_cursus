@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 15:32:22 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 22:13:10 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/21 15:41:01 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 size_t				ft_two_dimension_size(char **strs);
 void				ft_two_dimension_free(char ***strs);
+int					ft_numlen(int *ptr);
+char				*ft_strjoin_bothside(const char *s1, const char *s2, \
+										const char *s3);
 
 typedef struct s_list
 {

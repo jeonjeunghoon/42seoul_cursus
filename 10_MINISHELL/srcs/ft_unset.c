@@ -6,21 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:45:35 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 23:49:59 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/21 15:40:14 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	ft_numlen(int *ptr)
-{
-	int	i;
-
-	i = 0;
-	while (ptr[i] != -1)
-		i++;
-	return (i);
-}
 
 char	**create_new_envp(char **envp, int *offset)
 {
@@ -101,6 +91,33 @@ void	offset_init(int **offset, char **envp, char **argv)
 	}
 }
 
+int	check_unset_argv(char **argv)
+{
+	int		i;
+	int		j;
+	char	*msg_argv;
+
+	i = 1;
+	while (argv[i])
+	{
+		j = 0;
+		while (argv[i][j])
+		{
+			if (argv[i][j] != '_' && !(argv[i][j] >= 'a' && argv[i][j] <= 'z') \
+				&& !(argv[i][j] >= 'A' && argv[i][j] <= 'Z') \
+				&& !(argv[i][j] >= '0' && argv[i][j] <= '9'))
+			{
+				msg_argv = ft_strjoin_bothside("'", argv[i], "'");
+				error_msg(argv[0], msg_argv, "not a valid identifier");
+				free(msg_argv);
+				return (ERROR);
+			}
+			j++;
+		}
+	}
+	return (0);
+}
+
 void	ft_unset(t_mini *mini, char **argv)
 {
 	int		*offset;
@@ -109,6 +126,8 @@ void	ft_unset(t_mini *mini, char **argv)
 	mini->flag->minicmd_flag = TRUE;
 	if (ft_two_dimension_size(argv) > 1)
 	{
+		if (check_unset_argv(argv) == ERROR)
+			return ;
 		offset_init(&offset, mini->envp, argv);
 		get_offset(offset, mini->envp, argv);
 		if (ft_numlen(offset) != 0)
