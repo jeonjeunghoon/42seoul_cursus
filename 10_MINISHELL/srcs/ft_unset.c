@@ -6,21 +6,19 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:45:35 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/21 16:10:19 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/21 17:35:45 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	**create_new_envp(char **envp, int *offset)
+char	**create_unset_envp(char **envp, int *position, int size)
 {
 	char	**new;
-	int		size;
 	int		i;
 	int		j;
 	int		k;
 
-	size = ft_two_dimension_size(envp) - ft_numlen(offset);
 	new = (char **)malloc(sizeof(char *) * (size + 1));
 	new[size] = NULL;
 	i = 0;
@@ -28,7 +26,7 @@ char	**create_new_envp(char **envp, int *offset)
 	k = 0;
 	while (i < size && envp[j])
 	{
-		if (j == offset[k] && offset[k] != -1)
+		if (j == position[k] && position[k] != -1)
 		{
 			j++;
 			k++;
@@ -40,7 +38,7 @@ char	**create_new_envp(char **envp, int *offset)
 	return (new);
 }
 
-void	get_offset(int *offset, char **envp, char **argv)
+void	get_position(int *position, char **envp, char **argv)
 {
 	int		i;
 	int		j;
@@ -55,10 +53,10 @@ void	get_offset(int *offset, char **envp, char **argv)
 		{
 			j = 0;
 			envname = get_envname(argv[i]);
-			while (envp[j] && offset[k] != -1)
+			while (envp[j] && position[k] != -1)
 			{
 				if (ft_strncmp(envp[j], envname, ft_strlen(envname)) == 0)
-					offset[k++] = j;
+					position[k++] = j;
 				j++;
 			}
 			free(envname);
@@ -68,40 +66,40 @@ void	get_offset(int *offset, char **envp, char **argv)
 	}
 }
 
-void	offset_init(int **offset, char **envp, char **argv)
+void	position_init(int **position, int *size, char **envp, char **argv)
 {
 	int	i;
-	int	size;
 
+	*size = 0;
 	i = 1;
-	size = 0;
 	while (argv[i] != NULL)
 	{
 		if (ft_getenv(envp, argv[i]) != NULL)
-			size++;
+			(*size)++;
 		i++;
 	}
-	*offset = (int *)malloc(sizeof(int) * (size + 1));
-	(*offset)[size] = -1;
+	*position = (int *)malloc(sizeof(int) * ((*size) + 1));
+	(*position)[(*size)] = -1;
 	i = 0;
-	while ((*offset)[i] != -1)
+	while ((*position)[i] != -1)
 	{
-		(*offset)[i] = 0;
+		(*position)[i] = 0;
 		i++;
 	}
+	(*size) = 0;
 }
 
-int	check_unset_argv(char **argv)
+void	check_unset_argv(char **argv, int *size, int *exit_num)
 {
 	int		i;
 	int		j;
 	char	*msg_argv;
 
-	i = 1;
-	while (argv[i])
+	i = 0;
+	while (argv[++i])
 	{
-		j = 0;
-		while (argv[i][j])
+		j = -1;
+		while (argv[i][++j])
 		{
 			if ((argv[i][j] != '_' && !(argv[i][j] >= 'a' && argv[i][j] <= 'z') \
 				&& !(argv[i][j] >= 'A' && argv[i][j] <= 'Z') \
@@ -111,35 +109,38 @@ int	check_unset_argv(char **argv)
 				msg_argv = ft_strjoin_bothside("'", argv[i], "'");
 				error_msg(argv[0], msg_argv, "not a valid identifier");
 				free(msg_argv);
-				return (ERROR);
+				*exit_num = 1;
+				(*size)--;
+				break ;
 			}
-			j++;
 		}
-		i++;
 	}
-	return (0);
 }
 
 void	ft_unset(t_mini *mini, char **argv)
 {
-	int		*offset;
+	int		exit_num;
+	int		size;
+	int		*position;
 	char	**new;
 
 	mini->flag->minicmd_flag = TRUE;
+	exit_num = 0;
+	size = ft_two_dimension_size(argv) - 1;
 	if (ft_two_dimension_size(argv) > 1)
 	{
-		if (check_unset_argv(argv) == ERROR)
-			return ;
-		offset_init(&offset, mini->envp, argv);
-		get_offset(offset, mini->envp, argv);
-		if (ft_numlen(offset) != 0)
+		check_unset_argv(argv, &size, &exit_num);
+		if (size != 0)
 		{
-			new = create_new_envp(mini->envp, offset);
+			position_init(&position, &size, mini->envp, argv);
+			get_position(position, mini->envp, argv);
+			size = ft_two_dimension_size(mini->envp) - ft_numlen(position);
+			new = create_unset_envp(mini->envp, position, size);
 			ft_two_dimension_free(&(mini->envp));
 			mini->envp = new;
+			free(position);
+			position = NULL;
 		}
-		free(offset);
-		offset = NULL;
 	}
-	exit_num_set(EXIT_SUCCESS);
+	exit_num_set(exit_num);
 }
