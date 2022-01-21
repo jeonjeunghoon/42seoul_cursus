@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:45:35 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/21 15:40:14 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/21 16:10:19 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,10 @@ int	check_unset_argv(char **argv)
 		j = 0;
 		while (argv[i][j])
 		{
-			if (argv[i][j] != '_' && !(argv[i][j] >= 'a' && argv[i][j] <= 'z') \
+			if ((argv[i][j] != '_' && !(argv[i][j] >= 'a' && argv[i][j] <= 'z') \
 				&& !(argv[i][j] >= 'A' && argv[i][j] <= 'Z') \
-				&& !(argv[i][j] >= '0' && argv[i][j] <= '9'))
+				&& !(argv[i][j] >= '0' && argv[i][j] <= '9')) \
+				|| (argv[i][0] >= '0' && argv[i][0] <= '9'))
 			{
 				msg_argv = ft_strjoin_bothside("'", argv[i], "'");
 				error_msg(argv[0], msg_argv, "not a valid identifier");
@@ -114,6 +115,7 @@ int	check_unset_argv(char **argv)
 			}
 			j++;
 		}
+		i++;
 	}
 	return (0);
 }
