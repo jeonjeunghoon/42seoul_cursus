@@ -6,11 +6,17 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:44:33 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 15:48:00 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/22 18:08:39 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	set_env_cd(t_mini *mini, char *path)
+{
+	// $OLDPWD에 $PWD넣기
+	// $PWD 설정
+}
 
 char	*get_path(char *argv)
 {
@@ -45,11 +51,16 @@ void	ft_cd(t_mini *mini, char **argv)
 		{
 			check = chdir(path);
 			if (check == ERROR)
+			{
 				error_msg("cd", path, strerror(errno));
-			return ;
+				exit_num_set(1);
+				return ;
+			}
+			break ;
 		}
 		i++;
 	}
+	set_env_cd(mini, path);
 	exit_num_set(EXIT_SUCCESS);
 	chdir(getenv("HOME"));
 }
