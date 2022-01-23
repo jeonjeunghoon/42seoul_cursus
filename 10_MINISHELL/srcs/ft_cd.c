@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:44:33 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/22 18:08:39 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/23 22:57:00 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 void	set_env_cd(t_mini *mini, char *path)
 {
+	char	**argv;
+
 	// $OLDPWD에 $PWD넣기
+	ft_unset(mini, argv);
 	// $PWD 설정
+	ft_export(mini, argv);
+	
 }
 
 char	*get_path(char *argv)
