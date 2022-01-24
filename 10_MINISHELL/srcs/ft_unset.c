@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:45:35 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/24 23:57:00 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 00:56:01 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ void	ft_unset(t_mini *mini, char **argv)
 	int		*position;
 	char	**new;
 
-	mini->flag->minicmd_flag = TRUE;
 	exit_num = 0;
 	size = ft_two_dimension_size(argv) - 1;
 	if (ft_two_dimension_size(argv) > 1)

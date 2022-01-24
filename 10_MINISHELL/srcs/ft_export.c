@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:45:11 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 00:25:20 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 01:16:49 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,20 @@ char	*get_envname_export(char *argv)
 	return (res);
 }
 
-char	**create_export_envp(char **envp, char *argv, int size)
+char	**create_export_envp(char **envp, char *argv)
 {
 	char	**new;
 	char	*envname;
+	int		size;
 	int		i;
 	int		j;
 
+	size = ft_two_dimension_size(envp);
+	envname = get_envname_export(argv);
+	if (ft_getenv(envp, envname) == NULL)
+		size++;
 	new = (char **)malloc(sizeof(char *) * (size + 1));
 	new[size] = NULL;
-	envname = get_envname_export(argv);
 	i = 0;
 	j = 0;
 	while (i < size && envp[j])
@@ -51,11 +55,7 @@ char	**create_export_envp(char **envp, char *argv, int size)
 		if (ft_strncmp(envp[j], envname, ft_strlen(envname)) == 0)
 			j++;
 		if (envp[j] != NULL)
-		{
-			new[i] = ft_strdup(envp[j]);
-			i++;
-			j++;
-		}
+			new[i++] = ft_strdup(envp[j++]);
 	}
 	new[i] = ft_strdup(argv);
 	free(envname);
@@ -104,10 +104,8 @@ void	ft_export(t_mini *mini, char **argv)
 {
 	int		exit_num;
 	int		i;
-	int		size;
 	char	**new_envp;
 
-	mini->flag->minicmd_flag = TRUE;
 	exit_num = 0;
 	if (ft_two_dimension_size(argv) > 1)
 	{
@@ -116,8 +114,7 @@ void	ft_export(t_mini *mini, char **argv)
 		{
 			if (check_export_argv(argv[i], &exit_num) != ERROR)
 			{
-				size = ft_two_dimension_size(mini->envp) + 1;
-				new_envp = create_export_envp(mini->envp, argv[i], size);
+				new_envp = create_export_envp(mini->envp, argv[i]);
 				ft_two_dimension_free(&(mini->envp));
 				mini->envp = new_envp;
 			}

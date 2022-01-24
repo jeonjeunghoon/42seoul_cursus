@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 23:35:16 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 00:56:24 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ typedef struct s_flag
 {
 	bool	single_flag;
 	bool	double_flag;
-	bool	minicmd_flag;
 }	t_flag;
 
 typedef struct s_mini

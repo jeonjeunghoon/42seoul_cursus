@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:44:33 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 00:49:07 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 01:01:26 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,33 @@ void	set_env_cd(t_mini *mini, char *old_pwd)
 	argv = NULL;
 }
 
+int	go_to_home(char **envp, char *path)
+{
+	if (path == NULL)
+	{
+		path = ft_getenv(envp, "HOME");
+		if (path == NULL)
+		{
+			error_msg("cd", "HOME", "not set");
+			return (ERROR);
+		}
+		else
+			chdir(path);
+	}
+	return (0);
+}
+
+int	check_path(char *path)
+{
+	if (chdir(path) == ERROR)
+	{
+		error_msg("cd", path, strerror(errno));
+		exit_num_set(1);
+		return (ERROR);
+	}
+	return (0);
+}
+
 char	*get_path(char **envp, char *argv)
 {
 	char	*ptr;
@@ -61,7 +88,6 @@ void	ft_cd(t_mini *mini, char **argv)
 	char	*old_pwd;
 	int		i;
 
-	mini->flag->minicmd_flag = TRUE;
 	path = NULL;
 	i = 1;
 	old_pwd = ft_getenv(mini->envp, "PWD");
@@ -70,27 +96,14 @@ void	ft_cd(t_mini *mini, char **argv)
 		path = get_path(mini->envp, argv[i]);
 		if (path != NULL)
 		{
-			if (chdir(path) == ERROR)
-			{
-				error_msg("cd", path, strerror(errno));
-				exit_num_set(1);
+			if (check_path(path) == ERROR)
 				return ;
-			}
 			break ;
 		}
 		i++;
 	}
-	if (path == NULL)
-	{
-		path = ft_getenv(mini->envp, "HOME");
-		if (path == NULL)
-		{
-			error_msg("cd", "HOME", "not set");
-			return ;
-		}
-		else
-			chdir(path);
-	}
+	if (go_to_home(mini->envp, path) == ERROR)
+		return ;
 	set_env_cd(mini, old_pwd);
 	exit_num_set(EXIT_SUCCESS);
 }

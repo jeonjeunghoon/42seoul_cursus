@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/24 22:40:57 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 00:56:17 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	ft_echo(t_mini *mini, char **argv)
 	int	start_ptr;
 	int	n_flag;
 
-	mini->flag->minicmd_flag = TRUE;
 	n_flag = FALSE;
 	if (argv[1] == NULL)
 	{

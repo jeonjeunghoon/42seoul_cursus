@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 00:21:56 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 00:55:58 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	minishell_init(t_mini *mini)
 	mini->input->user_input = NULL;
 	mini->flag->single_flag = FALSE;
 	mini->flag->double_flag = FALSE;
-	mini->flag->minicmd_flag = FALSE;
 	return (0);
 }
 
