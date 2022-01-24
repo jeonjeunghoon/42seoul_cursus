@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 14:19:40 by jeunjeon          #+#    #+#              #
-#    Updated: 2022/01/18 22:48:37 by jeunjeon         ###   ########.fr        #
+#    Updated: 2022/01/25 02:39:02 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ SRCS_NAME			=	main.c \
 						utility.c \
 						parse_utility.c \
 						tokenize.c \
-						tokenize_utility.c
+						tokenize_utility.c \
+						export_utility.c
 SRCS_PATH			=	./srcs
 SRCS				=	$(addprefix $(SRCS_PATH)/, $(SRCS_NAME))
 

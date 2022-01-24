@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 00:56:24 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 02:32:57 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,13 @@ typedef struct s_prompt
 
 typedef struct s_flag
 {
-	bool	single_flag;
-	bool	double_flag;
+	t_bool	single_flag;
+	t_bool	double_flag;
 }	t_flag;
 
 typedef struct s_mini
 {
+	int				exit_num;
 	char			**envp;
 	char			**path;
 	char			*cmd_path;
@@ -145,7 +146,7 @@ int		stream_flag_str(t_token *token);
 void	token_init(t_token *token);
 int		is_space(char ch);
 void	create_argv(t_argv **str, t_list *head, t_list **argv_lst, int size);
-void	create_stream(t_argv **stream, t_list *head, t_list **argv_lst);
+void	create_argv_stream(t_argv **stream, t_list *head, t_list **argv_lst);
 
 // tokenize
 int		single_quote_parse(t_token *token, char *input, int *end);
@@ -157,5 +158,9 @@ int		tokenize(t_token *token, char *input, int *start);
 // tokenize_utility
 int		stream_parse_condition(char ch);
 int		str_parse_condition(char ch);
+
+// export_utility
+int		is_wrong_export(char *argv, int i);
+char	*get_envname_export(char *argv);
 
 #endif

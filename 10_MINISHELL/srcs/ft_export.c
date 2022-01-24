@@ -6,33 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:45:11 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 01:16:49 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 02:46:08 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-char	*get_envname_export(char *argv)
-{
-	int		i;
-	int		size;
-	char	*res;
-
-	size = 0;
-	while (argv[size] && argv[size] != '=')
-		size++;
-	if (argv[size] != '=')
-		return (NULL);
-	res = (char *)malloc(sizeof(char) * (size + 1));
-	res[size] = '\0';
-	i = 0;
-	while (i < size && argv[i])
-	{
-		res[i] = argv[i];
-		i++;
-	}
-	return (res);
-}
 
 char	**create_export_envp(char **envp, char *argv)
 {
@@ -62,18 +40,33 @@ char	**create_export_envp(char **envp, char *argv)
 	return (new);
 }
 
-int	is_wrong_export(char *argv, int i)
+char	*get_env(t_mini *mini, char **argv, int *i, int check)
 {
-	if ((argv[i] != '_' && argv[0] == '=' \
-		&& !(argv[i] >= 'a' && argv[i] <= 'z') \
-		&& !(argv[i] >= 'A' && argv[i] <= 'Z') \
-		&& !(argv[i] >= '0' && argv[i] <= '9')) \
-		|| (argv[0] >= '0' && argv[0] <= '9'))
-		return (TRUE);
-	return (FALSE);
+	t_list	*head;
+	char	*env;
+	int		j;
+
+	head = mini->input->token_lst->next;
+	j = 0;
+	while (head != NULL && j < *i)
+	{
+		head = head->next;
+		j++;
+	}
+	if (argv[*i][check - 1] == '=' && argv[*i][check] == '\0' && \
+		argv[(*i) + 1] != NULL && \
+		((t_token *)head->content)->double_quote == TRUE || \
+		((t_token *)head->content)->single_quote == TRUE)
+	{
+		env = ft_strjoin(argv[*i], ((t_token *)(head)->content)->token);
+		(*i)++;
+		return (env);
+	}
+	env = ft_strdup(argv[*i]);
+	return (env);
 }
 
-int	check_export_argv(char *argv, int *exit_num)
+int	check_export_argv(char *argv, int exit_num)
 {
 	int		i;
 	int		is_env;
@@ -90,38 +83,40 @@ int	check_export_argv(char *argv, int *exit_num)
 			msg_argv = ft_strjoin_bothside("'", argv, "'");
 			error_msg("export", msg_argv, "not a valid identifier");
 			free(msg_argv);
-			*exit_num = 1;
+			exit_num = 1;
 			return (ERROR);
 		}
 		i++;
 	}
 	if (is_env != 1)
 		return (ERROR);
-	return (0);
+	return (i);
 }
 
 void	ft_export(t_mini *mini, char **argv)
 {
-	int		exit_num;
 	int		i;
+	int		check;
+	char	*env;
 	char	**new_envp;
 
-	exit_num = 0;
 	if (ft_two_dimension_size(argv) > 1)
 	{
-		i = 1;
-		while (argv[i])
+		i = 0;
+		while (argv[++i])
 		{
-			if (check_export_argv(argv[i], &exit_num) != ERROR)
+			check = check_export_argv(argv[i], mini->exit_num);
+			if (check != ERROR)
 			{
-				new_envp = create_export_envp(mini->envp, argv[i]);
+				env = get_env(mini, argv, &i, check);
+				new_envp = create_export_envp(mini->envp, env);
+				free(env);
 				ft_two_dimension_free(&(mini->envp));
 				mini->envp = new_envp;
 			}
-			i++;
 		}
 	}
 	else
 		ft_env(mini, argv);
-	exit_num_set(exit_num);
+	exit_num_set(mini->exit_num);
 }
