@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 21:37:12 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 23:48:07 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/24 22:39:27 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_getenv(char **envp, char *name)
 		if (ft_strncmp(envp[i], envname, ft_strlen(envname)) == 0)
 		{
 			free(envname);
-			return (name);
+			return (&(envp[i][ft_strlen(envname)]));
 		}
 		i++;
 	}

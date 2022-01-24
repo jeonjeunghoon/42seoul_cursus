@@ -6,13 +6,13 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 15:47:51 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/24 22:40:57 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	print_msg(char **argv, int start_ptr, int n_flag)
+void	print_msg(char **envp, char **argv, int start_ptr, int n_flag)
 {
 	char	*str;
 
@@ -28,7 +28,7 @@ void	print_msg(char **argv, int start_ptr, int n_flag)
 			write(1, "$", 1);
 		else
 		{
-			str = getenv(&(argv[start_ptr][1]));
+			str = ft_getenv(envp, &(argv[start_ptr][1]));
 			if (str != NULL)
 				ft_putstr_fd(str, 1);
 		}
@@ -76,7 +76,7 @@ int	ft_echo(t_mini *mini, char **argv)
 	n_flag = n_option(argv[start_ptr], &start_ptr);
 	while (argv[start_ptr] != NULL)
 	{
-		print_msg(argv, start_ptr, n_flag);
+		print_msg(mini->envp, argv, start_ptr, n_flag);
 		start_ptr++;
 	}
 	exit_num_set(EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:42:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 22:15:18 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/24 22:41:17 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	prompt_set(t_mini *mini)
 	if (tmp == NULL)
 		return (ERROR);
 	tmp2 = NULL;
-	tmp2 = ft_strjoin(getenv("USER"), "$ ");
+	tmp2 = ft_strjoin(ft_getenv(mini->envp, "USER"), "$ ");
 	if (tmp2 == NULL)
 		return (ERROR);
 	mini->prompt->prompt = ft_strjoin(tmp, tmp2);

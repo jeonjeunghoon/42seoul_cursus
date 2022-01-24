@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/22 17:48:56 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/24 22:43:06 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	minishell_init(t_mini *mini)
 	mini->flag->single_flag = FALSE;
 	mini->flag->double_flag = FALSE;
 	mini->flag->minicmd_flag = FALSE;
-	path_str = getenv("PATH");
+	path_str = ft_getenv(mini->envp, "PATH");
 	if (path_str == NULL)
 		return (ERROR);
 	mini->path = ft_split(path_str, ':');
