@@ -6,19 +6,36 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:44:33 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/24 22:39:47 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 00:49:07 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	set_env_cd(t_mini *mini, char *pwd, char *old_pwd)
+void	set_env_cd(t_mini *mini, char *old_pwd)
 {
 	char	**argv;
+	char	*pwd;
+	int		i;
 
-	// $OLDPWD에 $PWD넣기
-	
+	argv = (char **)malloc(sizeof(char *) * 4);
+	argv[3] = NULL;
+	argv[0] = ft_strdup("export");
+	pwd = getcwd(NULL, 0);
+	argv[1] = ft_strjoin("PWD=", pwd);
+	free(pwd);
+	pwd = NULL;
+	argv[2] = ft_strjoin("OLDPWD=", old_pwd);
 	ft_export(mini, argv);
+	i = 0;
+	while (i < 4)
+	{
+		free(argv[i]);
+		argv[i] = NULL;
+		i++;
+	}
+	free(argv);
+	argv = NULL;
 }
 
 char	*get_path(char **envp, char *argv)
@@ -42,20 +59,18 @@ void	ft_cd(t_mini *mini, char **argv)
 {
 	char	*path;
 	char	*old_pwd;
-	int		check;
 	int		i;
 
 	mini->flag->minicmd_flag = TRUE;
-	check = 0;
+	path = NULL;
 	i = 1;
+	old_pwd = ft_getenv(mini->envp, "PWD");
 	while (argv[i])
 	{
 		path = get_path(mini->envp, argv[i]);
 		if (path != NULL)
 		{
-			old_pwd = ft_getenv(mini->envp, "PWD");
-			check = chdir(path);
-			if (check == ERROR)
+			if (chdir(path) == ERROR)
 			{
 				error_msg("cd", path, strerror(errno));
 				exit_num_set(1);
@@ -66,7 +81,16 @@ void	ft_cd(t_mini *mini, char **argv)
 		i++;
 	}
 	if (path == NULL)
-		chdir(ft_getenv(mini->envp, "HOME"));
-	// set_env_cd(mini, path, old_pwd);
+	{
+		path = ft_getenv(mini->envp, "HOME");
+		if (path == NULL)
+		{
+			error_msg("cd", "HOME", "not set");
+			return ;
+		}
+		else
+			chdir(path);
+	}
+	set_env_cd(mini, old_pwd);
 	exit_num_set(EXIT_SUCCESS);
 }

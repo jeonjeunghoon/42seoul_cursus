@@ -6,11 +6,21 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 16:23:50 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 00:20:10 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	create_path_bundle(t_mini *mini)
+{
+	char	*path_str;
+
+	path_str = ft_getenv(mini->envp, "PATH");
+	if (path_str == NULL)
+		return ;
+	mini->path = ft_split(path_str, ':');
+}
 
 void	check_cmd(t_mini *mini, char *cmd)
 {
@@ -19,6 +29,9 @@ void	check_cmd(t_mini *mini, char *cmd)
 	char		*tmp;
 	int			i;
 
+	create_path_bundle(mini);
+	if (mini->path == NULL)
+		return ;
 	tmp = ft_strjoin("/", cmd);
 	i = 0;
 	while (mini->path[i])
