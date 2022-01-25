@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 02:20:17 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 16:44:22 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,15 @@ void	exe_cmd(char *cmd_path, char **argv, char **envp)
 	pid = 0;
 	if (cmd_path == NULL)
 	{
-		command_not_found(argv[0]);
+		error_1(argv[0], "command not found");
+		exit_num_set(127);
 		return ;
 	}
 	pid = fork();
 	if (pid > 0)
 	{
 		wait(0);
-		g_exit_state = 0;
+		exit_num_set(0);
 	}
 	else if (pid == 0)
 		execve(cmd_path, argv, envp);

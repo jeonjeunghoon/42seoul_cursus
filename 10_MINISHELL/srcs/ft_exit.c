@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:13 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 00:56:11 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 16:49:20 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,30 @@ int	check_argv(char *argv)
 	i = 0;
 	while (argv[i])
 	{
-		if (argv[i] > '0' || argv[i] < '9')
+		if (argv[i] < '0' || argv[i] > '9')
 			return (ERROR);
 		i++;
+	}
+	return (0);
+}
+
+int	exit_exception(int argc, char **argv)
+{
+	if (argc == 1)
+		return (0);
+	if (argc >= 2)
+	{
+		if (check_argv(argv[1]) == ERROR)
+		{
+			error_2("exit", argv[1], "numeric argument required");
+			exit_num_set(255);
+		}
+		else
+		{
+			error_1("exit", "too_many_arguments");
+			exit_num_set(1);
+		}
+		return (ERROR);
 	}
 	return (0);
 }
@@ -32,20 +53,12 @@ void	ft_exit(t_mini *mini, char **argv)
 
 	argc = 0;
 	argc = ft_two_dimension_size(argv);
-	if (argc > 2)
-	{
-		too_many_arguments("exit");
+	if (exit_exception(argc, argv) == ERROR)
 		return ;
-	}
 	printf("logout\n");
 	if (argc == 2 && check_argv(argv[1]) == 0)
-	{
 		exit_num_set(ft_atoi(argv[1]));
-		exit(g_exit_state);
-	}
 	else
-	{
 		exit_num_set(EXIT_SUCCESS);
-		exit(EXIT_SUCCESS);
-	}
+	exit(g_exit_state);
 }

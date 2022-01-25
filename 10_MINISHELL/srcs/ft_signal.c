@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 16:52:37 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 14:49:48 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 16:36:47 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	sig_handler(int sig)
 	}
 	else
 	{
-		g_exit_state = 1;
-		exit(1);
+		exit_num_set(1);
+		exit(g_exit_state);
 	}
 }
 

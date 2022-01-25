@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:45:11 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 02:46:08 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 16:43:39 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*get_env(t_mini *mini, char **argv, int *i, int check)
 	return (env);
 }
 
-int	check_export_argv(char *argv, int exit_num)
+int	check_export_argv(char *argv)
 {
 	int		i;
 	int		is_env;
@@ -81,9 +81,9 @@ int	check_export_argv(char *argv, int exit_num)
 		if (is_wrong_export(argv, i))
 		{
 			msg_argv = ft_strjoin_bothside("'", argv, "'");
-			error_msg("export", msg_argv, "not a valid identifier");
+			error_2("export", msg_argv, "not a valid identifier");
+			exit_num_set(1);
 			free(msg_argv);
-			exit_num = 1;
 			return (ERROR);
 		}
 		i++;
@@ -105,7 +105,7 @@ void	ft_export(t_mini *mini, char **argv)
 		i = 0;
 		while (argv[++i])
 		{
-			check = check_export_argv(argv[i], mini->exit_num);
+			check = check_export_argv(argv[i]);
 			if (check != ERROR)
 			{
 				env = get_env(mini, argv, &i, check);
@@ -118,5 +118,5 @@ void	ft_export(t_mini *mini, char **argv)
 	}
 	else
 		ft_env(mini, argv);
-	exit_num_set(mini->exit_num);
+	exit_num_set(g_exit_state);
 }

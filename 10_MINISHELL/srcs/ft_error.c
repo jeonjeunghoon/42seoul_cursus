@@ -6,33 +6,25 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:42:11 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/20 16:59:00 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 16:42:58 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	too_many_arguments(char *cmd)
+void	error_1(char *cmd, char *msg)
 {
-	printf("%s: too many arguments\n", cmd);
-	exit_num_set(1);
+	printf("minishell: %s: %s\n", cmd, msg);
 }
 
-void	command_not_found(char *cmd)
-{
-	printf("minishell: %s: command not found\n", cmd);
-	exit_num_set(127);
-}
-
-void	error_msg(char *cmd, char *argv, char *msg)
+void	error_2(char *cmd, char *argv, char *msg)
 {
 	printf("minishell: %s: %s: %s\n", cmd, argv, msg);
-	exit_num_set(1);
 }
 
 void	ft_error(void)
 {
 	printf("Minishell error !!!\n");
 	exit_num_set(1);
-	exit(1);
+	exit(g_exit_state);
 }

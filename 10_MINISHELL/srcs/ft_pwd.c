@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:57:37 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 00:56:05 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 16:38:56 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	ft_pwd(t_mini *mini, char **argv)
 	if (cwd)
 		printf("%s\n", cwd);
 	else if (cwd == NULL)
-		error_msg(argv[0], argv[1], strerror(errno));
+	{
+		error_2(argv[0], argv[1], strerror(errno));
+		exit_num_set(1);
+	}
 	free(cwd);
-	exit_num_set(EXIT_SUCCESS);
+	exit_num_set(g_exit_state);
 }

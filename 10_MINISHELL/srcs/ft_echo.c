@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 00:56:17 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 16:41:17 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,17 @@ int	ft_echo(t_mini *mini, char **argv)
 
 	n_flag = FALSE;
 	if (argv[1] == NULL)
-	{
 		write(1, "\n", 1);
-		exit_num_set(EXIT_SUCCESS);
-		return (1);
-	}
-	start_ptr = 1;
-	n_flag = n_option(argv[start_ptr], &start_ptr);
-	while (argv[start_ptr] != NULL)
+	else
 	{
-		print_msg(mini->envp, argv, start_ptr, n_flag);
-		start_ptr++;
+		start_ptr = 1;
+		n_flag = n_option(argv[start_ptr], &start_ptr);
+		while (argv[start_ptr] != NULL)
+		{
+			print_msg(mini->envp, argv, start_ptr, n_flag);
+			start_ptr++;
+		}
 	}
-	exit_num_set(EXIT_SUCCESS);
+	exit_num_set(g_exit_state);
 	return (1);
 }

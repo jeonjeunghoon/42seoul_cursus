@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:45:35 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 00:56:01 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 16:44:00 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	position_init(int **position, int *size, char **envp, char **argv)
 	(*size) = 0;
 }
 
-void	check_unset_argv(char **argv, int *size, int *exit_num)
+void	check_unset_argv(char **argv, int *size)
 {
 	int		i;
 	int		j;
@@ -107,9 +107,9 @@ void	check_unset_argv(char **argv, int *size, int *exit_num)
 				|| (argv[i][0] >= '0' && argv[i][0] <= '9'))
 			{
 				msg_argv = ft_strjoin_bothside("'", argv[i], "'");
-				error_msg(argv[0], msg_argv, "not a valid identifier");
+				error_2(argv[0], msg_argv, "not a valid identifier");
+				exit_num_set(1);
 				free(msg_argv);
-				*exit_num = 1;
 				(*size)--;
 				break ;
 			}
@@ -119,16 +119,14 @@ void	check_unset_argv(char **argv, int *size, int *exit_num)
 
 void	ft_unset(t_mini *mini, char **argv)
 {
-	int		exit_num;
 	int		size;
 	int		*position;
 	char	**new;
 
-	exit_num = 0;
 	size = ft_two_dimension_size(argv) - 1;
 	if (ft_two_dimension_size(argv) > 1)
 	{
-		check_unset_argv(argv, &size, &exit_num);
+		check_unset_argv(argv, &size);
 		if (size != 0)
 		{
 			position_init(&position, &size, mini->envp, argv);
@@ -141,5 +139,5 @@ void	ft_unset(t_mini *mini, char **argv)
 			position = NULL;
 		}
 	}
-	exit_num_set(exit_num);
+	exit_num_set(g_exit_state);
 }

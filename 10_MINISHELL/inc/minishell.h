@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 02:32:57 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 16:43:22 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ typedef struct s_flag
 
 typedef struct s_mini
 {
-	int				exit_num;
 	char			**envp;
 	char			**path;
 	char			*cmd_path;
@@ -129,10 +128,9 @@ void	ft_env(t_mini *mini, char **argv);
 void	ft_exit(t_mini *mini, char **argv);
 
 // error_msg
+void	error_1(char *cmd, char *msg);
+void	error_2(char *cmd, char *argv, char *error_msg);
 void	ft_error(void);
-void	too_many_arguments(char *cmd);
-void	command_not_found(char *cmd);
-void	error_msg(char *cmd, char *argv, char *error_msg);
 
 // utility
 char	*get_envname(char *name);

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 02:39:21 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/25 16:37:33 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	clear_resource(t_mini *mini)
 
 int	minishell_init(t_mini *mini)
 {
-	mini->exit_num = 0;
 	mini->path = NULL;
 	mini->cmd_path = NULL;
 	mini->prompt->locate = NULL;
