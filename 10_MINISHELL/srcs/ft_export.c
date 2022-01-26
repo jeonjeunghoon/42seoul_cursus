@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:45:11 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/26 19:21:53 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/26 19:32:14 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,13 +184,10 @@ char	**create_export_envp(char **envp, char *env)
 // 	exit_num_set(g_exit_state);
 // }
 
-void	create_env(char **env, char *input, int *i, int is_quote)
+void	create_env(char *env, char *input, int *i, int is_quote, int size)
 {
-	int	size;
 	int	j;
-
-	*env = (char *)malloc(sizeof(char) * (size + 1));
-	(*env)[size] = '\0';
+	
 	j = 0;
 	while (j < size)
 	{
@@ -204,13 +201,13 @@ void	create_env(char **env, char *input, int *i, int is_quote)
 			(*i)++;
 			continue ;
 		}
-		(*env)[j] = input[*i];
+		env[j] = input[*i];
 		(*i)++;
 		j++;
 	}
 }
 
-int	check_value(char *input, int *i, int is_quote)
+int	check_value(char *input, int *i, int is_quote, int *size)
 {
 	while (input[*i])
 	{
@@ -225,6 +222,7 @@ int	check_value(char *input, int *i, int is_quote)
 		else if (is_quote == 2 && input[*i] == '\"')
 			is_quote = 0;
 		(*i)++;
+		(*size)++;
 	}
 	return (0);
 }
@@ -238,8 +236,8 @@ char	*create_export_argv(char *input, int i)
 
 	size = 0;
 	position = i;
-	while (input[i] && (is_space(input[i]) == FALSE || \
-		input[i] != '\'' || input[i] != '\"'))
+	while (input[i] && is_space(input[i]) == FALSE && \
+		input[i] != '\'' && input[i] != '\"')
 	{
 		i++;
 		size++;
@@ -256,7 +254,7 @@ char	*create_export_argv(char *input, int i)
 	return (argv);
 }
 
-int	check_key(char *input, int *i, int is_quote)
+int	check_key(char *input, int *i, int is_quote, int *size)
 {
 	char	*argv;
 	char	*msg_argv;
@@ -288,6 +286,7 @@ int	check_key(char *input, int *i, int is_quote)
 			input[*i] == '\'' || input[*i] == '\"')
 			return (ERROR);
 		(*i)++;
+		(*size)++;
 	}
 	if (input[*i] == '\0')
 		return (ERROR);
@@ -296,17 +295,21 @@ int	check_key(char *input, int *i, int is_quote)
 
 int	parse_env(char *input, int *i, char **env)
 {
-	int	is_quote;
+	int		size;
+	int		is_quote;
 
 	is_quote = 0;
-	if (check_key(input, i, is_quote) == ERROR)
+	size = 0;
+	if (check_key(input, i, is_quote, &size) == ERROR)
 		return (ERROR);
-	is_quote = check_value(input, i, is_quote);
+	is_quote = check_value(input, i, is_quote, &size);
 	if (is_quote == ERROR)
 		return (ERROR);
-	create_env(env, input, i, is_quote);
-	while (input[*i] && (is_space(input[*i]) == FALSE || \
-		input[*i] != '\'' || input[*i] != '\"'))
+	*env = (char *)malloc(sizeof(char) * (size + 1));
+	(*env)[size] = '\0';
+	create_env(*env, input, i, is_quote, size);
+	while (input[*i] && is_space(input[*i]) == FALSE && \
+		input[*i] != '\'' && input[*i] != '\"')
 		(*i)++;
 	return (0);
 }
@@ -316,8 +319,7 @@ int	set_position(char *input)
 	int	i;
 
 	i = 6; // export 문자열 바로 뒤부터 검사 해야 하기 때문
-	while (input[i] && (is_space(input[i]) == FALSE || \
-		input[i] != '\'' || input[i] != '\"'))
+	while (input[i] && is_space(input[i]) == TRUE)
 		i++;
 	return (i);
 }
