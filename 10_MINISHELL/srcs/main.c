@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 16:37:33 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/26 16:36:41 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	minishell_init(t_mini *mini)
 	mini->input->user_input = NULL;
 	mini->flag->single_flag = FALSE;
 	mini->flag->double_flag = FALSE;
+	mini->flag->cd_exe = FALSE;
 	return (0);
 }
 
@@ -45,12 +46,9 @@ int	memory_allocation(t_mini **mini, char **envp)
 	size = ft_two_dimension_size(envp);
 	(*mini)->envp = (char **)malloc(sizeof(char *) * (size + 1));
 	(*mini)->envp[size] = NULL;
-	i = 0;
-	while (envp[i])
-	{
+	i = -1;
+	while (envp[++i])
 		(*mini)->envp[i] = ft_strdup(envp[i]);
-		i++;
-	}
 	(*mini)->prompt = (t_prompt *)malloc(sizeof(t_prompt));
 	(*mini)->input = (t_input *)malloc(sizeof(t_input));
 	(*mini)->flag = (t_flag *)malloc(sizeof(t_flag));
@@ -82,9 +80,7 @@ int	main(int argc, const char **argv, char **envp)
 		{
 			if (ft_parsing(mini) == ERROR)
 				ft_error();
-			if (ft_stream(mini) == ERROR)
-				ft_error();
-			if (ft_command(mini, mini->input->argv_lst) == ERROR)
+			if (minishell(mini) == ERROR)
 				ft_error();
 		}
 		clear_resource(mini);

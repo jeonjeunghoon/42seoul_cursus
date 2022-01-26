@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_signal.c                                        :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 16:52:37 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 16:59:04 by jeunjeon         ###   ########.fr       */
+/*   Created: 2022/01/12 15:02:07 by jeunjeon          #+#    #+#             */
+/*   Updated: 2022/01/26 15:23:22 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	sig_handler(int sig)
+int	ft_stream(t_mini *mini)
 {
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 1);
-	rl_redisplay();
-	exit_num_set(1);
-	exit(g_exit_state);
+	
+	return (0);
 }
 
-void	ft_signal(void)
+int	minishell(t_mini *mini)
 {
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
+	t_list	*head;
+
+	head = mini->input->argv_lst;
+	while (head != NULL)
+	{
+		// connect_redirect();
+		if (ft_stream(mini) == ERROR)
+			return (ERROR);
+		if (ft_command(mini, head->content) == ERROR)
+			return (ERROR);
+		head = head->next;
+	}
 }

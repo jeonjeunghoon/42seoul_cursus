@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 16:44:22 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/26 19:21:25 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,24 +91,17 @@ void	exe_cmd(char *cmd_path, char **argv, char **envp)
 		execve(cmd_path, argv, envp);
 }
 
-int	ft_command(t_mini *mini, t_list *argv_lst)
+int	ft_command(t_mini *mini, t_argv *argv)
 {
-	while (argv_lst != NULL)
+	if (mini_command(mini, argv->argv[0], argv->argv) == FALSE)
 	{
-		if ((mini_command(mini, ((t_argv *)argv_lst->content)->argv[0], \
-						((t_argv *)argv_lst->content)->argv)) == FALSE)
+		if (argv->argv[0][0] != '$' || ft_strlen(argv->argv[0]) <= 1)
 		{
-			if (((t_argv *)argv_lst->content)->argv[0][0] != '$' || \
-			ft_strlen(((t_argv *)argv_lst->content)->argv[0]) <= 1)
-			{
-				check_cmd(mini, ((t_argv *)argv_lst->content)->argv[0]);
-				exe_cmd(mini->cmd_path, ((t_argv *)argv_lst->content)->argv, \
-						mini->path);
-				free(mini->cmd_path);
-				mini->cmd_path = NULL;
-			}
+			check_cmd(mini, argv->argv[0]);
+			exe_cmd(mini->cmd_path, argv->argv, mini->path);
+			free(mini->cmd_path);
+			mini->cmd_path = NULL;
 		}
-		argv_lst = argv_lst->next;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:00:31 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 02:09:31 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/26 15:12:19 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,28 +52,29 @@ int	is_space(char ch)
 	return (FALSE);
 }
 
-void	create_argv(t_argv **str, t_list *head, t_list **argv_lst, int size)
-{
-	int		i;
-
-	(*str) = (t_argv *)malloc(sizeof(t_argv));
-	(*str)->argv = (char **)malloc(sizeof(char *) * (size + 1));
-	(*str)->argv[size] = NULL;
-	i = 0;
-	while (head != NULL && i < size && stream_flag_str(head->content) == FALSE)
-	{
-		(*str)->argv[i] = ft_strdup(((t_token *)head->content)->token);
-		i++;
-		head = head->next;
-	}
-	ft_lstadd_back(argv_lst, ft_lstnew(*str));
-}
-
-void	create_argv_stream(t_argv **stream, t_list *head, t_list **argv_lst)
+void	create_argv_stream(t_argv **stream, t_token *token, t_list **argv_lst)
 {
 	(*stream) = (t_argv *)malloc(sizeof(t_argv));
 	(*stream)->argv = (char **)malloc(sizeof(char *) * 2);
-	(*stream)->argv[0] = ft_strdup(((t_token *)head->content)->token);
+	(*stream)->argv[0] = ft_strdup(token->token);
 	(*stream)->argv[1] = NULL;
 	ft_lstadd_back(argv_lst, ft_lstnew(*stream));
+}
+
+void	create_argv(t_argv **argv, t_list *token_lst, t_list **argv_lst, int size)
+{
+	int		i;
+
+	(*argv) = (t_argv *)malloc(sizeof(t_argv));
+	(*argv)->argv = (char **)malloc(sizeof(char *) * (size + 1));
+	(*argv)->argv[size] = NULL;
+	i = 0;
+	while (token_lst != NULL && i < size && \
+			stream_flag_str(token_lst->content) == FALSE)
+	{
+		(*argv)->argv[i] = ft_strdup(((t_token *)token_lst->content)->token);
+		i++;
+		token_lst = token_lst->next;
+	}
+	ft_lstadd_back(argv_lst, ft_lstnew(*argv));
 }

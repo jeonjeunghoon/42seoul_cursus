@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 16:43:22 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/26 19:21:29 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_prompt
 
 typedef struct s_flag
 {
+	t_bool	cd_exe;
 	t_bool	single_flag;
 	t_bool	double_flag;
 }	t_flag;
@@ -100,11 +101,10 @@ int		ft_parsing(t_mini *mini);
 void	sig_handler(int sig);
 void	ft_signal(void);
 
-// ft_stream
+// minishell
+int		ft_command(t_mini *mini, t_argv *argv);
 int		ft_stream(t_mini *mini);
-
-// ft_command
-int		ft_command(t_mini *mini, t_list *argv);
+int		minishell(t_mini *mini);
 
 // ft_echo
 int		ft_echo(t_mini *mini, char **argv);
@@ -143,8 +143,11 @@ void	argv_free(t_list *lst);
 int		stream_flag_str(t_token *token);
 void	token_init(t_token *token);
 int		is_space(char ch);
-void	create_argv(t_argv **str, t_list *head, t_list **argv_lst, int size);
-void	create_argv_stream(t_argv **stream, t_list *head, t_list **argv_lst);
+void	create_argv(t_argv **argv, t_list *token_lst, t_list **argv_lst, int size);
+void	create_argv_stream(t_argv **stream, t_token *token, t_list **argv_lst);
+
+// parse_utility2
+void	argv_lst_init(t_argv **str, t_argv **stream, int *size);
 
 // tokenize
 int		single_quote_parse(t_token *token, char *input, int *end);
@@ -158,7 +161,7 @@ int		stream_parse_condition(char ch);
 int		str_parse_condition(char ch);
 
 // export_utility
-int		is_wrong_export(char *argv, int i);
+int		is_valid_export(char *argv, int i);
 char	*get_envname_export(char *argv);
 
 #endif

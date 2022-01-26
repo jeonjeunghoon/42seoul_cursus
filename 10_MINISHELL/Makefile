@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 14:19:40 by jeunjeon          #+#    #+#              #
-#    Updated: 2022/01/25 02:39:02 by jeunjeon         ###   ########.fr        #
+#    Updated: 2022/01/26 14:17:00 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS_NAME			=	main.c \
 						ft_prompt.c \
 						ft_parsing.c \
 						ft_signal.c \
-						ft_stream.c \
+						minishell.c \
 						ft_command.c \
 						ft_echo.c \
 						ft_cd.c \
@@ -32,6 +32,7 @@ SRCS_NAME			=	main.c \
 						ft_error.c \
 						utility.c \
 						parse_utility.c \
+						parse_utility2.c \
 						tokenize.c \
 						tokenize_utility.c \
 						export_utility.c
