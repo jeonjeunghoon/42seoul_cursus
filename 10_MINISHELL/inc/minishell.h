@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/27 18:52:32 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/28 00:13:56 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ int		tokenize(t_token *token, char *input, int *start, char **envp);
 // tokenize_utility
 char	*remove_double_quote(char *str, char **envp);
 char	*remove_single_quote(char *str);
+char	*replace_env(char *str, char **envp);
 
 // tokenize_utility2
 t_bool	stream_condition(char c);

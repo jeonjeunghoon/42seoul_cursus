@@ -6,11 +6,21 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:02:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/27 18:50:51 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/28 00:52:33 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	refine_str(t_token *token, char **envp)
+{
+	char	*new_str;
+
+	new_str = replace_env(token->token, envp);
+	ft_free(&(token->token));
+	token->token = ft_strdup(new_str);
+	ft_free(&new_str);
+}
 
 int	stream_parse(t_token *token, char *input, int *pos)
 {
@@ -56,21 +66,6 @@ int	str_parse(t_token *token, char *input, int *pos)
 	if (i < len)
 		return (ERROR);
 	return (0);
-}
-
-int	refine_str(t_token *token, char **envp)
-{
-	char	*new_str;
-
-	new_str = remove_single_quote(token->token);
-	ft_free(&(token->token));
-	token->token = ft_strdup(new_str);
-	ft_free(&new_str);
-	new_str = remove_double_quote(token->token, envp);
-	ft_free(&(token->token));
-	token->token = ft_strdup(new_str);
-	ft_free(&new_str);
-
 }
 
 int	tokenize(t_token *token, char *input, int *start, char **envp)
