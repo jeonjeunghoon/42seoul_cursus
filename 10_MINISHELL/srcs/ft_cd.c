@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:44:33 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/26 16:36:22 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/27 15:24:38 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	ft_cd(t_mini *mini, char **argv)
 	char	*old_pwd;
 	int		i;
 
-	mini->flag->cd_exe = TRUE;
 	path = NULL;
 	i = 1;
 	old_pwd = ft_getenv(mini->envp, "PWD");

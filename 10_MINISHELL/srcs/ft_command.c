@@ -6,23 +6,34 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:46:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/26 19:21:25 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/27 15:00:29 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	create_path_bundle(t_mini *mini)
+void	exe_cmd(char *cmd_path, char **argv, char **envp)
 {
-	char	*path_str;
+	pid_t	pid;
 
-	path_str = ft_getenv(mini->envp, "PATH");
-	if (path_str == NULL)
+	pid = 0;
+	if (cmd_path == NULL)
+	{
+		error_1(argv[0], "command not found");
+		exit_num_set(127);
 		return ;
-	mini->path = ft_split(path_str, ':');
+	}
+	pid = fork();
+	if (pid > 0)
+	{
+		wait(0);
+		exit_num_set(0);
+	}
+	else if (pid == 0)
+		execve(cmd_path, argv, envp);
 }
 
-void	check_cmd(t_mini *mini, char *cmd)
+char	*check_cmd(t_mini *mini, char *cmd)
 {
 	struct stat	file_info;
 	char		*file_path;
@@ -31,7 +42,7 @@ void	check_cmd(t_mini *mini, char *cmd)
 
 	create_path_bundle(mini);
 	if (mini->path == NULL)
-		return ;
+		return (NULL);
 	tmp = ft_strjoin("/", cmd);
 	i = 0;
 	while (mini->path[i])
@@ -43,10 +54,9 @@ void	check_cmd(t_mini *mini, char *cmd)
 		i++;
 	}
 	free(tmp);
-	if (mini->path[i] == NULL)
-		mini->cmd_path = NULL;
-	else
-		mini->cmd_path = file_path;
+	if (mini->path[i] != NULL)
+		return (file_path);
+	return (NULL);
 }
 
 int	mini_command(t_mini *mini, char *cmd, char **argv)
@@ -70,37 +80,22 @@ int	mini_command(t_mini *mini, char *cmd, char **argv)
 	return (TRUE);
 }
 
-void	exe_cmd(char *cmd_path, char **argv, char **envp)
-{
-	pid_t	pid;
-
-	pid = 0;
-	if (cmd_path == NULL)
-	{
-		error_1(argv[0], "command not found");
-		exit_num_set(127);
-		return ;
-	}
-	pid = fork();
-	if (pid > 0)
-	{
-		wait(0);
-		exit_num_set(0);
-	}
-	else if (pid == 0)
-		execve(cmd_path, argv, envp);
-}
-
 int	ft_command(t_mini *mini, t_argv *argv)
 {
+	char	*cmd_path;
+
+	cmd_path = NULL;
 	if (mini_command(mini, argv->argv[0], argv->argv) == FALSE)
 	{
 		if (argv->argv[0][0] != '$' || ft_strlen(argv->argv[0]) <= 1)
 		{
-			check_cmd(mini, argv->argv[0]);
-			exe_cmd(mini->cmd_path, argv->argv, mini->path);
-			free(mini->cmd_path);
-			mini->cmd_path = NULL;
+			cmd_path = check_cmd(mini, argv->argv[0]);
+			exe_cmd(cmd_path, argv->argv, mini->path);
+			if (cmd_path != NULL)
+			{
+				free(cmd_path);
+				cmd_path = NULL;
+			}
 		}
 	}
 	return (0);

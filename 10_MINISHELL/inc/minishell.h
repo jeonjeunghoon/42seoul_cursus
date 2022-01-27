@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/26 19:21:29 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/27 15:36:09 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,8 @@ typedef struct s_input
 	char	*user_input;
 }	t_input;
 
-typedef struct s_prompt
-{
-	char	*locate;
-	char	*prompt;
-}	t_prompt;
-
 typedef struct s_flag
 {
-	t_bool	cd_exe;
 	t_bool	single_flag;
 	t_bool	double_flag;
 }	t_flag;
@@ -81,9 +74,7 @@ typedef struct s_mini
 {
 	char			**envp;
 	char			**path;
-	char			*cmd_path;
 	t_input			*input;
-	t_prompt		*prompt;
 	t_flag			*flag;
 	struct termios	term;
 }	t_mini;
@@ -159,6 +150,9 @@ int		tokenize(t_token *token, char *input, int *start);
 // tokenize_utility
 int		stream_parse_condition(char ch);
 int		str_parse_condition(char ch);
+
+// command_utility
+void	create_path_bundle(t_mini *mini);
 
 // export_utility
 int		is_valid_export(char *argv, int i);

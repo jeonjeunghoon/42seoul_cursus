@@ -6,70 +6,85 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:42:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 16:39:31 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/27 15:35:36 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	prompt_set(t_mini *mini)
+char	*get_prompt(char *locate, char **envp)
 {
+	char	*prompt;
 	char	*tmp;
 	char	*tmp2;
 
 	tmp = NULL;
-	tmp = ft_strjoin(mini->prompt->locate, " ");
+	tmp = ft_strjoin(locate, " ");
 	if (tmp == NULL)
-		return (ERROR);
+		return (NULL);
 	tmp2 = NULL;
-	tmp2 = ft_strjoin(ft_getenv(mini->envp, "USER"), "$ ");
+	tmp2 = ft_strjoin(ft_getenv(envp, "USER"), "$ ");
 	if (tmp2 == NULL)
-		return (ERROR);
-	mini->prompt->prompt = ft_strjoin(tmp, tmp2);
-	if (mini->prompt->prompt == NULL)
-		return (ERROR);
+		return (NULL);
+	prompt = ft_strjoin(tmp, tmp2);
+	if (prompt == NULL)
+		return (NULL);
 	free(tmp);
 	tmp = NULL;
 	free(tmp2);
 	tmp2 = NULL;
-	return (0);
+	return (prompt);
 }
 
-int	locate_set(t_mini *mini, char *buffer)
+char	*get_locate(void)
 {
 	char	**splitted_strs;
 	int		strs_len;
+	char	*buffer;
+	char	*locate;
 
+	buffer = NULL;
 	splitted_strs = NULL;
 	strs_len = 0;
+	locate = NULL;
+	buffer = getcwd(NULL, 0);
+	if (buffer == NULL)
+		return (NULL);
 	splitted_strs = ft_split(buffer, '/');
+	free(buffer);
+	buffer = NULL;
+	if (splitted_strs == NULL)
+		return (NULL);
 	strs_len = ft_two_dimension_size(splitted_strs);
 	if (strs_len == 0)
-		mini->prompt->locate = ft_strdup("/");
+		locate = ft_strdup("/");
 	else if (strs_len == 2)
-		mini->prompt->locate = ft_strdup("~");
+		locate = ft_strdup("~");
 	else
-		mini->prompt->locate = ft_strdup(splitted_strs[strs_len - 1]);
+		locate = ft_strdup(splitted_strs[strs_len - 1]);
 	ft_two_dimension_free(&splitted_strs);
 	splitted_strs = NULL;
-	return (0);
+	return (locate);
 }
 
 int	ft_prompt(t_mini *mini)
 {
-	char	*buffer;
+	char	*locate;
+	char	*prompt;
 
-	buffer = NULL;
-	buffer = getcwd(NULL, 0);
-	if (buffer == NULL)
+	locate = NULL;
+	prompt = NULL;
+	locate = get_locate();
+	if (locate == NULL)
 		return (ERROR);
-	if ((locate_set(mini, buffer)) == ERROR)
+	prompt = get_prompt(locate, mini->envp);
+	if (prompt == NULL)
 		return (ERROR);
-	free(buffer);
-	buffer = NULL;
-	if ((prompt_set(mini)) == ERROR)
-		return (ERROR);
-	mini->input->user_input = readline(mini->prompt->prompt);
+	mini->input->user_input = readline(prompt);
+	free(locate);
+	locate = NULL;
+	free(prompt);
+	prompt = NULL;
 	if (mini->input->user_input == NULL)
 	{
 		printf("exit\n");

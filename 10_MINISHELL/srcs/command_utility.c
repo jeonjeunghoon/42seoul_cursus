@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_signal.c                                        :+:      :+:    :+:   */
+/*   command_utility.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 16:52:37 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/27 15:38:21 by jeunjeon         ###   ########.fr       */
+/*   Created: 2022/01/27 14:57:53 by jeunjeon          #+#    #+#             */
+/*   Updated: 2022/01/27 14:58:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	sig_handler(int sig)
+void	create_path_bundle(t_mini *mini)
 {
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 1);
-	rl_redisplay();
-}
+	char	*path_str;
 
-void	ft_signal(void)
-{
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
+	path_str = ft_getenv(mini->envp, "PATH");
+	if (path_str == NULL)
+		return ;
+	mini->path = ft_split(path_str, ':');
 }
