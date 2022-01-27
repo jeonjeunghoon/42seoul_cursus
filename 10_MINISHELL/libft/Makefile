@@ -6,7 +6,7 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/17 18:21:05 by jeunjeon          #+#    #+#              #
-#    Updated: 2022/01/21 15:38:52 by jeunjeon         ###   ########.fr        #
+#    Updated: 2022/01/27 18:00:28 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,9 @@ SRCS		=	./ft_memset.c \
 				./ft_two_dimension_size.c \
 				./ft_two_dimension_free.c \
 				./ft_numlen.c \
-				./ft_strjoin_bothside.c
+				./ft_strjoin_bothside.c \
+				./ft_isspace.c \
+				./ft_free.c
 
 SRCS_BONUS	=	./ft_lstnew.c \
 				./ft_lstadd_front.c \

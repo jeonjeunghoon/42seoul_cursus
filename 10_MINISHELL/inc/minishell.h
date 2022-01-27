@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/27 15:36:09 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/27 18:52:32 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,6 @@
 # include <term.h>
 # include <curses.h>
 
-# define TRUE 1
-# define FALSE 0
-# define SUCCESS 0
-# define ERROR -1
-
-typedef int	t_bool;
 int			g_exit_state;
 
 typedef struct s_token
@@ -64,18 +58,11 @@ typedef struct s_input
 	char	*user_input;
 }	t_input;
 
-typedef struct s_flag
-{
-	t_bool	single_flag;
-	t_bool	double_flag;
-}	t_flag;
-
 typedef struct s_mini
 {
 	char			**envp;
 	char			**path;
 	t_input			*input;
-	t_flag			*flag;
 	struct termios	term;
 }	t_mini;
 
@@ -133,11 +120,11 @@ void	argv_free(t_list *lst);
 // parse_utility
 int		stream_flag_str(t_token *token);
 void	token_init(t_token *token);
-int		is_space(char ch);
 void	create_argv(t_argv **argv, t_list *token_lst, t_list **argv_lst, int size);
 void	create_argv_stream(t_argv **stream, t_token *token, t_list **argv_lst);
 
 // parse_utility2
+void	exception_utility(char c, t_bool *sin, t_bool *dou);
 void	argv_lst_init(t_argv **str, t_argv **stream, int *size);
 
 // tokenize
@@ -145,11 +132,15 @@ int		single_quote_parse(t_token *token, char *input, int *end);
 int		double_quote_parse(t_token *token, char *input, int *end);
 int		stream_parse(t_token *token, char *input, int *end);
 int		str_parse(t_token *token, char *input, int *end);
-int		tokenize(t_token *token, char *input, int *start);
+int		tokenize(t_token *token, char *input, int *start, char **envp);
 
 // tokenize_utility
-int		stream_parse_condition(char ch);
-int		str_parse_condition(char ch);
+char	*remove_double_quote(char *str, char **envp);
+char	*remove_single_quote(char *str);
+
+// tokenize_utility2
+t_bool	stream_condition(char c);
+t_bool	str_condition(char c, t_token *token);
 
 // command_utility
 void	create_path_bundle(t_mini *mini);

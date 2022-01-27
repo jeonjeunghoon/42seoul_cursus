@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 20:53:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/17 18:12:54 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/27 18:01:20 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,6 @@ size_t	row_size(char const *s, char c)
 	return (len);
 }
 
-void	ft_free(char **pp)
-{
-	size_t	i;
-
-	i = 0;
-	while (pp[i])
-	{
-		free(pp[i]);
-		pp[i++] = NULL;
-	}
-	free(pp);
-	pp = NULL;
-}
-
 char	**make_split(char const *s, char **pp, char c)
 {
 	size_t	i;
@@ -74,7 +60,7 @@ char	**make_split(char const *s, char **pp, char c)
 			pp[i] = (char *)malloc(sizeof(char) * (row_size(s, c) + 1));
 			if (!pp[i])
 			{
-				ft_free(pp);
+				ft_two_dimension_free(&pp);
 				return (NULL);
 			}
 			while ((*s != c) && *s)
@@ -91,10 +77,13 @@ char	**make_split(char const *s, char **pp, char c)
 char	**ft_split(char const *s, char c)
 {
 	char	**pp;
+	int		len;
 
 	if (!s)
 		return (NULL);
-	pp = (char **)malloc(sizeof(char *) * (col_size(s, c) + 1));
+	len = 0;
+	len = col_size(s, c);
+	pp = (char **)malloc(sizeof(char *) * (len + 1));
 	if (!pp)
 		return (NULL);
 	pp = make_split(s, pp, c);

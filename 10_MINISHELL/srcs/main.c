@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/27 15:36:31 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/27 15:48:34 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,12 @@ int	memory_allocation(t_mini **mini, char **envp)
 	while (envp[++i])
 		(*mini)->envp[i] = ft_strdup(envp[i]);
 	(*mini)->input = (t_input *)malloc(sizeof(t_input));
-	(*mini)->flag = (t_flag *)malloc(sizeof(t_flag));
 	if (tcgetattr(STDIN_FILENO, &((*mini)->term)) == -1)
 		return (ERROR);
 	((*mini)->term).c_lflag &= ~(ECHOCTL);
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &((*mini)->term)) == -1)
 		return (ERROR);
-	if ((*mini) == NULL || (*mini)->input == NULL || (*mini)->flag == NULL)
+	if ((*mini) == NULL || (*mini)->input == NULL)
 		return (ERROR);
 	return (0);
 }

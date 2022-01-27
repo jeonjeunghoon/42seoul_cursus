@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utility2.c                                   :+:      :+:    :+:   */
+/*   tokenize_utility2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/26 14:16:26 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/27 15:49:22 by jeunjeon         ###   ########.fr       */
+/*   Created: 2022/01/17 00:37:13 by jeunjeon          #+#    #+#             */
+/*   Updated: 2022/01/27 18:51:06 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	exception_utility(char c, t_bool *sin, t_bool *dou)
+t_bool	stream_condition(char c)
 {
-	if (c == '\'')
-	{
-		if (*sin == FALSE && *dou == FALSE)
-			*sin = TRUE;
-		else if (*sin == TRUE && *dou == FALSE)
-			*sin = FALSE;
-	}
-	if (c == '\"')
-	{
-		if (*dou == FALSE && *sin == FALSE)
-			*dou = TRUE;
-		else if (*dou == TRUE && *sin == FALSE)
-			*dou = FALSE;
-	}
+	if (c != '|' && c != '>' && c != '<' && c != '&')
+		return (FALSE);
+	return (TRUE);
 }
 
-void	argv_lst_init(t_argv **str, t_argv **stream, int *size)
+t_bool	str_condition(char c, t_token *token)
 {
-	*size = 0;
-	*str = NULL;
-	*stream = NULL;
+	if (c == '|' || c == '>' || c == '<' || c == '&')
+		return (FALSE);
+	exception_utility(c, &(token->single_quote), &(token->double_quote));
+	if (token->single_quote == FALSE && token->double_quote == FALSE && \
+		c == ' ')
+		return (FALSE);
+	return (TRUE);
 }

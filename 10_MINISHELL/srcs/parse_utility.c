@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:00:31 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/26 15:12:19 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/27 16:58:16 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,6 @@ void	token_init(t_token *token)
 	token->heredoc = FALSE;
 	token->ampersand = FALSE;
 	token->vertical = FALSE;
-}
-
-int	is_space(char ch)
-{
-	if (ch == ' ' || ch == '\n' || ch == '\t' || \
-		ch == '\v' || ch == '\r' || ch == '\f')
-		return (TRUE);
-	return (FALSE);
 }
 
 void	create_argv_stream(t_argv **stream, t_token *token, t_list **argv_lst)

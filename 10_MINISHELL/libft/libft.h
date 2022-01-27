@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 15:32:22 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/21 15:41:01 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/27 18:00:54 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+
+# define TRUE 1
+# define FALSE 0
+# define SUCCESS 0
+# define ERROR -1
+
+typedef int			t_bool;
 
 void				*ft_memset(void *dest, int src, size_t len);
 void				ft_bzero(void *dest, size_t len);
@@ -59,6 +66,8 @@ void				ft_two_dimension_free(char ***strs);
 int					ft_numlen(int *ptr);
 char				*ft_strjoin_bothside(const char *s1, const char *s2, \
 										const char *s3);
+t_bool				ft_isspace(char ch);
+void				ft_free(char **p);
 
 typedef struct s_list
 {

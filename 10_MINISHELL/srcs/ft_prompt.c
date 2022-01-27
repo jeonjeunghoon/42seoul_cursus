@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:42:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/27 15:35:36 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/27 15:42:57 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ char	*get_locate(void)
 		return (NULL);
 	splitted_strs = ft_split(buffer, '/');
 	free(buffer);
-	buffer = NULL;
 	if (splitted_strs == NULL)
 		return (NULL);
 	strs_len = ft_two_dimension_size(splitted_strs);
@@ -63,7 +62,6 @@ char	*get_locate(void)
 	else
 		locate = ft_strdup(splitted_strs[strs_len - 1]);
 	ft_two_dimension_free(&splitted_strs);
-	splitted_strs = NULL;
 	return (locate);
 }
 

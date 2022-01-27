@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 16:39:07 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/26 15:04:36 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/27 17:18:38 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	create_argv_lst(t_list **argv_lst, t_list *token_lst)
 	return (0);
 }
 
-int	create_token_lst(t_list **lst, char *input)
+int	create_token_lst(t_list **lst, char *input, char **envp)
 {
 	t_token	*token;
 	int		i;
@@ -67,11 +67,11 @@ int	create_token_lst(t_list **lst, char *input)
 	i = 0;
 	while (input[i])
 	{
-		if (is_space(input[i]) == FALSE)
+		if (ft_isspace(input[i]) == FALSE)
 		{
 			token = (t_token *)malloc(sizeof(t_token));
 			token_init(token);
-			if (tokenize(token, input, &i) == ERROR)
+			if (tokenize(token, input, &i, envp) == ERROR)
 				return (ERROR);
 			ft_lstadd_back(lst, ft_lstnew(token));
 			token = NULL;
@@ -82,29 +82,22 @@ int	create_token_lst(t_list **lst, char *input)
 	return (0);
 }
 
-int	exception_handling(char *input, t_bool sin, t_bool dou)
+int	exception_handling(char *input)
 {
 	int		i;
+	t_bool	sin;
+	t_bool	dou;
 
-	i = -1;
-	while (input[++i])
+	sin = FALSE;
+	dou = FALSE;
+	i = 0;
+	while (input[i])
 	{
 		if (input[i] == ';' || input[i] == '\\')
 			return (ERROR);
-		if (input[i] == '\'')
-		{
-			if (sin == FALSE && dou == FALSE)
-				sin = TRUE;
-			else if (sin == TRUE && dou == FALSE)
-				sin = FALSE;
-		}
-		if (input[i] == '\"')
-		{
-			if (dou == FALSE && sin == FALSE)
-				dou = TRUE;
-			else if (dou == TRUE && sin == FALSE)
-				dou = FALSE;
-		}
+		if (input[i] == '\'' || input[i] == '\"')
+			exception_utility(input[i], &sin, &dou);
+		i++;
 	}
 	if (sin == TRUE || dou == TRUE)
 		return (ERROR);
@@ -133,12 +126,11 @@ int	exception_handling(char *input, t_bool sin, t_bool dou)
 
 int	ft_parsing(t_mini *mini)
 {
-	if (exception_handling(mini->input->user_input, \
-		mini->flag->single_flag, mini->flag->double_flag) == ERROR)
+	if (exception_handling(mini->input->user_input) == ERROR)
 		return (ERROR);
 	add_history(mini->input->user_input);
 	if (create_token_lst(&(mini->input->token_lst), \
-						mini->input->user_input) == ERROR)
+						mini->input->user_input, mini->envp) == ERROR)
 		return (ERROR);
 	if (create_argv_lst(&(mini->input->argv_lst), \
 						mini->input->token_lst) == ERROR)

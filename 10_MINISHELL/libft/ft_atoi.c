@@ -6,13 +6,13 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/08 17:25:54 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/07/17 18:17:25 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/27 16:27:41 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_isspace(const unsigned char **pp)
+void	atoi_isspace(const unsigned char **pp)
 {
 	while (**pp == ' ' || **pp == '\t' || **pp == '\r' \
 	|| **pp == '\n' || **pp == '\v' || **pp == '\f')
@@ -65,7 +65,7 @@ int	ft_atoi(const char *str)
 
 	sign = 1;
 	ptr = (const unsigned char *)str;
-	ft_isspace(&ptr);
+	atoi_isspace(&ptr);
 	sign = isminus(&ptr);
 	num = make_num(&ptr, sign);
 	return ((int)(num * sign));

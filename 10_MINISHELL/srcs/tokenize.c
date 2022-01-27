@@ -6,146 +6,86 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:02:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/17 00:41:46 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/27 18:50:51 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	single_quote_parse(t_token *token, char *input, int *end)
+int	stream_parse(t_token *token, char *input, int *pos)
 {
-	int	start;
+	int	i;
 	int	len;
 
-	start = *end;
-	len = 0;
-	while (input[start] && input[start] != '\'')
-	{
-		start++;
+	len = *pos;
+	while (stream_condition(input[len]) == TRUE && input[len])
 		len++;
-	}
-	if (input[start] != '\'')
-		return (ERROR);
+	len = len - *pos;
 	token->token = (char *)malloc(sizeof(char) * (len + 1));
 	token->token[len] = '\0';
-	start = 0;
-	while (input[*end] && input[*end] != '\'')
+	i = 0;
+	while (stream_condition(input[*pos]) == TRUE && input[*pos])
 	{
-		token->token[start] = input[*end];
-		start++;
-		(*end)++;
+		token->token[i] = input[*pos];
+		i++;
+		(*pos)++;
 	}
-	if ((start < len) || input[*end] != '\'')
-		return (ERROR);
-	(*end)++;
-	return (0);
-}
-
-int	double_quote_parse(t_token *token, char *input, int *end)
-{
-	int	start;
-	int	len;
-
-	start = *end;
-	len = 0;
-	while (input[start] && input[start] != '\"')
-	{
-		start++;
-		len++;
-	}
-	if (input[start] != '\"')
-		return (ERROR);
-	token->token = (char *)malloc(sizeof(char) * (len + 1));
-	token->token[len] = '\0';
-	start = 0;
-	while (input[*end] && input[*end] != '\"')
-	{
-		token->token[start] = input[*end];
-		start++;
-		(*end)++;
-	}
-	if ((start < len) || input[*end] != '\"')
-		return (ERROR);
-	(*end)++;
-	return (0);
-}
-
-int	stream_parse(t_token *token, char *input, int *end)
-{
-	int	start;
-	int	len;
-
-	start = *end;
-	len = 0;
-	while (stream_parse_condition(input[start]) == TRUE)
-	{
-		start++;
-		len++;
-	}
-	token->token = (char *)malloc(sizeof(char) * (len + 1));
-	token->token[len] = '\0';
-	start = 0;
-	while (stream_parse_condition(input[*end]) == TRUE)
-	{
-		token->token[start] = input[*end];
-		start++;
-		(*end)++;
-	}
-	if (start < len)
+	if (i < len)
 		return (ERROR);
 	return (0);
 }
 
-int	str_parse(t_token *token, char *input, int *end)
+int	str_parse(t_token *token, char *input, int *pos)
 {
-	int	start;
-	int	len;
+	int		i;
+	int		len;
 
-	start = *end;
-	len = 0;
-	while (str_parse_condition(input[start]) == TRUE)
-	{
-		start++;
+	len = *pos;
+	while (str_condition(input[len], token) == TRUE && input[len])
 		len++;
-	}
+	len = len - *pos;
 	token->token = (char *)malloc(sizeof(char) * (len + 1));
 	token->token[len] = '\0';
-	start = 0;
-	while (str_parse_condition(input[*end]) == TRUE)
+	i = 0;
+	while (str_condition(input[*pos], token) == TRUE && input[*pos])
 	{
-		token->token[start] = input[*end];
-		start++;
-		(*end)++;
+		token->token[i] = input[*pos];
+		i++;
+		(*pos)++;
 	}
-	if (start < len)
+	if (i < len)
 		return (ERROR);
 	return (0);
 }
 
-int	tokenize(t_token *token, char *input, int *start)
+int	refine_str(t_token *token, char **envp)
 {
-	if (input[*start] == '\'')
-	{
-		(*start)++;
-		token->single_quote = TRUE;
-		if (single_quote_parse(token, input, start) == ERROR)
-			return (ERROR);
-	}
-	else if (input[*start] == '\"')
-	{
-		(*start)++;
-		token->double_quote = TRUE;
-		if (double_quote_parse(token, input, start) == ERROR)
-			return (ERROR);
-	}
-	else if (input[*start] == '|' || input[*start] == '>' || \
+	char	*new_str;
+
+	new_str = remove_single_quote(token->token);
+	ft_free(&(token->token));
+	token->token = ft_strdup(new_str);
+	ft_free(&new_str);
+	new_str = remove_double_quote(token->token, envp);
+	ft_free(&(token->token));
+	token->token = ft_strdup(new_str);
+	ft_free(&new_str);
+
+}
+
+int	tokenize(t_token *token, char *input, int *start, char **envp)
+{
+	if (input[*start] == '|' || input[*start] == '>' || \
 			input[*start] == '<' || input[*start] == '&')
 	{
 		if (stream_parse(token, input, start) == ERROR)
 			return (ERROR);
 	}
 	else
+	{
 		if (str_parse(token, input, start) == ERROR)
 			return (ERROR);
+		refine_str(token, envp);
+	}
 	return (0);
 }
