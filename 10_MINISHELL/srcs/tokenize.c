@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:02:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/28 00:52:33 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:25:58 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,18 @@ int	str_parse(t_token *token, char *input, int *pos)
 	return (0);
 }
 
-int	tokenize(t_token *token, char *input, int *start, char **envp)
+void	tokenize(t_token *token, char *input, int *start, char **envp)
 {
 	if (input[*start] == '|' || input[*start] == '>' || \
 			input[*start] == '<' || input[*start] == '&')
 	{
 		if (stream_parse(token, input, start) == ERROR)
-			return (ERROR);
+			ft_error();
 	}
 	else
 	{
 		if (str_parse(token, input, start) == ERROR)
-			return (ERROR);
+			ft_error();
 		refine_str(token, envp);
 	}
-	return (0);
 }

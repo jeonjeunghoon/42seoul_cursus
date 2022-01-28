@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/28 00:53:10 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/28 15:58:45 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,11 @@ int	main(int argc, const char **argv, char **envp)
 			ft_error();
 		if (mini->input->user_input[0] != '\0')
 		{
-			if (ft_parsing(mini) == ERROR)
-				ft_error();
-			if (minishell(mini) == ERROR)
-				ft_error();
+			if (ft_parsing(mini) != ERROR)
+			{
+				if (minishell(mini) == ERROR)
+					ft_error();
+			}
 		}
 		clear_resource(mini);
 	}

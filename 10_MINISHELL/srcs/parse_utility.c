@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:00:31 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/27 16:58:16 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/28 15:31:33 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	create_argv_stream(t_argv **stream, t_token *token, t_list **argv_lst)
 	ft_lstadd_back(argv_lst, ft_lstnew(*stream));
 }
 
-void	create_argv(t_argv **argv, t_list *token_lst, t_list **argv_lst, int size)
+void	create_argv(t_argv **argv, t_list *token_lst, \
+					t_list **argv_lst, int size)
 {
 	int		i;
 

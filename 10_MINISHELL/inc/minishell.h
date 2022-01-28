@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/28 00:13:56 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:43:28 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	ft_env(t_mini *mini, char **argv);
 void	ft_exit(t_mini *mini, char **argv);
 
 // error_msg
+void	error_symbol(char symbol);
 void	error_1(char *cmd, char *msg);
 void	error_2(char *cmd, char *argv, char *error_msg);
 void	ft_error(void);
@@ -120,7 +121,8 @@ void	argv_free(t_list *lst);
 // parse_utility
 int		stream_flag_str(t_token *token);
 void	token_init(t_token *token);
-void	create_argv(t_argv **argv, t_list *token_lst, t_list **argv_lst, int size);
+void	create_argv(t_argv **argv, t_list *token_lst, \
+					t_list **argv_lst, int size);
 void	create_argv_stream(t_argv **stream, t_token *token, t_list **argv_lst);
 
 // parse_utility2
@@ -132,7 +134,7 @@ int		single_quote_parse(t_token *token, char *input, int *end);
 int		double_quote_parse(t_token *token, char *input, int *end);
 int		stream_parse(t_token *token, char *input, int *end);
 int		str_parse(t_token *token, char *input, int *end);
-int		tokenize(t_token *token, char *input, int *start, char **envp);
+void	tokenize(t_token *token, char *input, int *start, char **envp);
 
 // tokenize_utility
 char	*remove_double_quote(char *str, char **envp);

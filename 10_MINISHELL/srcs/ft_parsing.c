@@ -6,32 +6,55 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 16:39:07 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/27 17:18:38 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:51:52 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+t_bool	is_valid_symbol(char *str)
+{
+	int		len;
+
+	len = ft_strlen(str);
+	if (len == 1 && str[0] == '&')
+	{
+		error_1(str, "invalid symbol");
+		return (FALSE);
+	}
+	if (len == 2 && str[0] != str[1])
+	{
+		error_symbol(str[1]);
+		return (FALSE);
+	}
+	if (len > 2 || (len == 2 && str[0] != str[1]))
+	{
+		error_symbol(str[len - 1]);
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
 int	check_stream_symbol(t_list *token_lst)
 {
 	t_list	*head;
-	t_token	*token;
+	char	*str;
 
 	head = token_lst;
 	while (head != NULL)
 	{
-		token = head->content;
-		if (token->pipe || token->output || token->append || \
-			token->input || token->heredoc || token->ampersand || \
-			token->vertical || token->vertical)
+		str = ((t_token *)head->content)->token;
+		if (str[0] == '|' || str[0] == '>' || str[0] == '<' || str[0] == '&')
 		{
-			
+			if (is_valid_symbol(str) == FALSE)
+				return (ERROR);
 		}
 		head = head->next;
 	}
+	return (0);
 }
 
-int	create_argv_lst(t_list **argv_lst, t_list *token_lst)
+void	create_argv_lst(t_list **argv_lst, t_list *token_lst)
 {
 	int		size;
 	t_argv	*str;
@@ -56,10 +79,9 @@ int	create_argv_lst(t_list **argv_lst, t_list *token_lst)
 		}
 		token_lst = token_lst->next;
 	}
-	return (0);
 }
 
-int	create_token_lst(t_list **lst, char *input, char **envp)
+void	create_token_lst(t_list **lst, char *input, char **envp)
 {
 	t_token	*token;
 	int		i;
@@ -71,15 +93,13 @@ int	create_token_lst(t_list **lst, char *input, char **envp)
 		{
 			token = (t_token *)malloc(sizeof(t_token));
 			token_init(token);
-			if (tokenize(token, input, &i, envp) == ERROR)
-				return (ERROR);
+			tokenize(token, input, &i, envp);
 			ft_lstadd_back(lst, ft_lstnew(token));
 			token = NULL;
 		}
 		else
 			i++;
 	}
-	return (0);
 }
 
 int	exception_handling(char *input)
@@ -129,16 +149,14 @@ int	ft_parsing(t_mini *mini)
 	if (exception_handling(mini->input->user_input) == ERROR)
 		return (ERROR);
 	add_history(mini->input->user_input);
-	if (create_token_lst(&(mini->input->token_lst), \
-						mini->input->user_input, mini->envp) == ERROR)
-		return (ERROR);
-	if (create_argv_lst(&(mini->input->argv_lst), \
-						mini->input->token_lst) == ERROR)
-		return (ERROR);
-
+	create_token_lst(&(mini->input->token_lst), \
+					mini->input->user_input, mini->envp);
+	create_argv_lst(&(mini->input->argv_lst), mini->input->token_lst);
 	// print_test(mini->input->argv_lst);
-
 	if (check_stream_symbol(mini->input->token_lst) == ERROR)
+	{
+		exit_num_set(1);
 		return (ERROR);
+	}
 	return (0);
 }

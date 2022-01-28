@@ -6,11 +6,16 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:42:11 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 16:42:58 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:39:42 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+void	error_symbol(char symbol)
+{
+	printf("minishell: syntax error near unexpected token `%c'\n", symbol);
+}
 
 void	error_1(char *cmd, char *msg)
 {
