@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/28 16:43:28 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/29 16:46:26 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void	token_free(t_list *lst);
 void	argv_free(t_list *lst);
 
 // parse_utility
+t_bool	is_valid_symbol(char *str);
 int		stream_flag_str(t_token *token);
 void	token_init(t_token *token);
 void	create_argv(t_argv **argv, t_list *token_lst, \

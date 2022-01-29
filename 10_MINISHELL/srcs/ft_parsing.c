@@ -6,34 +6,11 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 16:39:07 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/28 16:51:52 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/29 16:45:52 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-t_bool	is_valid_symbol(char *str)
-{
-	int		len;
-
-	len = ft_strlen(str);
-	if (len == 1 && str[0] == '&')
-	{
-		error_1(str, "invalid symbol");
-		return (FALSE);
-	}
-	if (len == 2 && str[0] != str[1])
-	{
-		error_symbol(str[1]);
-		return (FALSE);
-	}
-	if (len > 2 || (len == 2 && str[0] != str[1]))
-	{
-		error_symbol(str[len - 1]);
-		return (FALSE);
-	}
-	return (TRUE);
-}
 
 int	check_stream_symbol(t_list *token_lst)
 {
