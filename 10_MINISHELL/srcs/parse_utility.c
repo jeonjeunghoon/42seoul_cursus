@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:00:31 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/28 16:53:52 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/01 02:23:33 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,6 @@ void	token_init(t_token *token)
 	token->token = NULL;
 	token->single_quote = FALSE;
 	token->double_quote = FALSE;
-	token->pipe = FALSE;
-	token->input = FALSE;
-	token->output = FALSE;
-	token->append = FALSE;
-	token->heredoc = FALSE;
-	token->ampersand = FALSE;
-	token->vertical = FALSE;
 }
 
 void	create_argv_stream(t_argv **stream, t_token *token, t_list **argv_lst)

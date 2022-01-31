@@ -6,20 +6,38 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:02:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/01 02:05:58 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/01 02:37:31 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+void	refine_init(t_refine *refine)
+{
+	refine->new_str = NULL;
+	refine->str = NULL;
+	refine->envp = NULL;
+	refine->name = NULL;
+	refine->env = NULL;
+	refine->i = 0;
+	refine->j = 0;
+}
+
 void	refine_str(t_token *token, char **envp)
 {
-	char	*new_str;
+	t_refine	*refine;
 
-	new_str = create_refined_str(token->token, envp);
+	refine = (t_refine *)malloc(sizeof(t_refine));
+	refine_init(refine);
+	refine->envp = envp;
+	refine->str = token->token;
+	create_refined_str(refine);
 	ft_free(&(token->token));
-	token->token = ft_strdup(new_str);
-	ft_free(&new_str);
+	token->token = ft_strdup(refine->new_str);
+	ft_free(&(refine->new_str));
+	refine_init(refine);
+	free(refine);
+	refine = NULL;
 }
 
 int	stream_parse(t_token *token, char *input, int *pos)

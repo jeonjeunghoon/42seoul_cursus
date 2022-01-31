@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/01 02:20:47 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/01 02:37:13 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,22 @@
 
 int			g_exit_state;
 
+typedef struct s_refine
+{
+	char	*new_str;
+	char	*str;
+	char	**envp;
+	char	*name;
+	char	*env;
+	int		i;
+	int		j;
+}	t_refine;
+
 typedef struct s_token
 {
 	char	*token;
 	t_bool	single_quote;
 	t_bool	double_quote;
-	t_bool	pipe;
-	t_bool	output;
-	t_bool	append;
-	t_bool	input;
-	t_bool	heredoc;
-	t_bool	ampersand;
-	t_bool	vertical;
 }	t_token;
 
 typedef struct s_argv
@@ -141,11 +145,11 @@ int		str_parse(t_token *token, char *input, int *end);
 void	tokenize(t_token *token, char *input, int *start, char **envp);
 
 // tokenize_utility
-char	*create_refined_str(char *str, char **envp);
+void	create_refined_str(t_refine *refine);
 
 // tokenize_utility2
-void	env_str(char **new_str, char *str, int *i, int *j, char **envp);
 char	*get_envname_parse(char *str, int *i);
+void	env_str(t_refine *refine);
 t_bool	stream_condition(char c);
 t_bool	str_condition(char c, t_token *token);
 

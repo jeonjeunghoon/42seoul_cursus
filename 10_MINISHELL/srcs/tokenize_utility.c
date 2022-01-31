@@ -6,87 +6,91 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 18:51:19 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/01 02:20:44 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/01 02:41:27 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	basic_str(char *new_str, char *str, int *i, int *j)
+void	basic_str(t_refine *refine)
 {
-	new_str[(*j)] = str[(*i)];
-	(*i)++;
-	(*j)++;
+	(refine->new_str)[(refine->j)] = (refine->str)[(refine->i)];
+	(refine->i)++;
+	(refine->j)++;
 }
 
-void	dollar_str(char **new_str, char *str, int *i, int *j, char **envp)
+void	dollar_str(t_refine *refine)
 {
-	if (str[(*i) + 1] == '\0')
+	if ((refine->str)[(refine->i) + 1] == '\0')
 	{
-		(*new_str)[(*j)] = str[(*i)];
-		(*i)++;
+		(refine->new_str)[(refine->j)] = (refine->str)[(refine->i)];
+		(refine->i)++;
 	}
 	else
 	{
-		(*i)++;
-		env_str(new_str, str, i, j, envp);
+		(refine->i)++;
+		refine->name = get_envname_parse(refine->str, &(refine->i));
+		refine->env = ft_getenv(refine->envp, refine->name);
+		ft_free(&(refine->name));
+		if (refine->env == NULL)
+			return ;
+		env_str(refine);
 	}
 }
 
-void	double_quote_str(char **new_str, char *str, int *i, int *j, char **envp)
+void	double_quote_str(t_refine *refine)
 {
-	(*i)++;
-	while (str[(*i)] && str[(*i)] != '\"')
+	(refine->i)++;
+	while ((refine->str)[(refine->i)] && (refine->str)[(refine->i)] != '\"')
 	{
-		if (str[(*i)] == '$')
+		if ((refine->str)[(refine->i)] == '$')
 		{
-			(*i)++;
-			env_str(new_str, str, i, j, envp);
+			(refine->i)++;
+			refine->name = get_envname_parse(refine->str, &(refine->i));
+			refine->env = ft_getenv(refine->envp, refine->name);
+			ft_free(&(refine->name));
+			if (refine->env == NULL)
+				continue ;
+			env_str(refine);
 		}
 		else
 		{
-			(*new_str)[(*j)] = str[(*i)];
-			(*i)++;
-			(*j)++;
+			(refine->new_str)[(refine->j)] = (refine->str)[(refine->i)];
+			(refine->i)++;
+			(refine->j)++;
 		}
 	}
-	if (str[(*i)] == '\"')
-		(*i)++;
+	if ((refine->str)[(refine->i)] == '\"')
+		(refine->i)++;
 }
 
-void	single_quote_str(char *new_str, char *str, int *i, int *j)
+void	single_quote_str(t_refine *refine)
 {
-	(*i)++;
-	while (str[*i] && str[*i] != '\'')
+	refine->i++;
+	while ((refine->str)[refine->i] && (refine->str)[refine->i] != '\'')
 	{
-		new_str[*j] = str[*i];
-		(*i)++;
-		(*j)++;
+		(refine->new_str)[refine->j] = (refine->str)[refine->i];
+		(refine->i)++;
+		(refine->j)++;
 	}
-	if (str[*i] == '\'')
-		(*i)++;
+	if ((refine->str)[refine->i] == '\'')
+		(refine->i)++;
 }
 
-char	*create_refined_str(char *str, char **envp)
+void	create_refined_str(t_refine *refine)
 {
-	char	*new_str;
-	int		i;
-	int		j;
-
-	new_str = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
-	new_str[ft_strlen(str)] = '\0';
-	i = 0;
-	j = 0;
-	while (str[i])
+	refine->new_str = (char *)malloc(sizeof(char) * \
+						(ft_strlen(refine->str) + 1));
+	refine->new_str[ft_strlen(refine->str)] = '\0';
+	while ((refine->str)[refine->i])
 	{
-		if (str[i] == '\'')
-			single_quote_str(new_str, str, &i, &j);
-		else if (str[i] == '\"')
-			double_quote_str(&new_str, str, &i, &j, envp);
-		else if (str[i] == '$')
-			dollar_str(&new_str, str, &i, &j, envp);
+		if ((refine->str)[refine->i] == '\'')
+			single_quote_str(refine);
+		else if ((refine->str)[refine->i] == '\"')
+			double_quote_str(refine);
+		else if ((refine->str)[refine->i] == '$')
+			dollar_str(refine);
 		else
-			basic_str(new_str, str, &i, &j);
+			basic_str(refine);
 	}
-	return (new_str);
 }

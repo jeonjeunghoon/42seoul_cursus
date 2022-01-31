@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:37:13 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/01 02:21:32 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/01 02:46:15 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,44 +34,45 @@ char	*get_envname_parse(char *str, int *i)
 	return (name);
 }
 
-void	env_str(char **new_str, char *str, int *i, int *j, char **envp)
+void	create_new_str(t_refine *refine, int len, char *tmp)
 {
-	char *name = get_envname_parse(str, i);
-	char *env = ft_getenv(envp, name);
+	int	i;
+	int	j;
 
-	ft_free(&name);
-	if (env == NULL)
-		return ;
-	(*new_str)[(*j)] = '\0';
-	int	len;
-	len = ft_strlen((*new_str)) + ft_strlen(env);
-	char *tmp = malloc(sizeof(char) * (len + 1));
-	tmp[len] = '\0';
-	int k = 0;
-	while (k < ft_strlen((*new_str)))
+	i = 0;
+	while (i < ft_strlen((refine->new_str)))
 	{
-		tmp[k] = (*new_str)[k];
-		k++;
+		tmp[i] = (refine->new_str)[i];
+		i++;
 	}
-	ft_free(new_str);
-	int a = 0;
-	while (k < len)
+	ft_free(&(refine->new_str));
+	j = 0;
+	while (i < len)
 	{
-		if (env[a])
+		if ((refine->env)[j])
 		{
-			tmp[k] = env[a];
-			k++;
-			a++;
+			tmp[i] = (refine->env)[j];
+			j++;
 		}
 		else
-		{
-			tmp[k] = '\0';
-			k++;
-		}
+			tmp[i] = '\0';
+		i++;
 	}
-	(*new_str) = ft_strdup(tmp);
+	refine->j = i;
+}
+
+void	env_str(t_refine *refine)
+{
+	int		len;
+	char	*tmp;
+
+	(refine->new_str)[(refine->j)] = '\0';
+	len = ft_strlen((refine->new_str)) + ft_strlen(refine->env);
+	tmp = malloc(sizeof(char) * (len + 1));
+	tmp[len] = '\0';
+	create_new_str(refine, len, tmp);
+	(refine->new_str) = ft_strdup(tmp);
 	ft_free(&tmp);
-	*j = k;
 }
 
 t_bool	stream_condition(char c)
