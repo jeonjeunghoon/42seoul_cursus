@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/15 20:53:55 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/27 18:01:20 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/01 01:14:46 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	**make_split(char const *s, char **pp, char c)
 		if (*s != c)
 		{
 			pp[i] = (char *)malloc(sizeof(char) * (row_size(s, c) + 1));
-			if (!pp[i])
+			if (pp[i] == NULL)
 			{
 				ft_two_dimension_free(&pp);
 				return (NULL);

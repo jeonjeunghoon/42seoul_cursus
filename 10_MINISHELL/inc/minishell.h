@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/29 16:46:26 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/01 02:20:47 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 # include <dirent.h>
 # include <term.h>
 # include <curses.h>
+
+# define STDIN
+# define STDOUT
 
 int			g_exit_state;
 
@@ -138,11 +141,11 @@ int		str_parse(t_token *token, char *input, int *end);
 void	tokenize(t_token *token, char *input, int *start, char **envp);
 
 // tokenize_utility
-char	*remove_double_quote(char *str, char **envp);
-char	*remove_single_quote(char *str);
-char	*replace_env(char *str, char **envp);
+char	*create_refined_str(char *str, char **envp);
 
 // tokenize_utility2
+void	env_str(char **new_str, char *str, int *i, int *j, char **envp);
+char	*get_envname_parse(char *str, int *i);
 t_bool	stream_condition(char c);
 t_bool	str_condition(char c, t_token *token);
 

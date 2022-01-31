@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 16:39:07 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/29 16:45:52 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/01 01:39:46 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,26 +101,6 @@ int	exception_handling(char *input)
 	return (0);
 }
 
-// void	print_test(t_list *list)
-// {
-// 	t_list *head;
-// 	t_argv *content;
-
-// 	head = list;
-// 	int i;
-// 	i = 1;
-// 	while (head != NULL)
-// 	{
-// 		printf("##### %d #####\n", i);
-// 		content = head->content;
-// 		for (int i = 0; content->argv[i]; i++)
-// 			printf("argv[%d]=%s\n", i, content->argv[i]);
-// 		head = head->next;
-// 		i++;
-// 		printf("#############\n");
-// 	}
-// }
-
 int	ft_parsing(t_mini *mini)
 {
 	if (exception_handling(mini->input->user_input) == ERROR)
@@ -129,7 +109,6 @@ int	ft_parsing(t_mini *mini)
 	create_token_lst(&(mini->input->token_lst), \
 					mini->input->user_input, mini->envp);
 	create_argv_lst(&(mini->input->argv_lst), mini->input->token_lst);
-	// print_test(mini->input->argv_lst);
 	if (check_stream_symbol(mini->input->token_lst) == ERROR)
 	{
 		exit_num_set(1);

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:45:11 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/28 15:32:38 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/01 01:15:35 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,126 +40,36 @@ char	**create_export_envp(char **envp, char *env)
 	return (new);
 }
 
-char	*parse_value(char **argv, int *i, int j)
-{
-	int		size;
-	int		position;
-	char	*value;
-
-	size = 0;
-	position = j;
-	while (argv[*i][position])
-	{
-		size++;
-		position++;
-	}
-	value = malloc(sizeof(char *) * (size + 1));
-	value[size] = '\0';
-	size = 0;
-	while (argv[*i][j])
-	{
-		value[size] = argv[*i][j];
-		j++;
-		size++;
-	}
-	return (value);
-}
-
-int	check_value(char *argv)
+int	check_export_argv(char *argv)
 {
 	int		i;
-	t_bool	valid;
+	t_bool	is_env;
+	char	*error_msg;
 
-	valid = FALSE;
 	i = 0;
+	is_env = FALSE;
 	while (argv[i])
 	{
 		if (argv[i] == '=')
-			valid = TRUE;
-		i++;
-	}
-	if (valid == FALSE)
-		return (ERROR);
-	return (0);
-}
-
-int	parse_key(char **argv, char **key, int *i)
-{
-	int		j;
-
-	j = 0;
-	while (argv[*i][j] && argv[*i][j - 1] != '=')
-		j++;
-	(*key) = malloc(sizeof(char *) * (j + 1));
-	(*key)[j] = '\0';
-	j = 0;
-	while (argv[*i][j] && argv[*i][j - 1] != '=')
-	{
-		(*key)[j] = argv[*i][j];
-		j++;
-	}
-	if (argv[*i][j] == '\0')
-	{
-		(*i)++;
-		return (0);
-	}
-	else
-		return (j);
-	return (ERROR);
-}
-
-int	check_key(char *argv)
-{
-	int		i;
-	char	*msg_argv;
-
-	i = 0;
-	while (argv[i])
-	{
-		if (is_valid_export(argv, i) == ERROR)
+			is_env++;
+		if (is_valid_export(argv, i))
 		{
-			msg_argv = ft_strjoin_bothside("`", argv, "'");
-			error_2("export", msg_argv, "not a valid identifier");
+			error_msg = ft_strjoin_bothside("`", argv, "'");
+			error_2("export", error_msg, "not a valid identifier");
+			free(error_msg);
 			exit_num_set(1);
-			free(msg_argv);
 			return (ERROR);
 		}
 		i++;
 	}
+	if (is_env == FALSE)
+		return (ERROR);
 	return (0);
-}
-
-char	*parse_env(char **argv, int *i)
-{
-	char	*key;
-	char	*value;
-	char	*env;
-	int		j;
-
-	key = NULL;
-	value = NULL;
-	env = NULL;
-	j = 0;
-	if (check_key(argv[*i]) == ERROR)
-		return (NULL);
-	j = parse_key(argv, &key, i);
-	if (j == ERROR)
-		return (NULL);
-	value = parse_value(argv, i, j);
-	if (value == NULL)
-		return (NULL);
-	env = ft_strjoin(key, value);
-	free(key);
-	key = NULL;
-	free(value);
-	value = NULL;
-	return (env);
 }
 
 void	ft_export(t_mini *mini, char **argv)
 {
 	int		i;
-	char	*env;
 	char	**new_envp;
 
 	if (ft_two_dimension_size(argv) > 1)
@@ -167,10 +77,9 @@ void	ft_export(t_mini *mini, char **argv)
 		i = 1;
 		while (argv[i])
 		{
-			env = parse_env(argv, &i);
-			if (env != NULL)
+			if (check_export_argv(argv[i]) != ERROR)
 			{
-				new_envp = create_export_envp(mini->envp, env);
+				new_envp = create_export_envp(mini->envp, argv[i]);
 				ft_two_dimension_free(&(mini->envp));
 				mini->envp = new_envp;
 			}

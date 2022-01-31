@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:02:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/28 16:25:58 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/01 02:05:58 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	refine_str(t_token *token, char **envp)
 {
 	char	*new_str;
 
-	new_str = replace_env(token->token, envp);
+	new_str = create_refined_str(token->token, envp);
 	ft_free(&(token->token));
 	token->token = ft_strdup(new_str);
 	ft_free(&new_str);
