@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:02:07 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/29 16:49:21 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/01/31 23:22:00 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 int	ft_stream(t_mini *mini)
 {
 	
+	return (0);
+}
+
+int	connect_redirect(t_mini *mini, t_list *argv)
+{
 	return (0);
 }
 
