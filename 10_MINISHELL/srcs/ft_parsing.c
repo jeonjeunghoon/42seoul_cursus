@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 16:39:07 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/01 01:39:46 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/02 21:10:17 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ int	check_stream_symbol(t_list *token_lst)
 		if (str[0] == '|' || str[0] == '>' || str[0] == '<' || str[0] == '&')
 		{
 			if (is_valid_symbol(str) == FALSE)
+			{
+				exit_num_set(1);
 				return (ERROR);
+			}
 		}
 		head = head->next;
 	}
@@ -110,9 +113,6 @@ int	ft_parsing(t_mini *mini)
 					mini->input->user_input, mini->envp);
 	create_argv_lst(&(mini->input->argv_lst), mini->input->token_lst);
 	if (check_stream_symbol(mini->input->token_lst) == ERROR)
-	{
-		exit_num_set(1);
 		return (ERROR);
-	}
 	return (0);
 }

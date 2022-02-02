@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/01 01:38:38 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/02 22:55:50 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	minishell_init(t_mini *mini)
 	return (0);
 }
 
-int	memory_allocation(t_mini **mini, char **envp)
+int	memory_allocation(t_mini **mini)
 {
 	int	i;
 	int	size;
@@ -52,11 +52,11 @@ int	memory_allocation(t_mini **mini, char **envp)
 	return (0);
 }
 
-int	main(int argc, const char **argv, char **envp)
+int	main()
 {
 	t_mini	*mini;
 
-	if (memory_allocation(&mini, envp) == ERROR)
+	if (memory_allocation(&mini) == ERROR)
 		ft_error();
 	ft_signal();
 	while (TRUE)

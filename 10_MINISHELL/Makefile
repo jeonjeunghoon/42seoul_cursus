@@ -6,13 +6,13 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 14:19:40 by jeunjeon          #+#    #+#              #
-#    Updated: 2022/01/27 18:52:06 by jeunjeon         ###   ########.fr        #
+#    Updated: 2022/02/02 21:13:12 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				=	minishell
 CC					=	gcc
-CFLAGS				=	# -Wall -Wextra -Werror
+CFLAGS				=	-Wall -Wextra -Werror
 LINKING_FLAGS		=	-lreadline -L/opt/homebrew/opt/readline/lib
 COMFILE_FLAGS		=	-I/opt/homebrew/opt/readline/include
 
@@ -21,7 +21,6 @@ SRCS_NAME			=	main.c \
 						ft_parsing.c \
 						ft_signal.c \
 						minishell.c \
-						ft_command.c \
 						ft_echo.c \
 						ft_cd.c \
 						ft_pwd.c \

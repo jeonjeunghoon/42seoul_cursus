@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/01 02:37:13 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/02 21:14:20 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,10 @@ t_bool	stream_condition(char c);
 t_bool	str_condition(char c, t_token *token);
 
 // command_utility
+void	create_path_bundle(t_mini *mini);
+int		mini_command(t_mini *mini, char *cmd, char **argv);
+char	*check_cmd(t_mini *mini, char *cmd);
+void	exe_cmd(char *cmd_path, char **argv, char **envp);
 void	create_path_bundle(t_mini *mini);
 
 // export_utility
