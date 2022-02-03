@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/02 21:14:20 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/03 15:02:44 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		ft_echo(t_mini *mini, char **argv);
 void	ft_cd(t_mini *mini, char **argv);
 
 // ft_pwd
-void	ft_pwd(t_mini *mini, char **argv);
+void	ft_pwd(char **argv);
 
 // ft_export
 void	ft_export(t_mini *mini, char **argv);
@@ -110,7 +110,7 @@ void	ft_unset(t_mini *mini, char **argv);
 void	ft_env(t_mini *mini, char **argv);
 
 // ft_exit
-void	ft_exit(t_mini *mini, char **argv);
+void	ft_exit(char **argv);
 
 // error_msg
 void	error_symbol(char symbol);

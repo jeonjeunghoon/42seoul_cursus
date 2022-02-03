@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 16:52:37 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/27 15:38:21 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/03 15:01:16 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	sig_handler(int sig)
 {
+	if (sig != SIGINT)
+		return ;
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 1);

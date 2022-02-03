@@ -6,13 +6,13 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:57:37 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 16:38:56 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/03 15:02:16 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_pwd(t_mini *mini, char **argv)
+void	ft_pwd(char **argv)
 {
 	char	*cwd;
 

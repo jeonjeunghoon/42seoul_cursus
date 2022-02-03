@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:37:13 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/02 21:01:45 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/03 15:05:39 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,22 @@ char	*get_envname_parse(char *str, int *i)
 	return (name);
 }
 
-void	create_new_str(t_refine *refine, int len, char *tmp)
+void	create_new_str(t_refine *refine, int env_len, char *tmp)
 {
 	int	i;
 	int	j;
+	int	new_len;
 
 	i = 0;
-	while (i < ft_strlen((refine->new_str)))
+	new_len = ft_strlen(refine->new_str);
+	while (i < new_len)
 	{
 		tmp[i] = (refine->new_str)[i];
 		i++;
 	}
 	ft_free(&(refine->new_str));
 	j = 0;
-	while (i < len)
+	while (i < env_len)
 	{
 		if ((refine->env)[j])
 		{

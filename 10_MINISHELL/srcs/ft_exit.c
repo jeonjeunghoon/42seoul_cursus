@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:13 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 16:49:20 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/03 15:03:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	exit_exception(int argc, char **argv)
 	return (0);
 }
 
-void	ft_exit(t_mini *mini, char **argv)
+void	ft_exit(char **argv)
 {
 	int	argc;
 
