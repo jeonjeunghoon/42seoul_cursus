@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:57:53 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/03 15:02:50 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/03 15:29:04 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 void	create_path_bundle(t_mini *mini)
 {
 	char	*path_str;
-
+ 
 	path_str = ft_getenv(mini->envp, "PATH");
 	if (path_str == NULL)
 		return ;
-	mini->path = ft_split(path_str, ':');
+	if (mini->path == NULL)
+		mini->path = ft_split(path_str, ':');
 }
 
 void	exe_cmd(char *cmd_path, char **argv, char **envp)

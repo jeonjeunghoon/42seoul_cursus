@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:00:31 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/01 02:23:33 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/03 16:55:48 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	token_init(t_token *token)
 	token->double_quote = FALSE;
 }
 
-void	create_argv_stream(t_argv **stream, t_token *token, t_list **argv_lst)
+void	create_stream(t_argv **stream, t_token *token, t_list **argv_lst)
 {
 	(*stream) = (t_argv *)malloc(sizeof(t_argv));
 	(*stream)->argv = (char **)malloc(sizeof(char *) * 2);

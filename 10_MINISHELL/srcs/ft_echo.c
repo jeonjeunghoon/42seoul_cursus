@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 16:41:17 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/03 17:35:30 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,8 @@ void	print_msg(char **envp, char **argv, int start_ptr, int n_flag)
 {
 	char	*str;
 
-	if (argv[start_ptr][0] == '$')
-	{
-		if (argv[start_ptr][1] == '?')
-		{
-			ft_putnbr_fd(g_exit_state, 1);
-			if (argv[start_ptr][2] != '\0')
-				ft_putstr_fd(&(argv[start_ptr][2]), 1);
-		}
-		else if (argv[start_ptr][2] == '\0')
-			write(1, "$", 1);
-		else
-		{
-			str = ft_getenv(envp, &(argv[start_ptr][1]));
-			if (str != NULL)
-				ft_putstr_fd(str, 1);
-		}
-	}
-	else
-		ft_putstr_fd(argv[start_ptr], 1);
+	printf("Before echo: %s\n", argv[start_ptr]);
+	ft_putstr_fd(argv[start_ptr], 1);
 	if (argv[start_ptr + 1] != NULL)
 		write(1, " ", 1);
 	else if (argv[start_ptr + 1] == NULL && n_flag == FALSE)

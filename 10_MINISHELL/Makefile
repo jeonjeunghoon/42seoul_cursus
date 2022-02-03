@@ -6,13 +6,13 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 14:19:40 by jeunjeon          #+#    #+#              #
-#    Updated: 2022/02/02 21:13:12 by jeunjeon         ###   ########.fr        #
+#    Updated: 2022/02/03 17:56:30 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME				=	minishell
 CC					=	gcc
-CFLAGS				=	-Wall -Wextra -Werror
+CFLAGS				=	# -Wall -Wextra -Werror
 LINKING_FLAGS		=	-lreadline -L/opt/homebrew/opt/readline/lib
 COMFILE_FLAGS		=	-I/opt/homebrew/opt/readline/include
 
@@ -35,6 +35,7 @@ SRCS_NAME			=	main.c \
 						tokenize.c \
 						tokenize_utility.c \
 						tokenize_utility2.c \
+						tokenize_utility3.c \
 						command_utility.c \
 						export_utility.c
 SRCS_PATH			=	./srcs

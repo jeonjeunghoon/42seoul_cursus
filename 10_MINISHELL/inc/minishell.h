@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/03 15:02:44 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/03 17:57:23 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	sig_handler(int sig);
 void	ft_signal(void);
 
 // minishell
-int		ft_command(t_mini *mini, t_argv *argv);
+int		ft_command(t_mini *mini, char **argv);
 int		ft_stream(t_mini *mini);
 int		minishell(t_mini *mini);
 
@@ -131,7 +131,7 @@ int		stream_flag_str(t_token *token);
 void	token_init(t_token *token);
 void	create_argv(t_argv **argv, t_list *token_lst, \
 					t_list **argv_lst, int size);
-void	create_argv_stream(t_argv **stream, t_token *token, t_list **argv_lst);
+void	create_stream(t_argv **stream, t_token *token, t_list **argv_lst);
 
 // parse_utility2
 void	exception_utility(char c, t_bool *sin, t_bool *dou);
@@ -149,9 +149,13 @@ void	create_refined_str(t_refine *refine);
 
 // tokenize_utility2
 char	*get_envname_parse(char *str, int *i);
+void	create_new_str(t_refine *refine, int env_len, char *tmp);
 void	env_str(t_refine *refine);
 t_bool	stream_condition(char c);
 t_bool	str_condition(char c, t_token *token);
+
+// tokenize_utility3
+void	exitnum_str(t_refine *refine);
 
 // command_utility
 void	create_path_bundle(t_mini *mini);

@@ -6,23 +6,23 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:02:07 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/02 21:14:59 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/03 16:35:18 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_command(t_mini *mini, t_argv *argv)
+int	ft_command(t_mini *mini, char **argv)
 {
 	char	*cmd_path;
 
 	cmd_path = NULL;
-	if (argv->argv[0][0] == '\0')
+	if (argv[0][0] == '\0')
 		return (0);
-	if (mini_command(mini, argv->argv[0], argv->argv) == FALSE)
+	if (mini_command(mini, argv[0], argv) == FALSE)
 	{
-		cmd_path = check_cmd(mini, argv->argv[0]);
-		exe_cmd(cmd_path, argv->argv, mini->path);
+		cmd_path = check_cmd(mini, argv[0]);
+		exe_cmd(cmd_path, argv, mini->path);
 		if (cmd_path != NULL)
 		{
 			free(cmd_path);
@@ -32,13 +32,7 @@ int	ft_command(t_mini *mini, t_argv *argv)
 	return (0);
 }
 
-// int	ft_stream(t_mini *mini)
-// {
-	
-// 	return (0);
-// }
-
-// int	connect_redirect(char **argv)
+// char	**set_stream(t_list **head)
 // {
 // 	int	i;
 
@@ -67,16 +61,17 @@ int	ft_command(t_mini *mini, t_argv *argv)
 int	minishell(t_mini *mini)
 {
 	t_list	*head;
+	char	**argv;
 
 	head = mini->input->argv_lst;
+	argv = NULL;
 	while (head != NULL)
 	{
-		// if (connect_redirect(((t_argv *)(head->content))->argv) == ERROR)
-		// 	return (ERROR);
-		// if (ft_stream(mini) == ERROR)
-		// 	return (ERROR);
-		ft_command(mini, head->content);
+		// argv = set_stream(&head);
+		argv = ((t_argv *)(head->content))->argv;
+		ft_command(mini, argv);
 		head = head->next;
+		argv = NULL;
 	}
 	return (0);
 }
