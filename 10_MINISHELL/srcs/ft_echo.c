@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/03 17:35:30 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/03 22:03:02 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	print_msg(char **envp, char **argv, int start_ptr, int n_flag)
 {
 	char	*str;
 
-	printf("Before echo: %s\n", argv[start_ptr]);
 	ft_putstr_fd(argv[start_ptr], 1);
 	if (argv[start_ptr + 1] != NULL)
 		write(1, " ", 1);

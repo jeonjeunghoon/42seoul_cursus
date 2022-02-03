@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:02:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/01 02:37:31 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/03 22:22:41 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ void	refine_init(t_refine *refine)
 	refine->env = NULL;
 	refine->i = 0;
 	refine->j = 0;
+	refine->is_basic = TRUE;
+	refine->is_single = FALSE;
+	refine->is_double = FALSE;
 }
 
 void	refine_str(t_token *token, char **envp)

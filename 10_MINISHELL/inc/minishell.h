@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/03 17:57:23 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/03 22:22:16 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ typedef struct s_refine
 	char	*env;
 	int		i;
 	int		j;
+	t_bool	is_basic;
+	t_bool	is_single;
+	t_bool	is_double;
 }	t_refine;
 
 typedef struct s_token

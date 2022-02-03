@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:37:13 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/03 17:31:04 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/03 22:15:36 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*get_envname_parse(char *str, int *i)
 	return (name);
 }
 
-void	create_new_str(t_refine *refine, int env_len, char *tmp)
+void	create_new_str(t_refine *refine, int tmp_len, char *tmp)
 {
 	int	i;
 	int	j;
@@ -46,21 +46,15 @@ void	create_new_str(t_refine *refine, int env_len, char *tmp)
 	new_len = ft_strlen(refine->new_str);
 	while (i < new_len)
 	{
-		tmp[i] = (refine->new_str)[i];
+		tmp[i] = refine->new_str[i];
 		i++;
 	}
-	ft_free(&(refine->new_str));
 	j = 0;
-	while (i < env_len)
+	while (i < tmp_len && refine->env[j])
 	{
-		if ((refine->env)[j])
-		{
-			tmp[i] = (refine->env)[j];
-			j++;
-		}
-		else
-			tmp[i] = '\0';
+		tmp[i] = refine->env[j];
 		i++;
+		j++;
 	}
 	refine->j = i;
 }
@@ -70,12 +64,13 @@ void	env_str(t_refine *refine)
 	int		len;
 	char	*tmp;
 
-	(refine->new_str)[(refine->j)] = '\0';
-	len = ft_strlen((refine->new_str)) + ft_strlen(refine->env);
+	refine->new_str[refine->j] = '\0';
+	len = ft_strlen(refine->new_str) + ft_strlen(refine->env);
 	tmp = malloc(sizeof(char) * (len + 1));
 	tmp[len] = '\0';
 	create_new_str(refine, len, tmp);
-	(refine->new_str) = ft_strdup(tmp);
+	ft_free(&refine->new_str);
+	refine->new_str = ft_strdup(tmp);
 	ft_free(&tmp);
 }
 
