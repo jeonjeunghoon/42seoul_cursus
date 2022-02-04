@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 18:51:19 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/03 22:23:36 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/03 22:36:23 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	dollar_str(t_refine *refine)
 	if (refine->str[refine->i + 1] == '\0')
 		basic_str(refine);
 	else if ((refine->str[refine->i + 1] == '\'' || \
-			refine->str[refine->i + 1] == '\"') && \
-			refine->is_basic == TRUE)
+			refine->str[refine->i + 1] == '\"') && refine->is_basic == TRUE)
 		refine->i++;
 	else if (refine->str[refine->i + 1] == '?')
 		exitnum_str(refine);

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:42:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/27 15:42:57 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/04 14:41:24 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ char	*get_locate(void)
 	char	*buffer;
 	char	*locate;
 
-	buffer = NULL;
 	splitted_strs = NULL;
 	strs_len = 0;
+	buffer = NULL;
 	locate = NULL;
 	buffer = getcwd(NULL, 0);
 	if (buffer == NULL)

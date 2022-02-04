@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/03 22:22:16 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/04 16:24:24 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_token
 typedef struct s_argv
 {
 	char	**argv;
+	t_bool	is_stream;
 }	t_argv;
 
 typedef struct s_input
@@ -159,6 +160,17 @@ t_bool	str_condition(char c, t_token *token);
 
 // tokenize_utility3
 void	exitnum_str(t_refine *refine);
+
+// stream_utility
+void	heredoc_redirect(t_list *head, t_bool is_error);
+void	r_to_l_redirect(t_list *head, char *argv, t_bool is_error);
+void	append_redirect(t_list *head, t_bool is_error);
+void	l_to_r_redirect(t_list *head, char *argv, t_bool is_error);
+
+// stream_utility2
+void	double_ampersand(t_list *head, t_bool is_error);
+void	double_verticalbar(t_list *head, t_bool is_error);
+void	verticalbar(t_list *head, char *argv, int *fd, t_bool is_error);
 
 // command_utility
 void	create_path_bundle(t_mini *mini);

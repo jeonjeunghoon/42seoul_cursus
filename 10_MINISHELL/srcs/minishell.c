@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 15:02:07 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/03 16:35:18 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/04 16:39:26 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,44 +32,48 @@ int	ft_command(t_mini *mini, char **argv)
 	return (0);
 }
 
-// char	**set_stream(t_list **head)
-// {
-// 	int	i;
+int	set_stream(t_list *head, int *fd)
+{
+	char	*argv;
+	t_bool	is_error;
 
-// 	i = 0;
-// 	while (argv[i] != NULL)
-// 	{
-// 		if (argv[i][0] == '>')
-// 		{
-// 			if (argv[i][1] == '>')
-// 			{
-
-// 			}
-// 		}
-// 		if (argv[i][0] == '<')
-// 		{
-// 			if (argv[i][1] == '<')
-// 			{
-				
-// 			}
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
+	is_error = FALSE;
+	while (head != NULL)
+	{
+		argv = (((t_argv *)(head->content))->argv)[0];
+		if (argv[0] == '>')
+			l_to_r_redirect(head, argv, is_error);
+		else if (argv[0] == '<')
+			r_to_l_redirect(head, argv, is_error);
+		else if (argv[0] == '|')
+			verticalbar(head, argv, fd, is_error);
+		else if (argv[0] == '&' && argv[1] == '&')
+			double_ampersand(head, is_error);
+		if (is_error == TRUE)
+			return (ERROR);
+		head = head->next;
+	}
+	return (0);
+}
 
 int	minishell(t_mini *mini)
 {
+	int		fd[2];
 	t_list	*head;
-	char	**argv;
+	t_argv	*argv;
 
 	head = mini->input->argv_lst;
-	argv = NULL;
+	if (set_stream(head, fd) == ERROR)
+	{
+		exit_num_set(1); // 수정해야함
+		return (0);
+	}
+	head = mini->input->argv_lst;
 	while (head != NULL)
 	{
-		// argv = set_stream(&head);
-		argv = ((t_argv *)(head->content))->argv;
-		ft_command(mini, argv);
+		argv = head->content;
+		if (argv->is_stream == FALSE)
+			ft_command(mini, argv->argv);
 		head = head->next;
 		argv = NULL;
 	}

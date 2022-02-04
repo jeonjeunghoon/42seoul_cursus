@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:52:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/03 22:03:02 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/04 13:05:38 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ void	print_msg(char **envp, char **argv, int start_ptr, int n_flag)
 	char	*str;
 
 	ft_putstr_fd(argv[start_ptr], 1);
+	exit_num_set(0);
 	if (argv[start_ptr + 1] != NULL)
 		write(1, " ", 1);
-	else if (argv[start_ptr + 1] == NULL && n_flag == FALSE)
+	if (argv[start_ptr + 1] == NULL && n_flag == FALSE)
 		write(1, "\n", 1);
 }
 

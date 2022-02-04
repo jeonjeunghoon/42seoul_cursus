@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:00:31 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/03 16:55:48 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/04 16:17:04 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	create_stream(t_argv **stream, t_token *token, t_list **argv_lst)
 	(*stream)->argv = (char **)malloc(sizeof(char *) * 2);
 	(*stream)->argv[0] = ft_strdup(token->token);
 	(*stream)->argv[1] = NULL;
+	(*stream)->is_stream = TRUE;
 	ft_lstadd_back(argv_lst, ft_lstnew(*stream));
 }
 
@@ -85,5 +86,6 @@ void	create_argv(t_argv **argv, t_list *token_lst, \
 		i++;
 		token_lst = token_lst->next;
 	}
+	(*argv)->is_stream = FALSE;
 	ft_lstadd_back(argv_lst, ft_lstnew(*argv));
 }
