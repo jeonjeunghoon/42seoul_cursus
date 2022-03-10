@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:58 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/04 16:24:24 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/06 13:11:03 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void	l_to_r_redirect(t_list *head, char *argv, t_bool is_error);
 // stream_utility2
 void	double_ampersand(t_list *head, t_bool is_error);
 void	double_verticalbar(t_list *head, t_bool is_error);
-void	verticalbar(t_list *head, char *argv, int *fd, t_bool is_error);
+void	verticalbar(t_list *head, char *argv, t_bool is_error);
 
 // command_utility
 void	create_path_bundle(t_mini *mini);

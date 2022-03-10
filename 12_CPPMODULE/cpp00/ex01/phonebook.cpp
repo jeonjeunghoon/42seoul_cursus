@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stream_utility2.c                                  :+:      :+:    :+:   */
+/*   phonebook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/04 14:55:12 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/06 13:10:49 by jeunjeon         ###   ########.fr       */
+/*   Created: 2022/03/10 18:02:38 by jeunjeon          #+#    #+#             */
+/*   Updated: 2022/03/10 18:18:10 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "phonebook.hpp"
 
-void	double_ampersand(t_list *head, t_bool is_error)
+void	Phonebook::action_add(void)
 {
-	
+	return ;
 }
 
-void	double_verticalbar(t_list *head, t_bool is_error)
+void	Phonebook::action_search(void)
 {
-	
-}
-
-void	verticalbar(t_list *head, char *argv, t_bool is_error)
-{
-	if (argv[1] == '|')
-		double_verticalbar(head, is_error);
-	else
-	{
-		
-	}
+	return ;
 }

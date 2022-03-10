@@ -6,24 +6,20 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 16:40:51 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/11/03 18:38:38 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/11 01:27:29 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-void	add_line(char **line, char **room)
+void	set_line(char **line, char **room)
 {
 	char	*temp;
-	int		i;
+	size_t	i;
 
 	i = 0;
-	while ((*room)[i] != '\0')
-	{
-		if ((*room)[i] == '\n')
-			break ;
+	while ((*room)[i] != '\0' && (*room)[i] != '\n')
 		i++;
-	}
 	if (i < ft_strlen(*room))
 	{
 		*line = ft_substr(*room, 0, i);
@@ -34,22 +30,23 @@ void	add_line(char **line, char **room)
 	}
 }
 
-int	is_continue(int fd, int byte, char **line, char **room)
+int	is_continue(int byte, char **line, char **room)
 {
 	if (byte == 0)
 	{
-		if (room[fd] == NULL)
+		if (*room == NULL)
 			*line = ft_strdup("");
 		else
-			*line = ft_strdup(room[fd]);
-		free((room[fd]));
-		return (0);
+		{
+			*line = ft_strdup(*room);
+			ft_free(room);
+		}
+		return (FALSE);
 	}
 	else
 	{
-		add_line(line, &(room[fd]));
-		free(*line);
-		return (1);
+		set_line(line, room);
+		return (TRUE);
 	}
 }
 
@@ -75,19 +72,19 @@ int	get_next_line(int fd, char **line)
 	int			byte;
 
 	if (line == NULL)
-		return (-1);
+		return (ERROR);
 	byte = 1;
 	while (byte)
 	{
 		byte = read(fd, buf, 1);
 		if (byte < 0)
-			return (-1);
+			return (ERROR);
 		buf[byte] = '\0';
 		add_room(&(room[fd]), buf);
-		if (ft_strchr(buf, '\n'))
+		if (ft_strchr(room[fd], '\n') != NULL)
 			break ;
 	}
-	if (is_continue(fd, byte, line, room) == TRUE)
+	if (is_continue(byte, line, &(room[fd])) == TRUE)
 		return (TRUE);
-	return (0);
+	return (SUCCESS);
 }

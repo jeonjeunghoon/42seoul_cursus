@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 13:45:20 by jeunjeon          #+#    #+#             */
-/*   Updated: 2021/08/07 23:24:18 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/24 23:07:47 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	set_pipe_exit(int *fildes)
 {
-	dup2(fildes[FD_EXIT], FD_EXIT);
 	close(fildes[FD_ENTRY]);
+	dup2(fildes[FD_EXIT], FD_EXIT);
 }
 
 void	set_pipe_entry(int *fildes)

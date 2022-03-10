@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stream_utility2.c                                  :+:      :+:    :+:   */
+/*   phonebook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/04 14:55:12 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/06 13:10:49 by jeunjeon         ###   ########.fr       */
+/*   Created: 2022/03/10 17:47:35 by jeunjeon          #+#    #+#             */
+/*   Updated: 2022/03/10 18:18:16 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#ifndef PHONEBOOK_H
+# define PHONEBOOK_H
 
-void	double_ampersand(t_list *head, t_bool is_error)
-{
-	
-}
+# include <iostream>
+# include <string>
+# include <iomanip>
 
-void	double_verticalbar(t_list *head, t_bool is_error)
+class Phonebook
 {
-	
-}
+	public:
+		void	action_add(void);
+		void	action_search(void);
+};
 
-void	verticalbar(t_list *head, char *argv, t_bool is_error)
-{
-	if (argv[1] == '|')
-		double_verticalbar(head, is_error);
-	else
-	{
-		
-	}
-}
+#endif
