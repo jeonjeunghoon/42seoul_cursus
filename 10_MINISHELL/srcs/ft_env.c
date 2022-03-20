@@ -6,32 +6,32 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:45:59 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/25 16:40:36 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/03/06 16:08:50 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	show_env(char **envp)
+void	show_env(char **env)
 {
 	int	i;
 
 	i = 0;
-	while (envp[i])
+	while (env[i])
 	{
-		printf("%s\n", envp[i]);
+		printf("%s\n", env[i]);
 		i++;
 	}
 }
 
-void	ft_env(t_mini *mini, char **argv)
+void	ft_env(t_mini *mini, t_argv *argv)
 {
-	if (ft_two_dimension_size(argv) != 1)
+	exit_num_set(0);
+	if (ft_two_dimension_size(argv->argv) != 1)
 	{
-		error_2(argv[0], argv[1], "With no options or arguments");
-		exit_num_set(1);
-		return ;
+		error_2(argv->argv[0], argv->argv[1], \
+				"With no options or arguments", 1);
+		exit(g_sig->exitnum);
 	}
-	show_env(mini->envp);
-	exit_num_set(g_exit_state);
+	show_env(mini->env_list);
 }

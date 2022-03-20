@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:37:13 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/03 22:15:36 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/03/04 15:38:57 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@ char	*get_envname_parse(char *str, int *i)
 
 	len = (*i);
 	while (str[len] && str[len] != '$' && \
-			str[len] != '\"' && str[len] != '\'')
+			str[len] != '\"' && str[len] != '\'' && \
+			str[len] != '/' && str[len] != '=' && \
+			str[len] != ' ')
 		len++;
 	len = len - (*i);
 	name = (char *)malloc(sizeof(char) * (len + 1));
 	name[len] = '\0';
 	j = 0;
 	while (j < len && str[*i] && str[*i] != '$' && \
-			str[*i] != '\"' && str[len] != '\'')
+			str[*i] != '\"' && str[*i] != '\'' && \
+			str[len] != '=' && str[len] != ' ')
 	{
 		name[j] = str[*i];
 		(*i)++;
@@ -36,58 +39,31 @@ char	*get_envname_parse(char *str, int *i)
 	return (name);
 }
 
-void	create_new_str(t_refine *refine, int tmp_len, char *tmp)
-{
-	int	i;
-	int	j;
-	int	new_len;
-
-	i = 0;
-	new_len = ft_strlen(refine->new_str);
-	while (i < new_len)
-	{
-		tmp[i] = refine->new_str[i];
-		i++;
-	}
-	j = 0;
-	while (i < tmp_len && refine->env[j])
-	{
-		tmp[i] = refine->env[j];
-		i++;
-		j++;
-	}
-	refine->j = i;
-}
-
 void	env_str(t_refine *refine)
 {
-	int		len;
 	char	*tmp;
 
-	refine->new_str[refine->j] = '\0';
-	len = ft_strlen(refine->new_str) + ft_strlen(refine->env);
-	tmp = malloc(sizeof(char) * (len + 1));
-	tmp[len] = '\0';
-	create_new_str(refine, len, tmp);
+	tmp = ft_strjoin(refine->new_str, refine->env);
 	ft_free(&refine->new_str);
-	refine->new_str = ft_strdup(tmp);
-	ft_free(&tmp);
+	refine->new_str = tmp;
+	refine->j = ft_strlen(refine->new_str);
 }
 
-t_bool	stream_condition(char c)
+t_bool	is_stream(char ch)
 {
-	if (c != '|' && c != '>' && c != '<' && c != '&')
-		return (FALSE);
-	return (TRUE);
+	if (ch == '>' || ch == '<' || ch == '|' || ch == '&')
+		return (TRUE);
+	return (FALSE);
 }
 
 t_bool	str_condition(char c, t_token *token)
 {
-	if (c == '|' || c == '>' || c == '<' || c == '&')
-		return (FALSE);
 	exception_utility(c, &(token->single_quote), &(token->double_quote));
 	if (token->single_quote == FALSE && token->double_quote == FALSE && \
 		c == ' ')
+		return (FALSE);
+	if (is_stream(c) == TRUE && token->single_quote == FALSE && \
+		token->double_quote == FALSE)
 		return (FALSE);
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 21:49:06 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/03 14:59:46 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/03/06 16:07:35 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,24 @@ void	clear_resource(t_mini *mini)
 	ft_two_dimension_free(&(mini->path));
 	token_free(mini->input->token_lst);
 	argv_free(mini->input->argv_lst);
-	free(mini->input->user_input);
+	ft_free(&mini->input->user_input);
+	g_sig->signum = 0;
+	g_sig->type = BASIC;
+	unlink(".heredoc_tmp");
 }
 
-int	minishell_init(t_mini *mini)
+void	minishell_init(t_mini *mini)
 {
 	mini->path = NULL;
 	mini->input->token_lst = NULL;
 	mini->input->argv_lst = NULL;
 	mini->input->user_input = NULL;
-	return (0);
+	mini->wild_chk = 0;
+	g_sig->signum = 0;
+	g_sig->type = BASIC;
+	rl_catch_signals = 0;
+	ft_signal();
+	unlink(".heredoc_tmp");
 }
 
 int	memory_allocation(t_mini **mini, char **envp)
@@ -36,18 +44,22 @@ int	memory_allocation(t_mini **mini, char **envp)
 
 	(*mini) = (t_mini *)malloc(sizeof(t_mini));
 	size = ft_two_dimension_size(envp);
-	(*mini)->envp = (char **)malloc(sizeof(char *) * (size + 1));
-	(*mini)->envp[size] = NULL;
-	i = -1;
-	while (envp[++i])
-		(*mini)->envp[i] = ft_strdup(envp[i]);
+	(*mini)->export_list = (char **)malloc(sizeof(char *) * (size + 1));
+	(*mini)->env_list = (char **)malloc(sizeof(char *) * (size + 1));
+	(*mini)->export_list[size] = NULL;
+	(*mini)->env_list[size] = NULL;
+	i = 0;
+	while (envp[i])
+	{
+		(*mini)->export_list[i] = ft_strdup(envp[i]);
+		(*mini)->env_list[i] = ft_strdup(envp[i]);
+		i++;
+	}
 	(*mini)->input = (t_input *)malloc(sizeof(t_input));
-	if (tcgetattr(STDIN_FILENO, &((*mini)->term)) == -1)
-		return (ERROR);
-	((*mini)->term).c_lflag &= ~(ECHOCTL);
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &((*mini)->term)) == -1)
-		return (ERROR);
-	if ((*mini) == NULL || (*mini)->input == NULL)
+	(*mini)->sig = (t_sig *)malloc(sizeof(t_sig));
+	g_sig = (*mini)->sig;
+	g_sig->exitnum = 0;
+	if ((*mini) == NULL || (*mini)->input == NULL || (*mini)->sig == NULL)
 		return (ERROR);
 	return (0);
 }
@@ -59,21 +71,22 @@ int	main(int argc, const char **argv, char **envp)
 	if (argc != 1 || argv == NULL)
 		return (0);
 	if (memory_allocation(&mini, envp) == ERROR)
-		ft_error();
-	ft_signal();
+	{
+		printf("Allocation error\n");
+		exit(1);
+	}
 	while (TRUE)
 	{
-		if (minishell_init(mini) == ERROR)
-			ft_error();
+		minishell_init(mini);
 		if (ft_prompt(mini) == ERROR)
-			ft_error();
+		{
+			printf("Prompt error\n");
+			exit(1);
+		}
 		if (mini->input->user_input[0] != '\0')
 		{
 			if (ft_parsing(mini) != ERROR)
-			{
-				if (minishell(mini) == ERROR)
-					ft_error();
-			}
+				minishell(mini);
 		}
 		clear_resource(mini);
 	}

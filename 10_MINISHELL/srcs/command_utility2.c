@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   command_utility3.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/17 16:04:51 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/24 22:28:13 by jeunjeon         ###   ########.fr       */
+/*   Created: 2022/02/16 22:18:14 by jeunjeon          #+#    #+#             */
+/*   Updated: 2022/03/02 17:36:17 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../inc/minishell.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+void	load_origin_fd(t_mini *mini)
 {
-	t_list	*tail;
+	dup2(mini->origin_fd[0], STDIN_FILENO);
+	dup2(mini->origin_fd[1], STDOUT_FILENO);
+}
 
-	tail = NULL;
-	if (*lst == NULL)
-	{
-		*lst = new;
-		new->next = NULL;
-		new->pre = NULL;
-	}
-	else
-	{
-		tail = *lst;
-		while (tail->next != NULL)
-			tail = tail->next;
-		tail->next = new;
-		new->pre = tail;
-		new->next = NULL;
-	}
+void	save_origin_fd(t_mini *mini)
+{
+	pipe(mini->origin_fd);
+	dup2(STDIN_FILENO, mini->origin_fd[0]);
+	dup2(STDOUT_FILENO, mini->origin_fd[1]);
 }

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 14:30:34 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/03 14:28:02 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/14 17:21:16 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	ft_two_dimension_size(char **strs)
 	if (strs == NULL)
 		return (-1);
 	size = 0;
-	while (strs[size])
+	while (strs[size] != NULL)
 		size++;
 	return (size);
 }

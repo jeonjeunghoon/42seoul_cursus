@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/05 15:32:22 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/01/27 18:00:54 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/02/24 13:55:50 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
 
 # define TRUE 1
 # define FALSE 0
 # define SUCCESS 0
 # define ERROR -1
+# define OPEN_MAX 4096
+# define BUFFER_SIZE 1024
 
 typedef int			t_bool;
 
@@ -68,10 +71,14 @@ char				*ft_strjoin_bothside(const char *s1, const char *s2, \
 										const char *s3);
 t_bool				ft_isspace(char ch);
 void				ft_free(char **p);
+int					get_next_line(int fd, char **line);
+char				**ft_strsjoin(char **strs1, char **strs2);
+char				**ft_strsdup(char **strs);
 
 typedef struct s_list
 {
 	void			*content;
+	struct s_list	*pre;
 	struct s_list	*next;
 }	t_list;
 

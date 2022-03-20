@@ -6,87 +6,96 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:45:11 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/01 01:15:35 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/03/20 11:34:48 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	**create_export_envp(char **envp, char *env)
+void	print_export(char **export_list)
 {
-	char	**new;
-	char	*envname;
-	int		size;
 	int		i;
 	int		j;
 
-	size = ft_two_dimension_size(envp);
-	envname = get_envname_export(env);
-	if (ft_getenv(envp, envname) == NULL)
-		size++;
-	new = (char **)malloc(sizeof(char *) * (size + 1));
-	new[size] = NULL;
 	i = 0;
-	j = 0;
-	while (i < size && envp[j])
+	while (export_list[i] != NULL)
 	{
-		if (ft_strncmp(envp[j], envname, ft_strlen(envname)) == 0)
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		j = 0;
+		while (export_list[i][j])
+		{
+			ft_putchar_fd(export_list[i][j], STDOUT_FILENO);
+			if (export_list[i][j] == '=')
+				break ;
 			j++;
-		if (envp[j] != NULL)
-			new[i++] = ft_strdup(envp[j++]);
+		}
+		j++;
+		if (export_list[i][j] != '\0')
+		{
+			ft_putchar_fd('\"', STDOUT_FILENO);
+			ft_putstr_fd(&(export_list[i][j]), STDOUT_FILENO);
+			ft_putchar_fd('\"', STDOUT_FILENO);
+		}
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		i++;
 	}
-	new[i] = ft_strdup(env);
-	free(envname);
-	return (new);
+}
+
+void	export_list(char ***list, t_argv *argv, int i)
+{
+	char	**new_list;
+
+	new_list = NULL;
+	new_list = create_export_envp(*list, argv->argv[i]);
+	ft_two_dimension_free(list);
+	*list = new_list;
 }
 
 int	check_export_argv(char *argv)
 {
 	int		i;
-	t_bool	is_env;
 	char	*error_msg;
+	t_bool	is_env;
 
-	i = 0;
 	is_env = FALSE;
+	i = 0;
 	while (argv[i])
 	{
-		if (argv[i] == '=')
-			is_env++;
-		if (is_valid_export(argv, i))
+		if (is_valid_export(argv, i) == ERROR)
 		{
 			error_msg = ft_strjoin_bothside("`", argv, "'");
-			error_2("export", error_msg, "not a valid identifier");
-			free(error_msg);
-			exit_num_set(1);
+			error_2("export", error_msg, "not a valid identifier", 1);
+			ft_free(&error_msg);
 			return (ERROR);
 		}
+		if (argv[i] == '=')
+			is_env = TRUE;
 		i++;
 	}
-	if (is_env == FALSE)
-		return (ERROR);
-	return (0);
+	return (is_env);
 }
 
-void	ft_export(t_mini *mini, char **argv)
+void	ft_export(t_mini *mini, t_argv *argv)
 {
 	int		i;
-	char	**new_envp;
+	int		ret;
 
-	if (ft_two_dimension_size(argv) > 1)
+	exit_num_set(0);
+	if (ft_two_dimension_size(argv->argv) > 1)
 	{
 		i = 1;
-		while (argv[i])
+		while (argv->argv[i])
 		{
-			if (check_export_argv(argv[i]) != ERROR)
+			ret = check_export_argv(argv->argv[i]);
+			if (ret != ERROR)
 			{
-				new_envp = create_export_envp(mini->envp, argv[i]);
-				ft_two_dimension_free(&(mini->envp));
-				mini->envp = new_envp;
+				export_list(&(mini->export_list), argv, i);
+				if (ret == TRUE)
+					export_list(&(mini->env_list), argv, i);
 			}
 			i++;
 		}
 	}
 	else
-		ft_env(mini, argv);
-	exit_num_set(g_exit_state);
+		print_export(mini->export_list);
 }

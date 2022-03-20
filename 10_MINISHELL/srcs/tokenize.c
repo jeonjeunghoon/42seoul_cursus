@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 00:02:03 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/03 22:22:41 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/03/06 16:10:01 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,25 @@ void	refine_init(t_refine *refine)
 	refine->is_double = FALSE;
 }
 
-void	refine_str(t_token *token, char **envp)
+int	refine_str(t_mini *mini, t_token *token, char **envp)
 {
 	t_refine	*refine;
+	int			ret;
 
+	ret = 0;
 	refine = (t_refine *)malloc(sizeof(t_refine));
 	refine_init(refine);
 	refine->envp = envp;
 	refine->str = token->token;
-	create_refined_str(refine);
-	ft_free(&(token->token));
-	token->token = ft_strdup(refine->new_str);
-	ft_free(&(refine->new_str));
+	ret = create_refined_str(mini, refine);
+	ft_free(&token->token);
+	if (ret != ERROR)
+		token->token = ft_strdup(refine->new_str);
+	ft_free(&refine->new_str);
 	refine_init(refine);
 	free(refine);
 	refine = NULL;
+	return (ret);
 }
 
 int	stream_parse(t_token *token, char *input, int *pos)
@@ -49,13 +53,13 @@ int	stream_parse(t_token *token, char *input, int *pos)
 	int	len;
 
 	len = *pos;
-	while (stream_condition(input[len]) == TRUE && input[len])
+	while (is_stream(input[len]) == TRUE && input[len])
 		len++;
 	len = len - *pos;
 	token->token = (char *)malloc(sizeof(char) * (len + 1));
 	token->token[len] = '\0';
 	i = 0;
-	while (stream_condition(input[*pos]) == TRUE && input[*pos])
+	while (is_stream(input[*pos]) == TRUE && input[*pos])
 	{
 		token->token[i] = input[*pos];
 		i++;
@@ -63,6 +67,7 @@ int	stream_parse(t_token *token, char *input, int *pos)
 	}
 	if (i < len)
 		return (ERROR);
+	token->is_stream = TRUE;
 	return (0);
 }
 
@@ -86,21 +91,35 @@ int	str_parse(t_token *token, char *input, int *pos)
 	}
 	if (i < len)
 		return (ERROR);
+	token->is_stream = FALSE;
 	return (0);
 }
 
-void	tokenize(t_token *token, char *input, int *start, char **envp)
+t_list	*tokenize(t_mini *mini, t_token *token, char *input, int *start)
 {
+	t_list	*wild_str;
+
+	wild_str = 0;
 	if (input[*start] == '|' || input[*start] == '>' || \
-			input[*start] == '<' || input[*start] == '&')
+		input[*start] == '<' || input[*start] == '&')
 	{
 		if (stream_parse(token, input, start) == ERROR)
-			ft_error();
+		{
+			ft_error("tokenize error", 1);
+			exit(g_sig->exitnum);
+		}
 	}
 	else
 	{
 		if (str_parse(token, input, start) == ERROR)
-			ft_error();
-		refine_str(token, envp);
+		{
+			ft_error("tokenize error", 1);
+			exit(g_sig->exitnum);
+		}
+		wild_str = get_wild_str(mini, token->token);
+		if (!wild_str)
+			if (refine_str(mini, token, mini->export_list) == ERROR)
+				return ((t_list *)ERROR);
 	}
+	return (wild_str);
 }

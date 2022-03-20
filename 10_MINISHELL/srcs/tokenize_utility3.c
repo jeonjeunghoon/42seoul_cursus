@@ -6,51 +6,76 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 17:56:11 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/02/03 22:19:14 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/03/03 13:13:50 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	create_exitnum_str(t_refine *refine, char *tmp, \
-							char *exit_num, int tmp_len)
+int	env_after_dollor(t_refine *refine)
 {
-	int	i;
-	int	j;
-	int	new_len;
-
-	new_len = ft_strlen(refine->new_str);
-	i = 0;
-	while (refine->new_str[i] && i < new_len)
-	{
-		tmp[i] = refine->new_str[i];
-		i++;
-	}
-	j = 0;
-	while (i < tmp_len && exit_num[j])
-	{
-		tmp[i] = exit_num[j];
-		i++;
-		j++;
-	}
-	refine->i += 2;
-	refine->j = i;
+	refine->i++;
+	refine->name = get_envname_parse(refine->str, &refine->i);
+	refine->env = ft_getenv(refine->envp, refine->name);
+	ft_free(&refine->name);
+	if (refine->env == NULL)
+		return (ERROR);
+	else
+		env_str(refine);
+	refine->env = NULL;
+	return (0);
 }
 
-void	exitnum_str(t_refine *refine)
+void	show_minishell(t_refine *refine)
 {
-	char	*exit_num;
-	char	*tmp;
-	int		len;
+	char	*ptr;
 
-	exit_num = ft_itoa(g_exit_state);
-	refine->new_str[refine->j] = '\0';
-	len = ft_strlen(refine->new_str) + ft_strlen(exit_num);
-	tmp = malloc(sizeof(char) * (len + 1));
-	tmp[len] = '\0';
-	create_exitnum_str(refine, tmp, exit_num, len);
-	ft_free(&exit_num);
+	ptr = ft_strjoin(refine->new_str, "-minishell");
 	ft_free(&refine->new_str);
-	refine->new_str = ft_strdup(tmp);
-	ft_free(&tmp);
+	refine->new_str = ptr;
+	refine->j = ft_strlen(refine->new_str);
+}
+
+void	num_after_dollor(t_refine *refine)
+{
+	if (refine->str[refine->i + 1] == '0')
+		show_minishell(refine);
+	refine->i += 2;
+}
+
+void	basic_str(t_refine *refine)
+{
+	char	*ptr;
+	int		len;
+	int		i;
+
+	len = ft_strlen(refine->new_str) + 1;
+	ptr = (char *)malloc(sizeof(char) * (len + 1));
+	ptr[len] = '\0';
+	i = 0;
+	while (i < len - 1)
+	{
+		ptr[i] = refine->new_str[i];
+		i++;
+	}
+	ptr[i] = refine->str[refine->i];
+	ft_free(&refine->new_str);
+	refine->new_str = ptr;
+	refine->j = i + 1;
+	refine->i++;
+}
+
+void	exitnum_str(t_mini *mini, t_refine *refine)
+{
+	char	*exitnum;
+	char	*tmp;
+
+	exitnum = ft_itoa(mini->sig->exitnum);
+	refine->new_str[refine->j] = '\0';
+	tmp = ft_strjoin(refine->new_str, exitnum);
+	ft_free(&exitnum);
+	ft_free(&refine->new_str);
+	refine->new_str = tmp;
+	refine->i += 2;
+	refine->j = ft_strlen(refine->new_str);
 }
