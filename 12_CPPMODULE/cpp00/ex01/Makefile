@@ -6,17 +6,18 @@
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/10 17:03:30 by jeunjeon          #+#    #+#              #
-#    Updated: 2022/03/10 18:16:34 by jeunjeon         ###   ########.fr        #
+#    Updated: 2022/04/05 13:26:29 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	phonebook
 CC		=	c++
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	# -Wall -Wextra -Werror
 
 INC		=	.
 SRCS	=	main.cpp \
-			phonebook.cpp
+			Phonebook.cpp \
+			Contact.cpp
 OBJS	=	$(SRCS:.cpp=.o)
 
 %.o		:	%.cpp

@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 15:11:43 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/03/10 17:20:18 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/04/05 09:43:16 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ int main(int argc, char **argv)
 	else
 	{
 		for (int i = 1; argv[i]; i++)
-		{
 			for (int j = 0; argv[i][j]; j++)
 				std::cout << (char)toupper((char)argv[i][j]);
-		}
 		std::cout << std::endl;
 	}
 	return (0);
