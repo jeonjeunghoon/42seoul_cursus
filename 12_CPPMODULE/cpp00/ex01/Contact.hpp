@@ -3,6 +3,7 @@
 
 # include	<iostream>
 # include	<iomanip>
+# include	<string>
 
 # define	ALPHA "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 # define	NUMBER "0123456789"
@@ -10,6 +11,7 @@
 class Contact
 {
 	private :
+		std::string	index;
 		std::string	firstName;
 		std::string	lastName;
 		std::string	nickname;
@@ -24,8 +26,8 @@ class Contact
 	public :
 		Contact();
 		void	setContact(void);
-		void	setField(std::string message, std::string valMsg, std::string &value, std::string dict = 0);
-		void	printContact(void);
+		void	setField(std::string message, std::string valMsg, std::string &value, std::string dict = "");
+		void	printContact(int i);
 };
 
 #endif

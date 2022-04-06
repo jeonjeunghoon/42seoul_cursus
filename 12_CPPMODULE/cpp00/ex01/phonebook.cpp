@@ -6,7 +6,7 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 18:02:38 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/04/05 16:00:11 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/04/05 22:15:42 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	Phonebook::actionAdd()
 		std::cout << "Contacts Full" << std::endl;
 		return ;
 	}
-	this->page[i].setContact();
+	this->page[i].setContact(i);
 	i++;
 }
 
@@ -36,8 +36,8 @@ void	Phonebook::actionSearch(int i)
 	if (i == -1)
 	{
 		for (i = 0; i < 8; i++)
-			this->page[i].printContact();
+			this->page[i].printContact(i);
 	}
 	else
-		this->page[i].printContact();
+		this->page[i].printContact(i);
 }
