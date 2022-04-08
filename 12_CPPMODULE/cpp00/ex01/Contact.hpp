@@ -11,23 +11,18 @@
 class Contact
 {
 	private :
-		std::string	index;
+		int			index;
 		std::string	firstName;
 		std::string	lastName;
 		std::string	nickname;
-		std::string	login;
-		std::string	postalAddress;
-		std::string	emailAddress;
 		std::string	phoneNumber;
-		std::string	birthDayDate;
-		std::string	favoriteMeal;
-		std::string	underwearColor;
 		std::string	darkestSecret;
 	public :
 		Contact();
-		void	setContact(void);
-		void	setField(std::string message, std::string valMsg, std::string &value, std::string dict = "");
-		void	printContact(int i);
+		void		setContact(int index);
+		void		setField(std::string message, std::string valMsg, std::string &value, std::string dict = "");
+		std::string	adjustContact(std::string contact);
+		void		printContact(int index);
 };
 
 #endif

@@ -6,51 +6,54 @@
 /*   By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 13:00:45 by jeunjeon          #+#    #+#             */
-/*   Updated: 2022/04/05 22:17:49 by jeunjeon         ###   ########.fr       */
+/*   Updated: 2022/04/08 19:04:36 by jeunjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
 
-void	Contact::printContact(int i)
+std::string Contact::adjustContact(std::string contact)
+{
+	std::string result_str;
+
+	std::cout << std::setw(10);
+	if (contact.size() > 10) {
+		result_str.assign(contact, 0, 9);
+		result_str.append(".");
+	}
+	else
+		result_str.assign(contact);
+	return result_str;
+}
+
+void	Contact::printContact(int index)
 {
 	if (this->firstName.empty() || this->lastName.empty() || this->nickname.empty())
 	{
-		std::cout << "Empty contact" << std::endl;
-		Contact();
-		i--;
+		std::cout << "This page is empty" << std::endl;
 		return ;
 	}
-	std::cout << "Index : " << i << " | ";
-	std::cout << "First name : " << this->firstName << " | ";
-	std::cout << "Last name : " << this->lastName << " | ";
-	std::cout << "Nickname : " << this->nickname << " | ";
-	std::cout << "Login : " << this->login << " | ";
-	std::cout << "Postal address : " << this->postalAddress << " | ";
-	std::cout << "Email address : " << this->emailAddress << " | ";
-	std::cout << "Phone number : " << this->phoneNumber << " | ";
-	std::cout << "Birth day date : " << this->birthDayDate << " | ";
-	std::cout << "Favorite meal : " << this->favoriteMeal << " | ";
-	std::cout << "Underwear color : " << this->underwearColor << " | ";
-	std::cout << "Darkest secret : " << this->darkestSecret << std::endl;
+	std::cout << "|" << std::setw(10) << "Index" << "|" << std::setw(10) << index << "|" << std::endl;
+	std::cout << "|" << std::setw(10) << "First name" << "|" << adjustContact(this->firstName) << "|" << std::endl;
+	std::cout << "|" << std::setw(10) << "Last name" << "|" << adjustContact(this->lastName) << "|" << std::endl;
+	std::cout << "|" << std::setw(10) << "Nickname" << "|" << adjustContact(this->nickname) << "|" << std::endl;
 }
 
 void	Contact::setField(std::string message, std::string valMsg, std::string &value, std::string dict)
 {
 	std::string	input;
 
-	while (true)
+	while (1)
 	{
-		input.clear();
 		std::cout << message << std::endl;
 		std::cout << valMsg << " > ";
 		getline(std::cin, input);
-		if (dict.empty())
+		if (dict.empty() && !input.empty())
 		{
 			value.assign(input);
 			break ;
 		}
-		if (input.find_first_not_of(dict) == std::string::npos)
+		else if (!dict.empty() && !input.empty() && input.find_first_of(dict) != std::string::npos)
 		{
 			value.assign(input);
 			break ;
@@ -60,31 +63,19 @@ void	Contact::setField(std::string message, std::string valMsg, std::string &val
 
 void	Contact::setContact(int index)
 {
-	this->index = stoi();
+	this->index = index;
 	setField("Please enter only alphabets", "First name", this->firstName, ALPHA);
 	setField("Please enter only alphabets", "Last name", this->lastName, ALPHA);
 	setField("Please enter only alphabets", "Nickname", this->nickname, ALPHA);
-	setField("Please Enter alphabets and numbers", "Login", this->login);
-	setField("Please enter only numbers", "Phone number", this->postalAddress, NUMBER);
-	setField("Please Enter alphabets and numbers", "Email address", this->emailAddress);
-	setField("Please enter only numbers", "Postal address", this->phoneNumber, NUMBER);
-	setField("Please enter only numbers", "Birth day date", this->birthDayDate, NUMBER);
-	setField("Please enter only alphabets", "Favorite meal", this->favoriteMeal, ALPHA);
-	setField("Please enter only alphabets", "Underwear color", this->underwearColor, ALPHA);
+	setField("Please enter only numbers", "Phone number", this->phoneNumber, NUMBER);
 	setField("Please Enter alphabets and numbers", "Darkest secret", this->darkestSecret);
 }
 
 Contact::Contact(void)
 {
-	firstName.clear();
-	lastName.clear();
-	nickname.clear();
-	login.clear();
-	postalAddress.clear();
-	emailAddress.clear();
-	phoneNumber.clear();
-	birthDayDate.clear();
-	favoriteMeal.clear();
-	underwearColor.clear();
-	darkestSecret.clear();
+	this->firstName.clear();
+	this->lastName.clear();
+	this->nickname.clear();
+	this->phoneNumber.clear();
+	this->darkestSecret.clear();
 }
