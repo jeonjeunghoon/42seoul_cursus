@@ -5,18 +5,18 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jeunjeon <jeunjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/03/10 17:03:30 by jeunjeon          #+#    #+#              #
-#    Updated: 2022/04/22 16:52:50 by jeunjeon         ###   ########.fr        #
+#    Created: 2022/04/09 21:25:37 by jeunjeon          #+#    #+#              #
+#    Updated: 2022/04/09 21:26:59 by jeunjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	PhoneBook
+NAME	=	Account
 CC		=	c++
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	#-Wall -Wextra -Werror
 
 INC		=	.
-SRCS	=	main.cpp \
-			PhoneBook.cpp
+SRCS	=	Account.cpp \
+			tests.cpp
 OBJS	=	$(SRCS:.cpp=.o)
 
 %.o		:	%.cpp
